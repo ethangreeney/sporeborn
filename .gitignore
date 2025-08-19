@@ -1,0 +1,86 @@
+# ---- Unity build artifacts & caches ----
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+UserSettings/
+MemoryCaptures/
+Recordings/
+CrashReports/
+# Addressables build cache (generated output)
+Assets/StreamingAssets/aa/
+
+# Unity auto-generated files
+**/UnityLockfile
+**/UnityPackageManagerDiagnostics.json
+*.pidb
+*.suo
+*.user
+*.userprefs
+*.booproj
+*.svd
+*.pdb
+*.opendb
+*.VC.db
+*.DS_Store
+Thumbs.db
+sysinfo.txt
+
+# Burst
+**/BurstDebugInformation_DoNotShip*/
+
+# IDEs & editors
+.vs/
+.idea/
+*.sln.iml
+# Unity generates these; no need to commit
+*.csproj
+*.sln
+*.unityproj
+
+# Gradle / Android
+.gradle/
+**/gradleOut/
+**/gradleBuild/
+*.apk
+*.aab
+
+# Xcode / iOS
+*.xcworkspace/
+*.xcuserdatad/
+*.xcuserstate
+*.xcassets/**/*.orig
+*.xcarchive
+DerivedData/
+
+# JetBrains Rider
+# (Rider also uses .idea/ above)
+*.ipr
+*.iws
+
+# MonoDevelop
+*.userprefs
+
+# Visual Studio Code
+.vscode/*      # Local settings
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# Unity Asset Store tools (optional)
+# Uncomment if you use the old Asset Store Tools and don't want them tracked
+# Assets/AssetStoreTools*
+
+# Packages: keep manifest & lockfile tracked
+# (Do NOT ignore Packages/ or ProjectSettings/)
+# Packages/manifest.json
+# Packages/packages-lock.json
+
+# If using Plastic SCM
+.plastic/
+
+# If using Sonar or other analyzers
+.sonar/

@@ -64,7 +64,10 @@ DerivedData/
 *.userprefs
 
 # Visual Studio Code
-.vscode/*      # Local settings
+.vscode       # Local settings directory in root
+**/.vscode    # Local settings directories in any subdirectory
+sporebornGame/.vscode  # Specific .vscode folder in Unity project
+sporebornGame/.vscode/**  # All contents of .vscode in Unity project
 !.vscode/extensions.json
 !.vscode/settings.json
 !.vscode/tasks.json

@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(AIPath))]
 public class RandomAccelerationBoss : MonoBehaviour
 {
+
+    private AIDestinationSetter destinationSetter;
     [Header("Speed Settings")]
     public float baseSpeed = 4f;          
     public float burstSpeed = 10f;        
@@ -25,6 +27,16 @@ public class RandomAccelerationBoss : MonoBehaviour
 
     void Start()
     {
+        destinationSetter = GetComponent<AIDestinationSetter>();
+
+        // Automatically find the player in the scene
+        if (destinationSetter.target == null)
+        {
+            GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+            if (playerObj != null)
+                destinationSetter.target = playerObj.transform;
+        }
+
         ai = GetComponent<AIPath>();
         ai.canMove = true;
         ai.maxSpeed = baseSpeed;

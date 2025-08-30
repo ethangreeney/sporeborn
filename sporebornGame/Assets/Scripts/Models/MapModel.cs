@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
+using UnityEngine.Timeline;
 
 public class MapModel
 {
@@ -24,37 +26,54 @@ public class MapModel
     private List<Cell> CellList;
     public List<Cell> GetCellList => CellList;
 
-    private static readonly List<int[]> RoomShapes = new()
+
+
+    private static readonly Dictionary<RoomShape, List<int[]>> RoomShapes = new()
     {
         // Configurations for the large room types
-        // Values to add/subtract to get the cells for room type
+        // Values to add/subtract to get the surrounding cells for room type
 
-        // Horiztonal Rooms
-        new int[]{-1},
-        new int[]{1},
-
-        // Vertical Rooms
-        new int[]{10},
-        new int[]{-10},
-
-        // L-Shaped Rooms
-        new int[]{1, 10},
-        new int[]{1, 11},
-        new int[]{10, 11},
-
-        new int[]{9, 10},
-        new int[]{-1, 9},
-        new int[]{-9, -10},
-
-        new int[]{-1, -10},
-        new int[]{1, -11},
-        new int[]{-10, -11},
-
-        // Large Square Rooms 
-        new int[]{1, 10, 11},
-        new int[]{1, -9, -10},
-        new int[]{-1, 9, 10},
-        new int[]{1, -10, -11},
+        { 
+            RoomShape.OneByOne, 
+            new List<int[]> 
+            { 
+                new int[0]  // Single cell
+            } 
+        },
+        { 
+            RoomShape.OneByTwo, 
+            new List<int[]> 
+            { 
+                new int[]{ 1 },    // 1x2 - Origin on left 
+                new int[]{ -1 }    // 1x2 - Origin on right 
+            } 
+        },
+        { 
+            RoomShape.TwoByOne, 
+            new List<int[]> 
+            { 
+                new int[]{ 10 },   // 2x1 - Bottom  
+                new int[]{ -10 }   // 2x1 - Top
+            } 
+        },
+        { 
+            RoomShape.TwoByTwo, 
+            new List<int[]>
+            {
+                new int[]{ 1, 10, 11 },    // 2x2 - Origin top-left side
+                new int[]{ -1, 9, 10 },    // 2x2 - Origin top-right side
+            }
+        },
+        {
+            RoomShape.LShape, 
+            new List<int[]>
+            {
+                new int[]{ 1, -10 },       // L shape - 0°
+                new int[]{ 1, 10 },        // L shape - 90°
+                new int[]{ -1, 10 },       // L shape - 180°
+                new int[]{ -1, -10 },      // L shape - 270°
+            }
+        }
 
     };
 
@@ -63,6 +82,9 @@ public class MapModel
         this.MinRooms = minRooms;
         this.MaxRooms = maxRooms;
         CellList = new();
+
+        // Automatically will create new Dungeon Layout
+        GenerateDungon();
     }
 
     public void GenerateDungon()
@@ -90,8 +112,9 @@ public class MapModel
             // Calculates x coordinate of index
             int x = index % 10;
 
-            // If there is only one neighbouring cell then it is an EndRoom
-            if (GetNeighbourCellCount(index) == 1)
+            // CheckValidCell will create the room 
+            // If valid cell and has one neighbouring cell then it is an EndRoom
+            if (CheckValidCell(index) && GetNeighbourCellCount(index) == 1)
                 EndRooms.Add(index);
         }
 
@@ -113,6 +136,7 @@ public class MapModel
 
     private bool CheckValidCell(int index)
     {
+
         // Out of bounds of the map array
         if (index > FloorPlan.Length || index < 0) { return false; }
 
@@ -126,63 +150,74 @@ public class MapModel
         if (rng.NextDouble() < 0.3f)
         {
             // Randomly chooses the order that a shape will try and be placed
-            foreach (int[] shapeOffsets in RoomShapes.OrderBy(_ => rng.NextDouble()))
+            foreach(RoomShape shape in RoomShapes.Keys.OrderBy(_ => rng.NextDouble()))
             {
-                if (TryPlaceRoom(index, shapeOffsets)) // If can place a large room
+                foreach (int[] shapeOffsets in RoomShapes[shape])
                 {
-                    return true;
+                    if (CanPlaceRoom(index, shapeOffsets)) // If can place a large room variant
+                    {
+                        AddNewRoom(index, shapeOffsets);
+                        return true;
+                    }
                 }
             }
         }
 
-        // Is not a large room
         return true;
     }
 
-    private bool TryPlaceRoom(int index, int[] offsetsForShape)
+    private bool CanPlaceRoom(int index, int[] offsetsForShape)
     {
-        List<int> currentRoomIndexes = new List<int>() {index};
-        int currentIndexChecked;
-
+        List<int> currentRoomIndexes = new List<int>() { index };
+        int roomOriginIndex;
 
         // Goes through and checks if that specifc shape can be placed based on its offsets
         foreach (var offset in offsetsForShape)
         {
-            currentIndexChecked = index + offset; // Holds each cell offset
+            roomOriginIndex = index + offset; // Holds each cell offset
 
             //  If top or bottom are outside of bounds - fail to place room
-            if (((currentIndexChecked - 10) < 0) || ((currentIndexChecked + 10) >= FloorPlan.Length))
+            if (((roomOriginIndex - 10) < 0) || ((roomOriginIndex + 10) >= FloorPlan.Length))
             {
                 return false;
             }
 
             // Prevent horizontal out of bounds
             int indexRow = index / 10;
-            int targetRow = currentIndexChecked / 10;
-        
+            int targetRow = roomOriginIndex / 10;
+
             if (Math.Abs(offset) == 1 && targetRow != indexRow)
             {
                 return false; // Can't place this room
             }
 
             // If current cell is occupied
-            if (FloorPlan[currentIndexChecked] == 1) { return false;}
+            if (FloorPlan[roomOriginIndex] == 1) { return false; }
 
-            if (currentIndexChecked == index) continue; // Skips if same as origin
+            if (roomOriginIndex == index) continue; // Skips if same as origin
 
             // Because grid 0-9 -> 10 is left side - so prevents a prevents 
             // wrapping around horizontally (e.g., from one row to another)
-            if (currentIndexChecked % 10 == 0 || currentIndexChecked % 10 == 9) continue;
+            if (roomOriginIndex % 10 == 0 || roomOriginIndex % 10 == 9) continue;
 
-            currentRoomIndexes.Add(currentIndexChecked);
+            currentRoomIndexes.Add(roomOriginIndex);
         }
 
-        return false;
+        return true;
     }
 
-    private void SpawnLargeRoomData(List<int> indexes)
+    private void AddNewRoom(int index, int[] roomIndexes)
     {
+        // Mark all occupied cells on the floor plan - based on room shape
+        foreach (int idx in roomIndexes)
+            FloorPlan[idx] = 1;
+
+        // Based on RoomIndexes we need to assign shape
         
+
+        // Figure out what shape the room is and assign initial type
+        Cell newCell = new Cell(new RoomData(index, roomIndexes, RoomType.Regular, ));
+        CellList.Add(newCell);
     }
 
     private int GetNeighbourCellCount(int index)
@@ -229,15 +264,15 @@ public class MapModel
         if (ItemRoomIndex == -1 || ShopRoomIndex == -1 || BossRoomIndex == -1)
             SetupDungeon();
 
-        SpawnRoom(SecretRoomIndex);
-        UpdateSpecialRoomVisuals();
-
-        RoomManager.roomInstance.SetupRooms(CellList);
+        // Set the correct room shapes
+        Cell.RoomType.set(BossRoomIndex, RoomType.Boss);
+        SetRoomType(ItemRoomIndex, RoomType.Item);
+        SetRoomType(ShopRoomIndex, RoomType.Shop);
     }
 
     private int RandomEndRoom()
     {
         // Picks a random End Room returns -1 if there are no end rooms
-        return EndRooms.Count > 0 ? EndRooms[rng.Next(0, EndRooms.Count)]: -1;
+        return EndRooms.Count > 0 ? EndRooms[rng.Next(0, EndRooms.Count)] : -1;
     }
 }

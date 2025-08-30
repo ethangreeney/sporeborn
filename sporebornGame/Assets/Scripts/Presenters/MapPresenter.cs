@@ -12,21 +12,17 @@ public class MapPresenter : MonoBehaviour
     void Start()
     {
         model = new MapModel(10, 20);
+        // Load sprite from json file
     }
 
-    public void BuildDungeon()
+    public void BuildLevel()
     {
-        model.GenerateDungon();
-        SpawnedCells = model.GetCellList;
-        PlaceRooms();
-    }
+        Vector2 RoomCoordinates;
 
-    public void PlaceRooms()
-    {
         foreach (Cell cell in SpawnedCells) {
-            Instantiate(cell, );
+            RoomCoordinates = IndexToPosition(cell.Index);
+            Instantiate(cell, IndexToPosition, Quaternion.identity);
         }
-        
     }
 
     private Vector2 IndexToPosition(int index)

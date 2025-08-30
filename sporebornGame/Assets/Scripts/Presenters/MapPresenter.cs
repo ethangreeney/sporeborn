@@ -11,8 +11,13 @@ public class MapPresenter : MonoBehaviour
 
     void Start()
     {
+        // Generates new map
         model = new MapModel(10, 20);
-        // Load sprite from json file
+
+        SpawnedCells = model.GetCellList;
+
+        // Load room data from json file
+
     }
 
     public void BuildLevel()
@@ -20,12 +25,12 @@ public class MapPresenter : MonoBehaviour
         Vector2 RoomCoordinates;
 
         foreach (Cell cell in SpawnedCells) {
-            RoomCoordinates = IndexToPosition(cell.Index);
+            RoomCoordinates = IndexToCoodinate(cell.Index);
             Instantiate(cell, IndexToPosition, Quaternion.identity);
         }
     }
 
-    private Vector2 IndexToPosition(int index)
+    private Vector2 IndexToCoodinate(int index)
     {
         int x = index % 10;
         int y = index / 10;

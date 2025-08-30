@@ -37,7 +37,7 @@ public class MapModel
             RoomShape.OneByOne, 
             new List<int[]> 
             { 
-                new int[0]  // Single cell
+                new int[] { }  // Empty because no offsets, origin is handled in AddNewRoom
             } 
         },
         { 
@@ -82,7 +82,8 @@ public class MapModel
         this.MinRooms = minRooms;
         this.MaxRooms = maxRooms;
         CellList = new();
-
+        CellQueue = new Queue<int>();
+        
         // Automatically will create new Dungeon Layout
         GenerateDungon();
     }
@@ -154,19 +155,22 @@ public class MapModel
             {
                 foreach (int[] shapeOffsets in RoomShapes[shape])
                 {
-                    if (CanPlaceRoom(index, shapeOffsets)) // If can place a large room variant
+                    if (CanPlaceLargeRoom(index, shapeOffsets)) // If can place a large room variant
                     {
-                        AddNewRoom(index, shapeOffsets);
+                        // New large rooom
+                        AddNewRoom(index, shapeOffsets, shape);
                         return true;
                     }
                 }
             }
         }
-
+        
+        int[] onebyoneConfig = RoomShapes[RoomShape.OneByOne][0];
+        AddNewRoom(index, onebyoneConfig, RoomShape.OneByOne);
         return true;
     }
 
-    private bool CanPlaceRoom(int index, int[] offsetsForShape)
+    private bool CanPlaceLargeRoom(int index, int[] offsetsForShape)
     {
         List<int> currentRoomIndexes = new List<int>() { index };
         int roomOriginIndex;
@@ -206,14 +210,16 @@ public class MapModel
         return true;
     }
 
-    private void AddNewRoom(int index, int[] roomIndexes)
+    private void AddNewRoom(int index, int[] roomIndexes, RoomShape shape)
     {
-        // Mark all occupied cells on the floor plan - based on room shape
+        // Origin is marked as occupied
+        FloorPlan[index] = 1;
+        // Mark surrounding spacing as occupied - based on room shape
         foreach (int idx in roomIndexes)
             FloorPlan[idx] = 1;
 
-        // Based on RoomIndexes we need to assign shape
-        
+        // Adds to the cell queue
+        CellQueue.Enqueue(index);
 
         // Figure out what shape the room is and assign initial type
         Cell newCell = new Cell(new RoomData(index, roomIndexes, RoomType.Regular, ));
@@ -264,10 +270,10 @@ public class MapModel
         if (ItemRoomIndex == -1 || ShopRoomIndex == -1 || BossRoomIndex == -1)
             SetupDungeon();
 
-        // Set the correct room shapes
-        Cell.RoomType.set(BossRoomIndex, RoomType.Boss);
-        SetRoomType(ItemRoomIndex, RoomType.Item);
-        SetRoomType(ShopRoomIndex, RoomType.Shop);
+        // Set the correct room types
+        CellList[BossRoomIndex].RoomType = RoomType.Boss;
+        CellList[ItemRoomIndex].RoomType = RoomType.Item;
+        CellList[ShopRoomIndex].RoomType = RoomType.Shop;
     }
 
     private int RandomEndRoom()

@@ -20,9 +20,9 @@ public enum RoomType
 public class Cell
 {
     // Cell Data fields
-    public int Index { get; private set; }
-    public RoomType RoomType { get; private set; }
-    public RoomShape RoomShape { get; private set; }
+    public int Index { get; set; }
+    public RoomType RoomType { get; set; }
+    public RoomShape RoomShape { get;  set; }
     public List<int> OccupiedIndexes { get; private set; }
 
     public Cell(RoomData data)

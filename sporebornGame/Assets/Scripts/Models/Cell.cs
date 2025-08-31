@@ -7,7 +7,10 @@ public enum RoomShape
     OneByTwo,
     TwoByOne,
     TwoByTwo,
-    LShape,
+    LShape_0,
+    LShape_90,
+    LShape_180,
+    LShape_270,
 }
 public enum RoomType
 {
@@ -16,6 +19,7 @@ public enum RoomType
     Shop,
     Boss,
 }
+
 // Cell is a representation of one room - either 1x1 or muti-celled
 public class Cell
 {
@@ -25,7 +29,7 @@ public class Cell
     public RoomShape RoomShape { get;  set; }
     public List<int> OccupiedIndexes { get; private set; }
 
-    public Cell(RoomData data)
+    public Cell(CellData data)
     {
         Index = data.FloorPlanIndex;
         RoomType = data.RoomType;

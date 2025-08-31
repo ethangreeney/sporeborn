@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
-using UnityEngine.Timeline;
 
 public class MapModel
 {
@@ -30,34 +28,36 @@ public class MapModel
 
     private static readonly Dictionary<RoomShape, List<int[]>> RoomShapes = new()
     {
-        // Configurations for the large room types
+        // Configurations for the large room types and variants of that room
         // Values to add/subtract to get the surrounding cells for room type
 
-        { 
-            RoomShape.OneByOne, 
-            new List<int[]> 
-            { 
+
+        // The origin -> (0), is excluded from the indexes
+        {
+            RoomShape.OneByOne,
+            new List<int[]>
+            {
                 new int[] { }  // Empty because no offsets, origin is handled in AddNewRoom
-            } 
+            }
         },
-        { 
-            RoomShape.OneByTwo, 
-            new List<int[]> 
-            { 
+        {
+            RoomShape.OneByTwo,
+            new List<int[]>
+            {
                 new int[]{ 1 },    // 1x2 - Origin on left 
                 new int[]{ -1 }    // 1x2 - Origin on right 
-            } 
+            }
         },
-        { 
-            RoomShape.TwoByOne, 
-            new List<int[]> 
-            { 
+        {
+            RoomShape.TwoByOne,
+            new List<int[]>
+            {
                 new int[]{ 10 },   // 2x1 - Bottom  
                 new int[]{ -10 }   // 2x1 - Top
-            } 
+            }
         },
-        { 
-            RoomShape.TwoByTwo, 
+        {
+            RoomShape.TwoByTwo,
             new List<int[]>
             {
                 new int[]{ 1, 10, 11 },    // 2x2 - Origin top-left side
@@ -65,15 +65,36 @@ public class MapModel
             }
         },
         {
-            RoomShape.LShape, 
+            RoomShape.LShape_0,
             new List<int[]>
             {
                 new int[]{ 1, -10 },       // L shape - 0°
+            }
+        },
+
+        {
+            RoomShape.LShape_90,
+            new List<int[]>
+            {
                 new int[]{ 1, 10 },        // L shape - 90°
+            }
+        },
+
+        {
+            RoomShape.LShape_180,
+            new List<int[]>
+            {
                 new int[]{ -1, 10 },       // L shape - 180°
+            }
+        },
+
+        {
+            RoomShape.LShape_270,
+            new List<int[]>
+            {
                 new int[]{ -1, -10 },      // L shape - 270°
             }
-        }
+        },
 
     };
 
@@ -222,7 +243,8 @@ public class MapModel
         CellQueue.Enqueue(index);
 
         // Figure out what shape the room is and assign initial type
-        Cell newCell = new Cell(new RoomData(index, roomIndexes, RoomType.Regular, ));
+        // By default every room is regular type
+        Cell newCell = new Cell(new CellData(index, roomIndexes, RoomType.Regular, shape));
         CellList.Add(newCell);
     }
 

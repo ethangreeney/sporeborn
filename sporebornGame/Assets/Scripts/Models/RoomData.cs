@@ -1,17 +1,20 @@
 using System.Collections.Generic;
 
+[System.Serializable]
 public class RoomData
 {
-    public int FloorPlanIndex;  // Origin point in the FloorPlan   
-    public int[] RoomIndexes;  // All the indexes that make up that room      
-    public RoomType RoomType;   // Shop, Item, Regular, Boss
-    public RoomShape RoomShape; // OnebyOne, LShaped, TwoByTwo, etc 
+    public int CellIndex;           // Origin point of room
+    public RoomShape Shape;         // The RoomShape of this tilset
+    public RoomType Type;           // The RoomType of this tilset
+    public List<TileData> RoomTiles; // All tiles that make up the room
+}
 
-    public RoomData(int FloorPlanIndex, int[] RoomIndexes, RoomType RoomType, RoomShape RoomShape)
-    {
-        this.FloorPlanIndex = FloorPlanIndex;
-        this.RoomIndexes = RoomIndexes;
-        this.RoomType = RoomType;
-        this.RoomShape = RoomShape;
-    }
+[System.Serializable]
+public class TileData
+{
+    // If not a wall,door or chest it is a enemy spawnable tile
+    public int Index;       
+    public bool isWall;     // Is tile a wall/barrier
+    public bool isDoor;     // Is tile a door
+    public bool isChest;    // Is tile a chest
 }

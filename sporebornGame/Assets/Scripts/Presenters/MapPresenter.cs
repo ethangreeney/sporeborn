@@ -9,6 +9,8 @@ public class MapPresenter : MonoBehaviour
     private MapModel model;
     private List<Cell> SpawnedCells;
 
+    public TextAsset tileMapJsonFile;
+
     void Start()
     {
         // Generates new map
@@ -20,20 +22,26 @@ public class MapPresenter : MonoBehaviour
 
     }
 
-    public void BuildLevel()
+    public void BuildRoom(int index, RoomShape shape, RoomType type)
     {
-        Vector2 RoomCoordinates;
+        // Get the data of the room from the json file
+        RoomData data = RoomDataLoader.GetRoomData(index, shape, type);
 
-        foreach (Cell cell in SpawnedCells) {
-            RoomCoordinates = IndexToCoodinate(cell.Index);
-            Instantiate(cell, IndexToPosition, Quaternion.identity);
-        }
+
+        // Spawn room from json file using tile set
+
+        // Add doors based on a whether there is a neighbouring room
+        // Each room will have a North,East,South,West possible door position
+        // Based on this the door will be placed 
+
     }
 
-    private Vector2 IndexToCoodinate(int index)
+    public void OpenDoor()
     {
-        int x = index % 10;
-        int y = index / 10;
-        return new Vector2(x * cellSize, -y * cellSize);
+        // Player collides with door 
+        // Delete exisiting room 
+        // Create new room 
+
+        // Keep player position but offset it by room size
     }
 }

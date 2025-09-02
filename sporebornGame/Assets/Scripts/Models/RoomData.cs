@@ -3,10 +3,10 @@ using System.Collections.Generic;
 [System.Serializable]
 public class RoomData
 {
-    public int CellIndex;           // Origin point of room
-    public RoomShape Shape;         // The RoomShape of this tilset
-    public RoomType Type;           // The RoomType of this tilset
-    public List<TileData> RoomTiles; // All tiles that make up the room
+    public int CellIndex;               // Origin point of room
+    public RoomShape Shape;             // The RoomShape of this tilset
+    public RoomType Type;               // The RoomType of this tilset
+    public List<TileData> RoomTiles;    // All tiles that make up the room
 }
 
 [System.Serializable]

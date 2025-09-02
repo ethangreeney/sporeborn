@@ -25,7 +25,7 @@ public class MapPresenter : MonoBehaviour
     public void BuildRoom(int index, RoomShape shape, RoomType type)
     {
         // Get the data of the room from the json file
-        RoomData data = RoomDataLoader.GetRoomData(index, shape, type);
+        // RoomData data = RoomDataLoader.GetRoomData(index, shape, type);
 
 
         // Spawn room from json file using tile set

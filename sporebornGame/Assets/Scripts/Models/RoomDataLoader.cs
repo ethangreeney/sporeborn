@@ -5,7 +5,7 @@ using System.IO;
 public class RoomDataLoader
 {
     // Deserializing from a JSON File
-    public RoomData GetRoomData(int index, RoomShape shape, RoomType type)
+    public RoomData GetRoomData(RoomShape shape, RoomType type)
     {
         string FilePath = GetFilePath(shape, type);
         string jsonString = File.ReadAllText(FilePath);

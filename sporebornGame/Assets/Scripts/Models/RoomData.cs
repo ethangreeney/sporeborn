@@ -13,8 +13,9 @@ public class RoomData
 public class TileData
 {
     // If not a wall,door or chest it is a enemy spawnable tile
-    public int Index;       
-    public bool isWall;     // Is tile a wall/barrier
-    public bool isDoor;     // Is tile a door
-    public bool isChest;    // Is tile a chest
+    public int Index;
+    public bool IsWall;     // Is tile a wall/barrier
+    public bool IsDoor;     // Is tile a door
+    public bool IsItem;    // Is tile where an item will
+    public string SpriteName;  // Name of sprite on that tile
 }

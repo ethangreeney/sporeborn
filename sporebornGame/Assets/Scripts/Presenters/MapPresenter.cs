@@ -7,8 +7,7 @@ public class MapPresenter : MonoBehaviour
     [SerializeField] private float cellSize = 1f;
 
     private MapModel model;
-    private RoomDataLoader RoomLoader;
-    private RoomData Rooms;
+
 
 
     public GameObject WallPrefab;
@@ -18,6 +17,9 @@ public class MapPresenter : MonoBehaviour
 
     private List<Cell> SpawnedCells;
     public TextAsset tileMapJsonFile;
+
+    [Header("Room Prefabs")]
+    public List<GameObject> RoomPrefabs;
 
     void Start()
     {
@@ -33,34 +35,20 @@ public class MapPresenter : MonoBehaviour
     // Called when entering a new room
     public void BuildRoom(RoomShape shape, RoomType type)
     {
-        // Get the data of the room from the json file
-        RoomData TileData = RoomLoader.GetRoomData(shape, type);
-
-        // Spawn room from json file using tile set
-        foreach (TileData tile in Rooms.RoomTiles)
-        {
-
-            Vector3 location = IndexToCoordinate(tile.Index);
-
-            if (tile.IsWall)
+        foreach (GameObject prefab in RoomPrefabs) {
+            if (shape.Equals(prefab.ToString())
             {
-                Instantiate(WallPrefab, location, Quaternion.identity);
-            }
-            else if (tile.IsDoor)
-            {
-                Instantiate(DoorPrefab, location, Quaternion.identity);
-            }
-            else if (tile.IsItem)
-            {
-                Instantiate(ItemPrefab, location, Quaternion.identity);
-            }
-            else
-            {
-                // Is an enemy/player spawnable/pathfinding tile
-                Instantiate(SpawnableTile, location, Quaternion.identity);
+                
             }
         }
-        // TODO: Add door placement
+        // Place room first
+        if (RoomPrefabs.Count > 0)
+        {
+            Instantiate(RoomPrefabs[0], Vector3.zero, Quaternion.identity);
+        }
+
+
+        // The place door
         // Add doors based on a whether there is a neighbouring room
         // Each room will have a North,East,South,West possible door position
         // Based on this the door will be placed 

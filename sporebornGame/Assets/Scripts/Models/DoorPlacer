@@ -1,0 +1,86 @@
+using System.Collections.Generic;
+
+public class DoorPlacer : MonoBehaviour
+{
+    // Possible door locations in a 2x2 area
+    public enum Doors
+    {
+        North_A,
+        North_B,
+        East_B,
+        East_D,
+        South_D,
+        South_C,
+        West_C,
+        West_A
+    }
+
+    private static readonly Dictionary<Doors, boolean> DoorLocations = new()
+    {
+        {North_A, true},
+        {North_B, true},
+        {East_B, true},
+        {East_D, true},
+        {South_D, true},
+        {South_C, true},
+        {West_C, true},
+        {West_A, true}
+
+    };
+
+
+
+    public void DoorPlacer(Roomshape shape, RoomType type, Cell currentRoom)
+    {
+        this.shape = shape;
+        this.type = type;
+        this.currentRoom = currentRoom;
+    }
+
+    public void PlaceDoors()
+    {
+        int[] floorplan = GetFloorPlan();
+
+        foreach (int roomSegment in roomSections)
+        {
+            List<Cell> adjacentRooms = GetAdjacentRoomsIndexes(roomSegment.Index);
+
+        }
+        // Loops toggles off the door layers that aren't needed
+        FindObjectsOfType(North_A); 
+
+        // Need to figure out a way to hid the door layers that don't have rooms adjacent
+    }
+
+
+    public List<Cell> GetAdjacentRoomsIndexes(int index)
+    {
+        // Neightbour count 
+        List<int> segmentAdjacentRooms = 0;
+
+        int row = index / 10;
+        int col = index % 10;
+
+        int up = index - 10;
+        int down = index + 10;
+        int left = index - 1;
+        int right = index + 1;
+
+        // Only adds to adjacent rooms if they are not part of the same room
+        if (!currentRoom.OccupiedIndexes.Contains(up))
+        {
+            segmentAdjacentRooms.Add((row > 0) ? FloorPlan[index - 10] : 0);
+        }
+        // Down
+
+            count += (row < 9) ? FloorPlan[index + 10] : 0;
+        // Left
+        count += (col > 0) ? FloorPlan[index - 1] : 0;
+        // Right
+        count += (col < 9) ? FloorPlan[index + 1] : 0;
+
+        return count;
+    }
+
+
+}

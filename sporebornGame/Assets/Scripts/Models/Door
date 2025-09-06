@@ -1,0 +1,82 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Door : MonoBehaviour
+{
+
+    public Cell connectingCell;
+
+    void Start()
+    {
+        connectingCell = CheckForAdjacentRoom();
+        InitaliseDoor();
+    }
+
+    public void InitaliseDoor()
+    {
+        // Toggles/Door on or off
+        if(connectingCell == null){
+            gameObject.SetActive(false);
+        }
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // Get Player here
+        PlayerModel player = collision.GetComponent<Player>();
+
+        // If player collides with door then Build the next room
+        if(player)
+        {
+            BuildRoom(connectingCell.RoomShape, connectingCell.RoomType);
+        }
+    }
+
+    public Cell FindAdjacentRoom(int index)
+    {
+        // Neightbour count 
+        Cell segmentAdjacentRoom = null;
+        List<Cell> CellList = GetCellList();
+
+        int row = index / 10;
+        int col = index % 10;
+
+        int up = index - 10;
+        int down = index + 10;
+        int left = index - 1;
+        int right = index + 1;
+
+
+        int AdjacentCellIndex;
+        // Only adds to adjacent rooms if they are not part of the same room
+        
+        // Up Check
+        if (!currentRoom.OccupiedIndexes.Contains(up) && (row > 0))
+        {
+            AdjacentCellIndex = FloorPlan[up];
+            segmentAdjacentRooms = CellList.get(AdjacentCellIndex);
+        }
+        // Down Check
+        if (!currentRoom.OccupiedIndexes.Contains(down) && (row < 9))
+        {
+            AdjacentCellIndex = FloorPlan[down];
+            segmentAdjacentRooms = CellList.get(AdjacentCellIndex);
+        }
+        // Left Check
+        if (!currentRoom.OccupiedIndexes.Contains(left) && (col > 0)) {
+            AdjacentCellIndex = FloorPlan[left];
+            segmentAdjacentRooms = CellList.get(AdjacentCellIndex);
+
+        }
+        // Right Check
+        if (!currentRoom.OccupiedIndexes.Contains(Right) && (col < 9)){
+            AdjacentCellIndex = FloorPlan[right];
+            segmentAdjacentRooms = CellList.get(AdjacentCellIndex);
+        }
+
+        return segmentAdjacentRoom;
+    }
+
+
+}

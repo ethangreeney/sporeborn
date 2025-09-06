@@ -12,6 +12,10 @@ public class MapModel
 
     // Locations of each of the special type rooms
     public int BossRoomIndex, ItemRoomIndex, ShopRoomIndex;
+    
+    // Location in floor plan the room generation starts from
+    private const int StartingRoomIndex = 45;
+    public int GetStartingRoomIndex => StartingRoomIndex;
 
     // Generates Random numbers
     System.Random rng;
@@ -23,8 +27,6 @@ public class MapModel
 
     private List<Cell> CellList;
     public List<Cell> GetCellList => CellList;
-
-
 
     private static readonly Dictionary<RoomShape, List<int[]>> RoomShapes = new()
     {
@@ -115,7 +117,7 @@ public class MapModel
         ResetMapState(); // Clear previous map
 
         // Generation will start from this point (centre)
-        CheckValidCell(45);
+        CheckValidCell(StartingRoomIndex);
         // Sets up new dungeon
         SetupDungeon();
     }

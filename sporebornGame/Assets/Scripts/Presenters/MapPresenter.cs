@@ -1,19 +1,10 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MapPresenter : MonoBehaviour
 {
-    [SerializeField] private Cell cellPrefab;
-    [SerializeField] private float cellSize = 1f;
-
     private MapModel model;
-
-
-
-    public GameObject WallPrefab;
-    public GameObject DoorPrefab;
-    public GameObject ItemPrefab;
-    public GameObject SpawnableTile;
 
     private List<Cell> SpawnedCells;
     public TextAsset tileMapJsonFile;
@@ -21,48 +12,51 @@ public class MapPresenter : MonoBehaviour
     [Header("Room Prefabs")]
     public List<GameObject> RoomPrefabs;
 
+    [Header("Player")]
+    PlayerModel player;
+
     void Start()
     {
         // Generates new map
         model = new MapModel(10, 20);
 
+        // Gets the list of rooms
         SpawnedCells = model.GetCellList;
 
-        // Load room data from json file
-
+        // Generates the first room
+        Cell StarterRoom = SpawnedCells[model.GetStartingRoomIndex];
+        BuildRoom(StarterRoom.RoomShape, StarterRoom.RoomType);
     }
 
-    // Called when entering a new room
+    // Creates a new room and correctly positions the player
     public void BuildRoom(RoomShape shape, RoomType type)
     {
-        foreach (GameObject prefab in RoomPrefabs) {
-            if (shape.Equals(prefab.ToString())
-            {
-                
-            }
-        }
-        // Place room first
-        if (RoomPrefabs.Count > 0)
-        {
-            Instantiate(RoomPrefabs[0], Vector3.zero, Quaternion.identity);
-        }
+        // Place room
+        String RoomName = shape + "_" + type;
+        Instantiate(RoomPrefabs.Find(RoomName), Vector3.zero, Quaternion.identity);
 
-
-        // The place door
-        // Add doors based on a whether there is a neighbouring room
-        // Each room will have a North,East,South,West possible door position
-        // Based on this the door will be placed 
-
+        // Player location will be based on the door they enter from
+        player.setLocation(PlayerSpawnLocation());
     }
-    
-    // Maybe move to seperate door class
-    public void OpenDoor()
-    {
-        // Player collides with door 
-        // Delete exisiting room 
-        // Create new room 
 
-        // Keep player position but offset it by room size
+    public Vector3 PlayerSpawnLocation()
+    {
+        Vector3 PlayerLocation = new();
+
+        // If we are spawning in the starter room then player spawns in centre
+        if (true)
+        {
+            PlayerLocation = Vector3.zero;
+        }
+
+        return PlayerLocation;
+    }
+
+    public void GetRoomPrefab(RoomShape shape)
+    {
+        // switch(shape){
+        //     OnebyOne:
+        // }
     }
 
     public void SpawnEnemies()

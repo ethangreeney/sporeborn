@@ -26,10 +26,11 @@ public class Door : MonoBehaviour
         // Get Player here
         PlayerModel player = collision.GetComponent<Player>();
 
-        // If player collides with door then Build the next room
-        if(player)
+        // If player collides with door then Build the next room 
+        // Pass through the cell and this doors position
+        if (player)
         {
-            BuildRoom(connectingCell.RoomShape, connectingCell.RoomType);
+            BuildRoom(connectingCell, this.transform.position);
         }
     }
 

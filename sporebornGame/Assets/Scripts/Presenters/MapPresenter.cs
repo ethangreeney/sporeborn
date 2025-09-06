@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Pathfinding.Examples;
 using UnityEngine;
 
 public class MapPresenter : MonoBehaviour
@@ -12,8 +13,10 @@ public class MapPresenter : MonoBehaviour
     [Header("Room Prefabs")]
     public List<GameObject> RoomPrefabs;
 
+    Vector3 LastDoorHit;
+
     [Header("Player")]
-    PlayerModel player;
+    GameObject Player;
 
     void Start()
     {
@@ -25,43 +28,60 @@ public class MapPresenter : MonoBehaviour
 
         // Generates the first room
         Cell StarterRoom = SpawnedCells[model.GetStartingRoomIndex];
-        BuildRoom(StarterRoom.RoomShape, StarterRoom.RoomType);
+        BuildRoom(StarterRoom, Vector3.zero);
     }
 
     // Creates a new room and correctly positions the player
-    public void BuildRoom(RoomShape shape, RoomType type)
+    public void BuildRoom(Cell RoomCell, Vector3 PlayerSpawnPosition)
     {
         // Place room
-        String RoomName = shape + "_" + type;
-        Instantiate(RoomPrefabs.Find(RoomName), Vector3.zero, Quaternion.identity);
+        String RoomName = RoomCell.RoomShape + "_" + RoomCell.RoomType;
+        GameObject CurrentRoomPrefab = null;
 
+        foreach (GameObject prefab in RoomPrefabs)
+        {
+            if (prefab.name == RoomName)
+            {
+                CurrentRoomPrefab = prefab;
+            }
+        }
+        // Spawns in room from prefab
+        GameObject RoomInstance = Instantiate(CurrentRoomPrefab, PlayerSpawnPosition, Quaternion.identity);
+
+        // Gets all doors in scene to see which is the opposite door to the previous door position
+        Door[] DoorsinScene = RoomInstance.GetComponentsInChildren<Door>();
+        Door entryDoor = null;
+
+        foreach(Door)
+
+        Vector3 OffsetPosition = GetOffset(PlayerSpawnPosition);
         // Player location will be based on the door they enter from
-        player.setLocation(PlayerSpawnLocation());
+        Player.transform.position = PlayerSpawnPosition;
     }
 
-    public Vector3 PlayerSpawnLocation()
-    {
-        Vector3 PlayerLocation = new();
-
-        // If we are spawning in the starter room then player spawns in centre
-        if (true)
+    public Vector3 GetOffset(Vector3 PlayerSpawnPosition) {
+        // Doesn't need offset as this is the first room
+        if (PlayerSpawnPosition != Vector3.zero)
         {
-            PlayerLocation = Vector3.zero;
+            return PlayerSpawnPosition;
         }
 
-        return PlayerLocation;
-    }
+        if()
+        // Flip on X axis
+        PlayerSpawnPosition.x *= -1;
 
-    public void GetRoomPrefab(RoomShape shape)
-    {
-        // switch(shape){
-        //     OnebyOne:
-        // }
+        // Flip on Y axis
+        PlayerSpawnPosition.y *= -1;
+
+
+        int offset = 10;
+
+        return PlayerSpawnPosition;
     }
 
     public void SpawnEnemies()
     {
-        
+
     }
 
     public void SpawnBoss()

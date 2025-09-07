@@ -33,7 +33,6 @@ public class MapModel
         // Configurations for the large room types and variants of that room
         // Values to add/subtract to get the surrounding cells for room type
 
-
         // The origin -> (0), is excluded from the indexes
         {
             RoomShape.OneByOne,

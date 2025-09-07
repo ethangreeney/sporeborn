@@ -1,21 +1,35 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Door : MonoBehaviour
 {
 
-    public Cell connectingCell;
+    public Cell ConnectingCell;
+    public int AdjacentIndex;
+
+    public enum DoorType
+    {
+        North,
+        East,
+        South,
+        West
+    }
 
     void Start()
     {
-        connectingCell = CheckForAdjacentRoom();
+        ConnectingCell = FindAdjacentRoom();
         InitaliseDoor();
+    }
+
+    public Door GetDoor() {
+        return this;
     }
 
     public void InitaliseDoor()
     {
         // Toggles/Door on or off
-        if(connectingCell == null){
+        if (ConnectingCell == null) {
             gameObject.SetActive(false);
         }
 
@@ -30,14 +44,13 @@ public class Door : MonoBehaviour
         // Pass through the cell and this doors position
         if (player)
         {
-            BuildRoom(connectingCell, this.transform.position);
+            BuildRoom(ConnectingCell, this.transform.position, this);
         }
     }
 
     public Cell FindAdjacentRoom(int index)
     {
         // Neightbour count 
-        Cell segmentAdjacentRoom = null;
         List<Cell> CellList = GetCellList();
 
         int row = index / 10;
@@ -48,35 +61,50 @@ public class Door : MonoBehaviour
         int left = index - 1;
         int right = index + 1;
 
-
-        int AdjacentCellIndex;
         // Only adds to adjacent rooms if they are not part of the same room
-        
+
         // Up Check
         if (!currentRoom.OccupiedIndexes.Contains(up) && (row > 0))
         {
-            AdjacentCellIndex = FloorPlan[up];
-            segmentAdjacentRooms = CellList.get(AdjacentCellIndex);
+            AdjacentIndex = FloorPlan[up];
+            DoorType = North;
         }
+        
         // Down Check
         if (!currentRoom.OccupiedIndexes.Contains(down) && (row < 9))
         {
-            AdjacentCellIndex = FloorPlan[down];
-            segmentAdjacentRooms = CellList.get(AdjacentCellIndex);
+            AdjacentIndex = FloorPlan[down];
+            DoorType = South;
         }
+
         // Left Check
-        if (!currentRoom.OccupiedIndexes.Contains(left) && (col > 0)) {
-            AdjacentCellIndex = FloorPlan[left];
-            segmentAdjacentRooms = CellList.get(AdjacentCellIndex);
-
+        if (!currentRoom.OccupiedIndexes.Contains(left) && (col > 0))
+        {
+            AdjacentIndex = FloorPlan[left];
+            DoorType = West;
+    
         }
+
         // Right Check
-        if (!currentRoom.OccupiedIndexes.Contains(Right) && (col < 9)){
-            AdjacentCellIndex = FloorPlan[right];
-            segmentAdjacentRooms = CellList.get(AdjacentCellIndex);
+        if (!currentRoom.OccupiedIndexes.Contains(Right) && (col < 9))
+        {
+            AdjacentIndex = FloorPlan[right];
+            DoorType = East;
         }
 
-        return segmentAdjacentRoom;
+        foreach(Cell room in CellList){
+            for(int index in room.OccupiedIndexes){
+                if(index == AdjacentIndex){
+                    return room;
+                }
+            }
+        }
+
+        return default;
+    }
+
+    public Vector3 GetPositionDoor(){
+        return this.transform.position;
     }
 
 

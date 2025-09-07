@@ -19,6 +19,8 @@ public class CollectionController : MonoBehaviour
     public float moveSpeedChange;
     public float fireDelayChange;
     public float bulletSpeedChange;
+    public float bulletDamageChange;
+    public float projectileSizeChange;
 
 
     private void Start()
@@ -49,6 +51,48 @@ public class CollectionController : MonoBehaviour
             // Optional clamp
             if (playerMovement.moveSpeed < 0.1f)
                 playerMovement.moveSpeed = 0.1f;
+        }
+
+        PlayerShootingPresenter shooting = collision.GetComponent<PlayerShootingPresenter>();
+        if (shooting != null)
+        {
+            // Fire delay
+            if (fireDelayChange != 0)
+            {
+                shooting.fireRate += fireDelayChange;
+                consumed = true;
+                // Optional clamp
+                if (shooting.fireRate < 0.05f)
+                    shooting.fireRate = 0.05f;
+            }
+            // Bullet speed
+            if (bulletSpeedChange != 0)
+            {
+                shooting.projectileSpeed += bulletSpeedChange;
+                consumed = true;
+                // Optional clamp
+                if (shooting.projectileSpeed < 1f)
+                    shooting.projectileSpeed = 1f;
+            }
+
+            // Bullet Damage
+            if (bulletDamageChange != 0)
+            {
+                shooting.projectileDamage += bulletDamageChange;
+                consumed = true;
+                // Optional clamp
+                if (shooting.projectileDamage < 1f)
+                    shooting.projectileDamage = 1f;
+            }
+
+            if (projectileSizeChange != 0)
+            {
+                shooting.projectileSize += projectileSizeChange;
+                consumed = true;
+                // Optional clamp
+                if (shooting.projectileSize < 0.1f)
+                    shooting.projectileSize = 0.1f;
+            }
         }
 
         // If item was actually applied

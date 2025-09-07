@@ -4,7 +4,7 @@ using UnityEngine;
 public class ProjectilePresenter : MonoBehaviour
 {
     public float speed = 12f;
-    public int damage = 1;
+    public float damage = 1;
     public float lifetime = 2f;
 
     Rigidbody2D rb;
@@ -25,7 +25,7 @@ public class ProjectilePresenter : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.isTrigger) return; 
+        if (other.isTrigger) return;
 
         var enemy = other.GetComponentInParent<EnemyPresenter>();
         if (enemy != null)
@@ -33,5 +33,11 @@ public class ProjectilePresenter : MonoBehaviour
             enemy.TakeDamage(damage);
             Destroy(gameObject);
         }
+        else if (other.CompareTag("Obstacle"))
+        {
+            
+            Destroy(gameObject);
+        }
     }
+
 }

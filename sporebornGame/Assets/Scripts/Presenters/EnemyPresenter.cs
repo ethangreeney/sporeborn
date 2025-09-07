@@ -19,7 +19,7 @@ public class EnemyPresenter : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         if (isDead || health == null) return;
 

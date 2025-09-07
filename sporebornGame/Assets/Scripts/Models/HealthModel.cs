@@ -2,32 +2,32 @@ using UnityEngine;
 
 public class HealthModel : MonoBehaviour
 {
-    public int maxHealth;
-    public int currHealth;
+    public float maxHealth;
+    public float currHealth;
 
     public SpriteRenderer spriteRenderer;
 
-    public HealthModel(int maxHealth, int currHealth)
+    public HealthModel(float maxHealth, float currHealth)
     {
         this.maxHealth = maxHealth;
         this.currHealth = currHealth;
     }
 
-    public void Damage(int damagedAmount)
+    public void Damage(float damagedAmount)
     {
         currHealth -= damagedAmount;
         if (currHealth < 0) currHealth = 0; // Prevents negative 
     }
 
-    public void Health(int healAmount)
+    public void Health(float healAmount)
     {
         currHealth += healAmount;
         if (currHealth > maxHealth) currHealth = maxHealth;
         
     }
 
-    public int GetHealthPercentage()
+    public float GetHealthPercentage()
     {
-         return (int)((float)currHealth / maxHealth * 100);
+        return (currHealth / maxHealth * 100);
     }
 }

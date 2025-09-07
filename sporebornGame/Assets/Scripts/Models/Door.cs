@@ -1,12 +1,16 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-
+    [HideInInspector]
     public Cell ConnectingCell;
+    [HideInInspector]
     public int AdjacentIndex;
+    [HideInInspector]
+    public MapPresenter map;
 
     public enum DoorType
     {
@@ -16,8 +20,13 @@ public class Door : MonoBehaviour
         West
     }
 
+    // Manually Set Per Door
+    public DoorType CurrentDoorType;
+    public int[] RelativeDoorPosition = {0, 0};
+
     void Start()
     {
+
         ConnectingCell = FindAdjacentRoom();
         InitaliseDoor();
     }
@@ -38,66 +47,60 @@ public class Door : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Get Player here
-        PlayerModel player = collision.GetComponent<Player>();
+        GameObject Player = GameObject.FindGameObjectWithTag("Player");
 
         // If player collides with door then Build the next room 
         // Pass through the cell and this doors position
-        if (player)
-        {
-            BuildRoom(ConnectingCell, this.transform.position, this);
+        if (!Player) {
+            return;
         }
+
+        map.BuildRoom(ConnectingCell, this.transform.position, this);
     }
 
-    public Cell FindAdjacentRoom(int index)
+    public Cell FindAdjacentRoom()
     {
-        // Neightbour count 
-        List<Cell> CellList = GetCellList();
-
-        int row = index / 10;
-        int col = index % 10;
-
-        int up = index - 10;
-        int down = index + 10;
-        int left = index - 1;
-        int right = index + 1;
-
         // Only adds to adjacent rooms if they are not part of the same room
+        Cell currentRoom = map.CurrentPlayerRoom;
 
-        // Up Check
-        if (!currentRoom.OccupiedIndexes.Contains(up) && (row > 0))
-        {
-            AdjacentIndex = FloorPlan[up];
-            DoorType = North;
-        }
-        
-        // Down Check
-        if (!currentRoom.OccupiedIndexes.Contains(down) && (row < 9))
-        {
-            AdjacentIndex = FloorPlan[down];
-            DoorType = South;
-        }
+        int relativeDoorX = RelativeDoorPosition[0];
+        int relativeDoorY = RelativeDoorPosition[1];
 
-        // Left Check
-        if (!currentRoom.OccupiedIndexes.Contains(left) && (col > 0))
-        {
-            AdjacentIndex = FloorPlan[left];
-            DoorType = West;
-    
-        }
-
-        // Right Check
-        if (!currentRoom.OccupiedIndexes.Contains(Right) && (col < 9))
-        {
-            AdjacentIndex = FloorPlan[right];
-            DoorType = East;
-        }
-
-        foreach(Cell room in CellList){
-            for(int index in room.OccupiedIndexes){
-                if(index == AdjacentIndex){
-                    return room;
+        // Stop the code if the door doesn't exist
+        switch (CurrentDoorType) {
+            // Up Check
+            case DoorType.North:
+                if (map.IsThereARelativeSegment(
+                    currentRoom, relativeDoorX, relativeDoorY - 1
+                ) == false) {
+                    return null;
                 }
-            }
+                break;
+            // Down Check
+            case DoorType.South:
+                if (map.IsThereARelativeSegment(
+                    currentRoom, relativeDoorX, relativeDoorY + 1
+                ) == false) {
+                    return null;
+                }
+                break;
+            // Left Check
+            case DoorType.East:
+                if (map.IsThereARelativeSegment(
+                    currentRoom, relativeDoorX - 1, relativeDoorY
+                ) == false) {
+                    return null;
+                }
+                break;
+
+            // Right Check
+            case DoorType.West:
+                if (map.IsThereARelativeSegment(
+                    currentRoom, relativeDoorX, relativeDoorY + 1
+                ) == false) {
+                    return null;
+                }
+                break;
         }
 
         return default;

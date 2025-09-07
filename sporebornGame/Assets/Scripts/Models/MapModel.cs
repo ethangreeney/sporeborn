@@ -103,9 +103,13 @@ public class MapModel
     {
         this.MinRooms = minRooms;
         this.MaxRooms = maxRooms;
-        CellList = new();
+        rng = new System.Random();
+        CellList = new List<Cell>();
         CellQueue = new Queue<int>();
-        
+        EndRooms = new List<int>();
+        LargeRoomIndexes = new List<int>();
+        FloorPlan = new int[100];
+
         // Automatically will create new Dungeon Layout
         GenerateDungon();
     }
@@ -124,20 +128,22 @@ public class MapModel
     private void ResetMapState()
     {
         CellList.Clear();
+        CellQueue.Clear();
+        EndRooms.Clear();
+        LargeRoomIndexes.Clear();
     }
 
     private void SetupDungeon()
     {
+        if (CellQueue.Count < MinRooms) {
+            return;
+        }
+
         while (CellQueue.Count > 0)
         {
             int index = CellQueue.Dequeue();
-
-            // Calculates x coordinate of index
-            int x = index % 10;
-
-            // CheckValidCell will create the room 
             // If valid cell and has one neighbouring cell then it is an EndRoom
-            if (CheckValidCell(index) && GetNeighbourCellCount(index) == 1)
+            if (GetNeighbourCellCount(index) == 1)
                 EndRooms.Add(index);
         }
 
@@ -161,13 +167,22 @@ public class MapModel
     {
 
         // Out of bounds of the map array
-        if (index > FloorPlan.Length || index < 0) { return false; }
+        if (index > FloorPlan.Length || index < 0) {
+            Debug.LogWarning("The cell is out of bounds");
+            return false;
+        }
 
         // Greater than max room num - so can't create any more rooms
-        if (FloorPlan.Length > MaxRooms) { return false; }
+        if (FloorPlan.Length > MaxRooms) {
+            Debug.LogWarning("There are too many rooms");
+            return false;
+            }
 
         // Fails if - Aleady a room at this cell || If neightbour has room || Fails to create a room 50% of the time
-        if (FloorPlan[index] == 1 || GetNeighbourCellCount(index) > 1 || rng.NextDouble() < 0.5f) { return false; }
+        if (FloorPlan[index] == 1 || GetNeighbourCellCount(index) > 1 || rng.NextDouble() < 0.5f) {
+            Debug.LogWarning("Room may be out of bounds");
+            return false;
+        }
 
         // 30% chance to try and place a large room
         if (rng.NextDouble() < 0.3f)
@@ -186,7 +201,7 @@ public class MapModel
                 }
             }
         }
-        
+
         int[] onebyoneConfig = RoomShapes[RoomShape.OneByOne][0];
         AddNewRoom(index, onebyoneConfig, RoomShape.OneByOne);
         return true;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class MapPresenter : MonoBehaviour
@@ -7,31 +8,47 @@ public class MapPresenter : MonoBehaviour
     private MapModel model;
 
     private List<Cell> SpawnedCells;
-    public TextAsset tileMapJsonFile;
 
     [Header("Room Prefabs")]
     public List<GameObject> RoomPrefabs;
 
-    Vector3 LastDoorHit;
-
     [Header("Player")]
     GameObject Player;
+
+    public Cell CurrentPlayerRoom;
 
 
     void Start()
     {
+
         // Generates first level map
         model = new MapModel(10, 20);
-
-        // Gets the list of rooms
-        SpawnedCells = model.GetCellList;
 
         // Get the player
         Player = GameObject.FindGameObjectWithTag("Player");
 
+        // Gets the list of rooms
+        SpawnedCells = model.GetCellList;
+
         // Generates the first room
-        Cell StarterRoom = SpawnedCells[model.GetStartingRoomIndex];
+        Cell StarterRoom = SpawnedCells.First(cell => cell.Index == model.GetStartingRoomIndex);
         BuildRoom(StarterRoom, Vector3.zero, null);
+    }
+
+    public bool IsThereARelativeSegment(Cell currentCell, int dx, int dy) {
+        int index = currentCell.Index;
+
+        int x = index % 10;
+        int y = index / 10;
+
+        int newX = x + dx;
+        int newY = y + dy;
+        
+        if (newX < 0 || newX >= 10) return false;
+        if (newY < 0 || newY >= 10) return false;
+
+        // Figure out the new cell index
+        return model.GetFloorPlan[index] == 1 ? true : false;
     }
 
     // Creates a new room and correctly positions the player
@@ -39,61 +56,36 @@ public class MapPresenter : MonoBehaviour
     {
         // Place room
         String RoomName = RoomCell.RoomShape + "_" + RoomCell.RoomType;
-        GameObject CurrentRoomPrefab;
+        GameObject CurrentRoomPrefab = null;
 
         foreach (GameObject prefab in RoomPrefabs)
         {
             if (prefab.name == RoomName)
             {
                 CurrentRoomPrefab = prefab;
+                break;
             }
         }
+
         // Spawns in room from prefab
         GameObject RoomInstance = Instantiate(CurrentRoomPrefab, PlayerSpawnPosition, Quaternion.identity);
+
+        Door[] theDoorScript = RoomInstance.GetComponentsInChildren<Door>();
+        foreach(Door door in theDoorScript) {
+            door.map = this;
+        }
 
         // Doesn't need offset as if it is the first room
         if (PlayerSpawnPosition != Vector3.zero)
         {
-            Vector3 OffsetPosition = GetPlayerOffset(PlayerSpawnPosition, RoomCell, AdjacentCellIndex);
+            // we'll figure this out later
         }
 
         // Player location will be based on the door they enter from
         Player.transform.position = PlayerSpawnPosition;
-    }
 
-    public Vector3 GetPlayerOffset(Vector3 DoorPosition, Cell RoomCell, int AdjacentCellIndex) {
-       
-        Door CurrentDoor = Door.GetDoor();
-
-        int RoomAdjacentIndex;
-        foreach(int index in RoomCell.OccupiedIndexes){
-            if(index == CurrentDoor.AdjacentIndex){
-                RoomAdjacentIndex = index;
-                break;
-            }
-        }
-        // asdsad 
-        Door NextRoomDoor = RoomAdjacentIndex;
-        
-        Vector3 PlayerOffsetPosition = NextRoomDoor.GetPositionDoor();
-
-        // Flip Coordinates of door on that segment
-        if(NextRoomDoor.DoorType == North){
-            PlayerOffsetPosition.y *= -1;
-        }
-        if(NextRoomDoor.DoorType == East){
-            PlayerOffsetPosition.x *= -1;
-        }
-        if(NextRoomDoor.DoorType == South){
-            PlayerOffsetPosition.y *= -1;
-        }
-        if(NextRoomDoor.DoorType == West){
-            PlayerOffsetPosition.x *= -1;
-        }
-
-        int offset = 10;
-
-        return PlayerOffsetPosition;
+        // Update the current room the players in to the one that was just initalised
+        CurrentPlayerRoom = RoomCell;
     }
 
     public void SpawnEnemies()

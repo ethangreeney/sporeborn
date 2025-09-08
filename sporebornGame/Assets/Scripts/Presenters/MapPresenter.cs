@@ -7,7 +7,7 @@ public class MapPresenter : MonoBehaviour
 {
     private MapModel model;
 
-    private List<Room> SpawnedCells;
+    private List<Room> SpawnedRooms;
 
     [Header("Room Prefabs")]
     public List<GameObject> RoomPrefabs;
@@ -28,14 +28,21 @@ public class MapPresenter : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");
 
         // Gets the list of rooms
-        SpawnedCells = model.GetRoomList;
+        SpawnedRooms = model.GetRoomList;
+        if (SpawnedRooms.Count == 0)
+        {
+            Debug.LogWarning("Room List is empty");
+        }
+        // Debug Check of Rooms
+        PrintRoomList();
 
         // Generates the first room
-        Room StarterRoom = SpawnedCells.First(room => room.Index == model.GetStartingRoomIndex);
+        Room StarterRoom = SpawnedRooms.First(room => room.Index == model.GetStartingRoomIndex);
         BuildRoom(StarterRoom, Vector3.zero, null);
     }
 
-    public bool IsThereARelativeCell(Room CurrentRoom, int dx, int dy) {
+    public bool IsThereARelativeCell(Room CurrentRoom, int dx, int dy)
+    {
         int index = CurrentRoom.Index;
 
         int x = index % 10;
@@ -43,12 +50,12 @@ public class MapPresenter : MonoBehaviour
 
         int newX = x + dx;
         int newY = y + dy;
-        
+
         if (newX < 0 || newX >= 10) return false;
         if (newY < 0 || newY >= 10) return false;
 
         // Figure out the new cell index
-        return model.GetFloorPlan[index] == 1 ? true : false;
+        return model.GetFloorPlan[index] == 1;
     }
 
     // Creates a new room and correctly positions the player
@@ -71,7 +78,8 @@ public class MapPresenter : MonoBehaviour
         GameObject RoomInstance = Instantiate(CurrentRoomPrefab, PlayerSpawnPosition, Quaternion.identity);
 
         Door[] theDoorScript = RoomInstance.GetComponentsInChildren<Door>();
-        foreach(Door door in theDoorScript) {
+        foreach (Door door in theDoorScript)
+        {
             door.map = this;
         }
 
@@ -95,7 +103,7 @@ public class MapPresenter : MonoBehaviour
 
     public void SpawnBoss()
     {
-        
+
     }
 
     public Vector3 IndexToCoordinate(int index)
@@ -105,5 +113,14 @@ public class MapPresenter : MonoBehaviour
         Vector3 cooordinate = new(x, y, 0);
 
         return cooordinate;
+    }
+
+    public void PrintRoomList()
+    {
+        foreach (Room room in SpawnedRooms)
+        {
+            Debug.Log(room.ToString());
+
+        }
     }
 }

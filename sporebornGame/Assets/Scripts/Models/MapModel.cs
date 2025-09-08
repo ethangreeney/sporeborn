@@ -134,11 +134,6 @@ public class MapModel
 
     private void GenerateDungeon()
     {
-        // if (CellQueue.Count < MinRooms)
-        // {
-        //     return;
-        // }
-
         while (CellQueue.Count > 0)
         {
             int index = CellQueue.Dequeue();
@@ -211,10 +206,10 @@ public class MapModel
         BossRoom.RoomType = RoomType.Boss;
 
         Room ItemRoom = RoomList.First(room => room.Index == ItemRoomIndex);
-        ItemRoom.RoomType = RoomType.Boss;
+        ItemRoom.RoomType = RoomType.Item;
 
         Room ShopRoom = RoomList.First(room => room.Index == ShopRoomIndex);
-        ShopRoom.RoomType = RoomType.Boss;
+        ShopRoom.RoomType = RoomType.Shop;
         
     }
 
@@ -245,9 +240,9 @@ public class MapModel
         }
 
         // Fails if - Aleady a room at this cell || If neightbour has room || Fails to create a room 50% of the time
-        //  || GetNeighbourCellCount(index) > 1 
-        if (FloorPlan[index] == 1)
-        // || rng.NextDouble() < 0.5f
+        //  
+        if (FloorPlan[index] == 1 || GetNeighbourCellCount(index) > 1 || rng.NextDouble() < 0.5f)
+        // 
         {
             Debug.LogWarning("Room may be out of bounds - has a 50% failure");
             return false;
@@ -366,7 +361,7 @@ public class MapModel
             for (int col = 0; col < 10; col++)
             {
                 int index = row * 10 + col;
-                output += FloorPlan[index] == 1 ? "■ " : "0 ";
+                output += FloorPlan[index] == 1 ? "1 " : "0 ";
             }
             output += "\n";
         }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 
 public enum RoomShape
 {
@@ -25,7 +26,7 @@ public class Room
     // Cell Data fields
     public int Index { get; set; }
     public RoomType RoomType { get; set; }
-    public RoomShape RoomShape { get;  set; }
+    public RoomShape RoomShape { get; set; }
     public List<int> OccupiedIndexes { get; private set; }
 
     public Room(RoomData data)
@@ -35,4 +36,13 @@ public class Room
         RoomShape = data.RoomShape;
         OccupiedIndexes = new List<int>(data.RoomIndexes);
     }
+    
+    public override string ToString()
+    {
+        return $"Room FloorPlan Origin: {Index}\n" +
+           $"RoomType: {RoomType}\n" +
+           $"RoomShape: {RoomShape}\n" +
+           $"OccupiedIndexes: {string.Join(", ", OccupiedIndexes)}";
+    }
+        
 }

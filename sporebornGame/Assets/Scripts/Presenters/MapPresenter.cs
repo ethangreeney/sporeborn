@@ -7,7 +7,7 @@ public class MapPresenter : MonoBehaviour
 {
     private MapModel model;
 
-    private List<Cell> SpawnedCells;
+    private List<Room> SpawnedCells;
 
     [Header("Room Prefabs")]
     public List<GameObject> RoomPrefabs;
@@ -15,7 +15,7 @@ public class MapPresenter : MonoBehaviour
     [Header("Player")]
     GameObject Player;
 
-    public Cell CurrentPlayerRoom;
+    public Room CurrentPlayerRoom;
 
 
     void Start()
@@ -28,15 +28,15 @@ public class MapPresenter : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");
 
         // Gets the list of rooms
-        SpawnedCells = model.GetCellList;
+        SpawnedCells = model.GetRoomList;
 
         // Generates the first room
-        Cell StarterRoom = SpawnedCells.First(cell => cell.Index == model.GetStartingRoomIndex);
+        Room StarterRoom = SpawnedCells.First(room => room.Index == model.GetStartingRoomIndex);
         BuildRoom(StarterRoom, Vector3.zero, null);
     }
 
-    public bool IsThereARelativeSegment(Cell currentCell, int dx, int dy) {
-        int index = currentCell.Index;
+    public bool IsThereARelativeCell(Room CurrentRoom, int dx, int dy) {
+        int index = CurrentRoom.Index;
 
         int x = index % 10;
         int y = index / 10;
@@ -52,10 +52,10 @@ public class MapPresenter : MonoBehaviour
     }
 
     // Creates a new room and correctly positions the player
-    public void BuildRoom(Cell RoomCell, Vector3 PlayerSpawnPosition, Door EnterDoor)
+    public void BuildRoom(Room CurrentRoom, Vector3 PlayerSpawnPosition, Door EnterDoor)
     {
         // Place room
-        String RoomName = RoomCell.RoomShape + "_" + RoomCell.RoomType;
+        String RoomName = CurrentRoom.RoomShape + "_" + CurrentRoom.RoomType;
         GameObject CurrentRoomPrefab = null;
 
         foreach (GameObject prefab in RoomPrefabs)
@@ -85,7 +85,7 @@ public class MapPresenter : MonoBehaviour
         Player.transform.position = PlayerSpawnPosition;
 
         // Update the current room the players in to the one that was just initalised
-        CurrentPlayerRoom = RoomCell;
+        CurrentPlayerRoom = CurrentRoom;
     }
 
     public void SpawnEnemies()

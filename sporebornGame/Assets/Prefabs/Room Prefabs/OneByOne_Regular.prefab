@@ -5717,7 +5717,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7534987544359422961}
   m_Layer: 0
-  m_Name: OneByOne
+  m_Name: OneByOne_Regular
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

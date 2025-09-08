@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
+using UnityEngine;
 
 public class MapModel
 {
@@ -12,7 +14,7 @@ public class MapModel
 
     // Locations of each of the special type rooms
     public int BossRoomIndex, ItemRoomIndex, ShopRoomIndex;
-    
+
     // Location in floor plan the room generation starts from
     private const int StartingRoomIndex = 45;
     public int GetStartingRoomIndex => StartingRoomIndex;
@@ -25,8 +27,8 @@ public class MapModel
     private List<int> EndRooms;
     private List<int> LargeRoomIndexes;
 
-    private List<Cell> CellList;
-    public List<Cell> GetCellList => CellList;
+    private List<Room> RoomList;
+    public List<Room> GetRoomList => RoomList;
 
     private static readonly Dictionary<RoomShape, List<int[]>> RoomShapes = new()
     {
@@ -104,54 +106,67 @@ public class MapModel
         this.MinRooms = minRooms;
         this.MaxRooms = maxRooms;
         rng = new System.Random();
-        CellList = new List<Cell>();
-        CellQueue = new Queue<int>();
-        EndRooms = new List<int>();
-        LargeRoomIndexes = new List<int>();
-        FloorPlan = new int[100];
 
         // Automatically will create new Dungeon Layout
-        GenerateDungon();
+        SetupDungeon();
     }
 
-    public void GenerateDungon()
+    public void SetupDungeon()
     {
-        FloorPlan = new int[100];
-        ResetMapState(); // Clear previous map
-
+        // Initalises new/clears previous map
+        ResetMapState(); 
         // Generation will start from this point (centre)
         CheckValidCell(StartingRoomIndex);
         // Sets up new dungeon
-        SetupDungeon();
+        GenerateDungeon();
+        // Check if Floorplan has been generated
+        PrintFloorPlan();
     }
 
     private void ResetMapState()
     {
-        CellList.Clear();
-        CellQueue.Clear();
-        EndRooms.Clear();
-        LargeRoomIndexes.Clear();
+        RoomList = new List<Room>();
+        CellQueue = new Queue<int>();
+        EndRooms = new List<int>();
+        LargeRoomIndexes = new List<int>();
+        FloorPlan = new int[100];
     }
 
-    private void SetupDungeon()
+    private void GenerateDungeon()
     {
-        if (CellQueue.Count < MinRooms) {
-            return;
-        }
+        // if (CellQueue.Count < MinRooms)
+        // {
+        //     return;
+        // }
 
         while (CellQueue.Count > 0)
         {
             int index = CellQueue.Dequeue();
-            // If valid cell and has one neighbouring cell then it is an EndRoom
-            if (GetNeighbourCellCount(index) == 1)
-                EndRooms.Add(index);
+            // Calculates x coordinate of index
+            int x = index % 10;
+
+            bool NeighboursCreated = false;
+
+            // If created is already true then ignore the result of CheckValidCell
+            // Try to create rooms in four directions (left, right, up, down) using CheckValidCell()
+            // |= → true if either is true, false only if both false
+
+            if (x > 0) NeighboursCreated |= CheckValidCell(index - 1); // Checks left space
+            if (x < 9) NeighboursCreated |= CheckValidCell(index + 1); // Checks right space
+            if (index >= 10) NeighboursCreated |= CheckValidCell(index - 10); // Checks upwards space 
+            if (index < 90) NeighboursCreated |= CheckValidCell(index + 10); // Checks downwards space
+
+            // If no neighbours were created then it is an end room
+            if (!NeighboursCreated) { EndRooms.Add(index); }
+
         }
 
+        // After Generation Complete:
         // Loops through floor plan to find number of rooms that equal 1
-        int roomCount = FloorPlan.Count(c => c == 1);
+        int RoomCount = FloorPlan.Count(c => c == 1);
 
-        // Retry the generation if we don't meet the minRoom count
-        if (roomCount < MinRooms)
+        // Retry the generation if we don't meet the MinRoom count
+        if (RoomCount < MinRooms)
         {
             SetupDungeon();
             return;
@@ -163,52 +178,113 @@ public class MapModel
         SetupSpecialRooms();
     }
 
+    private void CleanEndRoomsList()
+    {
+        EndRooms.RemoveAll(item => LargeRoomIndexes.Contains(item) || GetNeighbourCellCount(item) > 1);
+    }
+
+    private int RandomEndRoom()
+    {
+        // Picks a random End Room returns -1 if there are no end rooms
+        return EndRooms.Count > 0 ? EndRooms[rng.Next(0, EndRooms.Count)] : -1;
+    }
+    
+    private void SetupSpecialRooms()
+    {
+        // BossRoom is assigned to the last EndRoom in the list
+        BossRoomIndex = EndRooms.Count > 0 ? EndRooms[EndRooms.Count - 1] : -1;
+
+        if (BossRoomIndex != -1)
+        {
+            EndRooms.RemoveAt(EndRooms.Count - 1);
+        }
+
+        ItemRoomIndex = RandomEndRoom();
+        ShopRoomIndex = RandomEndRoom();
+
+        // If any of the rooms fail then restart dungeon setup
+        if (ItemRoomIndex == -1 || ShopRoomIndex == -1 || BossRoomIndex == -1)
+            SetupDungeon();
+
+        // Set the correct room types
+        Room BossRoom = RoomList.First(room => room.Index == BossRoomIndex);
+        BossRoom.RoomType = RoomType.Boss;
+
+        Room ItemRoom = RoomList.First(room => room.Index == ItemRoomIndex);
+        ItemRoom.RoomType = RoomType.Boss;
+
+        Room ShopRoom = RoomList.First(room => room.Index == ShopRoomIndex);
+        ShopRoom.RoomType = RoomType.Boss;
+        
+    }
+
     private bool CheckValidCell(int index)
     {
-
+        Debug.Log("Function Called");
+        // Gurantees the starting room will generate
+        if (index == StartingRoomIndex)
+        {
+            Debug.Log("First room Added");
+            AddNewRoom(index, RoomShapes[RoomShape.OneByOne][0], RoomShape.OneByOne);
+            CellQueue.Enqueue(index);
+            return true;
+        }
+        Debug.Log("CheckValidCell Continues");
         // Out of bounds of the map array
-        if (index > FloorPlan.Length || index < 0) {
+        if (index >= FloorPlan.Length || index < 0)
+        {
             Debug.LogWarning("The cell is out of bounds");
             return false;
         }
 
         // Greater than max room num - so can't create any more rooms
-        if (FloorPlan.Length > MaxRooms) {
+        if (FloorPlan.Count(c => c == 1) >= MaxRooms)
+        {
             Debug.LogWarning("There are too many rooms");
-            return false;
-            }
-
-        // Fails if - Aleady a room at this cell || If neightbour has room || Fails to create a room 50% of the time
-        if (FloorPlan[index] == 1 || GetNeighbourCellCount(index) > 1 || rng.NextDouble() < 0.5f) {
-            Debug.LogWarning("Room may be out of bounds");
             return false;
         }
 
+        // Fails if - Aleady a room at this cell || If neightbour has room || Fails to create a room 50% of the time
+        //  || GetNeighbourCellCount(index) > 1 
+        if (FloorPlan[index] == 1)
+        // || rng.NextDouble() < 0.5f
+        {
+            Debug.LogWarning("Room may be out of bounds - has a 50% failure");
+            return false;
+        }
+
+        Debug.Log("Gets to check for large room in CheckValidCell()");
         // 30% chance to try and place a large room
         if (rng.NextDouble() < 0.3f)
         {
             // Randomly chooses the order that a shape will try and be placed
-            foreach(RoomShape shape in RoomShapes.Keys.OrderBy(_ => rng.NextDouble()))
+            foreach (RoomShape shape in RoomShapes.Keys.OrderBy(_ => rng.NextDouble()))
             {
+                // Checks each possible rotation of the large room
                 foreach (int[] shapeOffsets in RoomShapes[shape])
                 {
                     if (CanPlaceLargeRoom(index, shapeOffsets)) // If can place a large room variant
                     {
                         // New large rooom
                         AddNewRoom(index, shapeOffsets, shape);
+                        CellQueue.Enqueue(index);
                         return true;
                     }
                 }
             }
         }
 
+        // If it can't generate make large room it generates a OneByOne
         int[] onebyoneConfig = RoomShapes[RoomShape.OneByOne][0];
         AddNewRoom(index, onebyoneConfig, RoomShape.OneByOne);
+        CellQueue.Enqueue(index);
+
         return true;
     }
 
     private bool CanPlaceLargeRoom(int index, int[] offsetsForShape)
     {
+        Debug.Log("Trys to place large room");
         List<int> currentRoomIndexes = new List<int>() { index };
         int roomOriginIndex;
 
@@ -226,7 +302,6 @@ public class MapModel
             // Prevent horizontal out of bounds
             int indexRow = index / 10;
             int targetRow = roomOriginIndex / 10;
-
             if (Math.Abs(offset) == 1 && targetRow != indexRow)
             {
                 return false; // Can't place this room
@@ -251,17 +326,14 @@ public class MapModel
     {
         // Origin is marked as occupied
         FloorPlan[index] = 1;
-        // Mark surrounding spacing as occupied - based on room shape
+        // Mark surrounding spacing as occupied on FloorPlan- based on room shape offsets
         foreach (int idx in roomIndexes)
-            FloorPlan[idx] = 1;
-
-        // Adds to the cell queue
-        CellQueue.Enqueue(index);
-
+            FloorPlan[index+idx] = 1;
+        
         // Figure out what shape the room is and assign initial type
         // By default every room is regular type
-        Cell newCell = new Cell(new CellData(index, roomIndexes, RoomType.Regular, shape));
-        CellList.Add(newCell);
+        Room newRoom = new Room(new RoomData(index, roomIndexes, RoomType.Regular, shape));
+        RoomList.Add(newRoom);
     }
 
     private int GetNeighbourCellCount(int index)
@@ -285,38 +357,19 @@ public class MapModel
 
         return count;
     }
-
-    private void CleanEndRoomsList()
+    
+    private void PrintFloorPlan()
     {
-        EndRooms.RemoveAll(item => LargeRoomIndexes.Contains(item) || GetNeighbourCellCount(item) > 1);
-    }
-
-    private void SetupSpecialRooms()
-    {
-        // BossRoom is assigned to the last EndRoom in the list
-        BossRoomIndex = EndRooms.Count > 0 ? EndRooms[EndRooms.Count - 1] : -1;
-
-        if (BossRoomIndex != -1)
+        string output = "";
+        for (int row = 0; row < 10; row++)
         {
-            EndRooms.RemoveAt(EndRooms.Count - 1);
+            for (int col = 0; col < 10; col++)
+            {
+                int index = row * 10 + col;
+                output += FloorPlan[index] == 1 ? "■ " : "0 ";
+            }
+            output += "\n";
         }
-
-        ItemRoomIndex = RandomEndRoom();
-        ShopRoomIndex = RandomEndRoom();
-
-        // If any of the rooms fail then restart dungeon setup
-        if (ItemRoomIndex == -1 || ShopRoomIndex == -1 || BossRoomIndex == -1)
-            SetupDungeon();
-
-        // Set the correct room types
-        CellList[BossRoomIndex].RoomType = RoomType.Boss;
-        CellList[ItemRoomIndex].RoomType = RoomType.Item;
-        CellList[ShopRoomIndex].RoomType = RoomType.Shop;
-    }
-
-    private int RandomEndRoom()
-    {
-        // Picks a random End Room returns -1 if there are no end rooms
-        return EndRooms.Count > 0 ? EndRooms[rng.Next(0, EndRooms.Count)] : -1;
+        Debug.Log(output);
     }
 }

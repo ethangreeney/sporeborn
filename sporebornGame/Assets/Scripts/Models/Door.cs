@@ -6,7 +6,7 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     [HideInInspector]
-    public Cell ConnectingCell;
+    public Room ConnectingRoom;
     [HideInInspector]
     public int AdjacentIndex;
     [HideInInspector]
@@ -26,8 +26,7 @@ public class Door : MonoBehaviour
 
     void Start()
     {
-
-        ConnectingCell = FindAdjacentRoom();
+        ConnectingRoom = FindAdjacentRoom();
         InitaliseDoor();
     }
 
@@ -38,7 +37,7 @@ public class Door : MonoBehaviour
     public void InitaliseDoor()
     {
         // Toggles/Door on or off
-        if (ConnectingCell == null) {
+        if (ConnectingRoom == null) {
             gameObject.SetActive(false);
         }
 
@@ -55,13 +54,13 @@ public class Door : MonoBehaviour
             return;
         }
 
-        map.BuildRoom(ConnectingCell, this.transform.position, this);
+        map.BuildRoom(ConnectingRoom, this.transform.position, this);
     }
 
-    public Cell FindAdjacentRoom()
+    public Room FindAdjacentRoom()
     {
         // Only adds to adjacent rooms if they are not part of the same room
-        Cell currentRoom = map.CurrentPlayerRoom;
+        Room currentRoom = map.CurrentPlayerRoom;
 
         int relativeDoorX = RelativeDoorPosition[0];
         int relativeDoorY = RelativeDoorPosition[1];
@@ -70,7 +69,7 @@ public class Door : MonoBehaviour
         switch (CurrentDoorType) {
             // Up Check
             case DoorType.North:
-                if (map.IsThereARelativeSegment(
+                if (map.IsThereARelativeCell(
                     currentRoom, relativeDoorX, relativeDoorY - 1
                 ) == false) {
                     return null;
@@ -78,7 +77,7 @@ public class Door : MonoBehaviour
                 break;
             // Down Check
             case DoorType.South:
-                if (map.IsThereARelativeSegment(
+                if (map.IsThereARelativeCell(
                     currentRoom, relativeDoorX, relativeDoorY + 1
                 ) == false) {
                     return null;
@@ -86,7 +85,7 @@ public class Door : MonoBehaviour
                 break;
             // Left Check
             case DoorType.East:
-                if (map.IsThereARelativeSegment(
+                if (map.IsThereARelativeCell(
                     currentRoom, relativeDoorX - 1, relativeDoorY
                 ) == false) {
                     return null;
@@ -95,7 +94,7 @@ public class Door : MonoBehaviour
 
             // Right Check
             case DoorType.West:
-                if (map.IsThereARelativeSegment(
+                if (map.IsThereARelativeCell(
                     currentRoom, relativeDoorX, relativeDoorY + 1
                 ) == false) {
                     return null;

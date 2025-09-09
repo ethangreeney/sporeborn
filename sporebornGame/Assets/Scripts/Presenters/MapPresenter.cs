@@ -37,11 +37,13 @@ public class MapPresenter : MonoBehaviour
         PrintRoomList();
 
         // Generates the first room
-        Room StarterRoom = SpawnedRooms.First(room => room.Index == model.GetStartingRoomIndex);
+        Room StarterRoom = FindRoom(model.GetStartingRoomIndex);
         BuildRoom(StarterRoom, Vector3.zero, null);
     }
 
-    public bool IsThereARelativeCell(Room CurrentRoom, int dx, int dy)
+    // A cell is a like several 1x1 areas that make up large rooms
+    // E.g. OneByOne has 1 cell but L shapes have 3
+    public bool ValidCellNeighbour(Room CurrentRoom, int dx, int dy)
     {
         int index = CurrentRoom.Index;
 
@@ -50,12 +52,20 @@ public class MapPresenter : MonoBehaviour
 
         int newX = x + dx;
         int newY = y + dy;
-
+        
+        // Index is out of bounds
         if (newX < 0 || newX >= 10) return false;
         if (newY < 0 || newY >= 10) return false;
 
-        // Figure out the new cell index
-        return model.GetFloorPlan[index] == 1;
+        int newIndex = newY * 10 + newX;
+
+        // Can't be an adjacent neighbour if within the same room
+        if (CurrentRoom.OccupiedIndexes.Contains(newIndex))
+        {
+            return false;
+        }
+        // Returns true if there is a room there
+        return model.GetFloorPlan[newIndex] == 1;
     }
 
     // Creates a new room and correctly positions the player
@@ -113,6 +123,11 @@ public class MapPresenter : MonoBehaviour
         Vector3 cooordinate = new(x, y, 0);
 
         return cooordinate;
+    }
+
+    public Room FindRoom(int index)
+    {
+        return SpawnedRooms.First(room => room.Index == index);
     }
 
     public void PrintRoomList()

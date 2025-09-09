@@ -60,49 +60,59 @@ public class Door : MonoBehaviour
     public Room FindAdjacentRoom()
     {
         // Only adds to adjacent rooms if they are not part of the same room
-        Room currentRoom = map.CurrentPlayerRoom;
+        Room CurrentRoom = map.CurrentPlayerRoom;
+        Room ConnectingRoom = null;
 
         int relativeDoorX = RelativeDoorPosition[0];
         int relativeDoorY = RelativeDoorPosition[1];
 
         // Stop the code if the door doesn't exist
-        switch (CurrentDoorType) {
+        switch (CurrentDoorType)
+        {
             // Up Check
             case DoorType.North:
-                if (map.IsThereARelativeCell(
-                    currentRoom, relativeDoorX, relativeDoorY - 1
-                ) == false) {
+                if (map.ValidCellNeighbour(
+                    CurrentRoom, relativeDoorX, relativeDoorY - 1
+                ) == false)
+                {
                     return null;
                 }
+                ConnectingRoom = map.FindRoom(CurrentRoom.Index - 10);
                 break;
             // Down Check
             case DoorType.South:
-                if (map.IsThereARelativeCell(
-                    currentRoom, relativeDoorX, relativeDoorY + 1
-                ) == false) {
+                if (map.ValidCellNeighbour(
+                    CurrentRoom, relativeDoorX, relativeDoorY + 1
+                ) == false)
+                {
                     return null;
                 }
+                ConnectingRoom = map.FindRoom(CurrentRoom.Index + 10);
                 break;
             // Left Check
             case DoorType.East:
-                if (map.IsThereARelativeCell(
-                    currentRoom, relativeDoorX - 1, relativeDoorY
-                ) == false) {
+                if (map.ValidCellNeighbour(
+                    CurrentRoom, relativeDoorX - 1, relativeDoorY
+                ) == false)
+                {
                     return null;
                 }
+                ConnectingRoom = map.FindRoom(CurrentRoom.Index - 1);
                 break;
 
             // Right Check
             case DoorType.West:
-                if (map.IsThereARelativeCell(
-                    currentRoom, relativeDoorX, relativeDoorY + 1
-                ) == false) {
+                if (map.ValidCellNeighbour(
+                    CurrentRoom, relativeDoorX, relativeDoorY + 1
+                ) == false)
+                {
                     return null;
                 }
+                ConnectingRoom = map.FindRoom(CurrentRoom.Index + 1);
                 break;
         }
 
-        return default;
+        return ConnectingRoom;
     }
 
     public Vector3 GetPositionDoor(){

@@ -317,6 +317,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoomPrefabs:
   - {fileID: 6555030751879160380, guid: 974b6726b5ed3b846ab67dcb4ad828b5, type: 3}
+  - {fileID: 3307254647003736438, guid: f04b7adac60674749af52f0699da6ff6, type: 3}
+  - {fileID: 4236675866172990243, guid: 425b0d70f62fd4942b57f45de2be8966, type: 3}
+  - {fileID: 3750335054585987213, guid: e457780be9a34424bae554c9d6fde26c, type: 3}
+  - {fileID: 8503718583239811766, guid: 768dd597a10dbd940be05895f5c68b7a, type: 3}
+  - {fileID: 8661125786815477503, guid: f74873275656faa4e8b431bafcf5c9ff, type: 3}
+  - {fileID: 7802920785248921919, guid: 9ce4bdc4f5ec1e34882f44ecce84b8b3, type: 3}
+  - {fileID: 6824584712928400753, guid: 2923cc72a4fbfe64e9059ffa8f75e02f, type: 3}
+  - {fileID: 6824584712928400753, guid: 2923cc72a4fbfe64e9059ffa8f75e02f, type: 3}
+  - {fileID: 6555030751879160380, guid: 7efd3498c3319ee4cb6c3ac6a7353cc4, type: 3}
+  - {fileID: 6555030751879160380, guid: 7a951d2b2c12ea440a82d61eddd95e30, type: 3}
+  - {fileID: 6555030751879160380, guid: 7967cc82eac5ff54aae1c6422c732cb2, type: 3}
 --- !u!1001 &1609643632
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -325,6 +336,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4917702914437202686, guid: 985bf7f10796b4c3d9264cf3a36d51b1, type: 3}
+      propertyPath: m_Color.b
+      value: 0.35748598
+      objectReference: {fileID: 0}
+    - target: {fileID: 4917702914437202686, guid: 985bf7f10796b4c3d9264cf3a36d51b1, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4917702914437202686, guid: 985bf7f10796b4c3d9264cf3a36d51b1, type: 3}
+      propertyPath: m_Color.r
+      value: 0.34528297
+      objectReference: {fileID: 0}
     - target: {fileID: 4917702914437202686, guid: 985bf7f10796b4c3d9264cf3a36d51b1, type: 3}
       propertyPath: m_SortingLayer
       value: 4

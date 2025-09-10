@@ -13,9 +13,13 @@ public class MapPresenter : MonoBehaviour
     public List<GameObject> RoomPrefabs;
 
     [Header("Player")]
-    GameObject Player;
+    public GameObject Player;
+
+    private Vector3 SpawnLocation;
 
     public Room CurrentPlayerRoom;
+    private GameObject ActiveRoomInstance;
+    private GameObject CurrentRoomPrefab;
 
 
     void Start()
@@ -24,9 +28,6 @@ public class MapPresenter : MonoBehaviour
         // Generates first level map
         model = new MapModel(10, 20);
 
-        // Get the player
-        Player = GameObject.FindGameObjectWithTag("Player");
-
         // Gets the list of rooms
         SpawnedRooms = model.GetRoomList;
         if (SpawnedRooms.Count == 0)
@@ -34,11 +35,17 @@ public class MapPresenter : MonoBehaviour
             Debug.LogWarning("Room List is empty");
         }
         // Debug Check of Rooms
-        PrintRoomList();
+        // PrintRoomList();
 
         // Generates the first room
         Room StarterRoom = FindRoom(model.GetStartingRoomIndex);
-        BuildRoom(StarterRoom, Vector3.zero, null);
+
+        // Location for centre of the OneByOne Room
+        Player.transform.SetParent(null); // temp
+        SpawnLocation = new Vector3(8, 8, 0);
+
+        // Build the starter room
+        BuildRoom(StarterRoom, SpawnLocation, null);
     }
 
     // A cell is a like several 1x1 areas that make up large rooms
@@ -71,10 +78,18 @@ public class MapPresenter : MonoBehaviour
     // Creates a new room and correctly positions the player
     public void BuildRoom(Room CurrentRoom, Vector3 PlayerSpawnPosition, Door EnterDoor)
     {
+        // Player location will be based on the door they enter from
+        Player.transform.position = PlayerSpawnPosition;
+
+        // Destroy the previous Room
+        if (ActiveRoomInstance != null)
+        {
+            Destroy(ActiveRoomInstance);
+        }
+        
         // Place room
         String RoomName = CurrentRoom.RoomShape + "_" + CurrentRoom.RoomType;
-        GameObject CurrentRoomPrefab = null;
-
+        // Find the correct room Prefab
         foreach (GameObject prefab in RoomPrefabs)
         {
             if (prefab.name == RoomName)
@@ -83,27 +98,61 @@ public class MapPresenter : MonoBehaviour
                 break;
             }
         }
+        if (CurrentRoomPrefab == null)
+        {
+            Debug.Log("BuildRoom(): Current Room Name Cannot be found");
+            return;
+        }
 
-        // Spawns in room from prefab
-        GameObject RoomInstance = Instantiate(CurrentRoomPrefab, PlayerSpawnPosition, Quaternion.identity);
+        // Instantiates the room and Aligns the room to the bottom left
+        ActiveRoomInstance = SpawnRoomBottomLeft(CurrentRoomPrefab, Vector3.zero);
 
-        Door[] theDoorScript = RoomInstance.GetComponentsInChildren<Door>();
+        Door[] theDoorScript = ActiveRoomInstance.GetComponentsInChildren<Door>();
         foreach (Door door in theDoorScript)
         {
             door.map = this;
         }
 
         // Doesn't need offset as if it is the first room
-        if (PlayerSpawnPosition != Vector3.zero)
+        // if (PlayerSpawnPosition != Vector3.zero)
+        // {
+        //     // TODO: Calculate offset baseed on EnterDoor
+        // }
+
+        
+        
+
+        // Update the current room 
+        CurrentPlayerRoom = CurrentRoom;
+    }
+
+    public GameObject SpawnRoomBottomLeft(GameObject RoomPrefab, Vector3 RoomPosition)
+    {
+        // Instantiate the room first
+        GameObject instance = Instantiate(RoomPrefab, RoomPosition, Quaternion.identity);
+
+        // Get the bounds from the Renderers
+        Renderer[] RoomRenderers = instance.GetComponentsInChildren<Renderer>();
+
+        if (RoomRenderers.Length == 0)
         {
-            // we'll figure this out later
+            Debug.LogWarning("No renderers found on prefab: " + RoomPrefab.name);
         }
 
-        // Player location will be based on the door they enter from
-        Player.transform.position = PlayerSpawnPosition;
+        // Encapsulate the room into one bounding box
+        Bounds bounds = RoomRenderers[0].bounds;
+        foreach (Renderer r in RoomRenderers)
+        {
+            bounds.Encapsulate(r.bounds);
+        }
 
-        // Update the current room the players in to the one that was just initalised
-        CurrentPlayerRoom = CurrentRoom;
+        // Work out the bottom-left corner from rooms pivot
+        Vector3 RoomOffset = bounds.min - instance.transform.position;
+
+        // Move the room so that bottom-left is at 0,0,0
+        instance.transform.position -= RoomOffset;
+
+        return instance;
     }
 
     public void SpawnEnemies()
@@ -126,7 +175,7 @@ public class MapPresenter : MonoBehaviour
     }
 
     public Room FindRoom(int index)
-    {
+    {        
         return SpawnedRooms.First(room => room.Index == index);
     }
 

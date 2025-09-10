@@ -22,7 +22,7 @@ public class Door : MonoBehaviour
 
     // Manually Set Per Door
     public DoorType CurrentDoorType;
-    public int[] RelativeDoorPosition = {0, 0};
+    public int[] RelativeDoorPosition = { 0, 0 };
 
     void Start()
     {
@@ -30,14 +30,16 @@ public class Door : MonoBehaviour
         InitaliseDoor();
     }
 
-    public Door GetDoor() {
+    public Door GetDoor()
+    {
         return this;
     }
 
     public void InitaliseDoor()
     {
         // Toggles/Door on or off
-        if (ConnectingRoom == null) {
+        if (ConnectingRoom == null)
+        {
             gameObject.SetActive(false);
         }
 
@@ -46,14 +48,15 @@ public class Door : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // Get Player here
-        GameObject Player = GameObject.FindGameObjectWithTag("Player");
+        // GameObject Player = GameObject.FindGameObjectWithTag("Player");
 
         // If player collides with door then Build the next room 
         // Pass through the cell and this doors position
-        if (!Player) {
+        if (collision.gameObject != map.Player)
+        {
             return;
         }
-
+        // Build next room 
         map.BuildRoom(ConnectingRoom, this.transform.position, this);
     }
 
@@ -103,7 +106,7 @@ public class Door : MonoBehaviour
             // Right Check
             case DoorType.West:
                 if (map.ValidCellNeighbour(
-                    CurrentRoom, relativeDoorX, relativeDoorY + 1
+                    CurrentRoom, relativeDoorX + 1, relativeDoorY 
                 ) == false)
                 {
                     return null;
@@ -115,9 +118,8 @@ public class Door : MonoBehaviour
         return ConnectingRoom;
     }
 
-    public Vector3 GetPositionDoor(){
+    public Vector3 GetPositionDoor()
+    {
         return this.transform.position;
     }
-
-
 }

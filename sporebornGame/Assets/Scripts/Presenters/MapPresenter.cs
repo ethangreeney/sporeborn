@@ -15,6 +15,15 @@ public class MapPresenter : MonoBehaviour
     [Header("Player")]
     public GameObject Player;
 
+    [Header("GridSize")]
+    public int GRID_SIDE = 10;
+
+    [Header("Number of Rooms")]
+    public int MINROOMS = 10;
+    public int MAXROOMS = 20;
+
+    private int PixelsPerUnit = 16;
+
     private Vector3 SpawnLocation;
 
     public Room CurrentPlayerRoom;
@@ -24,9 +33,8 @@ public class MapPresenter : MonoBehaviour
 
     void Start()
     {
-
         // Generates first level map
-        model = new MapModel(10, 20);
+        model = new MapModel(MINROOMS, MAXROOMS);
 
         // Gets the list of rooms
         SpawnedRooms = model.GetRoomList;
@@ -54,17 +62,17 @@ public class MapPresenter : MonoBehaviour
     {
         int index = CurrentRoom.Index;
 
-        int x = index % 10;
-        int y = index / 10;
+        int x = index % GRID_SIDE;
+        int y = index / GRID_SIDE;
 
         int newX = x + dx;
         int newY = y + dy;
         
         // Index is out of bounds
-        if (newX < 0 || newX >= 10) return false;
-        if (newY < 0 || newY >= 10) return false;
+        if (newX < 0 || newX >= GRID_SIDE) return false;
+        if (newY < 0 || newY >= GRID_SIDE) return false;
 
-        int newIndex = newY * 10 + newX;
+        int newIndex = newY * GRID_SIDE + newX;
 
         // Can't be an adjacent neighbour if within the same room
         if (CurrentRoom.OccupiedIndexes.Contains(newIndex))
@@ -78,9 +86,7 @@ public class MapPresenter : MonoBehaviour
     // Creates a new room and correctly positions the player
     public void BuildRoom(Room CurrentRoom, Vector3 PlayerSpawnPosition, Door EnterDoor)
     {
-        // Player location will be based on the door they enter from
-        Player.transform.position = PlayerSpawnPosition;
-
+        
         // Destroy the previous Room
         if (ActiveRoomInstance != null)
         {
@@ -114,16 +120,60 @@ public class MapPresenter : MonoBehaviour
         }
 
         // Doesn't need offset as if it is the first room
-        // if (PlayerSpawnPosition != Vector3.zero)
-        // {
-        //     // TODO: Calculate offset baseed on EnterDoor
-        // }
+        if (PlayerSpawnPosition != SpawnLocation)
+        {
+            // TODO: Calculate offset baseed on EnterDoor
+            PlayerSpawnPosition = CalculateSpawnOffset(EnterDoor);
+        }
 
-        
-        
+        // Player location will be based on the door they enter from
+        Player.transform.position = PlayerSpawnPosition;
 
         // Update the current room 
         CurrentPlayerRoom = CurrentRoom;
+    }
+
+    public Vector3 CalculateSpawnOffset(Door EnterDoor)
+    {
+        Vector3 PlayerOffsetFromDoor = Player.transform.position - EnterDoor.GetPositionDoor();
+
+        int CurrentRelativeDoorX = EnterDoor.RelativeDoorPosition[0];
+        int CurrentRelativeDoorY = EnterDoor.RelativeDoorPosition[1];
+
+        // Relative position of the player
+        Vector2 DoorCellPosition = new(CurrentRelativeDoorX, CurrentRelativeDoorY);
+
+        // Flips the relative position
+        switch (EnterDoor.CurrentDoorType)
+        {
+            case Door.DoorType.North:
+                // Flip to South relative cell
+                DoorCellPosition.y -= 1;
+                break;
+            case Door.DoorType.South:
+                // Flip to North relative cell
+                DoorCellPosition.y += 1;
+                break;
+            case Door.DoorType.East:
+                // Flip to West relative cell
+                DoorCellPosition.x += 1;
+                break;
+            case Door.DoorType.West:
+                // Flip to East relative cell
+                DoorCellPosition.x -= 1;
+                break;
+        }
+
+        Vector3 NewPlayerPosition = new Vector3
+        (
+            DoorCellPosition.x * PixelsPerUnit,
+            DoorCellPosition.y * PixelsPerUnit,
+            0
+        );
+
+        NewPlayerPosition += PlayerOffsetFromDoor;
+
+        return NewPlayerPosition;
     }
 
     public GameObject SpawnRoomBottomLeft(GameObject RoomPrefab, Vector3 RoomPosition)
@@ -175,8 +225,13 @@ public class MapPresenter : MonoBehaviour
     }
 
     public Room FindRoom(int index)
-    {        
-        return SpawnedRooms.First(room => room.Index == index);
+    {
+        Room room = SpawnedRooms.First(room => room.Index == index);
+        if (room == null)
+        {
+            Debug.LogWarning("Can't find room in MapModel");
+        }
+        return room; 
     }
 
     public void PrintRoomList()

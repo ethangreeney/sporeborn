@@ -215,40 +215,31 @@ public class MapModel
 
     private bool CheckValidCell(int index)
     {
-        Debug.Log("Function Called");
         // Gurantees the starting room will generate
         if (index == StartingRoomIndex)
         {
-            Debug.Log("First room Added");
             AddNewRoom(index, RoomShapes[RoomShape.OneByOne][0], RoomShape.OneByOne);
             CellQueue.Enqueue(index);
             return true;
         }
-        Debug.Log("CheckValidCell Continues");
         // Out of bounds of the map array
         if (index >= FloorPlan.Length || index < 0)
         {
-            Debug.LogWarning("The cell is out of bounds");
             return false;
         }
 
         // Greater than max room num - so can't create any more rooms
         if (FloorPlan.Count(c => c == 1) >= MaxRooms)
         {
-            Debug.LogWarning("There are too many rooms");
             return false;
         }
 
         // Fails if - Aleady a room at this cell || If neightbour has room || Fails to create a room 50% of the time
-        //  
         if (FloorPlan[index] == 1 || GetNeighbourCellCount(index) > 1 || rng.NextDouble() < 0.5f)
-        // 
         {
-            Debug.LogWarning("Room may be out of bounds - has a 50% failure");
             return false;
         }
 
-        Debug.Log("Gets to check for large room in CheckValidCell()");
         // 30% chance to try and place a large room
         if (rng.NextDouble() < 0.3f)
         {
@@ -279,7 +270,6 @@ public class MapModel
 
     private bool CanPlaceLargeRoom(int index, int[] offsetsForShape)
     {
-        Debug.Log("Trys to place large room");
         List<int> currentRoomIndexes = new List<int>() { index };
         int roomOriginIndex;
 

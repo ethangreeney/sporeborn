@@ -38,17 +38,8 @@ public class MapDebugger : MonoBehaviour
                 int row = idx / 10;
                 int col = idx % 10;
                 Vector3 pos = new Vector3(col * CellSize, -row * CellSize, 0);
-
-                // Slightly scale based on shape
-                // float scale = room.RoomShape switch
-                // {
-                //     RoomShape.TwoByTwo => 1.2f,
-                //     RoomShape.OneByTwo => 1.1f,
-                //     RoomShape.TwoByOne => 1.1f,
-                //     _ => 1.0f
-                // };
                 
-                Gizmos.DrawCube(pos, Vector3.one * CellSize * scale);
+                Gizmos.DrawCube(pos, Vector3.one * CellSize);
             }
         }
     }

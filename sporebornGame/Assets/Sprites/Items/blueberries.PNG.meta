@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 61831276d963c324f9f767740128280d
+guid: 5e7c3d8be6c1b8c4fac3d369a006e011
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3400965640745486991
-    second: homing_bullets_0
+      213: 4884007723737282446
+    second: blueberries_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: homing_bullets_0
+      name: blueberries_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 4
-        width: 32
-        height: 28
+        x: 8
+        y: 17
+        width: 224
+        height: 224
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f8a81fd2b38a23f20800000000000000
-      internalID: 3400965640745486991
+      spriteID: e87ff9de52b77c340800000000000000
+      internalID: 4884007723737282446
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      homing_bullets_0: 3400965640745486991
+      blueberries_0: 4884007723737282446
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

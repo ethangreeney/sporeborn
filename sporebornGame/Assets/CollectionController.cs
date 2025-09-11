@@ -21,6 +21,18 @@ public class CollectionController : MonoBehaviour
     public float bulletSpeedChange;
     public float bulletDamageChange;
     public float projectileSizeChange;
+    public float damageBonus = 0f; // e.g., 0.5 = +50% damage
+
+
+
+    [Header("Projectile Type Settings")]
+    public bool homingEnabled = false;
+    public float homingStrength; // how fast bullets turn toward targets
+    public int extraProjectiles = 0;      // e.g., Triple Shot = 2 extra
+    public float extraSpreadAngle = 0f;   // spread per bullet
+    public bool rubberEnabled = false;
+    public int rubberBounces; // how many times bullets bounce off walls
+
 
 
     private void Start()
@@ -85,6 +97,7 @@ public class CollectionController : MonoBehaviour
                     shooting.projectileDamage = 1f;
             }
 
+            // Bullet Size
             if (projectileSizeChange != 0)
             {
                 shooting.projectileSize += projectileSizeChange;
@@ -93,6 +106,46 @@ public class CollectionController : MonoBehaviour
                 if (shooting.projectileSize < 0.1f)
                     shooting.projectileSize = 0.1f;
             }
+
+            // Homing
+            if (homingEnabled)
+            {
+                shooting.homingEnabled = true;
+                shooting.homingStrength = homingStrength;
+                consumed = true;
+            }
+
+            // Extra Projectiles
+            if (extraProjectiles != 0)
+            {
+                shooting.projectileCount += extraProjectiles;
+                if (shooting.projectileCount < 1)
+                    shooting.projectileCount = 1; // safety
+                consumed = true;
+            }
+
+            // Extra Spread Angle (per bullet)
+            if (extraSpreadAngle != 0)
+            {
+                shooting.spreadAngle += extraSpreadAngle;
+                consumed = true;
+            }
+
+            // Damage Bonus (e.g., 0.5 = +50%)
+            if (damageBonus != 0)
+            {
+                shooting.damageBonus += damageBonus;
+                consumed = true;
+            }
+
+            // Rubber Bullets
+            if (rubberEnabled)
+            {
+                shooting.rubberEnabled = true;
+                shooting.bounceCount = rubberBounces;
+                consumed = true;
+            }
+
         }
 
         // If item was actually applied

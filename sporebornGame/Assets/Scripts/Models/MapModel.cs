@@ -29,7 +29,7 @@ public class MapModel
     private List<Room> RoomList;
     public List<Room> GetRoomList => RoomList;
 
-    private static readonly Dictionary<RoomShape, List<int[]>> RoomShapes = new()
+    private static readonly Dictionary<RoomShape, List<int[]>> RoomShapesOffsets = new()
     {
         // Configurations for the large room types and variants of that room
         // Values to add/subtract to get the surrounding cells for room type
@@ -46,17 +46,18 @@ public class MapModel
             RoomShape.OneByTwo,
             new List<int[]>
             {
-                new int[]{ 1 },    // 1x2 - Origin on left 
-                new int[]{ -1 }    // 1x2 - Origin on right 
+                // new int[]{ 10 },   // 1x2 - Bottom  
+                new int[]{ -10 }   // 1x2 - Top
             }
         },
         {
             RoomShape.TwoByOne,
             new List<int[]>
             {
-                new int[]{ 10 },   // 2x1 - Bottom  
-                new int[]{ -10 }   // 2x1 - Top
+                new int[]{ 1 },    // 2x1 - Origin on left 
+                // new int[]{ -1 }    // 2x1 - Origin on right 
             }
+            
         },
         {
             RoomShape.TwoByTwo,
@@ -119,7 +120,7 @@ public class MapModel
         // Sets up new dungeon
         GenerateDungeon();
         // Check if Floorplan has been generated
-        PrintFloorPlan();
+        // PrintFloorPlan();
     }
 
     private void ResetMapState()
@@ -223,7 +224,7 @@ public class MapModel
         // Gurantees the starting room will generate
         if (index == StartingRoomIndex)
         {
-            AddNewRoom(index, RoomShapes[RoomShape.OneByOne][0], RoomShape.OneByOne);
+            AddNewRoom(index, RoomShapesOffsets[RoomShape.OneByOne][0], RoomShape.OneByOne);
             CellQueue.Enqueue(index);
             return true;
         }
@@ -249,10 +250,10 @@ public class MapModel
         if (rng.NextDouble() < 0.3f)
         {
             // Randomly chooses the order that a shape will try and be placed
-            foreach (RoomShape shape in RoomShapes.Keys.OrderBy(_ => rng.NextDouble()))
+            foreach (RoomShape shape in RoomShapesOffsets.Keys.OrderBy(_ => rng.NextDouble()))
             {
                 // Checks each possible rotation of the large room
-                foreach (int[] shapeOffsets in RoomShapes[shape])
+                foreach (int[] shapeOffsets in RoomShapesOffsets[shape])
                 {
                     if (CanPlaceLargeRoom(index, shapeOffsets)) // If can place a large room variant
                     {
@@ -266,7 +267,7 @@ public class MapModel
         }
 
         // If it can't generate make large room it generates a OneByOne
-        int[] onebyoneConfig = RoomShapes[RoomShape.OneByOne][0];
+        int[] onebyoneConfig = RoomShapesOffsets[RoomShape.OneByOne][0];
         AddNewRoom(index, onebyoneConfig, RoomShape.OneByOne);
         CellQueue.Enqueue(index);
 

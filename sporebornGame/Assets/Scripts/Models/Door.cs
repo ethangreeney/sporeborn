@@ -20,6 +20,14 @@ public class Door : MonoBehaviour
         West
     }
 
+    [HideInInspector]
+    public int[][] RelPosFromOrigin = {
+        new int[] {0, -6}, // Coming from North, entering from South
+        new int[] {-6, 0}, // Coming from East, entering from West
+        new int[] {0, 6}, // Coming from South, entering from North
+        new int[] {6, 0} // Coming from West, entering from East
+    };
+
     // Manually Set Per Door
     public DoorType CurrentDoorType;
     public int[] RelativeDoorPosition = { 0, 0 };
@@ -47,17 +55,14 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Get Player here
-        // GameObject Player = GameObject.FindGameObjectWithTag("Player");
-
         // If player collides with door then Build the next room 
         // Pass through the cell and this doors position
         if (collision.gameObject != map.Player)
         {
             return;
         }
-        // Build next room 
-        map.BuildRoom(ConnectingRoom, this.transform.position, this);
+        // Build next room
+        map.BuildRoom(ConnectingRoom, this);
     }
 
     public Room FindAdjacentRoom()
@@ -68,10 +73,9 @@ public class Door : MonoBehaviour
         int relativeDoorX = RelativeDoorPosition[0];
         int relativeDoorY = RelativeDoorPosition[1];
 
-        // Stop the code if the door doesn't exist
         switch (CurrentDoorType)
         {
-            // Up Check
+            // Up Checka
             case DoorType.North:
                 if (map.ValidCellNeighbour(
                     CurrentRoom, relativeDoorX, relativeDoorY - 1
@@ -81,6 +85,7 @@ public class Door : MonoBehaviour
                 }
                 AdjacentCellIndex = CurrentRoom.Index - 10;
                 return map.FindRoom(AdjacentCellIndex);
+
             // Down Check
             case DoorType.South:
                 if (map.ValidCellNeighbour(
@@ -91,10 +96,11 @@ public class Door : MonoBehaviour
                 }
                 AdjacentCellIndex = CurrentRoom.Index + 10;
                 return map.FindRoom(AdjacentCellIndex);
+
             // Left Check
-            case DoorType.East:
+            case DoorType.West:
                 if (map.ValidCellNeighbour(
-                    CurrentRoom, relativeDoorX - 1, relativeDoorY
+                    CurrentRoom, relativeDoorX - 1, relativeDoorY 
                 ) == false)
                 {
                     return null;
@@ -103,9 +109,9 @@ public class Door : MonoBehaviour
                 return map.FindRoom(AdjacentCellIndex);
 
             // Right Check
-            case DoorType.West:
+            case DoorType.East:
                 if (map.ValidCellNeighbour(
-                    CurrentRoom, relativeDoorX + 1, relativeDoorY 
+                    CurrentRoom, relativeDoorX + 1, relativeDoorY
                 ) == false)
                 {
                     return null;

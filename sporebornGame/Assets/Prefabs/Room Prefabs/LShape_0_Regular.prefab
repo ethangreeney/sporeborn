@@ -1464,7 +1464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0e4c34aa272124eb73c6c71d83ab68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AdjacentIndex: 0
+  AdjacentCellIndex: 0
   map: {fileID: 0}
   CurrentDoorType: 3
   RelativeDoorPosition: 0000000000000000
@@ -1691,7 +1691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0e4c34aa272124eb73c6c71d83ab68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AdjacentIndex: 0
+  AdjacentCellIndex: 0
   map: {fileID: 0}
   CurrentDoorType: 2
   RelativeDoorPosition: 0100000000000000
@@ -1907,7 +1907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0e4c34aa272124eb73c6c71d83ab68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AdjacentIndex: 0
+  AdjacentCellIndex: 0
   map: {fileID: 0}
   CurrentDoorType: 0
   RelativeDoorPosition: 0100000000000000
@@ -2134,7 +2134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0e4c34aa272124eb73c6c71d83ab68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AdjacentIndex: 0
+  AdjacentCellIndex: 0
   map: {fileID: 0}
   CurrentDoorType: 1
   RelativeDoorPosition: 0000000001000000
@@ -2361,7 +2361,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0e4c34aa272124eb73c6c71d83ab68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AdjacentIndex: 0
+  AdjacentCellIndex: 0
   map: {fileID: 0}
   CurrentDoorType: 3
   RelativeDoorPosition: 0000000001000000
@@ -2588,7 +2588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0e4c34aa272124eb73c6c71d83ab68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AdjacentIndex: 0
+  AdjacentCellIndex: 0
   map: {fileID: 0}
   CurrentDoorType: 2
   RelativeDoorPosition: 0000000000000000
@@ -2898,7 +2898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0e4c34aa272124eb73c6c71d83ab68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AdjacentIndex: 0
+  AdjacentCellIndex: 0
   map: {fileID: 0}
   CurrentDoorType: 0
   RelativeDoorPosition: 0000000001000000
@@ -11802,7 +11802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0e4c34aa272124eb73c6c71d83ab68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AdjacentIndex: 0
+  AdjacentCellIndex: 0
   map: {fileID: 0}
   CurrentDoorType: 1
   RelativeDoorPosition: 0100000000000000

@@ -32,8 +32,6 @@ public class MapPresenter : MonoBehaviour
     private GameObject ActiveRoomInstance;
     private GameObject CurrentRoomPrefab;
 
-    private Vector3 DefaultSpawnPosition = new (8.5f, 8.5f, 0);
-
 
     void Start()
     {
@@ -46,8 +44,8 @@ public class MapPresenter : MonoBehaviour
         {
             Debug.LogWarning("Room List is empty");
         }
-        // Debug Check of Rooms
-        // PrintRoomList();
+        
+        //
 
         // Generates the first room
         StarterRoom = FindRoom(model.GetStartingRoomIndex);
@@ -56,7 +54,14 @@ public class MapPresenter : MonoBehaviour
         Player.transform.SetParent(null); // temp
 
         // Build the starter room
-        BuildRoom(StarterRoom, DefaultSpawnPosition, null);
+        BuildRoom(StarterRoom, null);
+    }
+
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.R)) {
+            Start();
+        }
     }
 
     // A cell is a like several 1x1 areas that make up large rooms
@@ -70,7 +75,7 @@ public class MapPresenter : MonoBehaviour
 
         int newX = x + dx;
         int newY = y + dy;
-        
+
         // Index is out of bounds
         if (newX < 0 || newX >= GRID_SIDE) return false;
         if (newY < 0 || newY >= GRID_SIDE) return false;
@@ -87,9 +92,8 @@ public class MapPresenter : MonoBehaviour
     }
 
     // Creates a new room and correctly positions the player
-    public void BuildRoom(Room CurrentRoom, Vector3 PlayerSpawnPosition, Door EnterDoor)
-    {
-        
+    public void BuildRoom(Room RoomToSpawn, Door EnterDoor)
+    {   
         // Destroy the previous Room
         if (ActiveRoomInstance != null)
         {
@@ -97,7 +101,8 @@ public class MapPresenter : MonoBehaviour
         }
         
         // Place room
-        String RoomName = CurrentRoom.RoomShape + "_" + CurrentRoom.RoomType;
+        String RoomName = RoomToSpawn.RoomShape + "_" + RoomToSpawn.RoomType;
+
         // Find the correct room Prefab
         foreach (GameObject prefab in RoomPrefabs)
         {
@@ -114,10 +119,11 @@ public class MapPresenter : MonoBehaviour
         }
 
         // Update the current room variable
-        CurrentPlayerRoom = CurrentRoom;
+        CurrentPlayerRoom = RoomToSpawn;
 
+        Debug.Log(CurrentRoomPrefab.name);
         // Instantiates the room and Aligns the room to the bottom left
-        ActiveRoomInstance = SpawnRoomBottomLeft(CurrentRoomPrefab, Vector3.zero);
+        ActiveRoomInstance = Instantiate(CurrentRoomPrefab, Vector3.zero, Quaternion.identity);
 
         Door[] theDoorScript = ActiveRoomInstance.GetComponentsInChildren<Door>();
         foreach (Door door in theDoorScript)
@@ -125,10 +131,9 @@ public class MapPresenter : MonoBehaviour
             door.map = this;
         }
 
-        // Doesn't need offset on the starting room
-        if (PlayerSpawnPosition != DefaultSpawnPosition)
-        {
-            // TODO: Calculate offset baseed on EnterDoor
+        Vector3 PlayerSpawnPosition = Vector3.zero;
+        // If we are in starter room
+        if (EnterDoor != null) {
             PlayerSpawnPosition = CalculateSpawnOffset(EnterDoor);
         }
 
@@ -140,87 +145,21 @@ public class MapPresenter : MonoBehaviour
 
     public Vector3 CalculateSpawnOffset(Door EnterDoor)
     {
-        // Destination Room
-        Room NewRoom = EnterDoor.ConnectingRoom;
+        Vector3 NewPlayerPosition = Vector3.zero;
 
-        // Gets Index positon of New room
-        int AdjacentCellIndex = EnterDoor.AdjacentCellIndex;
+        // Get the relative doors position within the room and convert it to tile sizes
+        int CellToEnter = EnterDoor.AdjacentCellIndex;
+        int CellWeAreIn = EnterDoor.ConnectingRoom.Index;
 
-        Vector2 FlippedCurrentDoorRelPosition = new(EnterDoor.RelativeDoorPosition[0], EnterDoor.RelativeDoorPosition[1]);
+        Vector3 RelativeCoords = IndexToRelativeCoordinate(CellToEnter - CellWeAreIn);
 
+        // Gets the position within that tile
+        int[] CellOffset = EnterDoor.RelPosFromOrigin[(int)EnterDoor.CurrentDoorType];
 
-        switch (EnterDoor.CurrentDoorType)
-        {
-            case Door.DoorType.North:
-                FlippedCurrentDoorRelPosition.y *= -1;
-                break;
-            case Door.DoorType.South:
-                FlippedCurrentDoorRelPosition.y *= -1;
-                break;
-            case Door.DoorType.East:
-                FlippedCurrentDoorRelPosition.x *= -1;
-                break;
-            case Door.DoorType.West:
-                FlippedCurrentDoorRelPosition.x *= -1;
-                break;
-        }
-       
-        // Gets all doors in new room
-        Door[] NewRoomDoors = ActiveRoomInstance.GetComponentsInChildren<Door>(true);
+        NewPlayerPosition.x = (RelativeCoords.x * PixelsPerUnit);// + CellOffset[0];
+        NewPlayerPosition.y = (RelativeCoords.y * PixelsPerUnit);// + CellOffset[1];
 
-        Door CorrespondingNewDoor = null;
-
-        // This part doesn't work
-        foreach (Door door in NewRoomDoors)
-        {
-            float DoorGridIndex = NewRoom.Index + ((FlippedCurrentDoorRelPosition.x * GRID_SIDE) + (FlippedCurrentDoorRelPosition.y * GRID_SIDE));
-            // Finds the Adjacent door 
-            if (DoorGridIndex == AdjacentCellIndex)
-            {
-                CorrespondingNewDoor = door;
-                break;
-            }
-
-        }
-
-        if (CorrespondingNewDoor == null)
-        {
-            Debug.LogError("Could not find the corresponding door in the new room. AdjacentCellIndex: " + AdjacentCellIndex);
-            return DefaultSpawnPosition;
-        }
-
-        Vector3 PlayerOffsetFromOldDoor = Player.transform.position - EnterDoor.GetPositionDoor();
-        Vector3 NewPlayerPosition = CorrespondingNewDoor.transform.position + PlayerOffsetFromOldDoor;
         return NewPlayerPosition;
-    }
-
-    public GameObject SpawnRoomBottomLeft(GameObject RoomPrefab, Vector3 RoomPosition)
-    {
-        // Instantiate the room first
-        GameObject instance = Instantiate(RoomPrefab, RoomPosition, Quaternion.identity);
-
-        // Get the bounds from the Renderers
-        Renderer[] RoomRenderers = instance.GetComponentsInChildren<Renderer>();
-
-        if (RoomRenderers.Length == 0)
-        {
-            Debug.LogWarning("No renderers found on prefab: " + RoomPrefab.name);
-        }
-
-        // Encapsulate the room into one bounding box
-        Bounds bounds = RoomRenderers[0].bounds;
-        foreach (Renderer r in RoomRenderers)
-        {
-            bounds.Encapsulate(r.bounds);
-        }
-
-        // Work out the bottom-left corner from rooms pivot
-        Vector3 RoomOffset = bounds.min - instance.transform.position;
-
-        // Move the room so that bottom-left is at 0,0,0
-        instance.transform.position -= RoomOffset;
-
-        return instance;
     }
 
     public void SpawnEnemies()
@@ -260,6 +199,7 @@ public class MapPresenter : MonoBehaviour
         {
             Debug.LogWarning("Can't find room in MapModel");
         }
+
         return room;
     }
 

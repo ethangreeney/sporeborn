@@ -8,6 +8,7 @@ public class MapPresenter : MonoBehaviour
     private MapModel model;
 
     private List<Room> SpawnedRooms;
+    public List<Room> GetSpawnedRooms => SpawnedRooms;
 
     [Header("Room Prefabs")]
     public List<GameObject> RoomPrefabs;
@@ -23,6 +24,9 @@ public class MapPresenter : MonoBehaviour
     public int MAXROOMS = 20;
 
     private int PixelsPerUnit = 16;
+
+    private Room StarterRoom;
+    public Room GetStarterRoom => StarterRoom;
 
     public Room CurrentPlayerRoom;
     private GameObject ActiveRoomInstance;
@@ -46,7 +50,7 @@ public class MapPresenter : MonoBehaviour
         // PrintRoomList();
 
         // Generates the first room
-        Room StarterRoom = FindRoom(model.GetStartingRoomIndex);
+        StarterRoom = FindRoom(model.GetStartingRoomIndex);
 
         // Location for centre of the OneByOne Room
         Player.transform.SetParent(null); // temp
@@ -71,7 +75,7 @@ public class MapPresenter : MonoBehaviour
         if (newX < 0 || newX >= GRID_SIDE) return false;
         if (newY < 0 || newY >= GRID_SIDE) return false;
 
-        int newIndex = newY * GRID_SIDE + newX;
+        int newIndex = newY * GRID_SIDE + newX; // Coordinates to index
 
         // Can't be an adjacent neighbour if within the same room
         if (CurrentRoom.OccupiedIndexes.Contains(newIndex))
@@ -109,7 +113,7 @@ public class MapPresenter : MonoBehaviour
             return;
         }
 
-        // Update the current room 
+        // Update the current room variable
         CurrentPlayerRoom = CurrentRoom;
 
         // Instantiates the room and Aligns the room to the bottom left
@@ -142,35 +146,41 @@ public class MapPresenter : MonoBehaviour
         // Gets Index positon of New room
         int AdjacentCellIndex = EnterDoor.AdjacentCellIndex;
 
+        Vector2 FlippedCurrentDoorRelPosition = new(EnterDoor.RelativeDoorPosition[0], EnterDoor.RelativeDoorPosition[1]);
+
+
         switch (EnterDoor.CurrentDoorType)
         {
             case Door.DoorType.North:
-                AdjacentCellIndex -= GRID_SIDE; // Move south from the old door's position
+                FlippedCurrentDoorRelPosition.y *= -1;
                 break;
             case Door.DoorType.South:
-                AdjacentCellIndex += GRID_SIDE; // Move north from the old door's position
+                FlippedCurrentDoorRelPosition.y *= -1;
                 break;
             case Door.DoorType.East:
-                AdjacentCellIndex--; // Move west from the old door's position
+                FlippedCurrentDoorRelPosition.x *= -1;
                 break;
             case Door.DoorType.West:
-                AdjacentCellIndex++; // Move east from the old door's position
+                FlippedCurrentDoorRelPosition.x *= -1;
                 break;
         }
-
-        Door CorrespondingNewDoor = null;
+       
+        // Gets all doors in new room
         Door[] NewRoomDoors = ActiveRoomInstance.GetComponentsInChildren<Door>(true);
 
+        Door CorrespondingNewDoor = null;
+
+        // This part doesn't work
         foreach (Door door in NewRoomDoors)
         {
-            int DoorGridIndex = NewRoom.Index + door.RelativeDoorPosition[0] + (door.RelativeDoorPosition[1] * GRID_SIDE);
+            float DoorGridIndex = NewRoom.Index + ((FlippedCurrentDoorRelPosition.x * GRID_SIDE) + (FlippedCurrentDoorRelPosition.y * GRID_SIDE));
             // Finds the Adjacent door 
             if (DoorGridIndex == AdjacentCellIndex)
             {
                 CorrespondingNewDoor = door;
                 break;
             }
-            
+
         }
 
         if (CorrespondingNewDoor == null)

@@ -139,22 +139,19 @@ public class MapModel
             // Calculates x coordinate of index
             int x = index % 10;
 
-            bool NeighboursCreated = false;
-
-            // If created is already true then ignore the result of CheckValidCell
-            // Try to create rooms in four directions (left, right, up, down) using CheckValidCell()
-            // |= → true if either is true, false only if both false
-
-            if (x > 0) NeighboursCreated |= CheckValidCell(index - 1); // Checks left space
-            if (x < 9) NeighboursCreated |= CheckValidCell(index + 1); // Checks right space
-            if (index >= 10) NeighboursCreated |= CheckValidCell(index - 10); // Checks upwards space 
-            if (index < 90) NeighboursCreated |= CheckValidCell(index + 10); // Checks downwards space
+            if (x > 0) CheckValidCell(index - 1); // Checks left space
+            if (x < 9) CheckValidCell(index + 1); // Checks right space
+            if (index >= 10) CheckValidCell(index - 10); // Checks upwards space 
+            if (index < 90) CheckValidCell(index + 10); // Checks downwards space
 
             // If no neighbours were created then it is an end room
-            if (!NeighboursCreated && index != StartingRoomIndex) { EndRooms.Add(index); }
+            if (GetNeighbourCellCount(index) == 1 && index != StartingRoomIndex)
+            {
+                EndRooms.Add(index);
+            }
 
         }
-
+        
         // After Generation Complete:
         // Loops through floor plan to find number of rooms that equal 1
         int RoomCount = FloorPlan.Count(c => c == 1);
@@ -163,6 +160,13 @@ public class MapModel
         if (RoomCount < MinRooms)
         {
             SetupDungeon();
+            return;
+        }
+
+        // Regenerate if not enough end rooms to setup special room
+        if (EndRooms.Count <= 3)
+        {
+            SetupDungeon(); 
             return;
         }
 
@@ -182,7 +186,7 @@ public class MapModel
         // Picks a random End Room returns -1 if there are no end rooms
         return EndRooms.Count > 0 ? EndRooms[rng.Next(0, EndRooms.Count)] : -1;
     }
-    
+
     private void SetupSpecialRooms()
     {
         // BossRoom is assigned to the last EndRoom in the list
@@ -194,7 +198,9 @@ public class MapModel
         }
 
         ItemRoomIndex = RandomEndRoom();
+        EndRooms.Remove(ItemRoomIndex);
         ShopRoomIndex = RandomEndRoom();
+        EndRooms.Remove(ShopRoomIndex);
 
         // If any of the rooms fail then restart dungeon setup
         if (ItemRoomIndex == -1 || ShopRoomIndex == -1 || BossRoomIndex == -1)
@@ -203,10 +209,10 @@ public class MapModel
         // Set the correct room types
         Room BossRoom = RoomList.First(room => room.Index == BossRoomIndex);
         BossRoom.RoomType = RoomType.Boss;
-
+        
         Room ItemRoom = RoomList.First(room => room.Index == ItemRoomIndex);
         ItemRoom.RoomType = RoomType.Item;
-
+        
         Room ShopRoom = RoomList.First(room => room.Index == ShopRoomIndex);
         ShopRoom.RoomType = RoomType.Shop;
         

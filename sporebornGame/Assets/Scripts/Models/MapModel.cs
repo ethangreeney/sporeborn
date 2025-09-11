@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MapModel
@@ -152,7 +151,7 @@ public class MapModel
             if (index < 90) NeighboursCreated |= CheckValidCell(index + 10); // Checks downwards space
 
             // If no neighbours were created then it is an end room
-            if (!NeighboursCreated) { EndRooms.Add(index); }
+            if (!NeighboursCreated && index != StartingRoomIndex) { EndRooms.Add(index); }
 
         }
 

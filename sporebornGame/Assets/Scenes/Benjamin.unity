@@ -175,10 +175,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+    x: 0.002610966
+    y: 0.004640371
+    width: 0.9947781
+    height: 0.988399
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1702868155}
-  PixelsPerUnit: 16
+  offset: {x: 0, y: 0, z: -10}
 --- !u!114 &71830223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,10 +286,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ComponentVersion: 1
   m_AssetsPPU: 16
-  m_RefResolutionX: 160
-  m_RefResolutionY: 90
+  m_RefResolutionX: 192
+  m_RefResolutionY: 108
   m_CropFrame: 0
-  m_GridSnapping: 0
+  m_GridSnapping: 2
   m_FilterMode: 0
   m_UpscaleRT: 0
   m_PixelSnapping: 0

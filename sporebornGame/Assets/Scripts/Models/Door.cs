@@ -61,6 +61,8 @@ public class Door : MonoBehaviour
         {
             return;
         }
+        Debug.Log(AdjacentCellIndex);
+        Debug.Log(ConnectingRoom);
         // Build next room
         map.BuildRoom(ConnectingRoom, this);
     }

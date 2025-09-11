@@ -4,6 +4,7 @@ public class MapDebugger : MonoBehaviour
 {
     public MapPresenter mapPresenter; // Drag the component holding your map presenter here
     public float CellSize = 0.5f; // Size of each cell on minimap
+    public float YOffset = 5.0f;
 
     private void OnDrawGizmos()
     {
@@ -37,8 +38,8 @@ public class MapDebugger : MonoBehaviour
             {
                 int row = idx / 10;
                 int col = idx % 10;
-                Vector3 pos = new Vector3(col * CellSize, -row * CellSize, 0);
-                
+                Vector3 pos = new Vector3(col * CellSize, (-row * CellSize) - YOffset, 0);
+
                 Gizmos.DrawCube(pos, Vector3.one * CellSize);
             }
         }

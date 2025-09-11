@@ -156,8 +156,8 @@ public class MapPresenter : MonoBehaviour
         // Gets the position within that tile
         int[] CellOffset = EnterDoor.RelPosFromOrigin[(int)EnterDoor.CurrentDoorType];
 
-        NewPlayerPosition.x = (RelativeCoords.x * PixelsPerUnit);// + CellOffset[0];
-        NewPlayerPosition.y = (RelativeCoords.y * PixelsPerUnit);// + CellOffset[1];
+        NewPlayerPosition.x = RelativeCoords.x * PixelsPerUnit + CellOffset[0];
+        NewPlayerPosition.y = RelativeCoords.y * PixelsPerUnit + CellOffset[1];
 
         return NewPlayerPosition;
     }

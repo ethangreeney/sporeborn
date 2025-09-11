@@ -24,11 +24,11 @@ public class MapPresenter : MonoBehaviour
 
     private int PixelsPerUnit = 16;
 
-    private Vector3 SpawnLocation;
-
     public Room CurrentPlayerRoom;
     private GameObject ActiveRoomInstance;
     private GameObject CurrentRoomPrefab;
+
+    private Vector3 DefaultSpawnPosition = new (8.5f, 8.5f, 0);
 
 
     void Start()
@@ -50,10 +50,9 @@ public class MapPresenter : MonoBehaviour
 
         // Location for centre of the OneByOne Room
         Player.transform.SetParent(null); // temp
-        SpawnLocation = new Vector3(8, 8, 0);
 
         // Build the starter room
-        BuildRoom(StarterRoom, SpawnLocation, null);
+        BuildRoom(StarterRoom, DefaultSpawnPosition, null);
     }
 
     // A cell is a like several 1x1 areas that make up large rooms
@@ -110,6 +109,9 @@ public class MapPresenter : MonoBehaviour
             return;
         }
 
+        // Update the current room 
+        CurrentPlayerRoom = CurrentRoom;
+
         // Instantiates the room and Aligns the room to the bottom left
         ActiveRoomInstance = SpawnRoomBottomLeft(CurrentRoomPrefab, Vector3.zero);
 
@@ -119,8 +121,8 @@ public class MapPresenter : MonoBehaviour
             door.map = this;
         }
 
-        // Doesn't need offset as if it is the first room
-        if (PlayerSpawnPosition != SpawnLocation)
+        // Doesn't need offset on the starting room
+        if (PlayerSpawnPosition != DefaultSpawnPosition)
         {
             // TODO: Calculate offset baseed on EnterDoor
             PlayerSpawnPosition = CalculateSpawnOffset(EnterDoor);
@@ -129,50 +131,56 @@ public class MapPresenter : MonoBehaviour
         // Player location will be based on the door they enter from
         Player.transform.position = PlayerSpawnPosition;
 
-        // Update the current room 
-        CurrentPlayerRoom = CurrentRoom;
+        
     }
 
     public Vector3 CalculateSpawnOffset(Door EnterDoor)
     {
-        Vector3 PlayerOffsetFromDoor = Player.transform.position - EnterDoor.GetPositionDoor();
+        // Destination Room
+        Room NewRoom = EnterDoor.ConnectingRoom;
 
-        int CurrentRelativeDoorX = EnterDoor.RelativeDoorPosition[0];
-        int CurrentRelativeDoorY = EnterDoor.RelativeDoorPosition[1];
+        // Gets Index positon of New room
+        int AdjacentCellIndex = EnterDoor.AdjacentCellIndex;
 
-        // Relative position of the player
-        Vector2 DoorCellPosition = new(CurrentRelativeDoorX, CurrentRelativeDoorY);
-
-        // Flips the relative position
         switch (EnterDoor.CurrentDoorType)
         {
             case Door.DoorType.North:
-                // Flip to South relative cell
-                DoorCellPosition.y -= 1;
+                AdjacentCellIndex -= GRID_SIDE; // Move south from the old door's position
                 break;
             case Door.DoorType.South:
-                // Flip to North relative cell
-                DoorCellPosition.y += 1;
+                AdjacentCellIndex += GRID_SIDE; // Move north from the old door's position
                 break;
             case Door.DoorType.East:
-                // Flip to West relative cell
-                DoorCellPosition.x += 1;
+                AdjacentCellIndex--; // Move west from the old door's position
                 break;
             case Door.DoorType.West:
-                // Flip to East relative cell
-                DoorCellPosition.x -= 1;
+                AdjacentCellIndex++; // Move east from the old door's position
                 break;
         }
 
-        Vector3 NewPlayerPosition = new Vector3
-        (
-            DoorCellPosition.x * PixelsPerUnit,
-            DoorCellPosition.y * PixelsPerUnit,
-            0
-        );
+        Door CorrespondingNewDoor = null;
+        Door[] NewRoomDoors = ActiveRoomInstance.GetComponentsInChildren<Door>(true);
 
-        NewPlayerPosition += PlayerOffsetFromDoor;
+        foreach (Door door in NewRoomDoors)
+        {
+            int DoorGridIndex = NewRoom.Index + door.RelativeDoorPosition[0] + (door.RelativeDoorPosition[1] * GRID_SIDE);
+            // Finds the Adjacent door 
+            if (DoorGridIndex == AdjacentCellIndex)
+            {
+                CorrespondingNewDoor = door;
+                break;
+            }
+            
+        }
 
+        if (CorrespondingNewDoor == null)
+        {
+            Debug.LogError("Could not find the corresponding door in the new room. AdjacentCellIndex: " + AdjacentCellIndex);
+            return DefaultSpawnPosition;
+        }
+
+        Vector3 PlayerOffsetFromOldDoor = Player.transform.position - EnterDoor.GetPositionDoor();
+        Vector3 NewPlayerPosition = CorrespondingNewDoor.transform.position + PlayerOffsetFromOldDoor;
         return NewPlayerPosition;
     }
 
@@ -215,23 +223,34 @@ public class MapPresenter : MonoBehaviour
 
     }
 
-    public Vector3 IndexToCoordinate(int index)
+    public Vector2 IndexToRelativeCoordinate(int index)
     {
-        int x = index % 10;
-        int y = index / 10;
-        Vector3 cooordinate = new(x, y, 0);
+        int x = index % GRID_SIDE;
+        int y = index / GRID_SIDE;
 
-        return cooordinate;
+        float relativeX = (float)x / (GRID_SIDE - 1);
+        float relativeY = (float)y / (GRID_SIDE - 1);
+        
+        return new Vector2(relativeX, relativeY);
     }
 
+    public Vector3 IndexToCoordinate(int index)
+    {
+        int x = index % GRID_SIDE;
+        int y = index / GRID_SIDE;
+
+        return new Vector3 (x, y, 0);
+    }
+
+    // Finds room based an index value that makes up that room
     public Room FindRoom(int index)
     {
-        Room room = SpawnedRooms.First(room => room.Index == index);
+        Room room = SpawnedRooms.FirstOrDefault(room => room.OccupiedIndexes.Contains(index));
         if (room == null)
         {
             Debug.LogWarning("Can't find room in MapModel");
         }
-        return room; 
+        return room;
     }
 
     public void PrintRoomList()

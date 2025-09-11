@@ -311,13 +311,20 @@ public class MapModel
     {
         // Origin is marked as occupied
         FloorPlan[index] = 1;
+        
+        // Each room will store all the indexes it uses on the floor plan
+        List<int> AllOccupiedIndexes = new List<int>{index}; // First value is origin index
+
         // Mark surrounding spacing as occupied on FloorPlan- based on room shape offsets
         foreach (int idx in roomIndexes)
-            FloorPlan[index+idx] = 1;
-        
+        {
+            FloorPlan[index + idx] = 1;
+            // 
+            AllOccupiedIndexes.Add(index + idx);
+        }
         // Figure out what shape the room is and assign initial type
         // By default every room is regular type
-        Room newRoom = new Room(new RoomData(index, roomIndexes, RoomType.Regular, shape));
+        Room newRoom = new Room(new RoomData(index, AllOccupiedIndexes, RoomType.Regular, shape));
         RoomList.Add(newRoom);
     }
 

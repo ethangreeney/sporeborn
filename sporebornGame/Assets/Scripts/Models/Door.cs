@@ -8,7 +8,7 @@ public class Door : MonoBehaviour
     [HideInInspector]
     public Room ConnectingRoom;
     [HideInInspector]
-    public int AdjacentIndex;
+    public int AdjacentCellIndex;
     [HideInInspector]
     public MapPresenter map;
 
@@ -64,7 +64,6 @@ public class Door : MonoBehaviour
     {
         // Only adds to adjacent rooms if they are not part of the same room
         Room CurrentRoom = map.CurrentPlayerRoom;
-        Room ConnectingRoom = null;
 
         int relativeDoorX = RelativeDoorPosition[0];
         int relativeDoorY = RelativeDoorPosition[1];
@@ -80,8 +79,8 @@ public class Door : MonoBehaviour
                 {
                     return null;
                 }
-                ConnectingRoom = map.FindRoom(CurrentRoom.Index - 10);
-                break;
+                AdjacentCellIndex = CurrentRoom.Index - 10;
+                return map.FindRoom(AdjacentCellIndex);
             // Down Check
             case DoorType.South:
                 if (map.ValidCellNeighbour(
@@ -90,8 +89,8 @@ public class Door : MonoBehaviour
                 {
                     return null;
                 }
-                ConnectingRoom = map.FindRoom(CurrentRoom.Index + 10);
-                break;
+                AdjacentCellIndex = CurrentRoom.Index + 10;
+                return map.FindRoom(AdjacentCellIndex);
             // Left Check
             case DoorType.East:
                 if (map.ValidCellNeighbour(
@@ -100,8 +99,8 @@ public class Door : MonoBehaviour
                 {
                     return null;
                 }
-                ConnectingRoom = map.FindRoom(CurrentRoom.Index - 1);
-                break;
+                AdjacentCellIndex = CurrentRoom.Index - 1;
+                return map.FindRoom(AdjacentCellIndex);
 
             // Right Check
             case DoorType.West:
@@ -111,11 +110,11 @@ public class Door : MonoBehaviour
                 {
                     return null;
                 }
-                ConnectingRoom = map.FindRoom(CurrentRoom.Index + 1);
-                break;
+                AdjacentCellIndex = CurrentRoom.Index + 1;
+                return map.FindRoom(AdjacentCellIndex);
         }
 
-        return ConnectingRoom;
+        return null;
     }
 
     public Vector3 GetPositionDoor()

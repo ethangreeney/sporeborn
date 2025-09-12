@@ -1,0 +1,1989 @@
+fileFormatVersion: 2
+guid: 431c25b0474d6574486143fe39294572
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4827772175416074793
+    second: Dungeon_HeroMan1_0
+  - first:
+      213: 356873946747716391
+    second: Dungeon_HeroMan1_1
+  - first:
+      213: -4936696846326947108
+    second: Dungeon_HeroMan1_2
+  - first:
+      213: -3586968031649441427
+    second: Dungeon_HeroMan1_3
+  - first:
+      213: 6611323383972767689
+    second: Dungeon_HeroMan1_4
+  - first:
+      213: 5655044042930451466
+    second: Dungeon_HeroMan1_5
+  - first:
+      213: -3775553002910470878
+    second: Dungeon_HeroMan1_6
+  - first:
+      213: -451724312317236098
+    second: Dungeon_HeroMan1_7
+  - first:
+      213: 1739982141995795574
+    second: Dungeon_HeroMan1_8
+  - first:
+      213: 5799045249576912115
+    second: Dungeon_HeroMan1_9
+  - first:
+      213: -2490278944048052405
+    second: Dungeon_HeroMan1_10
+  - first:
+      213: 3148945809434543024
+    second: Dungeon_HeroMan1_11
+  - first:
+      213: -7120808336981635762
+    second: Dungeon_HeroMan1_12
+  - first:
+      213: -4708561291691386943
+    second: Dungeon_HeroMan1_13
+  - first:
+      213: -366297159443876649
+    second: Dungeon_HeroMan1_14
+  - first:
+      213: 4690799696738100761
+    second: Dungeon_HeroMan1_15
+  - first:
+      213: -8491605770029637001
+    second: Dungeon_HeroMan1_16
+  - first:
+      213: 4725898094189568782
+    second: Dungeon_HeroMan1_17
+  - first:
+      213: -3265060582160880247
+    second: Dungeon_HeroMan1_18
+  - first:
+      213: 6498108889186229131
+    second: Dungeon_HeroMan1_19
+  - first:
+      213: 8578291657998713653
+    second: Dungeon_HeroMan1_20
+  - first:
+      213: -4670867789786432192
+    second: Dungeon_HeroMan1_21
+  - first:
+      213: 5700912895797003345
+    second: Dungeon_HeroMan1_22
+  - first:
+      213: 3597578333311568336
+    second: Dungeon_HeroMan1_23
+  - first:
+      213: -4800379098833675120
+    second: Dungeon_HeroMan1_24
+  - first:
+      213: 8149738207719039688
+    second: Dungeon_HeroMan1_25
+  - first:
+      213: -1397103001700162290
+    second: Dungeon_HeroMan1_26
+  - first:
+      213: -7298777598282318252
+    second: Dungeon_HeroMan1_27
+  - first:
+      213: -7075750359831068066
+    second: Dungeon_HeroMan1_28
+  - first:
+      213: 1021183788270946500
+    second: Dungeon_HeroMan1_29
+  - first:
+      213: 8832430904651254018
+    second: Dungeon_HeroMan1_30
+  - first:
+      213: 1503657370932928949
+    second: Dungeon_HeroMan1_31
+  - first:
+      213: -3611956063971636917
+    second: Dungeon_HeroMan1_32
+  - first:
+      213: 7314279213336138454
+    second: Dungeon_HeroMan1_33
+  - first:
+      213: 1888982583205752359
+    second: Dungeon_HeroMan1_34
+  - first:
+      213: -1106097554569477038
+    second: Dungeon_HeroMan1_35
+  - first:
+      213: -754729768204599744
+    second: Dungeon_HeroMan1_36
+  - first:
+      213: -2544832896365081284
+    second: Dungeon_HeroMan1_37
+  - first:
+      213: 429179344091803689
+    second: Dungeon_HeroMan1_38
+  - first:
+      213: -5695371935942228339
+    second: Dungeon_HeroMan1_39
+  - first:
+      213: -6335990036038296179
+    second: Dungeon_HeroMan1_40
+  - first:
+      213: 8971042310223261441
+    second: Dungeon_HeroMan1_41
+  - first:
+      213: -8667210387524073736
+    second: Dungeon_HeroMan1_42
+  - first:
+      213: 5940162859899609784
+    second: Dungeon_HeroMan1_43
+  - first:
+      213: -587213647590516965
+    second: Dungeon_HeroMan1_44
+  - first:
+      213: -6380623865372947262
+    second: Dungeon_HeroMan1_45
+  - first:
+      213: -1107938785342832187
+    second: Dungeon_HeroMan1_46
+  - first:
+      213: -1923912539769616729
+    second: Dungeon_HeroMan1_47
+  - first:
+      213: 6400379957528584357
+    second: Dungeon_HeroMan1_48
+  - first:
+      213: 3351095987300383582
+    second: Dungeon_HeroMan1_49
+  - first:
+      213: -6480277134457200154
+    second: Dungeon_HeroMan1_50
+  - first:
+      213: -2633704037207649568
+    second: Dungeon_HeroMan1_51
+  - first:
+      213: 84715023321451819
+    second: Dungeon_HeroMan1_52
+  - first:
+      213: -8681022600284164400
+    second: Dungeon_HeroMan1_53
+  - first:
+      213: -2541318021061053033
+    second: Dungeon_HeroMan1_54
+  - first:
+      213: 1006570281767440972
+    second: Dungeon_HeroMan1_55
+  - first:
+      213: 4505326848024841978
+    second: Dungeon_HeroMan1_56
+  - first:
+      213: 3873050434100162906
+    second: Dungeon_HeroMan1_57
+  - first:
+      213: 8724343613977972601
+    second: Dungeon_HeroMan1_58
+  - first:
+      213: 8877047709043872634
+    second: Dungeon_HeroMan1_59
+  - first:
+      213: -7185364123950385099
+    second: Dungeon_HeroMan1_60
+  - first:
+      213: 3003468439834946050
+    second: Dungeon_HeroMan1_61
+  - first:
+      213: 8723216905756233655
+    second: Dungeon_HeroMan1_62
+  - first:
+      213: 1668458961634020926
+    second: Dungeon_HeroMan1_63
+  - first:
+      213: -4137292965820788238
+    second: Dungeon_HeroMan1_64
+  - first:
+      213: -528311280223229279
+    second: Dungeon_HeroMan1_65
+  - first:
+      213: 2783355745536684063
+    second: Dungeon_HeroMan1_66
+  - first:
+      213: 7574289546730207359
+    second: Dungeon_HeroMan1_67
+  - first:
+      213: -5273860652396253822
+    second: Dungeon_HeroMan1_68
+  - first:
+      213: 6679163224386586480
+    second: Dungeon_HeroMan1_69
+  - first:
+      213: 1927384276486972371
+    second: Dungeon_HeroMan1_70
+  - first:
+      213: 9526868000999388
+    second: Dungeon_HeroMan1_71
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 223
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 922a0340731bff240800000000000000
+      internalID: 4827772175416074793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_1
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 224
+        width: 19
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7234d79b6fed3f400800000000000000
+      internalID: 356873946747716391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_2
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 223
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd224eebf545d7bb0800000000000000
+      internalID: -4936696846326947108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_3
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 224
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d695adc6497883ec0800000000000000
+      internalID: -3586968031649441427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_4
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 224
+        width: 19
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c72ee4e69320cb50800000000000000
+      internalID: 6611323383972767689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_5
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 224
+        width: 19
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a04fe086890ca7e40800000000000000
+      internalID: 5655044042930451466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_6
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 223
+        width: 18
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22dacde2c8a8a9bc0800000000000000
+      internalID: -3775553002910470878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_7
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 224
+        width: 19
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7c6ceb91272bb9f0800000000000000
+      internalID: -451724312317236098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_8
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 223
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 674ce211a88a52810800000000000000
+      internalID: 1739982141995795574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_9
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 223
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f4c2790ee85a7050800000000000000
+      internalID: 5799045249576912115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_10
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 224
+        width: 22
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4781649e70c07dd0800000000000000
+      internalID: -2490278944048052405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_11
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 223
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b30d44a78d43bb20800000000000000
+      internalID: 3148945809434543024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_12
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 192
+        width: 14
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4dc1909b8ecd2d90800000000000000
+      internalID: -7120808336981635762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_13
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 192
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c79495c374d7aeb0800000000000000
+      internalID: -4708561291691386943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_14
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 192
+        width: 15
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d4fc199ca6aaeaf0800000000000000
+      internalID: -366297159443876649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_15
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 192
+        width: 14
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 916a594a871191140800000000000000
+      internalID: 4690799696738100761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_16
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 192
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 772e9b8ea81c72a80800000000000000
+      internalID: -8491605770029637001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_17
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 192
+        width: 14
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e036ddc1743c59140800000000000000
+      internalID: 4725898094189568782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_18
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 192
+        width: 14
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98dab2613bc20b2d0800000000000000
+      internalID: -3265060582160880247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_19
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 192
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8bd0c33b9bed2a50800000000000000
+      internalID: 6498108889186229131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_20
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 192
+        width: 16
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 533c5be20d63c0770800000000000000
+      internalID: 8578291657998713653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_21
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 192
+        width: 14
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04d37f41e7ebd2fb0800000000000000
+      internalID: -4670867789786432192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_22
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 192
+        width: 16
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1548c61f216bd1f40800000000000000
+      internalID: 5700912895797003345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_23
+      rect:
+        serializedVersion: 2
+        x: 263
+        y: 192
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d98da0fe6a2de130800000000000000
+      internalID: 3597578333311568336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_24
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 160
+        width: 15
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09c1fc2a4a0a16db0800000000000000
+      internalID: -4800379098833675120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_25
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 160
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c2a58388bfa91170800000000000000
+      internalID: 8149738207719039688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_26
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 160
+        width: 14
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e05a70dd83e7c9ce0800000000000000
+      internalID: -1397103001700162290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_27
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 160
+        width: 14
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45ebdc7e17885ba90800000000000000
+      internalID: -7298777598282318252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_28
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 160
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e524de26982edcd90800000000000000
+      internalID: -7075750359831068066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_29
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 160
+        width: 14
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c80746be39fb2e00800000000000000
+      internalID: 1021183788270946500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_30
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 160
+        width: 15
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2098bee8c19139a70800000000000000
+      internalID: 8832430904651254018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_31
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 160
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b1ea5289601ed410800000000000000
+      internalID: 1503657370932928949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_32
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 160
+        width: 14
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4907a6c811cfddc0800000000000000
+      internalID: -3611956063971636917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_33
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 160
+        width: 18
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d29cea113a818560800000000000000
+      internalID: 7314279213336138454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_34
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 160
+        width: 14
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 72ee0e2b6a3073a10800000000000000
+      internalID: 1888982583205752359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_35
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 160
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25445fc622a56a0f0800000000000000
+      internalID: -1106097554569477038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_36
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 127
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04e70c84649a685f0800000000000000
+      internalID: -754729768204599744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_37
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 128
+        width: 19
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3d4e6fb6ffeeacd0800000000000000
+      internalID: -2544832896365081284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_38
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 127
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 920f68de650c4f500800000000000000
+      internalID: 429179344091803689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_39
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 128
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d864f6e4669f5f0b0800000000000000
+      internalID: -5695371935942228339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_40
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 128
+        width: 19
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8dd589b1aa0218a0800000000000000
+      internalID: -6335990036038296179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_41
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 128
+        width: 19
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10f6bd5537b8f7c70800000000000000
+      internalID: 8971042310223261441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_42
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 127
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f64d0ac212e7b780800000000000000
+      internalID: -8667210387524073736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_43
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 128
+        width: 19
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b2e84416a2bf6250800000000000000
+      internalID: 5940162859899609784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_44
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 127
+        width: 18
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b171b187c4cc9d7f0800000000000000
+      internalID: -587213647590516965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_45
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 127
+        width: 17
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ccc01386687377a0800000000000000
+      internalID: -6380623865372947262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_46
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 128
+        width: 22
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c143ca7b8fcf90f0800000000000000
+      internalID: -1107938785342832187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_47
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 127
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a6cc180db3ec45e0800000000000000
+      internalID: -1923912539769616729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_48
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 95
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a0650429a7b2d850800000000000000
+      internalID: 6400379957528584357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_49
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 96
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5bb64bab0c718e20800000000000000
+      internalID: 3351095987300383582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_50
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 95
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e1a79ab74e6116a0800000000000000
+      internalID: -6480277134457200154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_51
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 95
+        width: 18
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e2d9b2d124337bd0800000000000000
+      internalID: -2633704037207649568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_52
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 96
+        width: 15
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2dc6386dd7fc2100800000000000000
+      internalID: 84715023321451819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_53
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 95
+        width: 15
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0deace660ffc68780800000000000000
+      internalID: -8681022600284164400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_54
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 64
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7957b5d69bc6bbcd0800000000000000
+      internalID: -2541318021061053033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_55
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 64
+        width: 15
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c429636965e08fd00800000000000000
+      internalID: 1006570281767440972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_56
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 64
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afe0d85e5e2268e30800000000000000
+      internalID: 4505326848024841978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_57
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 64
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5176b979d6dfb530800000000000000
+      internalID: 3873050434100162906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_58
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 64
+        width: 20
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97fca991b48131970800000000000000
+      internalID: 8724343613977972601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_59
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 64
+        width: 18
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7351c7dbdb913b70800000000000000
+      internalID: 8877047709043872634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_60
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 32
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 538f9122665784c90800000000000000
+      internalID: -7185364123950385099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_61
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 32
+        width: 15
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20a657a02a67ea920800000000000000
+      internalID: 3003468439834946050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_62
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 32
+        width: 16
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bf4846ee871f0970800000000000000
+      internalID: 8723216905756233655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_63
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 32
+        width: 18
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3e4382f59e872710800000000000000
+      internalID: 1668458961634020926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_64
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 32
+        width: 20
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f19788c7f16596c0800000000000000
+      internalID: -4137292965820788238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_65
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 32
+        width: 21
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1aa667390bf0ba8f0800000000000000
+      internalID: -528311280223229279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_66
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 0
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f10b140cd4770a620800000000000000
+      internalID: 2783355745536684063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_67
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 0
+        width: 17
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f78fec266384d1960800000000000000
+      internalID: 7574289546730207359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_68
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 0
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28de203cdab7fc6b0800000000000000
+      internalID: -5273860652396253822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_69
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 0
+        width: 17
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0774a6a909721bc50800000000000000
+      internalID: 6679163224386586480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_70
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 0
+        width: 16
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d3eda9a9c17fba10800000000000000
+      internalID: 1927384276486972371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dungeon_HeroMan1_71
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 1
+        width: 16
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd7850fc2a8d12000800000000000000
+      internalID: 9526868000999388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Dungeon_HeroMan1_0: 4827772175416074793
+      Dungeon_HeroMan1_1: 356873946747716391
+      Dungeon_HeroMan1_10: -2490278944048052405
+      Dungeon_HeroMan1_11: 3148945809434543024
+      Dungeon_HeroMan1_12: -7120808336981635762
+      Dungeon_HeroMan1_13: -4708561291691386943
+      Dungeon_HeroMan1_14: -366297159443876649
+      Dungeon_HeroMan1_15: 4690799696738100761
+      Dungeon_HeroMan1_16: -8491605770029637001
+      Dungeon_HeroMan1_17: 4725898094189568782
+      Dungeon_HeroMan1_18: -3265060582160880247
+      Dungeon_HeroMan1_19: 6498108889186229131
+      Dungeon_HeroMan1_2: -4936696846326947108
+      Dungeon_HeroMan1_20: 8578291657998713653
+      Dungeon_HeroMan1_21: -4670867789786432192
+      Dungeon_HeroMan1_22: 5700912895797003345
+      Dungeon_HeroMan1_23: 3597578333311568336
+      Dungeon_HeroMan1_24: -4800379098833675120
+      Dungeon_HeroMan1_25: 8149738207719039688
+      Dungeon_HeroMan1_26: -1397103001700162290
+      Dungeon_HeroMan1_27: -7298777598282318252
+      Dungeon_HeroMan1_28: -7075750359831068066
+      Dungeon_HeroMan1_29: 1021183788270946500
+      Dungeon_HeroMan1_3: -3586968031649441427
+      Dungeon_HeroMan1_30: 8832430904651254018
+      Dungeon_HeroMan1_31: 1503657370932928949
+      Dungeon_HeroMan1_32: -3611956063971636917
+      Dungeon_HeroMan1_33: 7314279213336138454
+      Dungeon_HeroMan1_34: 1888982583205752359
+      Dungeon_HeroMan1_35: -1106097554569477038
+      Dungeon_HeroMan1_36: -754729768204599744
+      Dungeon_HeroMan1_37: -2544832896365081284
+      Dungeon_HeroMan1_38: 429179344091803689
+      Dungeon_HeroMan1_39: -5695371935942228339
+      Dungeon_HeroMan1_4: 6611323383972767689
+      Dungeon_HeroMan1_40: -6335990036038296179
+      Dungeon_HeroMan1_41: 8971042310223261441
+      Dungeon_HeroMan1_42: -8667210387524073736
+      Dungeon_HeroMan1_43: 5940162859899609784
+      Dungeon_HeroMan1_44: -587213647590516965
+      Dungeon_HeroMan1_45: -6380623865372947262
+      Dungeon_HeroMan1_46: -1107938785342832187
+      Dungeon_HeroMan1_47: -1923912539769616729
+      Dungeon_HeroMan1_48: 6400379957528584357
+      Dungeon_HeroMan1_49: 3351095987300383582
+      Dungeon_HeroMan1_5: 5655044042930451466
+      Dungeon_HeroMan1_50: -6480277134457200154
+      Dungeon_HeroMan1_51: -2633704037207649568
+      Dungeon_HeroMan1_52: 84715023321451819
+      Dungeon_HeroMan1_53: -8681022600284164400
+      Dungeon_HeroMan1_54: -2541318021061053033
+      Dungeon_HeroMan1_55: 1006570281767440972
+      Dungeon_HeroMan1_56: 4505326848024841978
+      Dungeon_HeroMan1_57: 3873050434100162906
+      Dungeon_HeroMan1_58: 8724343613977972601
+      Dungeon_HeroMan1_59: 8877047709043872634
+      Dungeon_HeroMan1_6: -3775553002910470878
+      Dungeon_HeroMan1_60: -7185364123950385099
+      Dungeon_HeroMan1_61: 3003468439834946050
+      Dungeon_HeroMan1_62: 8723216905756233655
+      Dungeon_HeroMan1_63: 1668458961634020926
+      Dungeon_HeroMan1_64: -4137292965820788238
+      Dungeon_HeroMan1_65: -528311280223229279
+      Dungeon_HeroMan1_66: 2783355745536684063
+      Dungeon_HeroMan1_67: 7574289546730207359
+      Dungeon_HeroMan1_68: -5273860652396253822
+      Dungeon_HeroMan1_69: 6679163224386586480
+      Dungeon_HeroMan1_7: -451724312317236098
+      Dungeon_HeroMan1_70: 1927384276486972371
+      Dungeon_HeroMan1_71: 9526868000999388
+      Dungeon_HeroMan1_8: 1739982141995795574
+      Dungeon_HeroMan1_9: 5799045249576912115
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

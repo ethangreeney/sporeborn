@@ -42,26 +42,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: New Layer 1
+  - name: Floor
     uniqueID: 2949464637
     locked: 0
-  - name: New Layer 2
+  - name: Walls
     uniqueID: 4026502521
     locked: 0
-  - name: New Layer 3
+  - name: Decorations
     uniqueID: 544117793
     locked: 0
-  - name: New Layer 4
+  - name: Entities
     uniqueID: 2041154009
-    locked: 0
-  - name: New Layer 5
-    uniqueID: 3038836847
-    locked: 0
-  - name: New Layer 6
-    uniqueID: 3076788067
-    locked: 0
-  - name: New Layer 7
-    uniqueID: 3094113079
     locked: 0
   m_RenderingLayers:
   - Default

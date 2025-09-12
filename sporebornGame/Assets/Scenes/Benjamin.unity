@@ -175,15 +175,15 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.002610966
-    y: 0.004640371
-    width: 0.9947781
-    height: 0.988399
+    x: 0.0027586208
+    y: 0
+    width: 0.9931035
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4.4375
+  orthographic size: 4.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -387,6 +387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapPresenter: {fileID: 652147659}
   CellSize: 5
+  YOffset: 12
 --- !u!4 &416779940
 Transform:
   m_ObjectHideFlags: 0

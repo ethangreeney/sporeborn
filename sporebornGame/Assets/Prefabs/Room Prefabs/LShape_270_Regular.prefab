@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5542431608171227306}
   - component: {fileID: 1514898507275899366}
   m_Layer: 0
-  m_Name: WestDoor_0-1
+  m_Name: WestDoor_1-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -226,7 +226,7 @@ MonoBehaviour:
   AdjacentCellIndex: 0
   map: {fileID: 0}
   CurrentDoorType: 3
-  RelativeDoorPosition: 0000000001000000
+  RelativeDoorPosition: 0100000001000000
 --- !u!1 &111098145941910252
 GameObject:
   m_ObjectHideFlags: 0
@@ -13224,8 +13224,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4588734510359149600}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -16.030066, y: -5.6406975, z: 0.1955267}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

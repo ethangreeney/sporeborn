@@ -23,9 +23,9 @@ public class Door : MonoBehaviour
     [HideInInspector]
     public int[][] RelPosFromOrigin = {
         new int[] {0, -6}, // Coming from North, entering from South
-        new int[] {-6, 0}, // Coming from East, entering from West
+        new int[] {-7, 0}, // Coming from East, entering from West
         new int[] {0, 6}, // Coming from South, entering from North
-        new int[] {6, 0} // Coming from West, entering from East
+        new int[] {7, 0} // Coming from West, entering from East
     };
 
     // Manually Set Per Door
@@ -61,8 +61,7 @@ public class Door : MonoBehaviour
         {
             return;
         }
-        Debug.Log(AdjacentCellIndex);
-        Debug.Log(ConnectingRoom);
+        Debug.Log("Connecting room is"+ConnectingRoom.RoomShape+", index is"+AdjacentCellIndex);
         // Build next room
         map.BuildRoom(ConnectingRoom, this);
     }
@@ -74,55 +73,49 @@ public class Door : MonoBehaviour
 
         int relativeDoorX = RelativeDoorPosition[0];
         int relativeDoorY = RelativeDoorPosition[1];
+        int DoorCellIndex = map.RelIndexToRoomIndex(CurrentRoom, relativeDoorX, relativeDoorY);
 
+        if (DoorCellIndex == -1)
+        {
+            // Debug.Log($"Door Cell Index {DoorCellIndex} at {relativeDoorX}, {relativeDoorY} is invalid");
+            return null;
+        }
+
+        int adjacentIndex = -1;
         switch (CurrentDoorType)
         {
-            // Up Checka
+            // Up Check
             case DoorType.North:
-                if (map.ValidCellNeighbour(
-                    CurrentRoom, relativeDoorX, relativeDoorY - 1
-                ) == false)
-                {
-                    return null;
-                }
-                AdjacentCellIndex = CurrentRoom.Index - 10;
-                return map.FindRoom(AdjacentCellIndex);
+                adjacentIndex = DoorCellIndex - map.GRID_SIDE;
+                break;
 
             // Down Check
             case DoorType.South:
-                if (map.ValidCellNeighbour(
-                    CurrentRoom, relativeDoorX, relativeDoorY + 1
-                ) == false)
-                {
-                    return null;
-                }
-                AdjacentCellIndex = CurrentRoom.Index + 10;
-                return map.FindRoom(AdjacentCellIndex);
+                adjacentIndex = DoorCellIndex + map.GRID_SIDE;
+                break;
 
             // Left Check
             case DoorType.West:
-                if (map.ValidCellNeighbour(
-                    CurrentRoom, relativeDoorX - 1, relativeDoorY 
-                ) == false)
-                {
-                    return null;
-                }
-                AdjacentCellIndex = CurrentRoom.Index - 1;
-                return map.FindRoom(AdjacentCellIndex);
+                adjacentIndex = DoorCellIndex - 1;
+                break;
 
             // Right Check
             case DoorType.East:
-                if (map.ValidCellNeighbour(
-                    CurrentRoom, relativeDoorX + 1, relativeDoorY
-                ) == false)
-                {
-                    return null;
-                }
-                AdjacentCellIndex = CurrentRoom.Index + 1;
-                return map.FindRoom(AdjacentCellIndex);
+                adjacentIndex = DoorCellIndex + 1;
+                break;
         }
 
-        return null;
+        AdjacentCellIndex = adjacentIndex;
+        Room AdjacentRoom = map.FindRoom(AdjacentCellIndex);
+
+        if (AdjacentRoom == null)
+        {
+            // Debug.Log("Can't find adjacent room");
+            return null;
+        }
+
+
+        return AdjacentRoom;
     }
 
     public Vector3 GetPositionDoor()

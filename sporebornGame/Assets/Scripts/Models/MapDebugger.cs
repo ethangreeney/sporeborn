@@ -13,7 +13,7 @@ public class MapDebugger : MonoBehaviour
         foreach (var room in mapPresenter.GetSpawnedRooms)
         {
             // Pick a color based on RoomType or  if it's the starter room
-            if (room.Index == mapPresenter.GetStarterRoom.Index)
+            if (room.OriginIndex == mapPresenter.GetStarterRoom.OriginIndex)
             {
                 Gizmos.color = Color.cyan;
             }
@@ -27,10 +27,15 @@ public class MapDebugger : MonoBehaviour
                     RoomType.Item => Color.green,
                     _ => Color.white
                 };
-
+                // Highlights large rooms
                 if (room.RoomShape != RoomShape.OneByOne)
                 {
                     Gizmos.color = Color.blue;
+                }
+                // Highlights room the player is in
+                if (room == mapPresenter.CurrentPlayerRoom)
+                {
+                    Gizmos.color = Color.magenta;
                 }
             }
 

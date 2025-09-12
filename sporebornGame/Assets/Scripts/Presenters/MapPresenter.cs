@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -44,8 +43,6 @@ public class MapPresenter : MonoBehaviour
         {
             Debug.LogWarning("Room List is empty");
         }
-        
-        //
 
         // Generates the first room
         StarterRoom = FindRoom(model.GetStartingRoomIndex);
@@ -64,44 +61,49 @@ public class MapPresenter : MonoBehaviour
         }
     }
 
-    // A cell is a like several 1x1 areas that make up large rooms
-    // E.g. OneByOne has 1 cell but L shapes have 3
-    public bool ValidCellNeighbour(Room CurrentRoom, int dx, int dy)
+    public int RelIndexToRoomIndex(Room CurrentRoom, int dx, int dy)
     {
-        int index = CurrentRoom.Index;
-
+        // Current Room to Coordinates 
+        int index = CurrentRoom.OriginIndex;
         int x = index % GRID_SIDE;
         int y = index / GRID_SIDE;
 
+        // Coordiantes plus the relative x and y
         int newX = x + dx;
-        int newY = y + dy;
+        int newY = y - dy;
 
         // Index is out of bounds
-        if (newX < 0 || newX >= GRID_SIDE) return false;
-        if (newY < 0 || newY >= GRID_SIDE) return false;
+        if (newX < 0 || newX >= GRID_SIDE) return -1;
+        if (newY < 0 || newY >= GRID_SIDE) return -1;
 
         int newIndex = newY * GRID_SIDE + newX; // Coordinates to index
 
-        // Can't be an adjacent neighbour if within the same room
-        if (CurrentRoom.OccupiedIndexes.Contains(newIndex))
+        // Not a valid room cell if outside the room
+        if (!CurrentRoom.OccupiedIndexes.Contains(newIndex))
         {
-            return false;
+            return -1;
         }
-        // Returns true if there is a room there
-        return model.GetFloorPlan[newIndex] == 1;
+        // No room on floor plan
+        if (model.GetFloorPlan[newIndex] == 0)
+        {
+            return -1;
+        }
+
+        // Returns the room index if meets all conditions 
+        return newIndex;
     }
 
     // Creates a new room and correctly positions the player
     public void BuildRoom(Room RoomToSpawn, Door EnterDoor)
-    {   
+    {
         // Destroy the previous Room
         if (ActiveRoomInstance != null)
         {
             Destroy(ActiveRoomInstance);
         }
-        
+
         // Place room
-        String RoomName = RoomToSpawn.RoomShape + "_" + RoomToSpawn.RoomType;
+        string RoomName = RoomToSpawn.RoomShape + "_" + RoomToSpawn.RoomType;
 
         // Find the correct room Prefab
         foreach (GameObject prefab in RoomPrefabs)
@@ -139,27 +141,26 @@ public class MapPresenter : MonoBehaviour
 
         // Player location will be based on the door they enter from
         Player.transform.position = PlayerSpawnPosition;
-
-        
     }
 
     public Vector3 CalculateSpawnOffset(Door EnterDoor)
     {
-        Vector3 NewPlayerPosition = Vector3.zero;
-
         // Get the relative doors position within the room and convert it to tile sizes
         int CellToEnter = EnterDoor.AdjacentCellIndex;
-        int CellWeAreIn = EnterDoor.ConnectingRoom.Index;
+        Vector2 RelativePosition = IndexToRelativeCoordinate(CellToEnter, EnterDoor.ConnectingRoom.OriginIndex);
 
-        Vector3 RelativeCoords = IndexToRelativeCoordinate(CellToEnter - CellWeAreIn);
+        // Convert relative room position into full cell lengths (i.e., 1 on the x is a transform of 16)
+        RelativePosition.x *= PixelsPerUnit;
+        RelativePosition.y *= PixelsPerUnit;
 
-        // Gets the position within that tile
-        int[] CellOffset = EnterDoor.RelPosFromOrigin[(int)EnterDoor.CurrentDoorType];
+        // Find the position within that cell to be spawned
+        int[] EnterDoorOffset = EnterDoor.RelPosFromOrigin[(int)EnterDoor.CurrentDoorType];
 
-        NewPlayerPosition.x = RelativeCoords.x * PixelsPerUnit + CellOffset[0];
-        NewPlayerPosition.y = RelativeCoords.y * PixelsPerUnit + CellOffset[1];
+        RelativePosition.x += EnterDoorOffset[0];
+        RelativePosition.y += EnterDoorOffset[1];
 
-        return NewPlayerPosition;
+        return RelativePosition;
+
     }
 
     public void SpawnEnemies()
@@ -172,24 +173,22 @@ public class MapPresenter : MonoBehaviour
 
     }
 
-    public Vector2 IndexToRelativeCoordinate(int index)
+    public Vector2 IndexToRelativeCoordinate(int CellIndex, int OriginIndex)
     {
-        int x = index % GRID_SIDE;
-        int y = index / GRID_SIDE;
+        // 2D coords for each flat index
+        int cellX = CellIndex % GRID_SIDE;
+        int cellY = CellIndex / GRID_SIDE;
+        int originX = OriginIndex % GRID_SIDE;
+        int originY = OriginIndex / GRID_SIDE;
 
-        float relativeX = (float)x / (GRID_SIDE - 1);
-        float relativeY = (float)y / (GRID_SIDE - 1);
-        
-        return new Vector2(relativeX, relativeY);
+        // flip the X-subtraction so moving right is +X
+        float x = originX - cellX;
+        float y = cellY - originY;
+
+        return new Vector2(-x, -y);
     }
 
-    public Vector3 IndexToCoordinate(int index)
-    {
-        int x = index % GRID_SIDE;
-        int y = index / GRID_SIDE;
 
-        return new Vector3 (x, y, 0);
-    }
 
     // Finds room based an index value that makes up that room
     public Room FindRoom(int index)

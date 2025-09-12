@@ -8695,7 +8695,7 @@ Transform:
   m_GameObject: {fileID: 414635507019991709}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -16, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8940,7 +8940,7 @@ MonoBehaviour:
   AdjacentCellIndex: 0
   map: {fileID: 0}
   CurrentDoorType: 0
-  RelativeDoorPosition: 0100000001000000
+  RelativeDoorPosition: 0000000001000000
 --- !u!19719996 &2190441546410982439
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -9205,7 +9205,7 @@ MonoBehaviour:
   AdjacentCellIndex: 0
   map: {fileID: 0}
   CurrentDoorType: 3
-  RelativeDoorPosition: 0100000000000000
+  RelativeDoorPosition: 0000000000000000
 --- !u!1 &1650316913082969120
 GameObject:
   m_ObjectHideFlags: 0
@@ -9460,7 +9460,7 @@ MonoBehaviour:
   AdjacentCellIndex: 0
   map: {fileID: 0}
   CurrentDoorType: 0
-  RelativeDoorPosition: 0000000001000000
+  RelativeDoorPosition: ffffffff01000000
 --- !u!1 &4984214430334352389
 GameObject:
   m_ObjectHideFlags: 0
@@ -9687,7 +9687,7 @@ MonoBehaviour:
   AdjacentCellIndex: 0
   map: {fileID: 0}
   CurrentDoorType: 2
-  RelativeDoorPosition: 0000000001000000
+  RelativeDoorPosition: ffffffff01000000
 --- !u!1 &5187501787636689379
 GameObject:
   m_ObjectHideFlags: 0
@@ -12126,7 +12126,7 @@ MonoBehaviour:
   AdjacentCellIndex: 0
   map: {fileID: 0}
   CurrentDoorType: 1
-  RelativeDoorPosition: 0100000001000000
+  RelativeDoorPosition: 0000000001000000
 --- !u!1 &7652389136368059979
 GameObject:
   m_ObjectHideFlags: 0
@@ -12353,7 +12353,7 @@ MonoBehaviour:
   AdjacentCellIndex: 0
   map: {fileID: 0}
   CurrentDoorType: 3
-  RelativeDoorPosition: 0000000001000000
+  RelativeDoorPosition: ffffffff01000000
 --- !u!1 &7748044793050359073
 GameObject:
   m_ObjectHideFlags: 0
@@ -12580,7 +12580,7 @@ MonoBehaviour:
   AdjacentCellIndex: 0
   map: {fileID: 0}
   CurrentDoorType: 2
-  RelativeDoorPosition: 0100000000000000
+  RelativeDoorPosition: 0000000000000000
 --- !u!1 &7802920785248921919
 GameObject:
   m_ObjectHideFlags: 0
@@ -14158,4 +14158,4 @@ MonoBehaviour:
   AdjacentCellIndex: 0
   map: {fileID: 0}
   CurrentDoorType: 1
-  RelativeDoorPosition: 0100000000000000
+  RelativeDoorPosition: 0000000000000000

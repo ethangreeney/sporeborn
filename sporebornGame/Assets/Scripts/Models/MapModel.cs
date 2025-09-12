@@ -18,6 +18,9 @@ public class MapModel
     private const int StartingRoomIndex = 45;
     public int GetStartingRoomIndex => StartingRoomIndex;
 
+    // One side of grid length
+    private int GRID_SIDE = 10;
+
     // Generates Random numbers
     System.Random rng;
 
@@ -32,9 +35,7 @@ public class MapModel
     private static readonly Dictionary<RoomShape, List<int[]>> RoomShapesOffsets = new()
     {
         // Configurations for the large room types and variants of that room
-        // Values to add/subtract to get the surrounding cells for room type
-
-        // The origin -> (0), is excluded from the indexes
+        // Values to add to get the surrounding cells for room type
         {
             RoomShape.OneByOne,
             new List<int[]>
@@ -46,7 +47,6 @@ public class MapModel
             RoomShape.OneByTwo,
             new List<int[]>
             {
-                // new int[]{ 10 },   // 1x2 - Bottom  
                 new int[]{ -10 }   // 1x2 - Top
             }
         },
@@ -55,7 +55,6 @@ public class MapModel
             new List<int[]>
             {
                 new int[]{ 1 },    // 2x1 - Origin on left 
-                // new int[]{ -1 }    // 2x1 - Origin on right 
             }
             
         },
@@ -63,23 +62,21 @@ public class MapModel
             RoomShape.TwoByTwo,
             new List<int[]>
             {
-                new int[]{ 1, 10, 11 },    // 2x2 - Origin top-left side
-                new int[]{ -1, 9, 10 },    // 2x2 - Origin top-right side
+                new int[]{ 1, -9, -10 }
             }
         },
         {
             RoomShape.LShape_0,
             new List<int[]>
             {
-                new int[]{ 1, -10 },       // L shape - 0°
+                new int[]{ 1, -10 },       // L shape - 0 degrees
             }
         },
-
         {
             RoomShape.LShape_90,
             new List<int[]>
             {
-                new int[]{ 1, 10 },        // L shape - 90°
+                new int[]{ -9, -10 },        // L shape - 90 degrees
             }
         },
 
@@ -87,15 +84,14 @@ public class MapModel
             RoomShape.LShape_180,
             new List<int[]>
             {
-                new int[]{ -1, 10 },       // L shape - 180°
+                new int[]{ -11, -10 },       // L shape - 180 degrees
             }
         },
-
         {
             RoomShape.LShape_270,
             new List<int[]>
             {
-                new int[]{ -1, -10 },      // L shape - 270°
+                new int[]{ 1, -9 },      // L shape - 270 degrees
             }
         },
 
@@ -208,13 +204,13 @@ public class MapModel
             SetupDungeon();
 
         // Set the correct room types
-        Room BossRoom = RoomList.First(room => room.Index == BossRoomIndex);
+        Room BossRoom = RoomList.First(room => room.OriginIndex == BossRoomIndex);
         BossRoom.RoomType = RoomType.Boss;
         
-        Room ItemRoom = RoomList.First(room => room.Index == ItemRoomIndex);
+        Room ItemRoom = RoomList.First(room => room.OriginIndex == ItemRoomIndex);
         ItemRoom.RoomType = RoomType.Item;
         
-        Room ShopRoom = RoomList.First(room => room.Index == ShopRoomIndex);
+        Room ShopRoom = RoomList.First(room => room.OriginIndex == ShopRoomIndex);
         ShopRoom.RoomType = RoomType.Shop;
         
     }
@@ -325,9 +321,26 @@ public class MapModel
         foreach (int idx in roomIndexes)
         {
             FloorPlan[index + idx] = 1;
-            // 
+            
             AllOccupiedIndexes.Add(index + idx);
         }
+
+        // Sort all occupied indexes - first element becomes the origin (bottom-left)
+        AllOccupiedIndexes = AllOccupiedIndexes
+        .OrderBy(i => i / 10)  
+        .ThenBy(i => i % 10)             
+        .ToList();
+
+        // // Get the lowest row number among occupied cells
+        // int minY = AllOccupiedIndexes.Min(i => i / GRID_SIDE);
+
+        // // Filter only cells in that row
+        // var bottomRowCells = AllOccupiedIndexes.Where(i => (i / GRID_SIDE) == minY);
+
+        // // Pick the left-most cell in that row 
+        // // Can't choose from Occupied cells as this doesn't work in the case of 180 L shape room
+        // int OriginIndex = bottomRowCells.Min(i => i % GRID_SIDE) + (minY * GRID_SIDE);
+
         // Figure out what shape the room is and assign initial type
         // By default every room is regular type
         Room newRoom = new Room(new RoomData(index, AllOccupiedIndexes, RoomType.Regular, shape));

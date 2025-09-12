@@ -24,14 +24,14 @@ public enum RoomType
 public class Room
 {
     // Cell Data fields
-    public int Index { get; set; }
+    public int OriginIndex { get; set; }
     public RoomType RoomType { get; set; }
     public RoomShape RoomShape { get; set; }
     public List<int> OccupiedIndexes { get; private set; }
 
     public Room(RoomData data)
     {
-        Index = data.FloorPlanIndex;
+        OriginIndex = data.FloorPlanIndex;
         RoomType = data.RoomType;
         RoomShape = data.RoomShape;
         OccupiedIndexes = new List<int>(data.RoomIndexes);
@@ -39,7 +39,7 @@ public class Room
     
     public override string ToString()
     {
-        return $"Room FloorPlan Origin: {Index}\n" +
+        return $"Room FloorPlan Origin: {OriginIndex}\n" +
            $"RoomType: {RoomType}\n" +
            $"RoomShape: {RoomShape}\n" +
            $"OccupiedIndexes: {string.Join(", ", OccupiedIndexes)}";

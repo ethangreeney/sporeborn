@@ -61,7 +61,6 @@ public class Door : MonoBehaviour
         {
             return;
         }
-        Debug.Log("Connecting room is"+ConnectingRoom.RoomShape+", index is"+AdjacentCellIndex);
         // Build next room
         map.BuildRoom(ConnectingRoom, this);
     }
@@ -77,7 +76,6 @@ public class Door : MonoBehaviour
 
         if (DoorCellIndex == -1)
         {
-            // Debug.Log($"Door Cell Index {DoorCellIndex} at {relativeDoorX}, {relativeDoorY} is invalid");
             return null;
         }
 
@@ -110,7 +108,6 @@ public class Door : MonoBehaviour
 
         if (AdjacentRoom == null)
         {
-            // Debug.Log("Can't find adjacent room");
             return null;
         }
 

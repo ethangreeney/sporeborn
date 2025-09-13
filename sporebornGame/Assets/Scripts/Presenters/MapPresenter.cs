@@ -96,6 +96,8 @@ public class MapPresenter : MonoBehaviour
     // Creates a new room and correctly positions the player
     public void BuildRoom(Room RoomToSpawn, Door EnterDoor)
     {
+        // Reset the room prefab
+        CurrentRoomPrefab = null;
         // Destroy the previous Room
         if (ActiveRoomInstance != null)
         {
@@ -123,7 +125,6 @@ public class MapPresenter : MonoBehaviour
         // Update the current room variable
         CurrentPlayerRoom = RoomToSpawn;
 
-        Debug.Log(CurrentRoomPrefab.name);
         // Instantiates the room and Aligns the room to the bottom left
         ActiveRoomInstance = Instantiate(CurrentRoomPrefab, Vector3.zero, Quaternion.identity);
 

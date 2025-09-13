@@ -36,13 +36,7 @@ public class MapModel
     {
         // Configurations for the large room types and variants of that room
         // Values to add to get the surrounding cells for room type
-        {
-            RoomShape.OneByOne,
-            new List<int[]>
-            {
-                new int[] { }  // Empty because no offsets, origin is handled in AddNewRoom
-            }
-        },
+
         {
             RoomShape.OneByTwo,
             new List<int[]>
@@ -220,7 +214,7 @@ public class MapModel
         // Gurantees the starting room will generate
         if (index == StartingRoomIndex)
         {
-            AddNewRoom(index, RoomShapesOffsets[RoomShape.OneByOne][0], RoomShape.OneByOne);
+            AddNewRoom(index, new int[] { }, RoomShape.OneByOne);
             CellQueue.Enqueue(index);
             return true;
         }
@@ -245,6 +239,7 @@ public class MapModel
         // 30% chance to try and place a large room
         if (rng.NextDouble() < 0.3f)
         {
+            
             // Randomly chooses the order that a shape will try and be placed
             foreach (RoomShape shape in RoomShapesOffsets.Keys.OrderBy(_ => rng.NextDouble()))
             {
@@ -263,8 +258,7 @@ public class MapModel
         }
 
         // If it can't generate make large room it generates a OneByOne
-        int[] onebyoneConfig = RoomShapesOffsets[RoomShape.OneByOne][0];
-        AddNewRoom(index, onebyoneConfig, RoomShape.OneByOne);
+        AddNewRoom(index, new int[] { }, RoomShape.OneByOne);
         CellQueue.Enqueue(index);
 
         return true;
@@ -318,30 +312,13 @@ public class MapModel
         List<int> AllOccupiedIndexes = new List<int>{index}; // First value is origin index
 
         // Mark surrounding spacing as occupied on FloorPlan- based on room shape offsets
-        foreach (int idx in roomIndexes)
+        foreach (int offset in roomIndexes)
         {
-            FloorPlan[index + idx] = 1;
+            FloorPlan[index + offset] = 1;
             
-            AllOccupiedIndexes.Add(index + idx);
+            AllOccupiedIndexes.Add(index + offset); // adds offsets to index
         }
 
-        // Sort all occupied indexes - first element becomes the origin (bottom-left)
-        AllOccupiedIndexes = AllOccupiedIndexes
-        .OrderBy(i => i / 10)  
-        .ThenBy(i => i % 10)             
-        .ToList();
-
-        // // Get the lowest row number among occupied cells
-        // int minY = AllOccupiedIndexes.Min(i => i / GRID_SIDE);
-
-        // // Filter only cells in that row
-        // var bottomRowCells = AllOccupiedIndexes.Where(i => (i / GRID_SIDE) == minY);
-
-        // // Pick the left-most cell in that row 
-        // // Can't choose from Occupied cells as this doesn't work in the case of 180 L shape room
-        // int OriginIndex = bottomRowCells.Min(i => i % GRID_SIDE) + (minY * GRID_SIDE);
-
-        // Figure out what shape the room is and assign initial type
         // By default every room is regular type
         Room newRoom = new Room(new RoomData(index, AllOccupiedIndexes, RoomType.Regular, shape));
         RoomList.Add(newRoom);

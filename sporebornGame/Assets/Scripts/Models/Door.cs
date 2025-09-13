@@ -23,9 +23,9 @@ public class Door : MonoBehaviour
     [HideInInspector]
     public int[][] RelPosFromOrigin = {
         new int[] {0, -6}, // Coming from North, entering from South
-        new int[] {-7, 0}, // Coming from East, entering from West
+        new int[] {-6, 0}, // Coming from East, entering from West
         new int[] {0, 6}, // Coming from South, entering from North
-        new int[] {7, 0} // Coming from West, entering from East
+        new int[] {6, 0} // Coming from West, entering from East
     };
 
     // Manually Set Per Door

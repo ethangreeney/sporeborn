@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MapDebugger : MonoBehaviour
 {
-    public MapPresenter mapPresenter; // Drag the component holding your map presenter here
+    public MapPresenter mapPresenter;
     public float CellSize = 0.5f; // Size of each cell on minimap
     public float YOffset = 5.0f;
 

@@ -31,7 +31,6 @@ public class MapPresenter : MonoBehaviour
     private GameObject ActiveRoomInstance;
     private GameObject CurrentRoomPrefab;
 
-
     void Start()
     {
         // Generates first level map

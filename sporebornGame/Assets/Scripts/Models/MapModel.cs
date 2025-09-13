@@ -28,6 +28,8 @@ public class MapModel
     private Queue<int> CellQueue;
     private List<int> EndRooms;
     private List<int> LargeRoomIndexes;
+    // temp remove later
+    public List<int> GetLargeRoomIndexes => LargeRoomIndexes;
 
     private List<Room> RoomList;
     public List<Room> GetRoomList => RoomList;
@@ -251,6 +253,7 @@ public class MapModel
                         // New large rooom
                         AddNewRoom(index, shapeOffsets, shape);
                         CellQueue.Enqueue(index);
+                        LargeRoomIndexes.Add(index);
                         return true;
                     }
                 }
@@ -299,6 +302,9 @@ public class MapModel
 
             currentRoomIndexes.Add(roomOriginIndex);
         }
+
+        // Room is OneByOne and not large
+        if (currentRoomIndexes.Count == 1) { return false; }
 
         return true;
     }

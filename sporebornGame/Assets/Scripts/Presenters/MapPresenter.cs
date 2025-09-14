@@ -194,11 +194,6 @@ public class MapPresenter : MonoBehaviour
     public Room FindRoom(int index)
     {
         Room room = SpawnedRooms.FirstOrDefault(room => room.OccupiedIndexes.Contains(index));
-        if (room == null)
-        {
-            Debug.LogWarning("Can't find room in MapModel");
-        }
-
         return room;
     }
 

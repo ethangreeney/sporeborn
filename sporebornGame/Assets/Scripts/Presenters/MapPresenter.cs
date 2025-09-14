@@ -117,7 +117,7 @@ public class MapPresenter : MonoBehaviour
         }
         if (CurrentRoomPrefab == null)
         {
-            Debug.Log("BuildRoom(): Current Room Name Cannot be found");
+            Debug.Log($"BuildRoom(): Current Room Name {RoomName} Cannot be found");
             return;
         }
 

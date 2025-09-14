@@ -277,8 +277,8 @@ public class MapModel
         {
             roomOriginIndex = index + offset; // Holds each cell offset
 
-            //  If top or bottom are outside of bounds - fail to place room
-            if (((roomOriginIndex - 10) < 0) || ((roomOriginIndex + 10) >= FloorPlan.Length))
+            //  If Offset is outside of bounds - fail to place room
+            if ((roomOriginIndex < 0) || roomOriginIndex  >= FloorPlan.Length)
             {
                 return false;
             }
@@ -298,7 +298,7 @@ public class MapModel
 
             // Because grid 0-9 -> 10 is left side - so prevents a prevents 
             // wrapping around horizontally (e.g., from one row to another)
-            if (roomOriginIndex % 10 == 0 || roomOriginIndex % 10 == 9) continue;
+            if (roomOriginIndex % 10 == 0 || roomOriginIndex % 10 == 9) return false;
 
             currentRoomIndexes.Add(roomOriginIndex);
         }

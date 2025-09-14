@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class HealthModel : MonoBehaviour
 {
-    public int maxHealth;
-    public int currHealth;
+    public float maxHealth;
+    public float currHealth;
 
     public SpriteRenderer spriteRenderer;
 

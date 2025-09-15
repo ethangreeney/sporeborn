@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 3302869658169460758}
   - component: {fileID: 3378645468861044047}
   - component: {fileID: 3245811733605926620}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Projectile
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -168,3 +168,8 @@ MonoBehaviour:
   speed: 12
   damage: 1
   lifetime: 2
+  enableHoming: 0
+  homingStrength: 5
+  rubberEnabled: 0
+  bounceCount: 1
+  originalDirection: {x: 0, y: 0}

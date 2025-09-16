@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using TMPro;
+using UnityEditor.XR;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -7,6 +9,10 @@ public class SettingsMenu : MonoBehaviour
 
     public AudioMixer aM;
     public TMP_Dropdown qualityDropdown;
+
+    Resolution[] resolutions;
+
+    public TMP_Dropdown resolutionDropdown;
 
     void Start()
     {
@@ -18,6 +24,29 @@ public class SettingsMenu : MonoBehaviour
 
             qualityDropdown.RefreshShownValue();
         }
+
+        resolutions = Screen.resolutions;
+
+        resolutionDropdown.ClearOptions();
+
+        List<string> resolutionStrings = new List<string>();
+
+        int currentResolutionIndex = 0;
+
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            string option = resolutions[i].width + " x " + resolutions[i].height;
+            resolutionStrings.Add(option);
+
+            if ((resolutions[i].width == Screen.currentResolution.width) && (resolutions[i].height == Screen.currentResolution.height))
+            {
+                currentResolutionIndex = i;
+            }
+        }
+
+        resolutionDropdown.AddOptions(resolutionStrings);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
     }
     public void SetVolume(float volume)
     {
@@ -28,5 +57,16 @@ public class SettingsMenu : MonoBehaviour
     public void SetQuality(int index)
     {
         QualitySettings.SetQualityLevel(index);
+    }
+
+    public void SetFullScreen(bool isFullscreen)
+    {
+        Screen.fullScreen = isFullscreen;
+    }
+
+    public void SetResolution(int resolutionIndex)
+    {
+        Resolution resolution = resolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 }

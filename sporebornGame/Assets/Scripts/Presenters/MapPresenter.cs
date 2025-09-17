@@ -22,14 +22,18 @@ public class MapPresenter : MonoBehaviour
     public int MINROOMS = 10;
     public int MAXROOMS = 20;
 
+    // Pixel scaling of scene
     private int PixelsPerUnit = 16;
 
+    // Reference to players starting room on new level
     private Room StarterRoom;
     public Room GetStarterRoom => StarterRoom;
 
+    // References to the Current Room
     public Room CurrentPlayerRoom;
     private GameObject ActiveRoomInstance;
     private GameObject CurrentRoomPrefab;
+    private Door[] DoorsInRoom;
 
     void Start()
     {
@@ -55,7 +59,8 @@ public class MapPresenter : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.R)) {
+        if (Input.GetKey(KeyCode.R))
+        {
             Start();
         }
     }
@@ -123,24 +128,29 @@ public class MapPresenter : MonoBehaviour
 
         // Update the current room variable
         CurrentPlayerRoom = RoomToSpawn;
-
         // Instantiates the room and Aligns the room to the bottom left
         ActiveRoomInstance = Instantiate(CurrentRoomPrefab, Vector3.zero, Quaternion.identity);
 
-        Door[] theDoorScript = ActiveRoomInstance.GetComponentsInChildren<Door>();
-        foreach (Door door in theDoorScript)
+        // Gets all Doors in scene
+        DoorsInRoom = ActiveRoomInstance.GetComponentsInChildren<Door>();
+        // Assigns the MapPresenter to each door in the scene
+        foreach (Door door in DoorsInRoom)
         {
             door.map = this;
         }
 
         Vector3 PlayerSpawnPosition = Vector3.zero;
         // If we are in starter room
-        if (EnterDoor != null) {
+        if (EnterDoor != null)
+        {
             PlayerSpawnPosition = CalculateSpawnOffset(EnterDoor);
         }
 
         // Player location will be based on the door they enter from
         Player.transform.position = PlayerSpawnPosition;
+
+        // Locks the doors of the room if its an enemy room
+        ToggleLockDoors(CurrentPlayerRoom);
     }
 
     public Vector3 CalculateSpawnOffset(Door EnterDoor)
@@ -202,7 +212,33 @@ public class MapPresenter : MonoBehaviour
         foreach (Room room in SpawnedRooms)
         {
             Debug.Log(room.ToString());
-
         }
+    }
+
+    public bool ValidEnemyRoom(Room CurrentRoom)
+    {
+        // If room is regular types and not start room then it can be enemy room
+        return CurrentRoom.RoomType == RoomType.Regular && CurrentRoom.OriginIndex != StarterRoom.OriginIndex;
+    }
+
+    public void ToggleLockDoors(Room CurrentRoom)
+    {
+        // If its not a valid enemy room no need to lock doors
+        if (!ValidEnemyRoom(CurrentRoom))
+        {
+            Debug.Log("Door is not valid enemy room");
+            return;
+        }
+        
+        // Locks each active door with boolean
+        foreach (Door door in DoorsInRoom)
+        {
+            // if (door.ConnectingRoom != null)
+            // {
+
+                door.DoorIsLocked = true;
+            // }
+        }
+       
     }
 }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6431466957880298629}
   - component: {fileID: 3886081710951957257}
   - component: {fileID: 6752824841638616957}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WallLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1693,7 +1693,7 @@ GameObject:
   - component: {fileID: 4238552170787376689}
   - component: {fileID: 6915493606429937762}
   - component: {fileID: 4116951174539122644}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SouthDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1952,7 +1952,7 @@ GameObject:
   - component: {fileID: 503911394013905259}
   - component: {fileID: 4245739297072002938}
   - component: {fileID: 2804605846043641927}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5231,7 +5231,7 @@ GameObject:
   - component: {fileID: 1509511059048886408}
   - component: {fileID: 2620288873667753768}
   - component: {fileID: 93805628918351529}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NorthDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5486,7 +5486,7 @@ GameObject:
   - component: {fileID: 7091566642727965676}
   - component: {fileID: 7959683192388527798}
   - component: {fileID: 5070813657819335987}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EastDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5713,7 +5713,7 @@ GameObject:
   - component: {fileID: 387391984913515000}
   - component: {fileID: 4169114972289782869}
   - component: {fileID: 8117896250354320653}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WestDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5936,7 +5936,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7534987544359422961}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: OneByOne_Shop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5970,7 +5970,7 @@ GameObject:
   - component: {fileID: 7738978791326854173}
   - component: {fileID: 4276342385368405641}
   - component: {fileID: 5326416194538981162}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DecorationsLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6590,7 +6590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1772499728653957437}
   - component: {fileID: 8295449361159997676}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}

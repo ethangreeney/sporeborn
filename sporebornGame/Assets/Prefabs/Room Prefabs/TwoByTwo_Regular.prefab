@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4553401587237296474}
   - component: {fileID: 8222916463049405286}
   - component: {fileID: 591999183728837967}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NorthDoor_1-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +265,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8872383981096392342}
   - component: {fileID: 8050592601513054434}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,7 +319,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1997178062436170831}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TwoByTwo_Regular
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +355,7 @@ GameObject:
   - component: {fileID: 3971894758992375670}
   - component: {fileID: 1556273157815686205}
   - component: {fileID: 5065892948126891819}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NorthDoor_0-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -610,7 +610,7 @@ GameObject:
   - component: {fileID: 7550624394536524136}
   - component: {fileID: 690634943536322930}
   - component: {fileID: 5745192834054988343}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EastDoor_1-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -837,7 +837,7 @@ GameObject:
   - component: {fileID: 3417968217967463977}
   - component: {fileID: 1631760396842706175}
   - component: {fileID: 3106309907703783659}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WestDoor_0-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1062,7 +1062,7 @@ GameObject:
   - component: {fileID: 2144113761889725057}
   - component: {fileID: 8290885951280450523}
   - component: {fileID: 7597028997692034193}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DecorationsLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2703,7 +2703,7 @@ GameObject:
   - component: {fileID: 9093338451971835384}
   - component: {fileID: 8857826602978736107}
   - component: {fileID: 3956501307285639833}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SouthDoor_1-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2928,7 +2928,7 @@ GameObject:
   - component: {fileID: 8201447319677652812}
   - component: {fileID: 913386571191201249}
   - component: {fileID: 4357839266359284309}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14159,7 +14159,7 @@ GameObject:
   - component: {fileID: 3575806016420325029}
   - component: {fileID: 3703755420173482989}
   - component: {fileID: 2705533998396711884}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WestDoor_0-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14386,7 +14386,7 @@ GameObject:
   - component: {fileID: 1345668686218763312}
   - component: {fileID: 1585762595019599262}
   - component: {fileID: 6544493620244463411}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WallLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16664,7 +16664,7 @@ GameObject:
   - component: {fileID: 7805445447456163637}
   - component: {fileID: 7783300698480900466}
   - component: {fileID: 1850986793740292994}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SouthDoor_0-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16891,7 +16891,7 @@ GameObject:
   - component: {fileID: 1148835732176473190}
   - component: {fileID: 588648807855755867}
   - component: {fileID: 6135720200502708093}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EastDoor_1-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

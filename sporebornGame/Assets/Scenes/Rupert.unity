@@ -214,6 +214,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 372671900771811298, guid: 985bf7f10796b4c3d9264cf3a36d51b1, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8739343235153531015, guid: 985bf7f10796b4c3d9264cf3a36d51b1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -257,6 +261,10 @@ PrefabInstance:
     - target: {fileID: 9139744582095801061, guid: 985bf7f10796b4c3d9264cf3a36d51b1, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 9139744582095801061, guid: 985bf7f10796b4c3d9264cf3a36d51b1, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -413,6 +421,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 44703518745066524, guid: 340cc73650803446092c5b19aba96c93, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 888967962947943101, guid: 340cc73650803446092c5b19aba96c93, type: 3}
       propertyPath: target
       value: 
@@ -421,13 +433,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangedEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 1109264935682714102, guid: 340cc73650803446092c5b19aba96c93, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 2829083420284690581, guid: 340cc73650803446092c5b19aba96c93, type: 3}
       propertyPath: slowdownDistance
-      value: 4.91
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2829083420284690581, guid: 340cc73650803446092c5b19aba96c93, type: 3}
       propertyPath: endReachedDistance
-      value: 4.91
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3596426325761607834, guid: 340cc73650803446092c5b19aba96c93, type: 3}
       propertyPath: m_LocalPosition.x
@@ -633,7 +649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerTag: Player
   projectilePrefab: {fileID: 7713316025894942385, guid: 7ba546fa666f44d10b252c4cb018db98, type: 3}
-  attackRange: 8
+  attackRange: 7
   fireCooldown: 1
 --- !u!114 &1734022500
 MonoBehaviour:
@@ -647,10 +663,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef1badd4533604a4a8146adb2b64e55b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  lifetime: 2
-  direction: {x: 0, y: 0}
-  timer: 0
 --- !u!1001 &1601613806352906938
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -716,6 +728,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 44703518745066524, guid: 340cc73650803446092c5b19aba96c93, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 888967962947943101, guid: 340cc73650803446092c5b19aba96c93, type: 3}
       propertyPath: target
       value: 
@@ -723,6 +739,10 @@ PrefabInstance:
     - target: {fileID: 1109264935682714102, guid: 340cc73650803446092c5b19aba96c93, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1109264935682714102, guid: 340cc73650803446092c5b19aba96c93, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 3596426325761607834, guid: 340cc73650803446092c5b19aba96c93, type: 3}
       propertyPath: m_LocalPosition.x

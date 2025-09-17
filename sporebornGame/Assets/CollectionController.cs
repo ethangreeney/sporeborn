@@ -51,7 +51,16 @@ public class CollectionController : MonoBehaviour
 
         bool consumed = false;
 
-    
+        // Health
+        var playerHealth = collision.GetComponent<HealthModel>();
+
+        if(playerHealth.currHealth == playerHealth.maxHealth) return;
+        
+        if (playerHealth != null && healthChange != 0)
+        {
+            playerHealth.Health(healthChange);
+            consumed = true;
+        }
 
         // Movement speed
         PlayerMovement playerMovement = collision.GetComponent<PlayerMovement>();

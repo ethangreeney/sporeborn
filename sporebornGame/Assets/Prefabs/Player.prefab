@@ -197,6 +197,15 @@ MonoBehaviour:
   projectileSpeed: 12
   projectileDamage: 1
   projectileLifetime: 2
+  fireRate: 0.5
+  projectileSize: 1
+  homingEnabled: 0
+  homingStrength: 0
+  projectileCount: 1
+  spreadAngle: 15
+  damageBonus: 0
+  rubberEnabled: 0
+  bounceCount: 1
 --- !u!114 &5684536820691632929
 MonoBehaviour:
   m_ObjectHideFlags: 0

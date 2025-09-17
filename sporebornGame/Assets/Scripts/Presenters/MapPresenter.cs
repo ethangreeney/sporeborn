@@ -35,6 +35,9 @@ public class MapPresenter : MonoBehaviour
     private GameObject CurrentRoomPrefab;
     private Door[] DoorsInRoom;
 
+    // Reference to spawnEnemies after room is setup
+    private EnemyPresenter enemyPresenter;
+
     void Start()
     {
         // Generates first level map
@@ -52,6 +55,9 @@ public class MapPresenter : MonoBehaviour
 
         // Location for centre of the OneByOne Room
         Player.transform.SetParent(null); // temp
+
+        // Gets the current Enemy Presenter
+        enemyPresenter = FindFirstObjectByType<EnemyPresenter>();
 
         // Build the starter room
         BuildRoom(StarterRoom, null);
@@ -151,6 +157,12 @@ public class MapPresenter : MonoBehaviour
 
         // Locks the doors of the room if its an enemy room
         ToggleLockDoors(CurrentPlayerRoom);
+
+        // After Doors have been locked start spawning enemies
+        if (ValidEnemyRoom(CurrentPlayerRoom))
+        {
+            enemyPresenter.SpawnEnemies(ActiveRoomInstance, CurrentPlayerRoom);
+        }
     }
 
     public Vector3 CalculateSpawnOffset(Door EnterDoor)
@@ -170,16 +182,6 @@ public class MapPresenter : MonoBehaviour
         RelativePosition.y += EnterDoorOffset[1];
 
         return RelativePosition;
-
-    }
-
-    public void SpawnEnemies()
-    {
-
-    }
-
-    public void SpawnBoss()
-    {
 
     }
 
@@ -226,17 +228,15 @@ public class MapPresenter : MonoBehaviour
         // If its not a valid enemy room no need to lock doors
         if (!ValidEnemyRoom(CurrentRoom))
         {
-            Debug.Log("Door is not valid enemy room");
             return;
         }
-        
+
         // Locks each active door with boolean
         foreach (Door door in DoorsInRoom)
         {
             // if (door.ConnectingRoom != null)
             // {
-
-                door.DoorIsLocked = true;
+            door.DoorIsLocked = true;
             // }
         }
        

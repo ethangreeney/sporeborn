@@ -57,17 +57,13 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Door State: " + DoorIsLocked);
         // If player collides with door then Build the next room 
         // Pass through the cell and this doors position
-        if (collision.gameObject != map.Player)
+        if (DoorIsLocked || collision.gameObject != map.Player)
         {
             return;
         }
-        if (DoorIsLocked)
-        {
-            return;
-        }
+  
         // Build next room
         map.BuildRoom(ConnectingRoom, this);
     }

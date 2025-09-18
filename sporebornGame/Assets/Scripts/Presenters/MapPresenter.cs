@@ -156,12 +156,15 @@ public class MapPresenter : MonoBehaviour
         Player.transform.position = PlayerSpawnPosition;
 
         // Locks the doors of the room if its an enemy room
-        ToggleLockDoors(CurrentPlayerRoom);
+        ToggleLockDoors(CurrentPlayerRoom, true);
 
         // After Doors have been locked start spawning enemies
         if (ValidEnemyRoom(CurrentPlayerRoom))
         {
-            enemyPresenter.SpawnEnemies(ActiveRoomInstance, CurrentPlayerRoom);
+            if (CurrentPlayerRoom.RoomType == RoomType.Regular)
+            {
+                enemyPresenter.SpawnEnemies(ActiveRoomInstance, CurrentPlayerRoom);
+            }
         }
     }
 
@@ -219,13 +222,15 @@ public class MapPresenter : MonoBehaviour
 
     public bool ValidEnemyRoom(Room CurrentRoom)
     {
-        // If room is regular types and not start room then it can be enemy room
-        return CurrentRoom.RoomType == RoomType.Regular && CurrentRoom.OriginIndex != StarterRoom.OriginIndex;
+        // If room is regular/boss types and not start room then it can be enemy room
+        return (CurrentRoom.RoomType == RoomType.Regular
+        || CurrentRoom.RoomType == RoomType.Boss)
+        && CurrentRoom.OriginIndex != StarterRoom.OriginIndex;
     }
 
-    public void ToggleLockDoors(Room CurrentRoom)
+    public void ToggleLockDoors(Room CurrentRoom, bool Locked)
     {
-        // If its not a valid enemy room no need to lock doors
+        // If its not a valid enemy room no need to lock/unlock doors
         if (!ValidEnemyRoom(CurrentRoom))
         {
             return;
@@ -236,7 +241,7 @@ public class MapPresenter : MonoBehaviour
         {
             // if (door.ConnectingRoom != null)
             // {
-            door.DoorIsLocked = true;
+            door.DoorIsLocked = Locked;
             // }
         }
        

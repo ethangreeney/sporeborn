@@ -287,6 +287,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 0
   RelativeDoorPosition: 0000000001000000
+  DoorIsLocked: 0
 --- !u!1 &4176362278220928076
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,6 +568,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 1
   RelativeDoorPosition: 0000000001000000
+  DoorIsLocked: 0
 --- !u!1 &4958550694497816859
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,6 +796,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 2
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &5812573207965431196
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,7 +810,7 @@ GameObject:
   - component: {fileID: 7991750562887771533}
   - component: {fileID: 277076006085966257}
   - component: {fileID: 8897498321606232378}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: WallLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9329,6 +9332,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 1
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &8037799354816938459
 GameObject:
   m_ObjectHideFlags: 0
@@ -9556,6 +9560,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 3
   RelativeDoorPosition: 0000000001000000
+  DoorIsLocked: 0
 --- !u!1 &9193894521231383036
 GameObject:
   m_ObjectHideFlags: 0
@@ -9783,3 +9788,4 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 3
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0

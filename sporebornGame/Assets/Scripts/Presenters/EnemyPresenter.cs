@@ -83,7 +83,7 @@ public class EnemyPresenter : MonoBehaviour
         // Unlock doors if no more enemies left
         if (EnemiesInScene == 0)
         {
-
+            
         }
     }
     // currently unreachable code

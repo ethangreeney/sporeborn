@@ -8941,6 +8941,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 0
   RelativeDoorPosition: 0000000001000000
+  DoorIsLocked: 0
 --- !u!19719996 &2190441546410982439
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -9206,6 +9207,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 3
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &1650316913082969120
 GameObject:
   m_ObjectHideFlags: 0
@@ -9461,6 +9463,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 0
   RelativeDoorPosition: ffffffff01000000
+  DoorIsLocked: 0
 --- !u!1 &4984214430334352389
 GameObject:
   m_ObjectHideFlags: 0
@@ -9688,6 +9691,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 2
   RelativeDoorPosition: ffffffff01000000
+  DoorIsLocked: 0
 --- !u!1 &5187501787636689379
 GameObject:
   m_ObjectHideFlags: 0
@@ -9701,7 +9705,7 @@ GameObject:
   - component: {fileID: 1485164174535355539}
   - component: {fileID: 6411887165493441143}
   - component: {fileID: 3536132381902736239}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: WallLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12127,6 +12131,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 1
   RelativeDoorPosition: 0000000001000000
+  DoorIsLocked: 0
 --- !u!1 &7652389136368059979
 GameObject:
   m_ObjectHideFlags: 0
@@ -12354,6 +12359,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 3
   RelativeDoorPosition: ffffffff01000000
+  DoorIsLocked: 0
 --- !u!1 &7748044793050359073
 GameObject:
   m_ObjectHideFlags: 0
@@ -12581,6 +12587,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 2
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &7802920785248921919
 GameObject:
   m_ObjectHideFlags: 0
@@ -14159,3 +14166,4 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 1
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0

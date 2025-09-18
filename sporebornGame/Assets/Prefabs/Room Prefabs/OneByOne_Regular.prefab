@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6431466957880298629}
   - component: {fileID: 3886081710951957257}
   - component: {fileID: 6752824841638616957}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: WallLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1433,6 +1433,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 2
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &1797672633898148576
 GameObject:
   m_ObjectHideFlags: 0
@@ -2239,7 +2240,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 18
-      m_TileSpriteIndex: 31
+      m_TileSpriteIndex: 33
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3709,7 +3710,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 34
-      m_TileSpriteIndex: 30
+      m_TileSpriteIndex: 31
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3859,7 +3860,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 19
-      m_TileSpriteIndex: 26
+      m_TileSpriteIndex: 30
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -4494,8 +4495,8 @@ Tilemap:
     m_Data: {fileID: -160528753, guid: fb8ded48876e1f54e94f215e3335f1bb, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 1
-    m_Data: {fileID: -1650909730, guid: 4f11424d210319a4ca68f32fe1cdeb5f, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 7
     m_Data: {fileID: 1507336328, guid: fb8ded48876e1f54e94f215e3335f1bb, type: 3}
   - m_RefCount: 1
@@ -4503,13 +4504,13 @@ Tilemap:
   - m_RefCount: 3
     m_Data: {fileID: -922966320, guid: fb8ded48876e1f54e94f215e3335f1bb, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 1504203900, guid: fb8ded48876e1f54e94f215e3335f1bb, type: 3}
+    m_Data: {fileID: -1650909730, guid: 4f11424d210319a4ca68f32fe1cdeb5f, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 1494009805, guid: 4f11424d210319a4ca68f32fe1cdeb5f, type: 3}
+    m_Data: {fileID: 1504203900, guid: fb8ded48876e1f54e94f215e3335f1bb, type: 3}
   - m_RefCount: 11
     m_Data: {fileID: 1679569081, guid: 4f11424d210319a4ca68f32fe1cdeb5f, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 1494009805, guid: 4f11424d210319a4ca68f32fe1cdeb5f, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: -1544605124, guid: 4f11424d210319a4ca68f32fe1cdeb5f, type: 3}
   - m_RefCount: 1
@@ -4933,6 +4934,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 0
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &4042817573304151989
 GameObject:
   m_ObjectHideFlags: 0
@@ -5160,6 +5162,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 1
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &4994296283248113673
 GameObject:
   m_ObjectHideFlags: 0
@@ -5387,6 +5390,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 3
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &6555030751879160380
 GameObject:
   m_ObjectHideFlags: 0

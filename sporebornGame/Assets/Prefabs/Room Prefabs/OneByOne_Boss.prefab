@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6431466957880298629}
   - component: {fileID: 3886081710951957257}
   - component: {fileID: 6752824841638616957}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: WallLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1575,6 +1575,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 2
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &1797672633898148576
 GameObject:
   m_ObjectHideFlags: 0
@@ -5075,6 +5076,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 0
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &4042817573304151989
 GameObject:
   m_ObjectHideFlags: 0
@@ -5302,6 +5304,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 1
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &4994296283248113673
 GameObject:
   m_ObjectHideFlags: 0
@@ -5529,6 +5532,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 3
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &6555030751879160380
 GameObject:
   m_ObjectHideFlags: 0

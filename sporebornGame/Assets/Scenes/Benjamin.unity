@@ -404,6 +404,93 @@ MonoBehaviour:
   GRID_SIDE: 10
   MINROOMS: 10
   MAXROOMS: 20
+--- !u!1 &686507007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 686507009}
+  - component: {fileID: 686507008}
+  m_Layer: 0
+  m_Name: PathFinding
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &686507008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686507007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 1
+  data:
+    dataString: UEsDBBQAAAgIAABoIewucAU0XgIAABUFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQF1VE1z2jAQ/SuMzk3GGCilt9YhpIckTEgnF1+EtMYaZMmjjwDJ8N+7km3s0umJ5e3b3bcf8icRytbAnDYrI/ij5kC+j0iwyZdR73yAI91ptREf0HHeBHdlINHIeaFOaMTHIczqCpwR7IfayUBOEPRKFNpUS76DTFtnES6otIAuo12IVgh9jsgRf24WIeSEVjoP1gdai2R0RpOBcmB6akfsaA3LKyZpVQMPknvyJG3ZkzTSFDbTMoJwpqUUtlVC3KmOnWa0th77QAIXFDuL5ce3MwRKELvSBZ3D8OeisOBaUYae7oTBETV5yU/dzK2idt8oe6fSh0rTZPE1ymqyPv5DuBlHd2F09dAVHiehiCsF27/QE6PWDSY7hO8G2uOEDlTu6VbCWwnqSa+M9oqj0xkfQr2F9K7/e+ktK4Hte7yRegX6+v/7CT2cY/vHTIpqG1y30wbYSB1HHrcPBpfzCwXH27BtCkSDit8WXulueESt414Y69DVdqmCvK32JlDJMs4sdONdpo2CCLeia1BUutMa07jrHV75BmWvPPc0PJe2eOvrXsFVSIR7fpJcudb6cFmWLfXhEWz57J0UCnrRwfGEc8q0Us2JDWfShW28KSgbhO284H+fFkn4HLaz8Zwl3xbzOV3cpJMp0Ek6S5M526YwJvH2hMI+qVw3Qtvx4NZUn1zhnXVfkdHK0DqeOzf0sBIflR6MXKhCb5gBUM9NhotwMFgEHyZfcoED2oBzQsV9k8+cSM32wPNLojx2ujw6Q/M+S05q8a5dQHKSxc9GTgJ8ueW1gXcBh1C8S3Ym5z9QSwMEFAAACAgAAGgh7M+wVpttAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tJJBinlqkqmhebKBhaW5eaKlrpGxSWqisZGpkYF5cpJRqqFSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAGgh7C5wBTReAgAAFQUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAGgh7M+wVpttAAAAeAAAAAkAJAAAAAAAAAAAAAAAqwIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABjAwAAAAA=
+    upgradeData: 
+    file_cachedStartup: {fileID: 0}
+    data_cachedStartup: 
+    cacheStartup: 0
+  showNavGraphs: 1
+  showUnwalkableNodes: 1
+  debugMode: 0
+  debugFloor: 0
+  debugRoof: 1
+  manualDebugFloorRoof: 0
+  showSearchTree: 0
+  unwalkableNodeDebugSize: 0.3
+  logPathResults: 1
+  maxNearestNodeDistance: 100
+  scanOnStartup: 1
+  fullGetNearestSearch: 0
+  prioritizeGraphs: 0
+  prioritizeGraphsLimit: 1
+  colorSettings:
+    _SolidColor: {r: 0.11764706, g: 0.4, b: 0.7882353, a: 0.9}
+    _UnwalkableNode: {r: 1, g: 0, b: 0, a: 0.5}
+    _BoundsHandles: {r: 0.29, g: 0.454, b: 0.741, a: 0.9}
+    _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: 0.5}
+    _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: 0.5}
+    _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
+    _AreaColors:
+    - {r: 0, g: 0, b: 0, a: 0}
+  tagNames: []
+  heuristic: 2
+  heuristicScale: 1
+  threadCount: 1
+  maxFrameTime: 1
+  batchGraphUpdates: 0
+  graphUpdateBatchingInterval: 0.2
+  euclideanEmbedding:
+    mode: 0
+    seed: 0
+    pivotPointRoot: {fileID: 0}
+    spreadOutCount: 1
+  showGraphs: 1
+--- !u!4 &686507009
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686507007}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.026699, y: 2.094248, z: 0.0501989}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &767718784 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5219888122932442599, guid: 6b14504556dd7423a89c1b87a4238055, type: 3}
@@ -561,3 +648,4 @@ SceneRoots:
   - {fileID: 416779940}
   - {fileID: 1032923587}
   - {fileID: 896586958}
+  - {fileID: 686507009}

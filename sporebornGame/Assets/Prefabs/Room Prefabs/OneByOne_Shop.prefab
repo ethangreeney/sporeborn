@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6431466957880298629}
   - component: {fileID: 3886081710951957257}
   - component: {fileID: 6752824841638616957}
-  m_Layer: 6
+  m_Layer: 12
   m_Name: WallLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1728,7 +1728,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 1
-      m_TileSpriteIndex: 1
+      m_TileSpriteIndex: 5
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1738,7 +1738,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileSpriteIndex: 4
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -1759,18 +1759,18 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   m_TileSpriteArray:
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: -1913487373, guid: 5dc1afc301056d8438fde87a54bbf5a7, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 1370491486151875220, guid: 5dc1afc301056d8438fde87a54bbf5a7, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 2
     m_Data:
@@ -1941,6 +1941,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 2
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &1797672633898148576
 GameObject:
   m_ObjectHideFlags: 0
@@ -2997,7 +2998,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 46
-      m_TileSpriteIndex: 16
+      m_TileSpriteIndex: 33
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -3047,7 +3048,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 47
-      m_TileSpriteIndex: 20
+      m_TileSpriteIndex: 26
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -4998,16 +4999,16 @@ Tilemap:
     m_Data: {fileID: 2090115884, guid: 4f11424d210319a4ca68f32fe1cdeb5f, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 1108512703, guid: 4f11424d210319a4ca68f32fe1cdeb5f, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 731659937, guid: fb8ded48876e1f54e94f215e3335f1bb, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 2
     m_Data: {fileID: 1512296220, guid: 4f11424d210319a4ca68f32fe1cdeb5f, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 1
-    m_Data: {fileID: 551704120, guid: fb8ded48876e1f54e94f215e3335f1bb, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 3
     m_Data: {fileID: -636832304, guid: fb8ded48876e1f54e94f215e3335f1bb, type: 3}
   - m_RefCount: 3
@@ -5018,8 +5019,8 @@ Tilemap:
     m_Data: {fileID: -160528753, guid: fb8ded48876e1f54e94f215e3335f1bb, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 74854789, guid: fb8ded48876e1f54e94f215e3335f1bb, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 551704120, guid: fb8ded48876e1f54e94f215e3335f1bb, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 1507336328, guid: fb8ded48876e1f54e94f215e3335f1bb, type: 3}
   - m_RefCount: 1
@@ -5032,8 +5033,8 @@ Tilemap:
     m_Data: {fileID: 1504203900, guid: fb8ded48876e1f54e94f215e3335f1bb, type: 3}
   - m_RefCount: 11
     m_Data: {fileID: 1679569081, guid: 4f11424d210319a4ca68f32fe1cdeb5f, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 731659937, guid: fb8ded48876e1f54e94f215e3335f1bb, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: -1544605124, guid: 4f11424d210319a4ca68f32fe1cdeb5f, type: 3}
   - m_RefCount: 1
@@ -5473,6 +5474,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 0
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &4042817573304151989
 GameObject:
   m_ObjectHideFlags: 0
@@ -5700,6 +5702,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 1
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &4994296283248113673
 GameObject:
   m_ObjectHideFlags: 0
@@ -5927,6 +5930,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 3
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &6555030751879160380
 GameObject:
   m_ObjectHideFlags: 0

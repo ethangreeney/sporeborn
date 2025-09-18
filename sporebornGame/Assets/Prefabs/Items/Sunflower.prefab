@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6136153899489229966}
   - component: {fileID: 8010276945001407383}
   - component: {fileID: 1871798545250427873}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sunflower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 505039161766500157}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.88, y: -2.12, z: 0}
-  m_LocalScale: {x: 3.9873, y: 3.9873, z: 3.9873}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2041154009
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7367808777163505026, guid: 04016ca6ebd69984ab8c73f9f831a23d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -109,3 +109,11 @@ MonoBehaviour:
   fireDelayChange: 0
   bulletSpeedChange: 0
   bulletDamageChange: 0
+  projectileSizeChange: 0
+  damageBonus: 0
+  homingEnabled: 0
+  homingStrength: 0
+  extraProjectiles: 0
+  extraSpreadAngle: 0
+  rubberEnabled: 0
+  rubberBounces: 0

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8134146339300445785}
   - component: {fileID: 7821508400047133018}
   - component: {fileID: 4781716725156782802}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Peas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 8370837261787018476}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.02, y: -2.4, z: 0}
-  m_LocalScale: {x: 3.263822, y: 3.263822, z: 3.263822}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2041154009
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 9099744842368663684, guid: 2f7d5cc1f74e03043aebc2bc47dafc9f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -109,3 +109,11 @@ MonoBehaviour:
   fireDelayChange: -0.3
   bulletSpeedChange: 5
   bulletDamageChange: 0
+  projectileSizeChange: 0
+  damageBonus: 0
+  homingEnabled: 0
+  homingStrength: 0
+  extraProjectiles: 0
+  extraSpreadAngle: 0
+  rubberEnabled: 0
+  rubberBounces: 0

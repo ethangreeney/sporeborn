@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1823176541166474194}
   - component: {fileID: 4166293143185268718}
   - component: {fileID: 6756135281204532823}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8679,7 +8679,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7950242131934853290}
   - component: {fileID: 4987747753022018623}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8737,7 +8737,7 @@ GameObject:
   - component: {fileID: 8995691770647131592}
   - component: {fileID: 8017880594734889395}
   - component: {fileID: 2190441546410982439}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NorthDoor_1-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8941,6 +8941,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 0
   RelativeDoorPosition: 0000000001000000
+  DoorIsLocked: 0
 --- !u!19719996 &2190441546410982439
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -8992,7 +8993,7 @@ GameObject:
   - component: {fileID: 4978050855614431138}
   - component: {fileID: 7537951706613606083}
   - component: {fileID: 5155433470709180177}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WestDoor_1-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9206,6 +9207,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 3
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &1650316913082969120
 GameObject:
   m_ObjectHideFlags: 0
@@ -9219,7 +9221,7 @@ GameObject:
   - component: {fileID: 8432748032195939535}
   - component: {fileID: 959608521022036959}
   - component: {fileID: 6206718167913857269}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NorthDoor_0-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9461,6 +9463,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 0
   RelativeDoorPosition: ffffffff01000000
+  DoorIsLocked: 0
 --- !u!1 &4984214430334352389
 GameObject:
   m_ObjectHideFlags: 0
@@ -9474,7 +9477,7 @@ GameObject:
   - component: {fileID: 5433640894381438955}
   - component: {fileID: 6877549080884985483}
   - component: {fileID: 5316632968928695353}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SouthDoor_0-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9688,6 +9691,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 2
   RelativeDoorPosition: ffffffff01000000
+  DoorIsLocked: 0
 --- !u!1 &5187501787636689379
 GameObject:
   m_ObjectHideFlags: 0
@@ -9701,7 +9705,7 @@ GameObject:
   - component: {fileID: 1485164174535355539}
   - component: {fileID: 6411887165493441143}
   - component: {fileID: 3536132381902736239}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: WallLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11913,7 +11917,7 @@ GameObject:
   - component: {fileID: 7866234274251591306}
   - component: {fileID: 2095973911902357567}
   - component: {fileID: 4839888167786552020}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EastDoor_1-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12127,6 +12131,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 1
   RelativeDoorPosition: 0000000001000000
+  DoorIsLocked: 0
 --- !u!1 &7652389136368059979
 GameObject:
   m_ObjectHideFlags: 0
@@ -12140,7 +12145,7 @@ GameObject:
   - component: {fileID: 3116837954454631190}
   - component: {fileID: 7431355545023377392}
   - component: {fileID: 7349884621539096394}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WestDoor_0-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12354,6 +12359,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 3
   RelativeDoorPosition: ffffffff01000000
+  DoorIsLocked: 0
 --- !u!1 &7748044793050359073
 GameObject:
   m_ObjectHideFlags: 0
@@ -12367,7 +12373,7 @@ GameObject:
   - component: {fileID: 1654285082915514981}
   - component: {fileID: 7512894903683058417}
   - component: {fileID: 2236446772246830843}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SouthDoor_1-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12581,6 +12587,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 2
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &7802920785248921919
 GameObject:
   m_ObjectHideFlags: 0
@@ -12590,7 +12597,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5884105917711018498}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LShape_180_Regular
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12624,7 +12631,7 @@ GameObject:
   - component: {fileID: 3271565935946024669}
   - component: {fileID: 5531318762348457076}
   - component: {fileID: 3114340634859865562}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DecorationsLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13945,7 +13952,7 @@ GameObject:
   - component: {fileID: 466532473045980326}
   - component: {fileID: 6706813315624918492}
   - component: {fileID: 7582947461175087407}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EastDoor_1-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14159,3 +14166,4 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 1
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0

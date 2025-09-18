@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3455365044020041434}
   - component: {fileID: 3697471500212961931}
   - component: {fileID: 8751037124489666324}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TripleShot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 2619596110311721775}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.889, y: -2.541, z: 0}
-  m_LocalScale: {x: 0.45729676, y: 0.45729676, z: 0.45729676}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2041154009
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 4884007723737282446, guid: 5e7c3d8be6c1b8c4fac3d369a006e011, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -110,8 +110,10 @@ MonoBehaviour:
   bulletSpeedChange: 0
   bulletDamageChange: 0
   projectileSizeChange: 0
+  damageBonus: 0.2
   homingEnabled: 0
   homingStrength: 0
   extraProjectiles: 2
   extraSpreadAngle: 15
-  damageBonus: 0.2
+  rubberEnabled: 0
+  rubberBounces: 0

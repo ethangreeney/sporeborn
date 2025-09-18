@@ -32,6 +32,8 @@ public class Door : MonoBehaviour
     public DoorType CurrentDoorType;
     public int[] RelativeDoorPosition = { 0, 0 };
 
+    public bool DoorIsLocked = false;
+
     void Start()
     {
         ConnectingRoom = FindAdjacentRoom();
@@ -57,10 +59,11 @@ public class Door : MonoBehaviour
     {
         // If player collides with door then Build the next room 
         // Pass through the cell and this doors position
-        if (collision.gameObject != map.Player)
+        if (DoorIsLocked || collision.gameObject != map.Player)
         {
             return;
         }
+  
         // Build next room
         map.BuildRoom(ConnectingRoom, this);
     }

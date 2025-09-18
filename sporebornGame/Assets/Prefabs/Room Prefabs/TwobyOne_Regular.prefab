@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8930803138315598930}
   - component: {fileID: 285892199952549940}
   - component: {fileID: 1226345097661462528}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6068,7 +6068,7 @@ GameObject:
   - component: {fileID: 1123202150698941833}
   - component: {fileID: 1860479857652020542}
   - component: {fileID: 9180511321921040696}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WestDoor_0-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6282,6 +6282,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 3
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &2127896697013771519
 GameObject:
   m_ObjectHideFlags: 0
@@ -6295,7 +6296,7 @@ GameObject:
   - component: {fileID: 9095424712090941192}
   - component: {fileID: 5555451744747148142}
   - component: {fileID: 3599008009530497718}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SouthDoor_1-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6509,6 +6510,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 2
   RelativeDoorPosition: 0100000000000000
+  DoorIsLocked: 0
 --- !u!1 &2420711223200003457
 GameObject:
   m_ObjectHideFlags: 0
@@ -6522,7 +6524,7 @@ GameObject:
   - component: {fileID: 6598242149314086380}
   - component: {fileID: 8226666870432008798}
   - component: {fileID: 1118398922930886571}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NorthDoor_1-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6726,6 +6728,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 0
   RelativeDoorPosition: 0100000000000000
+  DoorIsLocked: 0
 --- !u!19719996 &1118398922930886571
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -6773,7 +6776,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3456637416737773770}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TwoByOne_Regular
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6809,7 +6812,7 @@ GameObject:
   - component: {fileID: 2331859157620580913}
   - component: {fileID: 2847418505832069346}
   - component: {fileID: 3858823726997209558}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EastDoor_1-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7023,6 +7026,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 1
   RelativeDoorPosition: 0100000000000000
+  DoorIsLocked: 0
 --- !u!1 &5793169010155626773
 GameObject:
   m_ObjectHideFlags: 0
@@ -7036,7 +7040,7 @@ GameObject:
   - component: {fileID: 5584432851726206257}
   - component: {fileID: 6992268254268217787}
   - component: {fileID: 1083359031219437969}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NorthDoor_0-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7278,6 +7282,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 0
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &6135067236413733836
 GameObject:
   m_ObjectHideFlags: 0
@@ -7291,7 +7296,7 @@ GameObject:
   - component: {fileID: 6507999492028222545}
   - component: {fileID: 7468694824304273312}
   - component: {fileID: 6921812312056716939}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SouthDoor_0-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7505,6 +7510,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 2
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &8547975096138917141
 GameObject:
   m_ObjectHideFlags: 0
@@ -7518,7 +7524,7 @@ GameObject:
   - component: {fileID: 4915619307366494561}
   - component: {fileID: 2631712252700570971}
   - component: {fileID: 5711312225330733573}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: WallLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9145,7 +9151,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8654417704950644749}
   - component: {fileID: 7527431425358187493}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9199,7 +9205,7 @@ GameObject:
   - component: {fileID: 7746949783900259902}
   - component: {fileID: 4188757167372823373}
   - component: {fileID: 2112779763693380706}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DecorationsLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

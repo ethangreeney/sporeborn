@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4553401587237296474}
   - component: {fileID: 8222916463049405286}
   - component: {fileID: 591999183728837967}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NorthDoor_1-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -217,6 +217,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 0
   RelativeDoorPosition: 0100000001000000
+  DoorIsLocked: 0
 --- !u!19719996 &591999183728837967
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -265,7 +266,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8872383981096392342}
   - component: {fileID: 8050592601513054434}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -319,7 +320,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1997178062436170831}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TwoByTwo_Regular
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -355,7 +356,7 @@ GameObject:
   - component: {fileID: 3971894758992375670}
   - component: {fileID: 1556273157815686205}
   - component: {fileID: 5065892948126891819}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: NorthDoor_0-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -597,6 +598,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 0
   RelativeDoorPosition: 0000000001000000
+  DoorIsLocked: 0
 --- !u!1 &4808108329204266699
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,7 +612,7 @@ GameObject:
   - component: {fileID: 7550624394536524136}
   - component: {fileID: 690634943536322930}
   - component: {fileID: 5745192834054988343}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EastDoor_1-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -824,6 +826,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 1
   RelativeDoorPosition: 0100000000000000
+  DoorIsLocked: 0
 --- !u!1 &5099433733180496272
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,7 +840,7 @@ GameObject:
   - component: {fileID: 3417968217967463977}
   - component: {fileID: 1631760396842706175}
   - component: {fileID: 3106309907703783659}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WestDoor_0-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1051,6 +1054,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 3
   RelativeDoorPosition: 0000000001000000
+  DoorIsLocked: 0
 --- !u!1 &5157013599595963273
 GameObject:
   m_ObjectHideFlags: 0
@@ -1062,7 +1066,7 @@ GameObject:
   - component: {fileID: 2144113761889725057}
   - component: {fileID: 8290885951280450523}
   - component: {fileID: 7597028997692034193}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DecorationsLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2703,7 +2707,7 @@ GameObject:
   - component: {fileID: 9093338451971835384}
   - component: {fileID: 8857826602978736107}
   - component: {fileID: 3956501307285639833}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SouthDoor_1-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2917,6 +2921,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 2
   RelativeDoorPosition: 0100000000000000
+  DoorIsLocked: 0
 --- !u!1 &7347515706692247014
 GameObject:
   m_ObjectHideFlags: 0
@@ -2928,7 +2933,7 @@ GameObject:
   - component: {fileID: 8201447319677652812}
   - component: {fileID: 913386571191201249}
   - component: {fileID: 4357839266359284309}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FloorLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14159,7 +14164,7 @@ GameObject:
   - component: {fileID: 3575806016420325029}
   - component: {fileID: 3703755420173482989}
   - component: {fileID: 2705533998396711884}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WestDoor_0-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14373,6 +14378,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 3
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &7594561925444633841
 GameObject:
   m_ObjectHideFlags: 0
@@ -14386,7 +14392,7 @@ GameObject:
   - component: {fileID: 1345668686218763312}
   - component: {fileID: 1585762595019599262}
   - component: {fileID: 6544493620244463411}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: WallLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14421,7 +14427,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 2
-      m_TileSpriteIndex: 19
+      m_TileSpriteIndex: 22
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -14751,7 +14757,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 17
-      m_TileSpriteIndex: 18
+      m_TileSpriteIndex: 21
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -16021,7 +16027,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 15
-      m_TileSpriteIndex: 15
+      m_TileSpriteIndex: 20
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -16351,7 +16357,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 16
-      m_TileSpriteIndex: 16
+      m_TileSpriteIndex: 19
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -16436,22 +16442,22 @@ Tilemap:
     m_Data: {fileID: 1707054074, guid: 4f11424d210319a4ca68f32fe1cdeb5f, type: 3}
   - m_RefCount: 32
     m_Data: {fileID: -677798231, guid: 4f11424d210319a4ca68f32fe1cdeb5f, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 1980871912, guid: 4f11424d210319a4ca68f32fe1cdeb5f, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: -1293967029, guid: 4f11424d210319a4ca68f32fe1cdeb5f, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 30
     m_Data: {fileID: 1180323634, guid: 4f11424d210319a4ca68f32fe1cdeb5f, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -1293967029, guid: 4f11424d210319a4ca68f32fe1cdeb5f, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 1980871912, guid: 4f11424d210319a4ca68f32fe1cdeb5f, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 315541641, guid: 4f11424d210319a4ca68f32fe1cdeb5f, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: -1746595300, guid: 4f11424d210319a4ca68f32fe1cdeb5f, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
   m_TileMatrixArray:
   - m_RefCount: 184
     m_Data:
@@ -16664,7 +16670,7 @@ GameObject:
   - component: {fileID: 7805445447456163637}
   - component: {fileID: 7783300698480900466}
   - component: {fileID: 1850986793740292994}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SouthDoor_0-0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16878,6 +16884,7 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 2
   RelativeDoorPosition: 0000000000000000
+  DoorIsLocked: 0
 --- !u!1 &8446835760681928682
 GameObject:
   m_ObjectHideFlags: 0
@@ -16891,7 +16898,7 @@ GameObject:
   - component: {fileID: 1148835732176473190}
   - component: {fileID: 588648807855755867}
   - component: {fileID: 6135720200502708093}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EastDoor_1-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17105,3 +17112,4 @@ MonoBehaviour:
   map: {fileID: 0}
   CurrentDoorType: 1
   RelativeDoorPosition: 0100000001000000
+  DoorIsLocked: 0

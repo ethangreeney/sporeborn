@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4371498860918624868}
   - component: {fileID: 7812303377727212989}
   - component: {fileID: 3654885603664207958}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CoconutCannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 3006176890905470681}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5296, y: -2.5021, z: 0}
-  m_LocalScale: {x: 0.16556296, y: 0.16556296, z: 0.16556296}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2041154009
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 238098454153143994, guid: 4f2ab4af8689ca547a5bc529d60958e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -110,3 +110,10 @@ MonoBehaviour:
   bulletSpeedChange: 0
   bulletDamageChange: 2
   projectileSizeChange: 1
+  damageBonus: 0
+  homingEnabled: 0
+  homingStrength: 0
+  extraProjectiles: 0
+  extraSpreadAngle: 0
+  rubberEnabled: 0
+  rubberBounces: 0

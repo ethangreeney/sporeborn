@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class MapPresenter : MonoBehaviour
 {
@@ -22,14 +23,27 @@ public class MapPresenter : MonoBehaviour
     public int MINROOMS = 10;
     public int MAXROOMS = 20;
 
+    // Pixel scaling of scene
     private int PixelsPerUnit = 16;
 
+    // Reference to players starting room on new level
     private Room StarterRoom;
     public Room GetStarterRoom => StarterRoom;
 
+    // References to the Current Room
     public Room CurrentPlayerRoom;
     private GameObject ActiveRoomInstance;
     private GameObject CurrentRoomPrefab;
+    private Door[] DoorsInRoom;
+
+    // Tilemap References
+    private Tilemap FloorTilemap;
+    private Grid RoomGrid;
+
+    // Reference to spawn in GameObjects when entering a new room
+    private EnemyPresenter enemyPresenter;
+    private ItemPresenter itemPresenter;
+
 
     void Start()
     {
@@ -49,13 +63,17 @@ public class MapPresenter : MonoBehaviour
         // Location for centre of the OneByOne Room
         Player.transform.SetParent(null); // temp
 
+        // Gets the current Enemy Presenter
+        enemyPresenter = FindFirstObjectByType<EnemyPresenter>();
+        itemPresenter = FindFirstObjectByType<ItemPresenter>();
         // Build the starter room
         BuildRoom(StarterRoom, null);
     }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.R)) {
+        if (Input.GetKey(KeyCode.R))
+        {
             Start();
         }
     }
@@ -123,24 +141,48 @@ public class MapPresenter : MonoBehaviour
 
         // Update the current room variable
         CurrentPlayerRoom = RoomToSpawn;
-
         // Instantiates the room and Aligns the room to the bottom left
         ActiveRoomInstance = Instantiate(CurrentRoomPrefab, Vector3.zero, Quaternion.identity);
 
-        Door[] theDoorScript = ActiveRoomInstance.GetComponentsInChildren<Door>();
-        foreach (Door door in theDoorScript)
+        // Gets all Doors in scene
+        DoorsInRoom = ActiveRoomInstance.GetComponentsInChildren<Door>();
+        // Assigns the MapPresenter to each door in the scene
+        foreach (Door door in DoorsInRoom)
         {
             door.map = this;
         }
 
         Vector3 PlayerSpawnPosition = Vector3.zero;
         // If we are in starter room
-        if (EnterDoor != null) {
+        if (EnterDoor != null)
+        {
             PlayerSpawnPosition = CalculateSpawnOffset(EnterDoor);
         }
 
         // Player location will be based on the door they enter from
         Player.transform.position = PlayerSpawnPosition;
+
+
+        // If Room is a valid enemy room and hasn't been completed
+        if (ValidEnemyRoom(CurrentPlayerRoom) && CurrentPlayerRoom.RoomCompleted == false)
+        {
+            // Locks the doors of the room if its an enemy room
+            ToggleLockDoors(true);
+            if (CurrentPlayerRoom.RoomType == RoomType.Regular)
+            {
+                // Spawns Enemies
+                enemyPresenter.SpawnEnemies(ActiveRoomInstance, CurrentPlayerRoom);
+            }
+            else if (CurrentPlayerRoom.RoomType == RoomType.Boss)
+            {
+                // Spawn Boss
+            }
+        }
+
+        if (CurrentPlayerRoom.RoomType == RoomType.Item)
+        {
+            itemPresenter.PlaceItemInItemRoom();
+        }
     }
 
     public Vector3 CalculateSpawnOffset(Door EnterDoor)
@@ -160,16 +202,6 @@ public class MapPresenter : MonoBehaviour
         RelativePosition.y += EnterDoorOffset[1];
 
         return RelativePosition;
-
-    }
-
-    public void SpawnEnemies()
-    {
-
-    }
-
-    public void SpawnBoss()
-    {
 
     }
 
@@ -202,7 +234,102 @@ public class MapPresenter : MonoBehaviour
         foreach (Room room in SpawnedRooms)
         {
             Debug.Log(room.ToString());
-
         }
     }
+
+    public bool ValidEnemyRoom(Room CurrentRoom)
+    {
+        // If room is regular/boss types and not start room then it can be enemy room
+        return (CurrentRoom.RoomType == RoomType.Regular
+        || CurrentRoom.RoomType == RoomType.Boss)
+        && CurrentRoom.OriginIndex != StarterRoom.OriginIndex;
+    }
+
+    public void ToggleLockDoors(bool Locked)
+    {
+        // Locks each active door with boolean
+        foreach (Door door in DoorsInRoom)
+        {
+            // if (door.ConnectingRoom != null)
+            // {
+            door.DoorIsLocked = Locked;
+            // }
+        }
+
+    }
+
+    public List<Vector3> GetSpawnLocations()
+    {
+        FloorTilemap = GetFloorTileLayer(ActiveRoomInstance);
+        List<Vector3> SpawnableTiles = new List<Vector3>();
+
+
+        if (FloorTilemap == null)
+        {
+            Debug.LogWarning("Can't find Floor Layer");
+            return default;
+        }
+
+        BoundsInt roomBounds = FloorTilemap.cellBounds;
+
+        foreach (Vector3Int pos in roomBounds.allPositionsWithin)
+        {
+            if (FloorTilemap.HasTile(pos))
+            {
+                // Converts from relative pos in grid to world position in scene
+                Vector3 WorldlPos = FloorTilemap.CellToWorld(pos);
+
+                // Spawns enemies in the centre of tiles
+                WorldlPos += FloorTilemap.cellSize / 2f;
+
+                // Adds to Vector3 list to tell enemies where they can spawn
+                SpawnableTiles.Add(WorldlPos);
+            }
+        }
+
+        return SpawnableTiles;
+    }
+
+
+    private Tilemap GetFloorTileLayer(GameObject CurrentRoomInstance)
+    {
+        if (CurrentRoomInstance == null)
+        {
+            Debug.Log("Current Room Instance is null");
+        }
+
+        // Find the Grid Object which stores all layers in RoomPrefabs
+        RoomGrid = CurrentRoomInstance.GetComponentInChildren<Grid>();
+
+        if (RoomGrid != null)
+        {
+            // Get transform of the FloorLayer within the Grid
+            Transform FloorTileMapTransform = RoomGrid.transform.Find("FloorLayer");
+
+            if (FloorTileMapTransform != null)
+            {
+                // Get the floor tilemap using its transform 
+                Tilemap FloorTileMap = FloorTileMapTransform.GetComponent<Tilemap>();
+
+                if (FloorTileMap == null)
+                {
+                    return default;
+                }
+
+                return FloorTileMap;
+
+            }
+        }
+        // Can't find grid or floorplan transform
+        return default;
+    }
+
+    public void RoomCompleted()
+    {
+        CurrentPlayerRoom.RoomCompleted = true;
+    }
+    
+    
+
+
 }

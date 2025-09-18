@@ -6,10 +6,14 @@ public class EnemyProjectileScript : MonoBehaviour
     [SerializeField] float speed = 10f;
     [SerializeField] float lifetime = 2f;
 
-    [Header("Collision")]
-    [SerializeField] string playerTag = "Player";
-    [SerializeField] string environmentLayerName = "Environment"; // <-- your walls layer
+    [Header("Damage")]
+    [SerializeField] int damage = 1;                 // tweak in Inspector
 
+    [Header("Collision")]
+    [SerializeField] string playerTag = "Player";    // your player tag
+    [SerializeField] string environmentLayerName = "Environment"; // your walls layer
+
+    // runtime
     Vector2 direction;
     float timer;
     Rigidbody2D rb;
@@ -19,7 +23,8 @@ public class EnemyProjectileScript : MonoBehaviour
     {
         direction = shootDirection.normalized;
         transform.right = direction;
-        if (rb) rb.linearVelocity = direction * speed;
+
+        if (rb) rb.linearVelocity = direction * speed;   // physics-based movement
     }
 
     void Awake()
@@ -27,19 +32,20 @@ public class EnemyProjectileScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         if (rb)
         {
+            rb.bodyType = RigidbodyType2D.Kinematic;
             rb.gravityScale = 0f;
             rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-            rb.bodyType = RigidbodyType2D.Kinematic;
         }
 
         environmentLayer = LayerMask.NameToLayer(environmentLayerName);
         if (environmentLayer == -1)
-            Debug.LogError($"EnemyProjectile: Layer '{environmentLayerName}' not found. Check spelling in Project Settings > Tags and Layers.");
+            Debug.LogError($"EnemyProjectile: Layer '{environmentLayerName}' not found.");
 
-        // pass through enemies (redundant if matrix already disables it)
+        // Ensure we pass through enemies (also set in your layer matrix)
         int enemyLayer = LayerMask.NameToLayer("Enemy");
-        if (enemyLayer >= 0 && gameObject.layer >= 0)
-            Physics2D.IgnoreLayerCollision(gameObject.layer, enemyLayer, true);
+        int myLayer    = gameObject.layer; // should be EnemyProjectile
+        if (enemyLayer >= 0 && myLayer >= 0)
+            Physics2D.IgnoreLayerCollision(myLayer, enemyLayer, true);
     }
 
     void Update()
@@ -48,35 +54,43 @@ public class EnemyProjectileScript : MonoBehaviour
         if (timer >= lifetime) Destroy(gameObject);
     }
 
+    // TRIGGERS (recommended: make the projectile collider IsTrigger = ON)
     void OnTriggerEnter2D(Collider2D other)
     {
+        // Player hit -> deal damage + destroy
         if (other.CompareTag(playerTag))
         {
-            Debug.Log("hit");
+            PlayerPresenter pp = other.GetComponent<PlayerPresenter>();
+            if (!pp) pp = other.GetComponentInParent<PlayerPresenter>();
+            if (pp) pp.TakeDamage(damage, transform.position);
+            else Debug.LogWarning("Player hit but no PlayerPresenter found on object or parent.", other);
+
             Destroy(gameObject);
             return;
         }
 
+        // Environment -> destroy
         if (other.gameObject.layer == environmentLayer)
         {
-            Debug.Log("hit environment: " + other.name);
             Destroy(gameObject);
             return;
         }
+
+        // Enemies are ignored by the collision matrix / IgnoreLayerCollision
     }
 
-    // Fallback if collider ever isn’t a trigger
+    // SAFETY: if your projectile collider ever isn't a trigger, this still works.
     void OnCollisionEnter2D(Collision2D c)
     {
         if (c.collider.CompareTag(playerTag))
         {
-            Debug.Log("hit");
+            var pp = c.collider.GetComponent<PlayerPresenter>() ?? c.collider.GetComponentInParent<PlayerPresenter>();
+            if (pp) pp.TakeDamage(damage, transform.position);
             Destroy(gameObject);
             return;
         }
         if (c.collider.gameObject.layer == environmentLayer)
         {
-            Debug.Log("hit environment (collision): " + c.collider.name);
             Destroy(gameObject);
         }
     }

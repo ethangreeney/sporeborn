@@ -12,7 +12,7 @@ public class EnemyPresenter : MonoBehaviour
     // Stores all enemy prefabs in unity
     public List<GameObject> EnemyList;
     // Tracks number of enemies in scene
-    private int EnemiesInScene;
+    private static int EnemiesInScene;
 
     private MapPresenter map;
     private Tilemap FloorTilemap;
@@ -27,7 +27,6 @@ public class EnemyPresenter : MonoBehaviour
     {
         rng = new System.Random();
         map = FindFirstObjectByType<MapPresenter>();
-        EnemiesInScene = 0;
 
         if (health == null) health = GetComponent<HealthModel>();
         if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -81,9 +80,11 @@ public class EnemyPresenter : MonoBehaviour
         EnemiesInScene--;
 
         // Unlock doors if no more enemies left
+        Debug.Log("Enemies in Scene: "+EnemiesInScene);
         if (EnemiesInScene == 0)
         {
-            
+            Debug.Log("No More enemies in scene");
+            map.ToggleLockDoors(false);
         }
     }
     // currently unreachable code
@@ -96,7 +97,8 @@ public class EnemyPresenter : MonoBehaviour
     {
         FloorTilemap = GetFloorTileLayer(CurrentRoomInstance);
         List<Vector3> SpawnableTiles = new List<Vector3>();
-
+        // Resets every new room
+        EnemiesInScene = 0;
 
         if (FloorTilemap == null)
         {
@@ -134,6 +136,8 @@ public class EnemyPresenter : MonoBehaviour
             // Add to list so can track number of enemies
             EnemiesInScene++;
         }
+
+        Debug.Log("Total Enemies in Scene "+EnemiesInScene);
 
     }
 

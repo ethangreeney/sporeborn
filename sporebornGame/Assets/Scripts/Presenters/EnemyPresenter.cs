@@ -129,7 +129,7 @@ public class EnemyPresenter : MonoBehaviour
                 return rng.Next(5, 12);
         }
 
-        Debug.Log("Room has incorrect number of occupied Indexes");
+        Debug.Log("Room has invalid number of occupied Indexes");
         return 1;
     }
 }

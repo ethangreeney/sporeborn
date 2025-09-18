@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class MapPresenter : MonoBehaviour
 {
@@ -34,6 +35,10 @@ public class MapPresenter : MonoBehaviour
     private GameObject ActiveRoomInstance;
     private GameObject CurrentRoomPrefab;
     private Door[] DoorsInRoom;
+
+    // Tilemap References
+    private Tilemap FloorTilemap;
+    private Grid RoomGrid;
 
     // Reference to spawnEnemies after room is setup
     private EnemyPresenter enemyPresenter;
@@ -243,6 +248,76 @@ public class MapPresenter : MonoBehaviour
             door.DoorIsLocked = Locked;
             // }
         }
-       
+
     }
+
+    public List<Vector3> GetSpawnLocations()
+    {
+        FloorTilemap = GetFloorTileLayer(ActiveRoomInstance);
+        List<Vector3> SpawnableTiles = new List<Vector3>();
+
+
+        if (FloorTilemap == null)
+        {
+            Debug.LogWarning("Can't find Floor Layer");
+            return default;
+        }
+
+        BoundsInt roomBounds = FloorTilemap.cellBounds;
+
+        foreach (Vector3Int pos in roomBounds.allPositionsWithin)
+        {
+            if (FloorTilemap.HasTile(pos))
+            {
+                // Converts from relative pos in grid to world position in scene
+                Vector3 WorldlPos = FloorTilemap.CellToWorld(pos);
+
+                // Spawns enemies in the centre of tiles
+                WorldlPos += FloorTilemap.cellSize / 2f;
+
+                // Adds to Vector3 list to tell enemies where they can spawn
+                SpawnableTiles.Add(WorldlPos);
+            }
+        }
+        
+        return SpawnableTiles;
+    }
+
+
+    private Tilemap GetFloorTileLayer(GameObject CurrentRoomInstance)
+    {
+        if (CurrentRoomInstance == null)
+        {
+            Debug.Log("Current Room Instance is null");
+        }
+
+        // Find the Grid Object which stores all layers in RoomPrefabs
+        RoomGrid = CurrentRoomInstance.GetComponentInChildren<Grid>();
+
+        if (RoomGrid != null)
+        {
+            Debug.LogWarning("Found Room Grid");
+            Transform FloorTileMapTransform = RoomGrid.transform.Find("FloorLayer");
+
+            if (FloorTileMapTransform != null)
+            {
+                Debug.LogWarning("Found Floor Transform");
+                Tilemap FloorTileMap = FloorTileMapTransform.GetComponent<Tilemap>();
+
+                if (FloorTileMap == null)
+                {
+                    Debug.LogWarning("Can't find floor tile map for spawning enemies");
+                    return default;
+                }
+
+                return FloorTileMap;
+
+            }
+        }
+        Debug.LogWarning("Can't Find Room Grid");
+        // Can't find grid or floorplan transform
+        return default;
+    }
+
+
 }

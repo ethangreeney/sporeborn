@@ -80,7 +80,7 @@ public class EnemyPresenter : MonoBehaviour
         Debug.Log("Enemies in Scene: "+EnemiesInScene);
         if (EnemiesInScene == 0)
         {
-            Debug.Log("No More enemies in scene");
+            map.RoomCompleted();
             map.ToggleLockDoors(false);
         }
     }

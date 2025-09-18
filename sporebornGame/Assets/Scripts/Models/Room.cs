@@ -28,6 +28,7 @@ public class Room
     public RoomType RoomType { get; set; }
     public RoomShape RoomShape { get; set; }
     public List<int> OccupiedIndexes { get; private set; }
+    public bool RoomCompleted;
 
     public Room(RoomData data)
     {
@@ -35,6 +36,7 @@ public class Room
         RoomType = data.RoomType;
         RoomShape = data.RoomShape;
         OccupiedIndexes = new List<int>(data.RoomIndexes);
+        RoomCompleted = false;
     }
     
     public override string ToString()

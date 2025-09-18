@@ -161,8 +161,8 @@ public class MapPresenter : MonoBehaviour
         Player.transform.position = PlayerSpawnPosition;
 
 
-        // If Room is a valid enemy room
-        if (ValidEnemyRoom(CurrentPlayerRoom))
+        // If Room is a valid enemy room and hasn't been completed
+        if (ValidEnemyRoom(CurrentPlayerRoom) && CurrentPlayerRoom.RoomCompleted == false)
         {
             // Locks the doors of the room if its an enemy room
             ToggleLockDoors(true);
@@ -279,7 +279,7 @@ public class MapPresenter : MonoBehaviour
                 SpawnableTiles.Add(WorldlPos);
             }
         }
-        
+
         return SpawnableTiles;
     }
 
@@ -318,6 +318,13 @@ public class MapPresenter : MonoBehaviour
         // Can't find grid or floorplan transform
         return default;
     }
+
+    public void RoomCompleted()
+    {
+        CurrentPlayerRoom.RoomCompleted = true;
+    }
+    
+    
 
 
 }

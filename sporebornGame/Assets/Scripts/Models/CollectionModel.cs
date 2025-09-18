@@ -9,7 +9,7 @@ public class Item
 
 }
 
-public class CollectionController : MonoBehaviour
+public class CollectionModel : MonoBehaviour
 {
     [Header("Item Settings")]
     public Item item;
@@ -33,7 +33,7 @@ public class CollectionController : MonoBehaviour
     public bool rubberEnabled = false;
     public int rubberBounces; // how many times bullets bounce off walls
 
-
+    private ItemPresenter itemPresenter;
 
     private void Start()
     {
@@ -42,7 +42,10 @@ public class CollectionController : MonoBehaviour
         if (oldCollider != null) Destroy(oldCollider);
 
         var col = gameObject.AddComponent<PolygonCollider2D>();
-        col.isTrigger = true; 
+        col.isTrigger = true;
+
+        // Reference to Presenter
+        itemPresenter = FindFirstObjectByType<ItemPresenter>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -51,7 +54,7 @@ public class CollectionController : MonoBehaviour
 
         bool consumed = false;
 
-    
+
 
         // Movement speed
         PlayerMovement playerMovement = collision.GetComponent<PlayerMovement>();
@@ -152,7 +155,7 @@ public class CollectionController : MonoBehaviour
         if (consumed)
         {
             Debug.Log($"Collected item: {item.itemName}");
-
+            itemPresenter.NotifyItemCollected();
 
             Destroy(gameObject);
         }

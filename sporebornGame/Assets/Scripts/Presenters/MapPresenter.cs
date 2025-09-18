@@ -40,8 +40,10 @@ public class MapPresenter : MonoBehaviour
     private Tilemap FloorTilemap;
     private Grid RoomGrid;
 
-    // Reference to spawnEnemies after room is setup
+    // Reference to spawn in GameObjects when entering a new room
     private EnemyPresenter enemyPresenter;
+    private ItemPresenter itemPresenter;
+
 
     void Start()
     {
@@ -63,7 +65,7 @@ public class MapPresenter : MonoBehaviour
 
         // Gets the current Enemy Presenter
         enemyPresenter = FindFirstObjectByType<EnemyPresenter>();
-
+        itemPresenter = FindFirstObjectByType<ItemPresenter>();
         // Build the starter room
         BuildRoom(StarterRoom, null);
     }
@@ -175,6 +177,11 @@ public class MapPresenter : MonoBehaviour
             {
                 // Spawn Boss
             }
+        }
+
+        if (CurrentPlayerRoom.RoomType == RoomType.Item)
+        {
+            itemPresenter.PlaceItemInItemRoom();
         }
     }
 
@@ -296,17 +303,16 @@ public class MapPresenter : MonoBehaviour
 
         if (RoomGrid != null)
         {
-            Debug.LogWarning("Found Room Grid");
+            // Get transform of the FloorLayer within the Grid
             Transform FloorTileMapTransform = RoomGrid.transform.Find("FloorLayer");
 
             if (FloorTileMapTransform != null)
             {
-                Debug.LogWarning("Found Floor Transform");
+                // Get the floor tilemap using its transform 
                 Tilemap FloorTileMap = FloorTileMapTransform.GetComponent<Tilemap>();
 
                 if (FloorTileMap == null)
                 {
-                    Debug.LogWarning("Can't find floor tile map for spawning enemies");
                     return default;
                 }
 
@@ -314,7 +320,6 @@ public class MapPresenter : MonoBehaviour
 
             }
         }
-        Debug.LogWarning("Can't Find Room Grid");
         // Can't find grid or floorplan transform
         return default;
     }

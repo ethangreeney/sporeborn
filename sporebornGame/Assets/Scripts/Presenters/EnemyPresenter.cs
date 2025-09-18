@@ -77,7 +77,6 @@ public class EnemyPresenter : MonoBehaviour
         EnemiesInScene--;
 
         // Unlock doors if no more enemies left
-        Debug.Log("Enemies in Scene: "+EnemiesInScene);
         if (EnemiesInScene == 0)
         {
             map.RoomCompleted();
@@ -109,9 +108,6 @@ public class EnemyPresenter : MonoBehaviour
             // Add to list so can track number of enemies
             EnemiesInScene++;
         }
-
-        Debug.Log("Total Enemies in Scene "+EnemiesInScene);
-
     }
 
     // Picks a random number of enemies to spawn based on the size of the room

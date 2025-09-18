@@ -176,6 +176,7 @@ public class MapPresenter : MonoBehaviour
             else if (CurrentPlayerRoom.RoomType == RoomType.Boss)
             {
                 // Spawn Boss
+                enemyPresenter.SpawnBoss(ActiveRoomInstance, CurrentPlayerRoom);
             }
         }
 

@@ -4,89 +4,42 @@ using System.Collections.Generic;
 
 public class EnemyPresenter : MonoBehaviour
 {
-    public HealthModel health;
-    public Animator animator;
-    public SpriteRenderer spriteRenderer;
-
     // Stores all enemy prefabs in unity
     public List<GameObject> EnemyList;
+    // Stores all boss prefabs
+     public List<GameObject> BossList;
+
     // Tracks number of enemies in scene
     private static int EnemiesInScene;
 
     private MapPresenter map;
+    private EnemyModel enemyModel;
 
     // Generate random numbers
     System.Random rng;
 
     bool isDead;
 
-    void Awake()
+    void Start()
     {
-        rng = new System.Random();
         map = FindFirstObjectByType<MapPresenter>();
-
-        if (health == null) health = GetComponent<HealthModel>();
-        if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        if (health != null && health.currHealth <= 0)
-        {
-            health.currHealth = health.maxHealth > 0 ? health.maxHealth : 1;
-        }
+        rng = new System.Random();
     }
 
-    public void TakeDamage(float amount)
+    public void SpawnBoss(GameObject CurrentRoomInstance, Room CurrentRoom)
     {
-        if (isDead || health == null) return;
 
-        health.Damage(amount);
-        if (spriteRenderer != null) StartCoroutine(HitFlash());
-
-        if (health.currHealth <= 0)
-        {
-            Die();
-        }
     }
 
-    IEnumerator HitFlash()
+    public void EnemyDies()
     {
-        // conflicts with boss charging animation (to be reconsidered)
-        var original = spriteRenderer.color;
-        spriteRenderer.color = Color.black;
-        yield return new WaitForSeconds(0.1f);
-        spriteRenderer.color = original;
-    }
-
-    void Die()
-    {
-        isDead = true;
-
-        foreach (var c in GetComponentsInChildren<Collider2D>()) c.enabled = false;
-        var rb = GetComponent<Rigidbody2D>();
-        if (rb) rb.simulated = false;
-
-        if (animator != null)
-        {
-            animator.SetTrigger("Death");
-        }
-        // fall back as there is currently no death animatior
-        else
-        {
-            Destroy(gameObject, 0.2f);
-        }
-
-        // Decrease number of enemies
         EnemiesInScene--;
-
-        // Unlock doors if no more enemies left
+        // Unlocks door once all enemies are defeated
         if (EnemiesInScene == 0)
         {
-            map.RoomCompleted();
             map.ToggleLockDoors(false);
         }
-    }
-    // currently unreachable code
-    public void OnDeathAnimationComplete()
-    {
-        Destroy(gameObject);
+            
     }
 
     public void SpawnEnemies(GameObject CurrentRoomInstance, Room CurrentRoom)
@@ -99,11 +52,12 @@ public class EnemyPresenter : MonoBehaviour
 
         for (int i = 0; i < MaxEnemies; i++)
         {
-            int index = rng.Next(0, SpawnableTiles.Count);
+            int RandomSpawnLocation = rng.Next(0, SpawnableTiles.Count);
+            int RandomEnemyType = rng.Next(0, EnemyList.Count);
             // Temp just picks first enemy type from list
-            Instantiate(EnemyList[0], SpawnableTiles[index], Quaternion.identity);
+            Instantiate(EnemyList[RandomEnemyType], SpawnableTiles[RandomSpawnLocation], Quaternion.identity);
             // Prevents enemies from spawning at same location
-            SpawnableTiles.RemoveAt(index);
+            SpawnableTiles.RemoveAt(RandomSpawnLocation);
 
             // Add to list so can track number of enemies
             EnemiesInScene++;

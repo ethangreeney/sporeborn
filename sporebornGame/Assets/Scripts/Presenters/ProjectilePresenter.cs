@@ -38,7 +38,7 @@ public class ProjectilePresenter : MonoBehaviour
         Physics2D.IgnoreCollision(bounceCollider, playerCollider);
 
         // Ignore collision with all enemies
-        EnemyPresenter[] enemies = Object.FindObjectsByType<EnemyPresenter>(FindObjectsSortMode.None);
+        EnemyModel[] enemies = Object.FindObjectsByType<EnemyModel>(FindObjectsSortMode.None);
         foreach (var enemy in enemies)
         {
             Collider2D enemyCollider = enemy.GetComponent<Collider2D>();
@@ -82,7 +82,7 @@ public class ProjectilePresenter : MonoBehaviour
     {
         if (other.isTrigger) return;
 
-        var enemy = other.GetComponentInParent<EnemyPresenter>();
+        var enemy = other.GetComponentInParent<EnemyModel>();
         if (enemy != null)
         {
             enemy.TakeDamage(damage);
@@ -138,11 +138,11 @@ public class ProjectilePresenter : MonoBehaviour
 
     private Transform FindClosestEnemy()
     {
-        EnemyPresenter[] enemies = Object.FindObjectsByType<EnemyPresenter>(FindObjectsSortMode.None);
+        EnemyModel[] enemies = Object.FindObjectsByType<EnemyModel>(FindObjectsSortMode.None);
         Transform closest = null;
         float shortestDistance = Mathf.Infinity;
 
-        foreach (EnemyPresenter enemy in enemies)
+        foreach (EnemyModel enemy in enemies)
         {
             float distance = Vector2.Distance(transform.position, enemy.transform.position);
             if (distance < shortestDistance)

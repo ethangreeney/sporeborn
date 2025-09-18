@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8158143454623028431}
   - component: {fileID: 4274985724414899535}
   - component: {fileID: 2163572214573236180}
-  m_Layer: 12
+  m_Layer: 11
   m_Name: Melee Hitbox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 8410830402656132738}
   - component: {fileID: 1039278378300428586}
   - component: {fileID: 9186525709210251990}
-  - component: {fileID: 4461167267220875112}
+  - component: {fileID: 5685242431612823390}
   m_Layer: 11
   m_Name: Melee Enemy
   m_TagString: Untagged
@@ -119,7 +119,7 @@ Transform:
   m_GameObject: {fileID: 3443094068994691014}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.09, y: 5.6, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -267,7 +267,7 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
   rotationSpeed: 360
-  slowdownDistance: 2.5
+  slowdownDistance: 2.25
   pickNextWaypointDist: 2
   endReachedDistance: 1.75
   alwaysDrawGizmos: 0
@@ -287,9 +287,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
-  currHealth: 0
+  currHealth: 10
   spriteRenderer: {fileID: 0}
---- !u!114 &4461167267220875112
+--- !u!114 &5685242431612823390
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -298,7 +298,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3443094068994691014}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf1a323701eac3c4e82b742eb7f7bcc7, type: 3}
+  m_Script: {fileID: 11500000, guid: 659411860a84c0b48b66869824c76cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 9186525709210251990}
@@ -377,8 +377,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2041154009
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: d58c7d47852344fe09e5120ffe777c49, type: 3}
   m_Color: {r: 0.9528302, g: 0.013483422, b: 0.013483422, a: 1}

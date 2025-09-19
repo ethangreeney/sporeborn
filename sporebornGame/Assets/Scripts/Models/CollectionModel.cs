@@ -12,7 +12,7 @@ public class Item
 public class CollectionModel : MonoBehaviour
 {
     [Header("Item Settings")]
-    public Item item;
+    //public Item item; - setting the sprite to the prefab works better - Benjamin
 
     [Header("Player Stat Changes")]
     public float healthChange;
@@ -37,7 +37,6 @@ public class CollectionModel : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<SpriteRenderer>().sprite = item.itemIcon;
         var oldCollider = GetComponent<PolygonCollider2D>();
         if (oldCollider != null) Destroy(oldCollider);
 
@@ -164,7 +163,6 @@ public class CollectionModel : MonoBehaviour
         // If item was actually applied
         if (consumed)
         {
-            Debug.Log($"Collected item: {item.itemName}");
             itemPresenter.NotifyItemCollected();
 
             Destroy(gameObject);

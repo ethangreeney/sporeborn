@@ -6,23 +6,25 @@ public class ItemPresenter : MonoBehaviour
 {
     // Keeps track of item on this level
     private static GameObject CurrentItem;
+    private static GameObject ActiveItemInScene;
     // All Items in Game
     public List<GameObject> ItemList;
 
-    private static bool itemHasBeenCollected;
+    private static bool ItemHasBeenCollected;
+    public static bool GetItemHasBeenCollected => ItemHasBeenCollected;
 
     System.Random rng;
     void Start()
     {
         rng = new System.Random();
-        itemHasBeenCollected = false;
+        ItemHasBeenCollected = false;
     }
 
     // Called when the player enters the item room
     public void PlaceItemInItemRoom()
     {
         // Don't spawn item if its already been collected
-        if (itemHasBeenCollected)
+        if (ItemHasBeenCollected)
         {
             return;
         }
@@ -33,7 +35,18 @@ public class ItemPresenter : MonoBehaviour
         }
         
         // Spawn Item in the Centre of the room
-        Instantiate(CurrentItem, Vector3.zero, Quaternion.identity);
+        ActiveItemInScene = Instantiate(CurrentItem, Vector3.zero, Quaternion.identity);
+    }
+
+    // If player chooses not to collection item then 
+    // when they leave the room it shouldn't be there
+    public void RemoveItemFromRoom()
+    {
+        if (ActiveItemInScene != null)
+        {
+            Destroy(ActiveItemInScene);
+            ActiveItemInScene = null;
+        }
     }
 
     // Gets random item GameObject
@@ -42,8 +55,9 @@ public class ItemPresenter : MonoBehaviour
         return ItemList[rng.Next(0, ItemList.Count)];
     }
 
+    // Model notifys presenter
     public void NotifyItemCollected()
     {
-        itemHasBeenCollected = true;
+        ItemHasBeenCollected = true;
     }
 }

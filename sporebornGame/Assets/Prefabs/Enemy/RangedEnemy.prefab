@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1231509301060533919}
   - component: {fileID: 815729618583970770}
   - component: {fileID: 887387491697003691}
-  - component: {fileID: 5124681678884771095}
+  - component: {fileID: -1715974880639965395}
   - component: {fileID: 6460743870222515995}
   m_Layer: 11
   m_Name: RangedEnemy
@@ -200,9 +200,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
-  currHealth: 0
+  currHealth: 10
   spriteRenderer: {fileID: 0}
---- !u!114 &5124681678884771095
+--- !u!114 &-1715974880639965395
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2069395914680108450}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf1a323701eac3c4e82b742eb7f7bcc7, type: 3}
+  m_Script: {fileID: 11500000, guid: 659411860a84c0b48b66869824c76cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 887387491697003691}
@@ -306,8 +306,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2041154009
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: d58c7d47852344fe09e5120ffe777c49, type: 3}
   m_Color: {r: 0.9528302, g: 0.013483422, b: 0.013483422, a: 1}

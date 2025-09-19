@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 5721229512195236763}
   - component: {fileID: 2098069090961782275}
   - component: {fileID: 115434727220042966}
-  - component: {fileID: 2696100016782324462}
   - component: {fileID: 1345813226618773520}
+  - component: {fileID: -2428718111612113858}
   m_Layer: 7
   m_Name: Boss_1
   m_TagString: Untagged
@@ -200,28 +200,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4b11ecbcdab6c74894c0aa7fec94257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 3
+  baseSpeed: 2
   burstSpeed: 15
   acceleration: 15
   minBurstInterval: 2
   maxBurstInterval: 5
   burstDuration: 2
   dashColor: {r: 1, g: 0, b: 0, a: 1}
---- !u!114 &2696100016782324462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 433780125670583135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf1a323701eac3c4e82b742eb7f7bcc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: {fileID: 1345813226618773520}
-  animator: {fileID: 0}
-  spriteRenderer: {fileID: 0}
 --- !u!114 &1345813226618773520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,6 +221,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 20
   currHealth: 0
+  spriteRenderer: {fileID: 0}
+--- !u!114 &-2428718111612113858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 433780125670583135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 659411860a84c0b48b66869824c76cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 1345813226618773520}
+  animator: {fileID: 0}
   spriteRenderer: {fileID: 0}
 --- !u!1 &4394350926340698321
 GameObject:
@@ -311,8 +311,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2041154009
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -2510476293373519475, guid: 99adbae6bf7141449981c545975a53b9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

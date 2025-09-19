@@ -7,7 +7,7 @@ public class EnemyPresenter : MonoBehaviour
     // Stores all enemy prefabs in unity
     public List<GameObject> EnemyList;
     // Stores all boss prefabs
-     public List<GameObject> BossList;
+    public List<GameObject> BossList;
 
     // Tracks number of enemies in scene
     private static int EnemiesInScene;
@@ -26,11 +26,6 @@ public class EnemyPresenter : MonoBehaviour
         rng = new System.Random();
     }
 
-    public void SpawnBoss(GameObject CurrentRoomInstance, Room CurrentRoom)
-    {
-
-    }
-
     public void EnemyDies()
     {
         EnemiesInScene--;
@@ -38,8 +33,9 @@ public class EnemyPresenter : MonoBehaviour
         if (EnemiesInScene == 0)
         {
             map.ToggleLockDoors(false);
+            map.RoomCompleted();
         }
-            
+
     }
 
     public void SpawnEnemies(GameObject CurrentRoomInstance, Room CurrentRoom)
@@ -85,5 +81,11 @@ public class EnemyPresenter : MonoBehaviour
 
         Debug.Log("Room has invalid number of occupied Indexes");
         return 1;
+    }
+
+    public void SpawnBoss(GameObject CurrentRoomInstance, Room CurrentRoom)
+    {
+        EnemiesInScene = 1;
+        Instantiate(BossList[0], Vector3.zero, Quaternion.identity);
     }
 }

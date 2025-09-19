@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -43,7 +44,6 @@ public class MapPresenter : MonoBehaviour
     // Reference to spawn in GameObjects when entering a new room
     private EnemyPresenter enemyPresenter;
     private ItemPresenter itemPresenter;
-
 
     void Start()
     {
@@ -162,28 +162,8 @@ public class MapPresenter : MonoBehaviour
         // Player location will be based on the door they enter from
         Player.transform.position = PlayerSpawnPosition;
 
-
-        // If Room is a valid enemy room and hasn't been completed
-        if (ValidEnemyRoom(CurrentPlayerRoom) && CurrentPlayerRoom.RoomCompleted == false)
-        {
-            // Locks the doors of the room if its an enemy room
-            ToggleLockDoors(true);
-            if (CurrentPlayerRoom.RoomType == RoomType.Regular)
-            {
-                // Spawns Enemies
-                enemyPresenter.SpawnEnemies(ActiveRoomInstance, CurrentPlayerRoom);
-            }
-            else if (CurrentPlayerRoom.RoomType == RoomType.Boss)
-            {
-                // Spawn Boss
-                enemyPresenter.SpawnBoss(ActiveRoomInstance, CurrentPlayerRoom);
-            }
-        }
-
-        if (CurrentPlayerRoom.RoomType == RoomType.Item)
-        {
-            itemPresenter.PlaceItemInItemRoom();
-        }
+        // Determinds what should spawn based on room type
+        PlaceEntities(CurrentPlayerRoom);
     }
 
     public Vector3 CalculateSpawnOffset(Door EnterDoor)
@@ -329,7 +309,41 @@ public class MapPresenter : MonoBehaviour
     {
         CurrentPlayerRoom.RoomCompleted = true;
     }
-    
+
+
+    public void PlaceEntities(Room CurrentRoom)
+    {
+        
+        // If Room is a valid enemy room and hasn't been completed
+        if (ValidEnemyRoom(CurrentRoom) && CurrentRoom.RoomCompleted == false)
+        {
+            // Locks the doors of the room if room is a valid enemy room
+            ToggleLockDoors(true);
+            if (CurrentRoom.RoomType == RoomType.Regular)
+            {
+                // Spawns Enemies
+                enemyPresenter.SpawnEnemies(ActiveRoomInstance, CurrentRoom);
+            }
+            else if (CurrentRoom.RoomType == RoomType.Boss)
+            {
+                // Spawn Boss
+                enemyPresenter.SpawnBoss(ActiveRoomInstance, CurrentRoom);
+            }
+        }
+
+        // Places and removes item when player exits room
+        if (CurrentRoom.RoomType == RoomType.Item)
+        {
+            itemPresenter.PlaceItemInItemRoom();
+        }
+        // Checks static reference if it hasn't been collected 
+        // then make sure its destroyed in next room
+        if (CurrentRoom.RoomType != RoomType.Item && ItemPresenter.GetItemHasBeenCollected == false)
+        {
+            itemPresenter.RemoveItemFromRoom();
+        } 
+
+    }
     
 
 

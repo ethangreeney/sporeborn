@@ -13,12 +13,9 @@ public class EnemyPresenter : MonoBehaviour
     private static int EnemiesInScene;
 
     private MapPresenter map;
-    private EnemyModel enemyModel;
 
     // Generate random numbers
     System.Random rng;
-
-    bool isDead;
 
     void Start()
     {
@@ -29,7 +26,7 @@ public class EnemyPresenter : MonoBehaviour
     public void EnemyDies()
     {
         EnemiesInScene--;
-        // Unlocks door once all enemies are defeated
+        // Unlocks door once all enemies/boss is defeated
         if (EnemiesInScene == 0)
         {
             map.ToggleLockDoors(false);

@@ -195,7 +195,7 @@ MonoBehaviour:
   firePoint: {fileID: 3589752786530199207}
   projectilePrefab: {fileID: 6818049832076915345, guid: 7b671ffa4fc9d446e8b6aab9dccba13a, type: 3}
   projectileSpeed: 12
-  projectileDamage: 1
+  projectileDamage: 100
   projectileLifetime: 2
   fireRate: 0.5
   projectileSize: 1
@@ -218,8 +218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c72db87a200434cbc7a01e40909518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  currHealth: 10
+  maxHealth: 100
+  currHealth: 100
   spriteRenderer: {fileID: 0}
 --- !u!114 &1073487874558790818
 MonoBehaviour:

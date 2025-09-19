@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 12
-  damage: 1
+  damage: 2
   lifetime: 2
   enableHoming: 0
   homingStrength: 5

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
+using UnityEngine;
 
 public enum RoomShape
 {
@@ -29,6 +30,9 @@ public class Room
     public RoomShape RoomShape { get; set; }
     public List<int> OccupiedIndexes { get; private set; }
     public bool RoomCompleted;
+    public bool itemCollected = false;
+     
+    public GameObject assignedItemPrefab;
 
     public Room(RoomData data)
     {

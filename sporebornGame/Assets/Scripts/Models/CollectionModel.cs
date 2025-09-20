@@ -35,6 +35,9 @@ public class CollectionModel : MonoBehaviour
 
     private ItemPresenter itemPresenter;
 
+    [HideInInspector]
+    public Room room; // Set this when spawning the item
+
     private void Start()
     {
         var oldCollider = GetComponent<PolygonCollider2D>();
@@ -57,12 +60,14 @@ public class CollectionModel : MonoBehaviour
         // Health
         var playerHealth = collision.GetComponent<HealthModel>();
 
-        if(playerHealth.currHealth == playerHealth.maxHealth) return;
-        
         if (playerHealth != null && healthChange != 0)
         {
-            playerHealth.Health(healthChange);
-            consumed = true;
+            // Only apply health if not at max health
+            if (playerHealth.currHealth < playerHealth.maxHealth)
+            {
+                playerHealth.Health(healthChange);
+                consumed = true;
+            }
         }
 
         // Movement speed
@@ -163,8 +168,14 @@ public class CollectionModel : MonoBehaviour
         // If item was actually applied
         if (consumed)
         {
-            itemPresenter.NotifyItemCollected();
-
+            if (room != null)
+            {
+                itemPresenter.NotifyItemCollected(room);
+            }
+            else
+            {
+                Debug.LogWarning("Room reference not set for item collection.");
+            }
             Destroy(gameObject);
         }
         else

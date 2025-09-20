@@ -38,7 +38,7 @@ public class EnemyPresenter : MonoBehaviour
                 var itemPresenter = FindFirstObjectByType<ItemPresenter>();
                 if (itemPresenter != null)
                 {
-                    itemPresenter.PlaceItemInItemRoom();
+                    itemPresenter.PlaceItemInItemRoom(map.CurrentPlayerRoom);
                 }
                 else
                 {

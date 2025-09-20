@@ -113,6 +113,9 @@ public class MapPresenter : MonoBehaviour
     // Creates a new room and correctly positions the player
     public void BuildRoom(Room RoomToSpawn, Door EnterDoor)
     {
+        // Remove lingering item from previous room
+        itemPresenter.RemoveItemFromRoom();
+
         // Reset the room prefab
         CurrentRoomPrefab = null;
         // Destroy the previous Room
@@ -313,6 +316,7 @@ public class MapPresenter : MonoBehaviour
 
     public void PlaceEntities(Room CurrentRoom)
     {
+        
         // If Room is a valid enemy room and hasn't been completed
         if (ValidEnemyRoom(CurrentRoom) && CurrentRoom.RoomCompleted == false)
         {
@@ -327,23 +331,26 @@ public class MapPresenter : MonoBehaviour
             {
                 // Spawn Boss
                 enemyPresenter.SpawnBoss(ActiveRoomInstance, CurrentRoom);
-                // Boss rooms can also have items if boss is defeated
-                if (CurrentRoom.RoomCompleted)
-                {
-                    itemPresenter.PlaceItemInItemRoom();
-                }
             }
         }
 
-        // Places item in item room
-        if (CurrentRoom.RoomType == RoomType.Item)
+        // Item room: spawn item if not collected
+        if (CurrentRoom.RoomType == RoomType.Item && !CurrentRoom.itemCollected)
         {
-            itemPresenter.PlaceItemInItemRoom();
+            itemPresenter.PlaceItemInItemRoom(CurrentRoom);
         }
-        else
+
+        // Boss room: spawn item only if boss defeated and not collected
+        if (CurrentRoom.RoomType == RoomType.Boss && CurrentRoom.RoomCompleted && !CurrentRoom.itemCollected)
         {
-            // Always remove items when entering a non-item/non-boss room
-            itemPresenter.RemoveItemFromRoom();
+            itemPresenter.PlaceItemInItemRoom(CurrentRoom);
         }
+
+        
+
+
     }
+    
+
+
 }

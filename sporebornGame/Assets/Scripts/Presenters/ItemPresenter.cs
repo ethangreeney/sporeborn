@@ -1,110 +1,86 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ItemPresenter : MonoBehaviour
 {
+    // Keeps track of item on this level
+    
+    private static GameObject ActiveItemInScene;
     // All Items in Game
     public List<GameObject> ItemList;
 
-    // Track items per room
-    private Dictionary<int, GameObject> roomItems = new Dictionary<int, GameObject>();
-    private Dictionary<int, GameObject> activeRoomItems = new Dictionary<int, GameObject>();
-    private Dictionary<int, bool> roomItemCollected = new Dictionary<int, bool>();
+    private HashSet<GameObject> spawnedItems = new HashSet<GameObject>();
 
-    // Track the current room type
-    private RoomType lastRoomType;
-
-    private MapPresenter mapPresenter;
     System.Random rng;
-
     void Start()
     {
         rng = new System.Random();
-        mapPresenter = FindFirstObjectByType<MapPresenter>();
+        
     }
 
     // Called when the player enters the item room
-    public void PlaceItemInItemRoom()
+    // Add a parameter for the current room
+    public void PlaceItemInItemRoom(Room room)
     {
-        if (mapPresenter == null || mapPresenter.CurrentPlayerRoom == null)
-        {
-            Debug.LogWarning("MapPresenter or CurrentPlayerRoom not found.");
-            return;
-        }
-
-        int roomId = mapPresenter.CurrentPlayerRoom.OriginIndex;
-        lastRoomType = mapPresenter.CurrentPlayerRoom.RoomType;
-
-        // Only spawn items in Item rooms or Boss rooms
-        if (lastRoomType != RoomType.Item && lastRoomType != RoomType.Boss)
-        {
-            return;
-        }
-
         // Don't spawn item if it's already been collected in this room
-        if (roomItemCollected.ContainsKey(roomId) && roomItemCollected[roomId])
+        if (room.itemCollected)
         {
             return;
         }
 
-        // Only pick a new item if it hasn't already been generated for this room
-        if (!roomItems.ContainsKey(roomId))
+        // Assign item only once
+        if (room.assignedItemPrefab == null)
         {
-            roomItems[roomId] = PickRandomItem();
+            room.assignedItemPrefab = PickRandomItem();
+            if (room.assignedItemPrefab != null)
+            {
+                spawnedItems.Add(room.assignedItemPrefab);
+            }
         }
-        
-        // Spawn Item in the Centre of the room
-        GameObject item = Instantiate(roomItems[roomId], Vector3.zero, Quaternion.identity);
-        activeRoomItems[roomId] = item;
+
+        ActiveItemInScene = Instantiate(room.assignedItemPrefab, Vector3.zero, Quaternion.identity);
+
+        spawnedItems.Add(ActiveItemInScene);
+
+        // Set the room reference on the CollectionModel
+        var collectionModel = ActiveItemInScene.GetComponent<CollectionModel>();
+        if (collectionModel != null)
+        {
+            collectionModel.room = room;
+        }
     }
 
     // If player chooses not to collect item then 
     // when they leave the room it shouldn't be there
     public void RemoveItemFromRoom()
     {
-        if (mapPresenter == null || mapPresenter.CurrentPlayerRoom == null)
+        if (ActiveItemInScene != null)
         {
-            return;
+            Destroy(ActiveItemInScene);
+            spawnedItems.Remove(ActiveItemInScene);
+            ActiveItemInScene = null;
         }
-
-        // Get the previous room ID from the active items
-        foreach (var kvp in activeRoomItems)
-        {
-            if (kvp.Value != null)
-            {
-                Destroy(kvp.Value);
-            }
-        }
-        
-        // Clear the active items (but keep the generated items for persistence)
-        activeRoomItems.Clear();
     }
 
     // Gets random item GameObject
     public GameObject PickRandomItem()
     {
-        return ItemList[rng.Next(0, ItemList.Count)];
+        var availableItems = ItemList.Where(item => !spawnedItems.Contains(item)).ToList();
+        if (availableItems.Count == 0)
+        {
+            // All items have been spawned, return null (at least for now)
+            return null;
+        }
+        return availableItems[rng.Next(0, availableItems.Count)];
     }
 
-    // Model notifies presenter
-    public void NotifyItemCollected()
+    // Model notifys presenter
+    // Add a parameter for the current room
+    public void NotifyItemCollected(Room room)
     {
-        if (mapPresenter == null || mapPresenter.CurrentPlayerRoom == null)
-        {
-            Debug.LogWarning("MapPresenter or CurrentPlayerRoom not found.");
-            return;
-        }
-
-        int roomId = mapPresenter.CurrentPlayerRoom.OriginIndex;
-        roomItemCollected[roomId] = true;
+        room.itemCollected = true;
         
-        // Also remove the active item for this room
-        if (activeRoomItems.ContainsKey(roomId))
-        {
-            // Item is already being destroyed by CollectionModel
-            activeRoomItems.Remove(roomId);
-        }
     }
-
-    
 }

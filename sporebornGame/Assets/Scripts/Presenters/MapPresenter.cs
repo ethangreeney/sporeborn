@@ -78,6 +78,11 @@ public class MapPresenter : MonoBehaviour
         }
     }
 
+    public void ResetMap()
+    {
+        Start();
+    }
+
     public int RelIndexToRoomIndex(Room CurrentRoom, int dx, int dy)
     {
         // Current Room to Coordinates 
@@ -116,6 +121,7 @@ public class MapPresenter : MonoBehaviour
         // Remove lingering item from previous room
         itemPresenter.RemoveItemFromRoom();
 
+        enemyPresenter.RemovePortal();
         // Reset the room prefab
         CurrentRoomPrefab = null;
         // Destroy the previous Room
@@ -346,7 +352,13 @@ public class MapPresenter : MonoBehaviour
             itemPresenter.PlaceItemInItemRoom(CurrentRoom);
         }
 
-        
+        // Spawn portal if boss defeated
+        if (CurrentRoom.RoomType == RoomType.Boss && CurrentRoom.RoomCompleted)
+        {
+            enemyPresenter.SpawnPortal();
+        }
+
+
 
 
     }

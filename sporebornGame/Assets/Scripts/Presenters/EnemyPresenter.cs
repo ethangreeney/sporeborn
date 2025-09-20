@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class EnemyPresenter : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class EnemyPresenter : MonoBehaviour
     private static int EnemiesInScene;
 
     private MapPresenter map;
+
+    // Portal prefab for when boss is defeated
+    public GameObject PortalPrefab;
+    private GameObject activePortal;
 
     // Generate random numbers
     System.Random rng;
@@ -43,6 +48,17 @@ public class EnemyPresenter : MonoBehaviour
                 else
                 {
                     Debug.LogWarning("ItemPresenter not found in scene.");
+                }
+
+                // Spawn portal to exit level
+                if (PortalPrefab != null)
+                {
+                    SpawnPortal();
+                }
+
+                else
+                {
+                    Debug.LogWarning("PortalPrefab is not assigned in the EnemyPresenter.");
                 }
             }
         }
@@ -98,5 +114,23 @@ public class EnemyPresenter : MonoBehaviour
     {
         EnemiesInScene = 1;
         Instantiate(BossList[0], Vector3.zero, Quaternion.identity);
+    }
+
+    public void RemovePortal()
+    {
+        if (activePortal != null)
+        {
+            Destroy(activePortal);
+            activePortal = null;
+        }
+    }
+
+    public void SpawnPortal()
+    {
+        if (PortalPrefab != null && activePortal == null)
+        {
+            Vector3 portalPosition = new Vector3(0, 4, 0);
+            activePortal = Instantiate(PortalPrefab, portalPosition, Quaternion.identity);
+        }
     }
 }

@@ -1,52 +1,83 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemPresenter : MonoBehaviour
 {
-    // Keeps track of item on this level
-    private static GameObject CurrentItem;
-    private static GameObject ActiveItemInScene;
     // All Items in Game
     public List<GameObject> ItemList;
 
-    private static bool ItemHasBeenCollected;
-    public static bool GetItemHasBeenCollected => ItemHasBeenCollected;
+    // Track items per room
+    private Dictionary<int, GameObject> roomItems = new Dictionary<int, GameObject>();
+    private Dictionary<int, GameObject> activeRoomItems = new Dictionary<int, GameObject>();
+    private Dictionary<int, bool> roomItemCollected = new Dictionary<int, bool>();
 
+    // Track the current room type
+    private RoomType lastRoomType;
+
+    private MapPresenter mapPresenter;
     System.Random rng;
+
     void Start()
     {
         rng = new System.Random();
-        ItemHasBeenCollected = false;
+        mapPresenter = FindFirstObjectByType<MapPresenter>();
     }
 
     // Called when the player enters the item room
     public void PlaceItemInItemRoom()
     {
-        // Don't spawn item if its already been collected
-        if (ItemHasBeenCollected)
+        if (mapPresenter == null || mapPresenter.CurrentPlayerRoom == null)
+        {
+            Debug.LogWarning("MapPresenter or CurrentPlayerRoom not found.");
+            return;
+        }
+
+        int roomId = mapPresenter.CurrentPlayerRoom.OriginIndex;
+        lastRoomType = mapPresenter.CurrentPlayerRoom.RoomType;
+
+        // Only spawn items in Item rooms or Boss rooms
+        if (lastRoomType != RoomType.Item && lastRoomType != RoomType.Boss)
         {
             return;
         }
-        // Only pick a new item if it hasn't already been generated
-        if (CurrentItem == null)
+
+        // Don't spawn item if it's already been collected in this room
+        if (roomItemCollected.ContainsKey(roomId) && roomItemCollected[roomId])
         {
-            CurrentItem = PickRandomItem();
+            return;
+        }
+
+        // Only pick a new item if it hasn't already been generated for this room
+        if (!roomItems.ContainsKey(roomId))
+        {
+            roomItems[roomId] = PickRandomItem();
         }
         
         // Spawn Item in the Centre of the room
-        ActiveItemInScene = Instantiate(CurrentItem, Vector3.zero, Quaternion.identity);
+        GameObject item = Instantiate(roomItems[roomId], Vector3.zero, Quaternion.identity);
+        activeRoomItems[roomId] = item;
     }
 
-    // If player chooses not to collection item then 
+    // If player chooses not to collect item then 
     // when they leave the room it shouldn't be there
     public void RemoveItemFromRoom()
     {
-        if (ActiveItemInScene != null)
+        if (mapPresenter == null || mapPresenter.CurrentPlayerRoom == null)
         {
-            Destroy(ActiveItemInScene);
-            ActiveItemInScene = null;
+            return;
         }
+
+        // Get the previous room ID from the active items
+        foreach (var kvp in activeRoomItems)
+        {
+            if (kvp.Value != null)
+            {
+                Destroy(kvp.Value);
+            }
+        }
+        
+        // Clear the active items (but keep the generated items for persistence)
+        activeRoomItems.Clear();
     }
 
     // Gets random item GameObject
@@ -55,9 +86,25 @@ public class ItemPresenter : MonoBehaviour
         return ItemList[rng.Next(0, ItemList.Count)];
     }
 
-    // Model notifys presenter
+    // Model notifies presenter
     public void NotifyItemCollected()
     {
-        ItemHasBeenCollected = true;
+        if (mapPresenter == null || mapPresenter.CurrentPlayerRoom == null)
+        {
+            Debug.LogWarning("MapPresenter or CurrentPlayerRoom not found.");
+            return;
+        }
+
+        int roomId = mapPresenter.CurrentPlayerRoom.OriginIndex;
+        roomItemCollected[roomId] = true;
+        
+        // Also remove the active item for this room
+        if (activeRoomItems.ContainsKey(roomId))
+        {
+            // Item is already being destroyed by CollectionModel
+            activeRoomItems.Remove(roomId);
+        }
     }
+
+    
 }

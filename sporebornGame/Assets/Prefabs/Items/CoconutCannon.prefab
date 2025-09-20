@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -100,10 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee0be5ca66536b4786c4f4245f775cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    itemName: CoconutCannon
-    itemDescription: +2 Damage, +1 ProjectileSize
-    itemIcon: {fileID: 238098454153143994, guid: 4f2ab4af8689ca547a5bc529d60958e2, type: 3}
   healthChange: 0
   moveSpeedChange: 0
   fireDelayChange: 0

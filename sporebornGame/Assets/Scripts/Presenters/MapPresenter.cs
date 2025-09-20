@@ -313,7 +313,6 @@ public class MapPresenter : MonoBehaviour
 
     public void PlaceEntities(Room CurrentRoom)
     {
-        
         // If Room is a valid enemy room and hasn't been completed
         if (ValidEnemyRoom(CurrentRoom) && CurrentRoom.RoomCompleted == false)
         {
@@ -328,23 +327,23 @@ public class MapPresenter : MonoBehaviour
             {
                 // Spawn Boss
                 enemyPresenter.SpawnBoss(ActiveRoomInstance, CurrentRoom);
+                // Boss rooms can also have items if boss is defeated
+                if (CurrentRoom.RoomCompleted)
+                {
+                    itemPresenter.PlaceItemInItemRoom();
+                }
             }
         }
 
-        // Places and removes item when player exits room
+        // Places item in item room
         if (CurrentRoom.RoomType == RoomType.Item)
         {
             itemPresenter.PlaceItemInItemRoom();
         }
-        // Checks static reference if it hasn't been collected 
-        // then make sure its destroyed in next room
-        if (CurrentRoom.RoomType != RoomType.Item && ItemPresenter.GetItemHasBeenCollected == false)
+        else
         {
+            // Always remove items when entering a non-item/non-boss room
             itemPresenter.RemoveItemFromRoom();
-        } 
-
+        }
     }
-    
-
-
 }

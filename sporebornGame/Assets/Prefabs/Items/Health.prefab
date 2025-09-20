@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.7375, y: -2.3999999, z: 0}
-  m_LocalScale: {x: 0.45729676, y: 0.45729676, z: 0.45729676}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -100,10 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee0be5ca66536b4786c4f4245f775cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item:
-    itemName: TripleShot
-    itemDescription: 3 bullets shoot, damage bonus increase
-    itemIcon: {fileID: 4606908045521496030, guid: b7ec7ea882f8648afbe454092216e75c, type: 3}
   healthChange: 5
   moveSpeedChange: 0
   fireDelayChange: 0

@@ -80,6 +80,7 @@ public class ProjectilePresenter : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+    
         if (other.isTrigger) return;
 
         var enemy = other.GetComponentInParent<EnemyModel>();
@@ -93,44 +94,45 @@ public class ProjectilePresenter : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Only care about obstacles
-        if (!collision.gameObject.CompareTag("Obstacle")) return;
-
-        if (rubberEnabled)
+        // Check if we hit a wall/obstacle
+        if (collision.gameObject.CompareTag("Obstacle"))
         {
-            bounceCount--;
-            if (bounceCount <= 0)
+            if (rubberEnabled)
             {
-                Destroy(gameObject);
-                return;
-            }
+                bounceCount--;
+                if (bounceCount <= 0)
+                {
+                    Destroy(gameObject);
+                    return;
+                }
 
-            // Determine wall orientation based on collision normal
-            Vector2 normal = collision.contacts[0].normal;
+                // Determine wall orientation based on collision normal
+                Vector2 normal = collision.contacts[0].normal;
 
-            if (Mathf.Abs(normal.x) > 0.9f)
-            {
-                // Vertical wall then mirror x
-                rb.linearVelocity = new Vector2(-originalDirection.x, originalDirection.y).normalized * speed;
-                originalDirection = rb.linearVelocity.normalized;
-            }
-            else if (Mathf.Abs(normal.y) > 0.9f)
-            {
-                // Horizontal wall then mirror y
-                rb.linearVelocity = new Vector2(originalDirection.x, -originalDirection.y).normalized * speed;
-                originalDirection = rb.linearVelocity.normalized;
+                if (Mathf.Abs(normal.x) > 0.9f)
+                {
+                    // Vertical wall then mirror x
+                    rb.linearVelocity = new Vector2(-originalDirection.x, originalDirection.y).normalized * speed;
+                    originalDirection = rb.linearVelocity.normalized;
+                }
+                else if (Mathf.Abs(normal.y) > 0.9f)
+                {
+                    // Horizontal wall then mirror y
+                    rb.linearVelocity = new Vector2(originalDirection.x, -originalDirection.y).normalized * speed;
+                    originalDirection = rb.linearVelocity.normalized;
+                }
+                else
+                {
+                    // Diagonal wall then fallback to normal reflect
+                    rb.linearVelocity = Vector2.Reflect(originalDirection, normal).normalized * speed;
+                    originalDirection = rb.linearVelocity.normalized;
+                }
             }
             else
             {
-                // Diagonal wall then fallback to normal reflect
-                rb.linearVelocity = Vector2.Reflect(originalDirection, normal).normalized * speed;
-                originalDirection = rb.linearVelocity.normalized;
+                // Not rubber then destroy on first hit
+                Destroy(gameObject);
             }
-        }
-        else
-        {
-            // Not rubber then destroy on first hit
-            Destroy(gameObject);
         }
     }
 

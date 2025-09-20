@@ -171,5 +171,5 @@ MonoBehaviour:
   enableHoming: 0
   homingStrength: 5
   rubberEnabled: 0
-  bounceCount: 1
+  bounceCount: 0
   originalDirection: {x: 0, y: 0}

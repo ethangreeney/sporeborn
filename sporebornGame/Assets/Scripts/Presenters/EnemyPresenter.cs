@@ -31,6 +31,20 @@ public class EnemyPresenter : MonoBehaviour
         {
             map.ToggleLockDoors(false);
             map.RoomCompleted();
+
+            // Only spawn item if this is the boss room
+            if (map.CurrentPlayerRoom.RoomType == RoomType.Boss)
+            {
+                var itemPresenter = FindFirstObjectByType<ItemPresenter>();
+                if (itemPresenter != null)
+                {
+                    itemPresenter.PlaceItemInItemRoom();
+                }
+                else
+                {
+                    Debug.LogWarning("ItemPresenter not found in scene.");
+                }
+            }
         }
 
     }

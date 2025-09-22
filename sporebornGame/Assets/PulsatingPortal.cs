@@ -10,11 +10,14 @@ public class PulsatingPortal : MonoBehaviour
     private Vector3 initialScale;
     private MapPresenter mapPresenter;
 
+    private float spawnTime;
+    public float activationDelay = 4f; // Delay before the portal becomes active
     void Start()
     {
         initialScale = Vector3.one * baseScale;
         // Find the MapPresenter in the scene
         mapPresenter = FindFirstObjectByType<MapPresenter>();
+        spawnTime = Time.time;
     }
 
     void Update()
@@ -25,6 +28,9 @@ public class PulsatingPortal : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (Time.time - spawnTime < activationDelay)
+            return; // Ignore collisions during the activation delay
+
         if (other.CompareTag("Player") && mapPresenter != null)
         {
             mapPresenter.ResetMap();

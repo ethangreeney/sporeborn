@@ -665,23 +665,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5353731314350723978, guid: dcac9c433255efd45b58f1597f76583d, type: 3}
       propertyPath: orthographic size
-      value: 4.5
+      value: 4.3125
       objectReference: {fileID: 0}
     - target: {fileID: 5353731314350723978, guid: dcac9c433255efd45b58f1597f76583d, type: 3}
       propertyPath: m_NormalizedViewPortRect.x
-      value: 0
+      value: 0.0013495276
       objectReference: {fileID: 0}
     - target: {fileID: 5353731314350723978, guid: dcac9c433255efd45b58f1597f76583d, type: 3}
       propertyPath: m_NormalizedViewPortRect.y
-      value: 0
+      value: 0.0023980816
       objectReference: {fileID: 0}
     - target: {fileID: 5353731314350723978, guid: dcac9c433255efd45b58f1597f76583d, type: 3}
       propertyPath: m_NormalizedViewPortRect.width
-      value: 1
+      value: 0.9959514
       objectReference: {fileID: 0}
     - target: {fileID: 5353731314350723978, guid: dcac9c433255efd45b58f1597f76583d, type: 3}
       propertyPath: m_NormalizedViewPortRect.height
-      value: 1
+      value: 0.9928058
       objectReference: {fileID: 0}
     - target: {fileID: 5619815394218665686, guid: dcac9c433255efd45b58f1597f76583d, type: 3}
       propertyPath: m_Name
@@ -744,6 +744,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6331657691665529813, guid: c593a5166d8dce545987d2d444683acc, type: 3}
+      propertyPath: HeartPrefab
+      value: 
+      objectReference: {fileID: 2619596110311721775, guid: 80c36c202221a432d8ab4c6c6d8d47ce, type: 3}
     - target: {fileID: 6331657691665529813, guid: c593a5166d8dce545987d2d444683acc, type: 3}
       propertyPath: PortalPrefab
       value: 

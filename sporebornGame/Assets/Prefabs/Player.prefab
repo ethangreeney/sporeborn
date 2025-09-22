@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1858524462125715670}
   - component: {fileID: 8429666763159996018}
   - component: {fileID: 1073487874558790818}
+  - component: {fileID: -2588614934077091116}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -238,6 +239,19 @@ MonoBehaviour:
   animator: {fileID: 0}
   invulnDuration: 0.5
   knockbackForce: 8
+--- !u!114 &-2588614934077091116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2503916331830693916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85a475394149e4b9381f8236520811e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  items: []
 --- !u!1 &6676378610104298761
 GameObject:
   m_ObjectHideFlags: 0

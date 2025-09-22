@@ -103,7 +103,7 @@ MonoBehaviour:
   item:
     itemName: HomingBullets
     itemDescription: homing bullets
-    itemIcon: {fileID: 3400965640745486991, guid: 61831276d963c324f9f767740128280d, type: 3}
+    itemIcon: {fileID: 21300000, guid: 61831276d963c324f9f767740128280d, type: 3}
   healthChange: 0
   moveSpeedChange: 0
   fireDelayChange: 0

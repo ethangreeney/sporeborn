@@ -103,7 +103,7 @@ MonoBehaviour:
   item:
     itemName: Sunflower
     itemDescription: +1 movement Speed
-    itemIcon: {fileID: 7367808777163505026, guid: 04016ca6ebd69984ab8c73f9f831a23d, type: 3}
+    itemIcon: {fileID: 21300000, guid: 04016ca6ebd69984ab8c73f9f831a23d, type: 3}
   healthChange: 0
   moveSpeedChange: 3
   fireDelayChange: 0

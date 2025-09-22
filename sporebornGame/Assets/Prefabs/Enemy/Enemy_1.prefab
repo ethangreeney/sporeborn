@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4514295509054521502}
   - component: {fileID: 8228687505865071478}
   m_Layer: 11
-  m_Layer: 11
   m_Name: Enemy GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,12 +76,12 @@ SpriteRenderer:
   m_SortingLayerID: 2041154009
   m_SortingLayer: 4
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7482667652216324306, guid: d58c7d47852344fe09e5120ffe777c49, type: 3}
-  m_Color: {r: 0.9528302, g: 0.013483422, b: 0.013483422, a: 1}
+  m_Sprite: {fileID: 7482667652216324306, guid: 1ee1e8ff0e50b46f692fbd7041265873, type: 3}
+  m_Color: {r: 0.9245283, g: 0.004360993, b: 0.004360993, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.16, y: 0.16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -104,8 +103,9 @@ GameObject:
   - component: {fileID: 2829083420284690581}
   - component: {fileID: 1086100290543184440}
   - component: {fileID: 601152163271680418}
+  - component: {fileID: 2039867954663292372}
   m_Layer: 11
-  m_Name: Enemy
+  m_Name: Enemy_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -268,9 +268,9 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
   rotationSpeed: 360
-  slowdownDistance: 0.75
+  slowdownDistance: 1.5
   pickNextWaypointDist: 2
-  endReachedDistance: 0.75
+  endReachedDistance: 6
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
@@ -302,9 +302,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf1a323701eac3c4e82b742eb7f7bcc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: {fileID: 1086100290543184440}
-  animator: {fileID: 0}
-  spriteRenderer: {fileID: 0}
+  EnemyList: []
+  BossList: []
+--- !u!114 &2039867954663292372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109264935682714102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f3636d2e198d41eabb8699edd8c8041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTag: Player
+  projectilePrefab: {fileID: 7713316025894942385, guid: 7ba546fa666f44d10b252c4cb018db98, type: 3}
+  attackRange: 7
+  fireCooldown: 1
 --- !u!1 &5508014177302011411
 GameObject:
   m_ObjectHideFlags: 0

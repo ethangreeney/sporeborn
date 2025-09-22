@@ -68,6 +68,8 @@ public class MapPresenter : MonoBehaviour
         itemPresenter = FindFirstObjectByType<ItemPresenter>();
         // Build the starter room
         BuildRoom(StarterRoom, null);
+
+        enemyPresenter.ResetHearts();
     }
 
     void Update()
@@ -122,6 +124,8 @@ public class MapPresenter : MonoBehaviour
         itemPresenter.RemoveItemFromRoom();
 
         enemyPresenter.RemovePortal();
+
+        enemyPresenter.ClearHearts();
         // Reset the room prefab
         CurrentRoomPrefab = null;
         // Destroy the previous Room
@@ -357,6 +361,8 @@ public class MapPresenter : MonoBehaviour
         {
             enemyPresenter.SpawnPortal();
         }
+
+        enemyPresenter.SpawnHeartsInRoom(CurrentRoom);
 
 
 

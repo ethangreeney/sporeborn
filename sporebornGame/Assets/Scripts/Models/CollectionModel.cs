@@ -56,18 +56,29 @@ public class CollectionModel : MonoBehaviour
 
         bool consumed = false;
 
-
         // Health
-        var playerHealth = collision.GetComponent<HealthModel>();
-
-        if (playerHealth != null && healthChange != 0)
+        var heartData = gameObject.GetComponent<HeartData>();
+        if (heartData != null)
         {
-            // Only apply health if not at max health
-            if (playerHealth.currHealth < playerHealth.maxHealth)
+            var playerHealthHeart = collision.GetComponent<HealthModel>();
+            if (playerHealthHeart != null && healthChange != 0)
             {
-                playerHealth.Health(healthChange);
-                consumed = true;
+                // Only apply health if not at max health
+                if (playerHealthHeart.currHealth < playerHealthHeart.maxHealth)
+                {
+                    playerHealthHeart.Health(healthChange);
+
+                    // Notify EnemyPresenter to remove heart from respawn list
+                    var enemyPresenter = FindFirstObjectByType<EnemyPresenter>();
+                    if (enemyPresenter != null)
+                    {
+                        enemyPresenter.OnHeartCollected(gameObject);
+                    }
+                    Destroy(gameObject);
+                }
+                // If at full health, do nothing (heart stays in room and respawn list)
             }
+            return; // Don't apply other item logic for hearts
         }
 
         // Movement speed

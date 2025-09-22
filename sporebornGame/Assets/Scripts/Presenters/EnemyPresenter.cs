@@ -22,6 +22,12 @@ public class EnemyPresenter : MonoBehaviour
     public GameObject HeartPrefab;
     public float heartDropChance = 0.15f;
 
+    // Track active hearts in current room
+    private List<GameObject> activeHearts = new List<GameObject>();
+
+    // Store heart positions for respawning
+    private Dictionary<int, List<Vector3>> roomHeartPositions = new Dictionary<int, List<Vector3>>();
+
     // Generate random numbers
     System.Random rng;
 
@@ -35,11 +41,20 @@ public class EnemyPresenter : MonoBehaviour
     {
         EnemiesInScene--;
 
-        // Heart drop logic
         if (HeartPrefab != null && Random.value < heartDropChance)
         {
-            Instantiate(HeartPrefab, deathPosition, Quaternion.identity);
+            GameObject heart = Instantiate(HeartPrefab, deathPosition, Quaternion.identity);
+            HeartData heartData = heart.AddComponent<HeartData>();
+            heartData.roomOriginIndex = map.CurrentPlayerRoom.OriginIndex;
+            activeHearts.Add(heart);
+
+            // Save position for respawn
+            int roomIndex = map.CurrentPlayerRoom.OriginIndex;
+            if (!roomHeartPositions.ContainsKey(roomIndex))
+                roomHeartPositions[roomIndex] = new List<Vector3>();
+            roomHeartPositions[roomIndex].Add(deathPosition);
         }
+        
         // Unlocks door once all enemies/boss is defeated
         if (EnemiesInScene == 0)
         {
@@ -64,14 +79,39 @@ public class EnemyPresenter : MonoBehaviour
                 {
                     SpawnPortal();
                 }
-
                 else
                 {
                     Debug.LogWarning("PortalPrefab is not assigned in the EnemyPresenter.");
                 }
             }
         }
+    }
 
+    // Clear hearts when leaving room
+    public void ClearHearts()
+    {
+        foreach (var heart in activeHearts)
+        {
+            if (heart != null)
+                Destroy(heart);
+        }
+        activeHearts.Clear();
+    }
+
+    // Spawn hearts when entering room
+    public void SpawnHeartsInRoom(Room room)
+    {
+        int roomIndex = room.OriginIndex;
+        if (roomHeartPositions.ContainsKey(roomIndex))
+        {
+            foreach (var pos in roomHeartPositions[roomIndex])
+            {
+                GameObject heart = Instantiate(HeartPrefab, pos, Quaternion.identity);
+                HeartData heartData = heart.AddComponent<HeartData>();
+                heartData.roomOriginIndex = roomIndex;
+                activeHearts.Add(heart);
+            }
+        }
     }
 
     public void SpawnEnemies(GameObject CurrentRoomInstance, Room CurrentRoom)
@@ -142,4 +182,32 @@ public class EnemyPresenter : MonoBehaviour
             activePortal = Instantiate(PortalPrefab, portalPosition, Quaternion.identity);
         }
     }
+
+    public void OnHeartCollected(GameObject heart)
+    {
+        HeartData heartData = heart.GetComponent<HeartData>();
+        if (heartData != null)
+        {
+            int roomIndex = heartData.roomOriginIndex;
+            Vector3 pos = heart.transform.position;
+            if (roomHeartPositions.ContainsKey(roomIndex))
+            {
+                var list = roomHeartPositions[roomIndex];
+                list.RemoveAll(p => Vector3.Distance(p, pos) < 0.1f);
+            }
+        }
+        activeHearts.Remove(heart);
+    }
+
+    public void ResetHearts()
+    {
+        roomHeartPositions.Clear();
+        ClearHearts();
+    }
+}
+
+// Simple component to track which room a heart belongs to
+public class HeartData : MonoBehaviour
+{
+    public int roomOriginIndex;
 }

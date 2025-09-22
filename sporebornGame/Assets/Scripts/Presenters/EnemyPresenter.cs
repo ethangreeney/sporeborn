@@ -19,6 +19,9 @@ public class EnemyPresenter : MonoBehaviour
     public GameObject PortalPrefab;
     private GameObject activePortal;
 
+    public GameObject HeartPrefab;
+    public float heartDropChance = 0.15f;
+
     // Generate random numbers
     System.Random rng;
 
@@ -28,9 +31,15 @@ public class EnemyPresenter : MonoBehaviour
         rng = new System.Random();
     }
 
-    public void EnemyDies()
+    public void EnemyDies(Vector3 deathPosition)
     {
         EnemiesInScene--;
+
+        // Heart drop logic
+        if (HeartPrefab != null && Random.value < heartDropChance)
+        {
+            Instantiate(HeartPrefab, deathPosition, Quaternion.identity);
+        }
         // Unlocks door once all enemies/boss is defeated
         if (EnemiesInScene == 0)
         {

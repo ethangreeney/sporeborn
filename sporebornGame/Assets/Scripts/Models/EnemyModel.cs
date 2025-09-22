@@ -64,7 +64,7 @@ public class EnemyModel : MonoBehaviour
             Destroy(gameObject, 0.2f);
         }
         // Decreases enemy count
-        enemyPresenter.EnemyDies();
+        enemyPresenter.EnemyDies(transform.position);
 
     }
     // currently unreachable code

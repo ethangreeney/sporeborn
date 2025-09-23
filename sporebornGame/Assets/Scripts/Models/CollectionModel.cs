@@ -62,6 +62,7 @@ public class CollectionModel : MonoBehaviour
         var heartData = gameObject.GetComponent<HeartData>();
         if (heartData != null)
         {
+            Debug.Log("Heart collected");
             var playerHealthHeart = collision.GetComponent<HealthModel>();
             if (playerHealthHeart != null && healthChange != 0)
             {

@@ -44,7 +44,9 @@ public class EnemyPresenter : MonoBehaviour
         if (HeartPrefab != null && Random.value < heartDropChance)
         {
             GameObject heart = Instantiate(HeartPrefab, deathPosition, Quaternion.identity);
-            HeartData heartData = heart.AddComponent<HeartData>();
+            HeartData heartData = heart.GetComponent<HeartData>();
+            if (heartData == null)
+                heartData = heart.AddComponent<HeartData>();
             heartData.roomOriginIndex = map.CurrentPlayerRoom.OriginIndex;
             activeHearts.Add(heart);
 

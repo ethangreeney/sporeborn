@@ -26,6 +26,11 @@ public class PlayerShootingPresenter : MonoBehaviour
     public bool rubberEnabled = false;  // Does the player have rubber bullets?
     public int bounceCount = 1;         // How many bounces each projectile can have
 
+    [Header("Slow Effect Settings")]
+    public bool slowOnHitEnabled = false;
+    public float slowMultiplier = 1f;
+    public float slowDuration = 0f;
+
     void Update()
     {
         fireCooldown -= Time.deltaTime;
@@ -76,7 +81,12 @@ public class PlayerShootingPresenter : MonoBehaviour
             proj.bounceCount = bounceCount;
 
             proj.originalDirection = (rot * Vector3.right).normalized; // direction of bullet
-        }
+
+            // Slow effect
+            proj.slowOnHitEnabled = slowOnHitEnabled;
+            proj.slowMultiplier = slowMultiplier;
+            proj.slowDuration = slowDuration;
+            }
     }
 }
 

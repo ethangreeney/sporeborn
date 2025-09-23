@@ -35,6 +35,11 @@ public class CollectionModel : MonoBehaviour
     public bool rubberEnabled = false;
     public int rubberBounces; // how many times bullets bounce off walls
 
+    [Header("Slow Effect Settings")]
+    public bool slowOnHitEnabled = false; // Does this item enable slow on hit?
+    public float slowMultiplier = 0.5f;   // e.g., 0.5 = 50% speed
+    public float slowDuration = 1f;       // Duration in seconds
+
     private ItemPresenter itemPresenter;
 
     [HideInInspector]
@@ -192,7 +197,14 @@ public class CollectionModel : MonoBehaviour
                 shooting.bounceCount = rubberBounces;
                 consumed = true;
             }
-
+            // Slow effect
+            if (slowOnHitEnabled)
+            {
+                shooting.slowOnHitEnabled = true;
+                shooting.slowMultiplier = slowMultiplier;
+                shooting.slowDuration = slowDuration;
+                consumed = true;
+            }
         }
 
         // If item was actually applied

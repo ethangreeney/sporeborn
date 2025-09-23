@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 
 public class HealthModel : MonoBehaviour
 {
     public float maxHealth;
     public float currHealth;
+
+    public event Action OnHealthChanged;
 
     public SpriteRenderer spriteRenderer;
 
@@ -16,14 +19,18 @@ public class HealthModel : MonoBehaviour
     public void Damage(float damagedAmount)
     {
         currHealth -= damagedAmount;
+        OnHealthChanged?.Invoke();
+
         if (currHealth < 0) currHealth = 0; // Prevents negative 
     }
 
     public void Health(float healAmount)
     {
         currHealth += healAmount;
+        OnHealthChanged?.Invoke();
+
         if (currHealth > maxHealth) currHealth = maxHealth;
-        
+
     }
 
     public float GetHealthPercentage()

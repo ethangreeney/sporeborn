@@ -6,7 +6,7 @@ public class HealthModel : MonoBehaviour
     public float maxHealth;
     public float currHealth;
 
-    public event Action OnPlayerDamaged;
+    public event Action OnHealthChanged;
 
     public SpriteRenderer spriteRenderer;
 
@@ -19,7 +19,7 @@ public class HealthModel : MonoBehaviour
     public void Damage(float damagedAmount)
     {
         currHealth -= damagedAmount;
-        OnPlayerDamaged?.Invoke();
+        OnHealthChanged?.Invoke();
 
         if (currHealth < 0) currHealth = 0; // Prevents negative 
     }
@@ -27,6 +27,8 @@ public class HealthModel : MonoBehaviour
     public void Health(float healAmount)
     {
         currHealth += healAmount;
+        OnHealthChanged?.Invoke();
+
         if (currHealth > maxHealth) currHealth = maxHealth;
 
     }

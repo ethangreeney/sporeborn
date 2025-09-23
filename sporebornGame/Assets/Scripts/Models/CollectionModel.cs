@@ -12,7 +12,8 @@ public class Item
 public class CollectionModel : MonoBehaviour
 {
     [Header("Item Settings")]
-    //public Item item; - setting the sprite to the prefab works better - Benjamin
+    public Item item; //- setting the sprite to the prefab works better - Benjamin
+    // Reintroduced this item field for the inventory - Ethan   
 
     [Header("Player Stat Changes")]
     public float healthChange;
@@ -196,6 +197,11 @@ public class CollectionModel : MonoBehaviour
         // If item was actually applied
         if (consumed)
         {
+            var inv = collision.GetComponent<PlayerInventory>();
+            if (inv != null)
+            {
+                inv.AddItem(item);
+            }
             if (room != null)
             {
                 itemPresenter.NotifyItemCollected(room);

@@ -100,6 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee0be5ca66536b4786c4f4245f775cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item:
+    itemName: Coffee Beans
+    itemDescription: Speed up bullets
+    itemIcon: {fileID: 21300000, guid: f9349110120c4411291989f3fdd0885e, type: 3}
   healthChange: 0
   moveSpeedChange: 0
   fireDelayChange: 0

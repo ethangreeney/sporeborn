@@ -100,6 +100,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee0be5ca66536b4786c4f4245f775cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item:
+    itemName: Peas!
+    itemDescription: +5 Bullet speed, -0.3 Fire Delay
+    itemIcon: {fileID: 21300000, guid: 2f7d5cc1f74e03043aebc2bc47dafc9f, type: 3}
   healthChange: 0
   maxHealthPercentIncrease: 0
   moveSpeedChange: 0

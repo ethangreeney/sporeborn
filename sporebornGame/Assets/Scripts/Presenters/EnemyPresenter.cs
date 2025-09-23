@@ -54,7 +54,7 @@ public class EnemyPresenter : MonoBehaviour
                 roomHeartPositions[roomIndex] = new List<Vector3>();
             roomHeartPositions[roomIndex].Add(deathPosition);
         }
-        
+
         // Unlocks door once all enemies/boss is defeated
         if (EnemiesInScene == 0)
         {
@@ -204,10 +204,4 @@ public class EnemyPresenter : MonoBehaviour
         roomHeartPositions.Clear();
         ClearHearts();
     }
-}
-
-// Simple component to track which room a heart belongs to
-public class HeartData : MonoBehaviour
-{
-    public int roomOriginIndex;
 }

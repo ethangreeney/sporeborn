@@ -12,10 +12,12 @@ public class Item
 public class CollectionModel : MonoBehaviour
 {
     [Header("Item Settings")]
-    //public Item item; - setting the sprite to the prefab works better - Benjamin
+    public Item item; //- setting the sprite to the prefab works better - Benjamin
+    // Reintroduced this item field for the inventory - Ethan   
 
     [Header("Player Stat Changes")]
     public float healthChange;
+    public float maxHealthPercentIncrease;
     public float moveSpeedChange;
     public float fireDelayChange;
     public float bulletSpeedChange;
@@ -79,6 +81,22 @@ public class CollectionModel : MonoBehaviour
                 // If at full health, do nothing (heart stays in room and respawn list)
             }
             return; // Don't apply other item logic for hearts
+        }
+
+        // Max Health increase (non-heart items)
+        var playerHealth = collision.GetComponent<HealthModel>();
+        if (playerHealth != null && maxHealthPercentIncrease != 0f && heartData == null)
+        {
+            // Increase max health by percentage
+            float deltaMax = playerHealth.maxHealth * maxHealthPercentIncrease;
+            playerHealth.maxHealth += deltaMax;
+
+            // also raise current health by same absolute amount
+            playerHealth.currHealth += deltaMax;
+            if (playerHealth.currHealth > playerHealth.maxHealth)
+                playerHealth.currHealth = playerHealth.maxHealth;
+
+            consumed = true;
         }
 
         // Movement speed
@@ -179,6 +197,11 @@ public class CollectionModel : MonoBehaviour
         // If item was actually applied
         if (consumed)
         {
+            var inv = collision.GetComponent<PlayerInventory>();
+            if (inv != null)
+            {
+                inv.AddItem(item);
+            }
             if (room != null)
             {
                 itemPresenter.NotifyItemCollected(room);

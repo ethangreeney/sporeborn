@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3455365044020041434}
   - component: {fileID: 3697471500212961931}
   - component: {fileID: 8751037124489666324}
+  - component: {fileID: 2297477410793031382}
   m_Layer: 0
   m_Name: Health
   m_TagString: Untagged
@@ -117,3 +118,16 @@ MonoBehaviour:
   extraSpreadAngle: 0
   rubberEnabled: 0
   rubberBounces: 0
+--- !u!114 &2297477410793031382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2619596110311721775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a878e6d57a5b49d4af482a6909438e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomOriginIndex: 0

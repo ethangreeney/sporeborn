@@ -17,7 +17,7 @@ public class CollectionModel : MonoBehaviour
 
     [Header("Player Stat Changes")]
     public float healthChange;
-    public float maxHealthPercentIncrease;
+    public float maxHealthFlatIncrease = 2f; // Amount to increase max health by
     public float moveSpeedChange;
     public float fireDelayChange;
     public float bulletSpeedChange;
@@ -91,16 +91,13 @@ public class CollectionModel : MonoBehaviour
 
         // Max Health increase (non-heart items)
         var playerHealth = collision.GetComponent<HealthModel>();
-        if (playerHealth != null && maxHealthPercentIncrease != 0f && heartData == null)
+        if (playerHealth != null && maxHealthFlatIncrease != 0f && heartData == null)
         {
-            // Increase max health by percentage
-            float deltaMax = playerHealth.maxHealth * maxHealthPercentIncrease;
-            playerHealth.maxHealth += deltaMax;
+            // Increase max health by fixed amount
+            playerHealth.maxHealth += maxHealthFlatIncrease;
 
             // also raise current health by same absolute amount
-            playerHealth.currHealth += deltaMax;
-            if (playerHealth.currHealth > playerHealth.maxHealth)
-                playerHealth.currHealth = playerHealth.maxHealth;
+            playerHealth.Health(maxHealthFlatIncrease);
 
             consumed = true;
         }

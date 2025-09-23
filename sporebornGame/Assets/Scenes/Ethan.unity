@@ -167,6 +167,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1858524462125715670, guid: 2ef51c2b6a59a5343829524ce033a44f, type: 3}
+      propertyPath: slowDuration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858524462125715670, guid: 2ef51c2b6a59a5343829524ce033a44f, type: 3}
+      propertyPath: slowMultiplier
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858524462125715670, guid: 2ef51c2b6a59a5343829524ce033a44f, type: 3}
+      propertyPath: slowOnHitEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2503916331830693916, guid: 2ef51c2b6a59a5343829524ce033a44f, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1108,19 +1120,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5353731314350723978, guid: dcac9c433255efd45b58f1597f76583d, type: 3}
       propertyPath: m_NormalizedViewPortRect.x
-      value: 0.0011862396
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5353731314350723978, guid: dcac9c433255efd45b58f1597f76583d, type: 3}
       propertyPath: m_NormalizedViewPortRect.y
-      value: 0.002469136
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5353731314350723978, guid: dcac9c433255efd45b58f1597f76583d, type: 3}
       propertyPath: m_NormalizedViewPortRect.width
-      value: 0.9964413
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5353731314350723978, guid: dcac9c433255efd45b58f1597f76583d, type: 3}
       propertyPath: m_NormalizedViewPortRect.height
-      value: 0.99259263
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5619815394218665686, guid: dcac9c433255efd45b58f1597f76583d, type: 3}
       propertyPath: m_Name

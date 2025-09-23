@@ -17,6 +17,11 @@ public class ProjectilePresenter : MonoBehaviour
 
     public Vector2 originalDirection;
 
+    [Header("Slow Effect Settings")]
+    public bool slowOnHitEnabled = false;
+    public float slowMultiplier = 1f;
+    public float slowDuration = 0f;
+
     private Rigidbody2D rb;
     private Transform target;
 
@@ -87,6 +92,13 @@ public class ProjectilePresenter : MonoBehaviour
         if (enemy != null)
         {
             enemy.TakeDamage(damage);
+
+            // --- APPLY SLOW EFFECT ---
+            if (slowOnHitEnabled)
+            {
+                enemy.ApplySlow(slowMultiplier, slowDuration);
+            }
+
             Destroy(gameObject);
         }
         

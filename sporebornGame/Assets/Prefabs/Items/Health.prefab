@@ -106,7 +106,7 @@ MonoBehaviour:
     itemDescription: Replenish Health
     itemIcon: {fileID: 21300000, guid: b7ec7ea882f8648afbe454092216e75c, type: 3}
   healthChange: 2
-  maxHealthPercentIncrease: 0
+  maxHealthFlatIncrease: 0
   moveSpeedChange: 0
   fireDelayChange: 0
   bulletSpeedChange: 0
@@ -119,6 +119,9 @@ MonoBehaviour:
   extraSpreadAngle: 0
   rubberEnabled: 0
   rubberBounces: 0
+  slowOnHitEnabled: 0
+  slowMultiplier: 0
+  slowDuration: 0
 --- !u!114 &2297477410793031382
 MonoBehaviour:
   m_ObjectHideFlags: 0

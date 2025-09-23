@@ -105,7 +105,7 @@ MonoBehaviour:
     itemDescription: Slow enemies by 30% for 1 second
     itemIcon: {fileID: 21300000, guid: c4e020fbb93cc5d4eaf0c2846ffa2c86, type: 3}
   healthChange: 0
-  maxHealthPercentIncrease: 0
+  maxHealthFlatIncrease: 0
   moveSpeedChange: 0
   fireDelayChange: 0
   bulletSpeedChange: 0

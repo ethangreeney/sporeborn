@@ -1430,7 +1430,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6561920673278946250}
   m_Layer: 6
-  m_Name: OneByTwo_Regular
+  m_Name: OnebyTwo_Regular
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

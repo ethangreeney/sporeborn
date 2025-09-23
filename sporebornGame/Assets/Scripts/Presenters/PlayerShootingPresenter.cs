@@ -1,3 +1,4 @@
+using UnityEngine.EventSystems;
 using UnityEngine;
 
 public class PlayerShootingPresenter : MonoBehaviour
@@ -31,10 +32,17 @@ public class PlayerShootingPresenter : MonoBehaviour
     public float slowMultiplier = 1f;
     public float slowDuration = 0f;
 
-    void Update()
+     void Update()
     {
+        
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
+
         fireCooldown -= Time.deltaTime;
 
+        
         if (Input.GetMouseButton(0) && fireCooldown <= 0f)
         {
             Shoot();

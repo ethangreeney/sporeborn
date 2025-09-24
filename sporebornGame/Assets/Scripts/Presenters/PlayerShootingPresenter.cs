@@ -8,8 +8,8 @@ public class PlayerShootingPresenter : MonoBehaviour
     public float projectileSpeed = 12f;
     public float projectileDamage = 1;
     public float projectileLifetime = 2f;
-    public float fireRate = 0.2f; 
-    
+    public float fireRate = 0.2f;
+
     private float fireCooldown = 0f;
 
     public float projectileSize = 1f; // 1 = normal size
@@ -32,9 +32,9 @@ public class PlayerShootingPresenter : MonoBehaviour
     public float slowMultiplier = 1f;
     public float slowDuration = 0f;
 
-     void Update()
+    void Update()
     {
-        
+
         if (EventSystem.current.IsPointerOverGameObject())
         {
             return;
@@ -42,7 +42,7 @@ public class PlayerShootingPresenter : MonoBehaviour
 
         fireCooldown -= Time.deltaTime;
 
-        
+
         if (Input.GetMouseButton(0) && fireCooldown <= 0f)
         {
             Shoot();
@@ -50,53 +50,60 @@ public class PlayerShootingPresenter : MonoBehaviour
         }
     }
 
-    void Shoot()
-{
-    Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    Vector2 dir = (mouse - firePoint.position).normalized;
-    float baseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-
-    for (int i = 0; i < projectileCount; i++)
+    void Start()
     {
-        float angleOffset = 0f;
-
-        if (projectileCount > 1)
+        if (DifficultyManager.Instance)
         {
-            float totalSpread = spreadAngle * (projectileCount - 1);
-            angleOffset = -totalSpread / 2f + (i * spreadAngle);
+            fireRate *= DifficultyManager.Instance.PlayerFireIntervalMult;
         }
-
-        Quaternion rot = Quaternion.AngleAxis(baseAngle + angleOffset, Vector3.forward);
-        var go = Instantiate(projectilePrefab, firePoint.position, rot);
-
-        // Apply size scaling
-        go.transform.localScale *= projectileSize;
-
-        var proj = go.GetComponent<ProjectilePresenter>();
-
-        if (proj != null)
-        {
-            proj.speed = projectileSpeed;
-            proj.damage = projectileDamage * (1f + damageBonus)/ projectileCount;
-            proj.lifetime = projectileLifetime;
-
-            // Homing
-            proj.enableHoming = homingEnabled;
-            proj.homingStrength = homingStrength;
-
-            // Rubber bullets
-            proj.rubberEnabled = rubberEnabled;
-            proj.bounceCount = bounceCount;
-
-            proj.originalDirection = (rot * Vector3.right).normalized; // direction of bullet
-
-            // Slow effect
-            proj.slowOnHitEnabled = slowOnHitEnabled;
-            proj.slowMultiplier = slowMultiplier;
-            proj.slowDuration = slowDuration;
-            }
     }
-}
+    void Shoot()
+    {
+        Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 dir = (mouse - firePoint.position).normalized;
+        float baseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+
+        for (int i = 0; i < projectileCount; i++)
+        {
+            float angleOffset = 0f;
+
+            if (projectileCount > 1)
+            {
+                float totalSpread = spreadAngle * (projectileCount - 1);
+                angleOffset = -totalSpread / 2f + (i * spreadAngle);
+            }
+
+            Quaternion rot = Quaternion.AngleAxis(baseAngle + angleOffset, Vector3.forward);
+            var go = Instantiate(projectilePrefab, firePoint.position, rot);
+
+            // Apply size scaling
+            go.transform.localScale *= projectileSize;
+
+            var proj = go.GetComponent<ProjectilePresenter>();
+
+            if (proj != null)
+            {
+                proj.speed = projectileSpeed;
+                proj.damage = projectileDamage * (1f + damageBonus) / projectileCount;
+                proj.lifetime = projectileLifetime;
+
+                // Homing
+                proj.enableHoming = homingEnabled;
+                proj.homingStrength = homingStrength;
+
+                // Rubber bullets
+                proj.rubberEnabled = rubberEnabled;
+                proj.bounceCount = bounceCount;
+
+                proj.originalDirection = (rot * Vector3.right).normalized; // direction of bullet
+
+                // Slow effect
+                proj.slowOnHitEnabled = slowOnHitEnabled;
+                proj.slowMultiplier = slowMultiplier;
+                proj.slowDuration = slowDuration;
+            }
+        }
+    }
 
 
 }

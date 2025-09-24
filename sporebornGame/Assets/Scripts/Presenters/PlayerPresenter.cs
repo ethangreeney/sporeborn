@@ -24,6 +24,7 @@ public class PlayerPresenter : MonoBehaviour
         if (health != null && DifficultyManager.Instance)
         {
             health.maxHealth = DifficultyManager.Instance.PlayerMaxHealth;
+            health.currHealth = health.maxHealth;
             if (health.currHealth <= 0)
                 health.currHealth = health.maxHealth > 0 ? health.maxHealth : 1;
             else if (health.currHealth > health.maxHealth)

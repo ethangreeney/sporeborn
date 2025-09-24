@@ -29,7 +29,7 @@ public class RangedEnemyShooter : MonoBehaviour
             && cooldownTimer <= 0f)
         {
             ShootAtPlayer();
-            cooldownTimer = fireCooldown;
+            cooldownTimer = fireCooldown * (DifficultyManager.Instance ? DifficultyManager.Instance.EnemyFireIntervalMult : 1f);
         }
     }
 

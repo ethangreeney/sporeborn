@@ -43,7 +43,7 @@ public class EnemyProjectileScript : MonoBehaviour
 
         // Ensure we pass through enemies (also set in your layer matrix)
         int enemyLayer = LayerMask.NameToLayer("Enemy");
-        int myLayer    = gameObject.layer; // should be EnemyProjectile
+        int myLayer = gameObject.layer; // should be EnemyProjectile
         if (enemyLayer >= 0 && myLayer >= 0)
             Physics2D.IgnoreLayerCollision(myLayer, enemyLayer, true);
     }

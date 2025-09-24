@@ -21,6 +21,15 @@ public class PlayerPresenter : MonoBehaviour
         if (spriteRenderer == null)
             spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+        if (health != null && DifficultyManager.Instance)
+        {
+            health.maxHealth = DifficultyManager.Instance.PlayerMaxHealth;
+            health.currHealth = health.maxHealth;
+            if (health.currHealth <= 0)
+                health.currHealth = health.maxHealth > 0 ? health.maxHealth : 1;
+            else if (health.currHealth > health.maxHealth)
+                health.currHealth = health.maxHealth;
+        }
         if (health != null && health.currHealth <= 0)
             health.currHealth = health.maxHealth > 0 ? health.maxHealth : 1;
     }

@@ -109,7 +109,9 @@ public class EnemyPresenter : MonoBehaviour
             foreach (var pos in roomHeartPositions[roomIndex])
             {
                 GameObject heart = Instantiate(HeartPrefab, pos, Quaternion.identity);
-                HeartData heartData = heart.AddComponent<HeartData>();
+                HeartData heartData = heart.GetComponent<HeartData>();
+                if (heartData == null)
+                    heartData = heart.AddComponent<HeartData>();
                 heartData.roomOriginIndex = roomIndex;
                 activeHearts.Add(heart);
             }

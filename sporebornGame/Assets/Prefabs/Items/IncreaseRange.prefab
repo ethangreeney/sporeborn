@@ -105,6 +105,7 @@ MonoBehaviour:
     itemDescription: Speed up bullets
     itemIcon: {fileID: 21300000, guid: f9349110120c4411291989f3fdd0885e, type: 3}
   healthChange: 0
+  maxHealthFlatIncrease: 0
   moveSpeedChange: 0
   fireDelayChange: 0
   bulletSpeedChange: 7
@@ -117,3 +118,6 @@ MonoBehaviour:
   extraSpreadAngle: 0
   rubberEnabled: 0
   rubberBounces: 0
+  slowOnHitEnabled: 0
+  slowMultiplier: 0
+  slowDuration: 0

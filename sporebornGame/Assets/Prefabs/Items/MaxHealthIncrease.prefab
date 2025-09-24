@@ -105,7 +105,7 @@ MonoBehaviour:
     itemDescription: Increase max health by 10%
     itemIcon: {fileID: -6162979131727721030, guid: 5faeb5ca2c74540ec825eec65925af5a, type: 3}
   healthChange: 0
-  maxHealthPercentIncrease: 0.1
+  maxHealthFlatIncrease: 2
   moveSpeedChange: 0
   fireDelayChange: 0
   bulletSpeedChange: 0
@@ -118,3 +118,6 @@ MonoBehaviour:
   extraSpreadAngle: 0
   rubberEnabled: 0
   rubberBounces: 0
+  slowOnHitEnabled: 0
+  slowMultiplier: 0
+  slowDuration: 0

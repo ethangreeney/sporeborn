@@ -1,5 +1,38 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!244 &-7404166402162499763
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: b07b2df7b1b7a504e83683bcbd5182d4
+  m_EffectName: Attenuation
+  m_MixLevel: ced3717874a58f246b82a7791bf8ad16
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
+--- !u!243 &-6221255752282368306
+AudioMixerGroupController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: SFX
+  m_AudioMixer: {fileID: 24100000}
+  m_GroupID: d81c93e2e631ebd49abba0e120611679
+  m_Children: []
+  m_Volume: 26e498418f32295498126bb0c79bfc69
+  m_Pitch: 7241003c593f1d74ca4c624f0d526e2d
+  m_Send: 00000000000000000000000000000000
+  m_Effects:
+  - {fileID: -7404166402162499763}
+  m_UserColorIndex: 0
+  m_Mute: 0
+  m_Solo: 0
+  m_BypassEffects: 0
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -18,10 +51,15 @@ AudioMixerController:
   m_ExposedParameters:
   - guid: 33647caab9b274049b391fdc0ffb75fa
     name: MainVolume
+  - guid: 4f60f6d667c524386bd37473b5a6eac3
+    name: MusicVolume
+  - guid: 26e498418f32295498126bb0c79bfc69
+    name: SFXVolume
   m_AudioMixerGroupViews:
   - guids:
     - 1a31f0e80e2ef4af5899e5daa520f4bf
     - e5b3bf277f49f4642bd5c4f778713a7e
+    - d81c93e2e631ebd49abba0e120611679
     name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500006}
@@ -36,6 +74,7 @@ AudioMixerGroupController:
   m_GroupID: 1a31f0e80e2ef4af5899e5daa520f4bf
   m_Children:
   - {fileID: 1024050919760094206}
+  - {fileID: -6221255752282368306}
   m_Volume: 33647caab9b274049b391fdc0ffb75fa
   m_Pitch: 19f62c2cf0c164fcaa46c1ffc2f9dab2
   m_Send: 00000000000000000000000000000000
@@ -69,7 +108,7 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 710f0282acf274b52aa0a8b6e0dbda5a
   m_FloatValues:
-    33647caab9b274049b391fdc0ffb75fa: 20
+    33647caab9b274049b391fdc0ffb75fa: 0
   m_TransitionOverrides: {}
 --- !u!244 &229321916869207134
 AudioMixerEffectController:

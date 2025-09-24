@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Daniel.unity
     guid: 92940ef8aa358e14d80c1028b40e4acd
   - enabled: 1
-    path: Assets/Scenes/Main Scene (Do not touch).unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/HealthUiTest.unity
+    guid: c698f8052c24245a1b05efac021ae930
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

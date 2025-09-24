@@ -321,6 +321,12 @@ public class MapPresenter : MonoBehaviour
     public void RoomCompleted()
     {
         CurrentPlayerRoom.RoomCompleted = true;
+        
+    // if the room is a boss room, play normal music
+        if (CurrentPlayerRoom.RoomType == RoomType.Boss && SoundManager.instance != null)
+        {
+            SoundManager.instance.BossDefeated();
+        }
     }
 
 
@@ -341,6 +347,8 @@ public class MapPresenter : MonoBehaviour
             {
                 // Spawn Boss
                 enemyPresenter.SpawnBoss(ActiveRoomInstance, CurrentRoom);
+                // play boss music
+                SoundManager.instance.EnterBossRoom();             
             }
         }
 
@@ -354,6 +362,7 @@ public class MapPresenter : MonoBehaviour
         if (CurrentRoom.RoomType == RoomType.Boss && CurrentRoom.RoomCompleted && !CurrentRoom.itemCollected)
         {
             itemPresenter.PlaceItemInItemRoom(CurrentRoom);
+
         }
 
         // Spawn portal if boss defeated

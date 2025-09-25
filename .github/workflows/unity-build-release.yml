@@ -1,0 +1,69 @@
+name: Build and Release (Unity)
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'   # e.g., v1.2.3
+
+permissions:
+  contents: write  # required to create a Release and upload assets
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        targetPlatform: [StandaloneWindows64, StandaloneLinux64]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache Unity Library
+        uses: actions/cache@v4
+        with:
+          path: sporebornGame/Library
+          key: Library-${{ matrix.targetPlatform }}-${{ hashFiles('sporebornGame/Packages/manifest.json') }}
+          restore-keys: |
+            Library-
+
+      - name: Build with Unity
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          projectPath: sporebornGame
+          targetPlatform: ${{ matrix.targetPlatform }}
+          buildName: Sporeborn
+          buildPath: build/${{ matrix.targetPlatform }}
+
+      - name: Zip build output
+        run: |
+          cd build/${{ matrix.targetPlatform }}
+          zip -r ../../Sporeborn-${{ matrix.targetPlatform }}-${{ github.ref_name }}.zip .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sporeborn-${{ matrix.targetPlatform }}-${{ github.ref_name }}
+          path: Sporeborn-${{ matrix.targetPlatform }}-${{ github.ref_name }}.zip
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/**/*.zip
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+

@@ -3,21 +3,17 @@ name: Build and Release (Unity)
 on:
   push:
     tags:
-      - 'v*.*.*'   # e.g., v1.2.3
+      - 'v*.*.*'     # e.g., v1.2.3
   release:
     types: [published]
   workflow_dispatch:
 
 permissions:
-  contents: write  # required to create a Release and upload assets
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-      UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-      UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
     strategy:
       fail-fast: false
       matrix:
@@ -45,6 +41,10 @@ jobs:
 
       - name: Build with Unity
         uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           projectPath: sporebornGame
           targetPlatform: ${{ matrix.targetPlatform }}
@@ -79,5 +79,3 @@ jobs:
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-

@@ -201,8 +201,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseSpeed: 2
-  burstSpeed: 15
-  acceleration: 15
+  burstSpeed: 12
+  acceleration: 12
   minBurstInterval: 2
   maxBurstInterval: 5
   burstDuration: 2
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c72db87a200434cbc7a01e40909518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 40
   currHealth: 0
   spriteRenderer: {fileID: 0}
 --- !u!114 &-2428718111612113858

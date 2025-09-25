@@ -40,6 +40,12 @@ public class ItemPresenter : MonoBehaviour
             }
         }
 
+        if (room.assignedItemPrefab == null)
+        {
+            Debug.LogWarning("No item prefab assigned to room! Cannot spawn item. (Likely due to no more items in item pool");
+            return;
+        }
+
         ActiveItemInScene = Instantiate(room.assignedItemPrefab, Vector3.zero, Quaternion.identity);
 
         spawnedItems.Add(ActiveItemInScene);

@@ -199,8 +199,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c72db87a200434cbc7a01e40909518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  currHealth: 10
+  maxHealth: 3
+  currHealth: 3
   spriteRenderer: {fileID: 0}
 --- !u!114 &-1715974880639965395
 MonoBehaviour:

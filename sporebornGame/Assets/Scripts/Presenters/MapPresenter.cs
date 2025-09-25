@@ -69,6 +69,7 @@ public class MapPresenter : MonoBehaviour
         // Build the starter room
         BuildRoom(StarterRoom, null);
 
+        enemyPresenter.RemovePortal();
         enemyPresenter.ResetHearts();
     }
 

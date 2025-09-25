@@ -109,7 +109,7 @@ MonoBehaviour:
   moveSpeedChange: 0
   fireDelayChange: 0
   bulletSpeedChange: 0
-  bulletDamageChange: 2
+  bulletDamageChange: 1
   projectileSizeChange: 1
   damageBonus: 0
   homingEnabled: 0

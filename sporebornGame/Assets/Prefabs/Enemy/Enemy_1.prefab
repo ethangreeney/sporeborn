@@ -287,7 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c72db87a200434cbc7a01e40909518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 5
   currHealth: 0
   spriteRenderer: {fileID: 0}
 --- !u!114 &601152163271680418
@@ -304,6 +304,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyList: []
   BossList: []
+  PortalPrefab: {fileID: 0}
+  HeartPrefab: {fileID: 0}
+  heartDropChance: 0.15
 --- !u!114 &2039867954663292372
 MonoBehaviour:
   m_ObjectHideFlags: 0

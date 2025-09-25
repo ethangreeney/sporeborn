@@ -180,10 +180,16 @@ public class EnemyPresenter : MonoBehaviour
 
     public void SpawnPortal()
     {
+        Debug.Log($"SpawnPortal called. PortalPrefab: {PortalPrefab}, activePortal: {activePortal}");
         if (PortalPrefab != null && activePortal == null)
         {
             Vector3 portalPosition = new Vector3(0, 4, 0);
             activePortal = Instantiate(PortalPrefab, portalPosition, Quaternion.identity);
+            Debug.Log("Portal spawned.");
+        }
+        else
+        {
+            Debug.LogWarning("Portal not spawned. Either PortalPrefab is null or activePortal is not null.");
         }
     }
 

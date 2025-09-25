@@ -52,10 +52,29 @@ jobs:
           buildsPath: build
           unityVersion: 6000.0.55f1
 
+      - name: List build outputs
+        run: |
+          echo "Workspace:"; pwd
+          echo "Root listing:"; ls -la || true
+          echo "build listing:"; ls -la build || true
+          echo "project build listing:"; ls -la sporebornGame/build || true
+          echo "platform listing (root):"; ls -la build/${{ matrix.targetPlatform }} || true
+          echo "platform listing (project):"; ls -la sporebornGame/build/${{ matrix.targetPlatform }} || true
+
       - name: Zip build output
         run: |
-          cd build/${{ matrix.targetPlatform }}
-          zip -r ../../Sporeborn-${{ matrix.targetPlatform }}-${VERSION}.zip .
+          set -e
+          OUTDIR=""
+          if [ -d "build/${{ matrix.targetPlatform }}" ]; then
+            OUTDIR="build/${{ matrix.targetPlatform }}"
+          elif [ -d "sporebornGame/build/${{ matrix.targetPlatform }}" ]; then
+            OUTDIR="sporebornGame/build/${{ matrix.targetPlatform }}"
+          else
+            echo "Build output folder not found"
+            exit 1
+          fi
+          cd "$OUTDIR"
+          zip -r "$GITHUB_WORKSPACE/Sporeborn-${{ matrix.targetPlatform }}-${VERSION}.zip" .
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

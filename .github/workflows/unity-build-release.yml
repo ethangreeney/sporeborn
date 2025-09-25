@@ -1,0 +1,83 @@
+name: Build and Release (Unity)
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'   # e.g., v1.2.3
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write  # required to create a Release and upload assets
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+      UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+      UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+    strategy:
+      fail-fast: false
+      matrix:
+        targetPlatform: [StandaloneWindows64, StandaloneLinux64]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Determine version
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "VERSION=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
+          else
+            echo "VERSION=${GITHUB_REF_NAME}" >> $GITHUB_ENV
+          fi
+
+      - name: Cache Unity Library
+        uses: actions/cache@v4
+        with:
+          path: sporebornGame/Library
+          key: Library-${{ matrix.targetPlatform }}-${{ hashFiles('sporebornGame/Packages/manifest.json') }}
+          restore-keys: |
+            Library-
+
+      - name: Build with Unity
+        uses: game-ci/unity-builder@v4
+        with:
+          projectPath: sporebornGame
+          targetPlatform: ${{ matrix.targetPlatform }}
+          buildName: Sporeborn
+          buildsPath: build
+          unityVersion: 6000.0.55f1
+
+      - name: Zip build output
+        run: |
+          cd sporebornGame/build/${{ matrix.targetPlatform }}
+          zip -r ../../../Sporeborn-${{ matrix.targetPlatform }}-${VERSION}.zip .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Sporeborn-${{ matrix.targetPlatform }}-${VERSION}
+          path: Sporeborn-${{ matrix.targetPlatform }}-${VERSION}.zip
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: dist
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/**/*.zip
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+

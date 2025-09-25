@@ -4064,6 +4064,22 @@ PrefabInstance:
       propertyPath: projectileDamage
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1858524462125715670, guid: 2ef51c2b6a59a5343829524ce033a44f, type: 3}
+      propertyPath: projectileColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858524462125715670, guid: 2ef51c2b6a59a5343829524ce033a44f, type: 3}
+      propertyPath: projectileColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858524462125715670, guid: 2ef51c2b6a59a5343829524ce033a44f, type: 3}
+      propertyPath: projectileColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1858524462125715670, guid: 2ef51c2b6a59a5343829524ce033a44f, type: 3}
+      propertyPath: projectileColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2503916331830693916, guid: 2ef51c2b6a59a5343829524ce033a44f, type: 3}
       propertyPath: m_Name
       value: Player
@@ -4135,7 +4151,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5353731314350723978, guid: dcac9c433255efd45b58f1597f76583d, type: 3}
       propertyPath: orthographic size
-      value: 12.65625
+      value: 12.6875
       objectReference: {fileID: 0}
     - target: {fileID: 5353731314350723978, guid: dcac9c433255efd45b58f1597f76583d, type: 3}
       propertyPath: m_NormalizedViewPortRect.x

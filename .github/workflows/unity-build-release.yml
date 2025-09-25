@@ -4,6 +4,9 @@ on:
   push:
     tags:
       - 'v*.*.*'   # e.g., v1.2.3
+  release:
+    types: [published]
+  workflow_dispatch:
 
 permissions:
   contents: write  # required to create a Release and upload assets
@@ -19,6 +22,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Determine version
+        run: |
+          if [ "${{ github.event_name }}" = "release" ]; then
+            echo "VERSION=${{ github.event.release.tag_name }}" >> $GITHUB_ENV
+          else
+            echo "VERSION=${GITHUB_REF_NAME}" >> $GITHUB_ENV
+          fi
 
       - name: Cache Unity Library
         uses: actions/cache@v4
@@ -36,18 +47,19 @@ jobs:
           projectPath: sporebornGame
           targetPlatform: ${{ matrix.targetPlatform }}
           buildName: Sporeborn
-          buildPath: build/${{ matrix.targetPlatform }}
+          buildsPath: build
+          unityVersion: 6000.0.55f1
 
       - name: Zip build output
         run: |
-          cd build/${{ matrix.targetPlatform }}
-          zip -r ../../Sporeborn-${{ matrix.targetPlatform }}-${{ github.ref_name }}.zip .
+          cd sporebornGame/build/${{ matrix.targetPlatform }}
+          zip -r ../../../Sporeborn-${{ matrix.targetPlatform }}-${VERSION}.zip .
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Sporeborn-${{ matrix.targetPlatform }}-${{ github.ref_name }}
-          path: Sporeborn-${{ matrix.targetPlatform }}-${{ github.ref_name }}.zip
+          name: Sporeborn-${{ matrix.targetPlatform }}-${VERSION}
+          path: Sporeborn-${{ matrix.targetPlatform }}-${VERSION}.zip
 
   release:
     needs: build

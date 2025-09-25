@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        targetPlatform: [StandaloneWindows64, StandaloneLinux64]
+        targetPlatform: [StandaloneWindows64, StandaloneOSX]
 
     steps:
       - name: Checkout

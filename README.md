@@ -1,6 +1,9 @@
 # Sporeborn
-
 A small top‑down action prototype built in Unity. Move, shoot, and survive against enemies while finding items and exploring.
+
+# Screenshots
+<img width="1470" height="919" alt="image" src="https://github.com/user-attachments/assets/20d8558d-52f6-4936-8d80-814fb05ade5f" />
+<img width="1470" height="897" alt="image" src="https://github.com/user-attachments/assets/96db5c8c-4ecb-43fa-9012-44a3458bda9d" />
 
 ## Play
 

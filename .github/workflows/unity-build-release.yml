@@ -43,9 +43,6 @@ jobs:
           restore-keys: |
             Library-
 
-      - name: Activate Unity
-        uses: game-ci/unity-activate@v4
-
       - name: Build with Unity
         uses: game-ci/unity-builder@v4
         with:

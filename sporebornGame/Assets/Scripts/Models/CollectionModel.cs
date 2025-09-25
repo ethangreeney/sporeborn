@@ -40,6 +40,9 @@ public class CollectionModel : MonoBehaviour
     public float slowMultiplier = 0.5f;   // e.g., 0.5 = 50% speed
     public float slowDuration = 1f;       // Duration in seconds
 
+    [Header("Projectile Visuals")]
+    public Color projectileColor = Color.clear; // Default is null (no change)
+
     private ItemPresenter itemPresenter;
 
     [HideInInspector]
@@ -201,6 +204,10 @@ public class CollectionModel : MonoBehaviour
                 shooting.slowMultiplier = slowMultiplier;
                 shooting.slowDuration = slowDuration;
                 consumed = true;
+            }
+            if (projectileColor != Color.clear)
+            {
+                shooting.projectileColor = projectileColor;
             }
         }
 

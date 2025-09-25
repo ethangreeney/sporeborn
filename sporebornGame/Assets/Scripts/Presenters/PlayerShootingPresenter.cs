@@ -32,6 +32,9 @@ public class PlayerShootingPresenter : MonoBehaviour
     public float slowMultiplier = 1f;
     public float slowDuration = 0f;
 
+    [Header("Projectile Visuals")]
+    public Color projectileColor = Color.clear;
+
     void Update()
     {
 
@@ -101,6 +104,9 @@ public class PlayerShootingPresenter : MonoBehaviour
                 proj.slowOnHitEnabled = slowOnHitEnabled;
                 proj.slowMultiplier = slowMultiplier;
                 proj.slowDuration = slowDuration;
+
+                // Set projectile color
+                proj.SetColor(projectileColor);
             }
         }
     }

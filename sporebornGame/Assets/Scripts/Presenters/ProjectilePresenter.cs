@@ -168,4 +168,11 @@ public class ProjectilePresenter : MonoBehaviour
 
         return closest;
     }
+
+    public void SetColor(Color color)
+    {
+        var sr = GetComponent<SpriteRenderer>();
+        if (sr != null)
+            sr.color = color;
+    }
 }

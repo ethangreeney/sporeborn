@@ -121,3 +121,4 @@ MonoBehaviour:
   slowOnHitEnabled: 0
   slowMultiplier: 0
   slowDuration: 0
+  projectileColor: {r: 0, g: 0, b: 0, a: 0}

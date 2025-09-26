@@ -90,6 +90,7 @@ public class PlayerPresenter : MonoBehaviour
         if (animator)
             animator.SetTrigger("Death");
         else
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+           Time.timeScale = 1f;
+           SceneManager.LoadScene(0);
     }
 }

@@ -72,15 +72,7 @@ public class MapPresenter : MonoBehaviour
         enemyPresenter.RemovePortal();
         enemyPresenter.ResetHearts();
     }
-
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.R))
-        {
-            Start();
-        }
-    }
-
+    
     public void ResetMap()
     {
         Start();

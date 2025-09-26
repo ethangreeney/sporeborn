@@ -6,10 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Daniel.unity
+    path: Assets/Scenes/Start Menu (Daniel).unity
     guid: 92940ef8aa358e14d80c1028b40e4acd
   - enabled: 1
-    path: Assets/Scenes/HealthUiTest.unity
+    path: Assets/Scenes/Main Game.unity
     guid: c698f8052c24245a1b05efac021ae930
   - enabled: 0
     path: Assets/Scenes/Ethan.unity

@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
+
 using TMPro;
+
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -24,7 +27,12 @@ public class SettingsMenu : MonoBehaviour
             qualityDropdown.RefreshShownValue();
         }
 
-        resolutions = Screen.resolutions;
+        resolutions = Screen.resolutions
+            .GroupBy(r => (r.width, r.height))
+            .Select(g => g.OrderByDescending(r => r.refreshRateRatio.value).First())
+            .OrderByDescending(r => r.width)
+            .ThenByDescending(r => r.height)
+            .ToArray();
 
         resolutionDropdown.ClearOptions();
 

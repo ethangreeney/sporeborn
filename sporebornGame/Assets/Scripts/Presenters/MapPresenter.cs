@@ -315,7 +315,7 @@ public class MapPresenter : MonoBehaviour
     {
         CurrentPlayerRoom.RoomCompleted = true;
         
-    // if the room is a boss room, play normal music
+        // if the room is a boss room, play normal music
         if (CurrentPlayerRoom.RoomType == RoomType.Boss && SoundManager.instance != null)
         {
             SoundManager.instance.BossDefeated();

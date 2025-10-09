@@ -14,19 +14,23 @@ public class EnemyPresenter : MonoBehaviour
     private static int EnemiesInScene;
 
     private MapPresenter map;
+    private EnemyDropPresenter ItemDrops;
 
     // Portal prefab for when boss is defeated
     public GameObject PortalPrefab;
     private GameObject activePortal;
 
-    public GameObject HeartPrefab;
-    public float heartDropChance = 0.15f;
+    // List of Enemy Drops - Drag Prefabs into in unity
+    public List<GameObject> EnemyDrops;
+
+    // public GameObject HeartPrefab;
+    // public float heartDropChance = 0.15f;
 
     // Track active hearts in current room
-    private List<GameObject> activeHearts = new List<GameObject>();
+    // private List<GameObject> activeHearts = new List<GameObject>();
 
     // Store heart positions for respawning
-    private Dictionary<int, List<Vector3>> roomHeartPositions = new Dictionary<int, List<Vector3>>();
+    // private Dictionary<int, List<Vector3>> roomHeartPositions = new Dictionary<int, List<Vector3>>();
 
     // Generate random numbers
     System.Random rng;
@@ -35,27 +39,31 @@ public class EnemyPresenter : MonoBehaviour
     {
         map = FindFirstObjectByType<MapPresenter>();
         rng = new System.Random();
+        ItemDrops = FindFirstObjectByType<EnemyDropPresenter>();
     }
 
     public void EnemyDies(Vector3 deathPosition)
     {
         EnemiesInScene--;
 
-        if (HeartPrefab != null && Random.value < heartDropChance)
-        {
-            GameObject heart = Instantiate(HeartPrefab, deathPosition, Quaternion.identity);
-            HeartData heartData = heart.GetComponent<HeartData>();
-            if (heartData == null)
-                heartData = heart.AddComponent<HeartData>();
-            heartData.roomOriginIndex = map.CurrentPlayerRoom.OriginIndex;
-            activeHearts.Add(heart);
+        // if (HeartPrefab != null && Random.value < heartDropChance)
+        // {
+        //     GameObject heart = Instantiate(HeartPrefab, deathPosition, Quaternion.identity);
+        //     HeartData heartData = heart.GetComponent<HeartData>();
+        //     if (heartData == null)
+        //         heartData = heart.AddComponent<HeartData>();
+        //     heartData.roomOriginIndex = map.CurrentPlayerRoom.OriginIndex;
+        //     activeHearts.Add(heart);
 
-            // Save position for respawn
-            int roomIndex = map.CurrentPlayerRoom.OriginIndex;
-            if (!roomHeartPositions.ContainsKey(roomIndex))
-                roomHeartPositions[roomIndex] = new List<Vector3>();
-            roomHeartPositions[roomIndex].Add(deathPosition);
-        }
+        //     // Save position for respawn
+        //     int roomIndex = map.CurrentPlayerRoom.OriginIndex;
+        //     if (!roomHeartPositions.ContainsKey(roomIndex))
+        //         roomHeartPositions[roomIndex] = new List<Vector3>();
+        //     roomHeartPositions[roomIndex].Add(deathPosition);
+        // }\
+
+        // Chance to spawn a special item on enemy death
+        ItemDrops.SpawnItem(EnemyDrops, deathPosition);
 
         // Unlocks door once all enemies/boss is defeated
         if (EnemiesInScene == 0)
@@ -90,33 +98,33 @@ public class EnemyPresenter : MonoBehaviour
     }
 
     // Clear hearts when leaving room
-    public void ClearHearts()
-    {
-        foreach (var heart in activeHearts)
-        {
-            if (heart != null)
-                Destroy(heart);
-        }
-        activeHearts.Clear();
-    }
+    // public void ClearHearts()
+    // {
+    //     foreach (var heart in activeHearts)
+    //     {
+    //         if (heart != null)
+    //             Destroy(heart);
+    //     }
+    //     activeHearts.Clear();
+    // }
 
     // Spawn hearts when entering room
-    public void SpawnHeartsInRoom(Room room)
-    {
-        int roomIndex = room.OriginIndex;
-        if (roomHeartPositions.ContainsKey(roomIndex))
-        {
-            foreach (var pos in roomHeartPositions[roomIndex])
-            {
-                GameObject heart = Instantiate(HeartPrefab, pos, Quaternion.identity);
-                HeartData heartData = heart.GetComponent<HeartData>();
-                if (heartData == null)
-                    heartData = heart.AddComponent<HeartData>();
-                heartData.roomOriginIndex = roomIndex;
-                activeHearts.Add(heart);
-            }
-        }
-    }
+    // public void SpawnHeartsInRoom(Room room)
+    // {
+    //     int roomIndex = room.OriginIndex;
+    //     if (roomHeartPositions.ContainsKey(roomIndex))
+    //     {
+    //         foreach (var pos in roomHeartPositions[roomIndex])
+    //         {
+    //             GameObject heart = Instantiate(HeartPrefab, pos, Quaternion.identity);
+    //             HeartData heartData = heart.GetComponent<HeartData>();
+    //             if (heartData == null)
+    //                 heartData = heart.AddComponent<HeartData>();
+    //             heartData.roomOriginIndex = roomIndex;
+    //             activeHearts.Add(heart);
+    //         }
+    //     }
+    // }
 
     public void SpawnEnemies(GameObject CurrentRoomInstance, Room CurrentRoom)
     {
@@ -193,25 +201,30 @@ public class EnemyPresenter : MonoBehaviour
         }
     }
 
-    public void OnHeartCollected(GameObject heart)
+    public void ClearItems()
     {
-        HeartData heartData = heart.GetComponent<HeartData>();
-        if (heartData != null)
-        {
-            int roomIndex = heartData.roomOriginIndex;
-            Vector3 pos = heart.transform.position;
-            if (roomHeartPositions.ContainsKey(roomIndex))
-            {
-                var list = roomHeartPositions[roomIndex];
-                list.RemoveAll(p => Vector3.Distance(p, pos) < 0.1f);
-            }
-        }
-        activeHearts.Remove(heart);
+        ItemDrops.DestroyAllItems();
     }
 
-    public void ResetHearts()
-    {
-        roomHeartPositions.Clear();
-        ClearHearts();
-    }
+    // public void OnHeartCollected(GameObject heart)
+    // {
+    //     HeartData heartData = heart.GetComponent<HeartData>();
+    //     if (heartData != null)
+    //     {
+    //         int roomIndex = heartData.roomOriginIndex;
+    //         Vector3 pos = heart.transform.position;
+    //         if (roomHeartPositions.ContainsKey(roomIndex))
+    //         {
+    //             var list = roomHeartPositions[roomIndex];
+    //             list.RemoveAll(p => Vector3.Distance(p, pos) < 0.1f);
+    //         }
+    //     }
+    //     activeHearts.Remove(heart);
+    // }
+
+    // public void ResetHearts()
+    // {
+    //     roomHeartPositions.Clear();
+    //     ClearHearts();
+    // }
 }

@@ -10,6 +10,8 @@ public class PlayerPresenter : MonoBehaviour
     public float invulnDuration = 0.5f;
     public float knockbackForce = 8f;
 
+    public CurrencyModel playerMoney;
+
     bool invuln;
     bool isDead;
     Rigidbody2D rb;
@@ -32,6 +34,9 @@ public class PlayerPresenter : MonoBehaviour
         }
         if (health != null && health.currHealth <= 0)
             health.currHealth = health.maxHealth > 0 ? health.maxHealth : 1;
+
+        // Creates the Model to track currency
+        playerMoney = new CurrencyModel();
     }
 
     public void TakeDamage(int amount, Vector2 hitFrom)

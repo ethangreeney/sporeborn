@@ -66,11 +66,12 @@ public class MapPresenter : MonoBehaviour
         // Gets the current Enemy Presenter
         enemyPresenter = FindFirstObjectByType<EnemyPresenter>();
         itemPresenter = FindFirstObjectByType<ItemPresenter>();
+
         // Build the starter room
         BuildRoom(StarterRoom, null);
 
         enemyPresenter.RemovePortal();
-        enemyPresenter.ResetHearts();
+        enemyPresenter.ClearItems();
     }
     
     public void ResetMap()
@@ -117,8 +118,8 @@ public class MapPresenter : MonoBehaviour
         itemPresenter.RemoveItemFromRoom();
 
         enemyPresenter.RemovePortal();
-
-        enemyPresenter.ClearHearts();
+        enemyPresenter.ClearItems();
+        
         // Reset the room prefab
         CurrentRoomPrefab = null;
         // Destroy the previous Room
@@ -363,11 +364,6 @@ public class MapPresenter : MonoBehaviour
         {
             enemyPresenter.SpawnPortal();
         }
-
-        enemyPresenter.SpawnHeartsInRoom(CurrentRoom);
-
-
-
 
     }
     

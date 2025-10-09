@@ -14,10 +14,10 @@ public class ItemPresenter : MonoBehaviour
     private HashSet<GameObject> spawnedItems = new HashSet<GameObject>();
 
     System.Random rng;
+
     void Start()
     {
         rng = new System.Random();
-        
     }
 
     // Called when the player enters the item room
@@ -82,11 +82,9 @@ public class ItemPresenter : MonoBehaviour
         return availableItems[rng.Next(0, availableItems.Count)];
     }
 
-    // Model notifys presenter
-    // Add a parameter for the current room
+    // Model notifys presenter that Item from ItemRoom has been collected
     public void NotifyItemCollected(Room room)
     {
         room.itemCollected = true;
-        
     }
 }

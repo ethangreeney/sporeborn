@@ -27,17 +27,17 @@ public class DropModel : MonoBehaviour
     {
         // Only Player can collide with Dropped Items
         if (collision.gameObject != map.Player)
-        {
+        {   
             return;
         }
 
         // Gets current item object
         GameObject CollidedItem = this.gameObject;
 
-        // Gets item information
+        // Gets item information - What type of item
         DropModel CurrentItem = CollidedItem.GetComponent<DropModel>();
 
-        // Gets the CurrentInstance of the Player
+        // Gets the Current Instance of the Player in game
         PlayerPresenter PlayerActiveInstance = map.Player.GetComponent<PlayerPresenter>();
 
         // Applies appropriate effect to player based on item

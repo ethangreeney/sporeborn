@@ -175,7 +175,7 @@ public class EnemyPresenter : MonoBehaviour
         {
             return;
         }
-        Debug.LogWarning("EnemyDrops Number of Types"+EnemyDrops.Count);
+
         // Picks a RandomItem from ItemBucket
         GameObject RandomEnemyDrop = ItemDropBucket[rng.Next(0, EnemyDrops.Count-1)];
 

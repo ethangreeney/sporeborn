@@ -2,16 +2,14 @@ using UnityEngine;
 
 public class DropModel : MonoBehaviour
 {
-    // Assign these variables in Inspector - Set on each prefab
-    public float DropChance;  // Chance of item dropping
+    // Public variables assigned in Inspector - Set on each prefab
     public ItemType CurrentItemType; // E.g. Heart, Nectar
-
-    public int HeartHealthAmount = 10;
-    public int NectarValue = 1;
-
+    // How much the item affects the player 
+    public int ItemModifierValue; // - E.g. Currency = 1 -> + $1, Heart = 2 -> 2+ Health
+                                
     // For Player reference
     private MapPresenter map;
-    private EnemyDropPresenter DropPresenter;
+    private EnemyPresenter Enemy;
 
     public enum ItemType
     {
@@ -21,7 +19,7 @@ public class DropModel : MonoBehaviour
 
     // Called when dropped item is instantiated 
     void Awake() {
-        DropPresenter = FindFirstObjectByType<EnemyDropPresenter>();
+        Enemy = FindFirstObjectByType<EnemyPresenter>();
         map = FindFirstObjectByType<MapPresenter>();
     }
 
@@ -47,20 +45,20 @@ public class DropModel : MonoBehaviour
         {
             case ItemType.Heart:
                 // Stops health from increasing more than Max Health
-                if (PlayerActiveInstance.health.currHealth + HeartHealthAmount <= PlayerActiveInstance.health.maxHealth)
+                if (PlayerActiveInstance.health.currHealth + ItemModifierValue <= PlayerActiveInstance.health.maxHealth)
                 {
-                    PlayerActiveInstance.health.Heal(HeartHealthAmount);
+                    PlayerActiveInstance.health.Heal(ItemModifierValue);
                 }
                 break;
 
             case ItemType.Nectar:
-                PlayerActiveInstance.playerMoney.AddCurrency(NectarValue);
+                PlayerActiveInstance.playerMoney.AddCurrency(ItemModifierValue);
                 break;
 
          }
         
         // Tells the presenter to destroy this item
-        DropPresenter.DestroyItem(CollidedItem);
+        Enemy.DestroyItem(CollidedItem);
    
 
     }

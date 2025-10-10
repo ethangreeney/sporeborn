@@ -14,7 +14,7 @@ public class MapPresenter : MonoBehaviour
     [Header("Room Prefabs")]
     public List<GameObject> RoomPrefabs;
 
-    [Header("Player")]
+    [Header("Active Player Instance")]
     public GameObject Player;
 
     [Header("GridSize")]
@@ -70,8 +70,9 @@ public class MapPresenter : MonoBehaviour
         // Build the starter room
         BuildRoom(StarterRoom, null);
 
+        // Destroy Active entities in scene upon start
         enemyPresenter.RemovePortal();
-        enemyPresenter.ClearItems();
+        enemyPresenter.DestroyAllItems();
     }
     
     public void ResetMap()
@@ -118,7 +119,7 @@ public class MapPresenter : MonoBehaviour
         itemPresenter.RemoveItemFromRoom();
 
         enemyPresenter.RemovePortal();
-        enemyPresenter.ClearItems();
+        enemyPresenter.DestroyAllItems();
         
         // Reset the room prefab
         CurrentRoomPrefab = null;

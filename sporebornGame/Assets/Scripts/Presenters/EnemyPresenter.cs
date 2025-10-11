@@ -176,16 +176,15 @@ public class EnemyPresenter : MonoBehaviour
             return;
         }
 
-        // Picks a RandomItem from ItemBucket
-        GameObject RandomEnemyDrop = ItemDropBucket[rng.Next(0, EnemyDrops.Count)];
-
-        ItemDropBucket.Remove(RandomEnemyDrop);
-
         // Refill Item Bucket if empty
         if (ItemDropBucket.Count == 0)
         {
             RefillItemBucket();
         }
+
+        // Picks a RandomItem from ItemBucket
+        GameObject RandomEnemyDrop = ItemDropBucket[rng.Next(0, ItemDropBucket.Count)];
+        ItemDropBucket.Remove(RandomEnemyDrop);
 
         // Adds to list of active items 
         ActiveDrops.Add(Instantiate(RandomEnemyDrop, EnemyPosition, Quaternion.identity));

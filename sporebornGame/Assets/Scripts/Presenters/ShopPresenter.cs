@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class ShopPresenter : MonoBehaviour
@@ -7,10 +6,15 @@ public class ShopPresenter : MonoBehaviour
     [SerializeField]
     private List<GameObject> ShopItemPool;
 
+    [SerializeField]
     private GameObject ShopTriggerZone;
+    [SerializeField]
     private GameObject ShopUI;
 
     private ShopModel ShopLogic;
+
+    private Vector3 ShopZonePosition;
+
 
 
 
@@ -18,24 +22,16 @@ public class ShopPresenter : MonoBehaviour
     {
 
         Debug.LogWarning("Shop Presenter is Called");
-        // Find Objects
-        ShopTriggerZone = GameObject.Find("ShopTriggerZone");
-        ShopUI = GameObject.Find("ShopUI");
-
-        Debug.Log($"ShopTriggerZone: {ShopTriggerZone}");
-        Debug.Log($"ShopUI: {ShopUI}");
-
-        if(ShopTriggerZone == null || ShopUI == null)
-        {
-            Debug.LogWarning("Objects Not Found");
-        }
 
         // Gets the Model from the ShopUI
-        ShopLogic = ShopUI.GetComponentInChildren<ShopModel>();
+        ShopLogic = ShopUI.GetComponentInChildren<ShopModel>(false);
         
         // Already instantiated in scene but set to inactive for faster load time
         ShopTriggerZone.SetActive(false);
         ShopUI.SetActive(false);
+
+        // Used to detect whether playre is in range of shop
+        ShopZonePosition = new Vector3(0, -2, 0);
 
     }
 
@@ -43,32 +39,37 @@ public class ShopPresenter : MonoBehaviour
     public void ActivateShopTrigger()
     {
         ShopTriggerZone.SetActive(true);
-        ShopTriggerZone.transform.position = new Vector3(0,-2,0);
+
+        // If detection Zone not in the right position
+        if(ShopTriggerZone.transform.position != ShopZonePosition)
+        {
+            ShopTriggerZone.transform.position = ShopZonePosition;
+        }
+        
     }
     
     public void OpenShop()
     {
-        // Need to Pause game while shop is open 
+        ShopUI.SetActive(true);
     }
 
     public void CloseShop()
     {
-
+        ShopUI.SetActive(false);
     }
 
-    // Detects if the player is in range of the shop 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        // If Player presses 'E' while in shop trigger zone open UI
-        if (Input.GetKey(KeyCode.E))
-        {
-            OpenShop();
-        }
-    }
+   
 
     public void PlayerClicksItem()
     {
 
     }
+
+    public void PlayerLeavesShopRoom()
+    {
+        ShopTriggerZone.SetActive(false);
+        ShopUI.SetActive(false);
+    }
+    
 
 }

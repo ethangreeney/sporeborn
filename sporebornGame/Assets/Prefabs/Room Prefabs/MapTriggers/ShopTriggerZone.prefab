@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2087023550949462084}
   - component: {fileID: 7309951412560284243}
-  - component: {fileID: 6853647502254801408}
   - component: {fileID: 2842511245909176709}
   - component: {fileID: 5598791725980408029}
+  - component: {fileID: 1502844758454187078}
   m_Layer: 0
   m_Name: ShopTriggerZone
   m_TagString: Untagged
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 2041154009
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -90,19 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6853647502254801408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5689009957931452896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f04d52793f948f1419d10d9cdc145dc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShopTriggerZone: {fileID: 0}
 --- !u!50 &2842511245909176709
 Rigidbody2D:
   serializedVersion: 5
@@ -118,7 +105,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -176,3 +163,15 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1502844758454187078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5689009957931452896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6121e7cd02ba0f4f968bd7d5a889f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -177,12 +177,12 @@ public class EnemyPresenter : MonoBehaviour
         }
 
         // Picks a RandomItem from ItemBucket
-        GameObject RandomEnemyDrop = ItemDropBucket[rng.Next(0, EnemyDrops.Count-1)];
+        GameObject RandomEnemyDrop = ItemDropBucket[rng.Next(0, EnemyDrops.Count)];
 
         ItemDropBucket.Remove(RandomEnemyDrop);
 
         // Refill Item Bucket if empty
-        if (ItemDropBucket.Count < 0)
+        if (ItemDropBucket.Count == 0)
         {
             RefillItemBucket();
         }

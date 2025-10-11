@@ -44,6 +44,7 @@ public class MapPresenter : MonoBehaviour
     // Reference to spawn in GameObjects when entering a new room
     private EnemyPresenter enemyPresenter;
     private ItemPresenter itemPresenter;
+    private ShopPresenter shopPresenter;
 
     void Start()
     {
@@ -63,9 +64,10 @@ public class MapPresenter : MonoBehaviour
         // Location for centre of the OneByOne Room
         Player.transform.SetParent(null); // temp
 
-        // Gets the current Enemy Presenter
+        // Gets Presenters
         enemyPresenter = FindFirstObjectByType<EnemyPresenter>();
         itemPresenter = FindFirstObjectByType<ItemPresenter>();
+        shopPresenter = FindFirstObjectByType<ShopPresenter>();
 
         // Build the starter room
         BuildRoom(StarterRoom, null);
@@ -172,6 +174,12 @@ public class MapPresenter : MonoBehaviour
 
         // Determinds what should spawn based on room type
         PlaceEntities(CurrentPlayerRoom);
+
+        // Activates Shop if player enters the Shop Room
+        if(CurrentPlayerRoom.RoomType == RoomType.Shop)
+        {
+            shopPresenter.ActivateShopTrigger();
+        }
     }
 
     public Vector3 CalculateSpawnOffset(Door EnterDoor)

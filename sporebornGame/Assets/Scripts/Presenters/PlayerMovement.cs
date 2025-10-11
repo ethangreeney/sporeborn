@@ -1,30 +1,38 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
     public float moveSpeed = 5f;   // movement speed
     private Rigidbody2D rb;
     private Vector2 moveInput;
+    private Animator animator;
 
     void Start()
     {
         // Get Rigidbody2D component
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        // Get input (WASD / Arrow Keys)
-        float horizontal = Input.GetAxisRaw("Horizontal"); // A/D or Left/Right arrows
-        float vertical = Input.GetAxisRaw("Vertical");     // W/S or Up/Down arrows
-
-        // Store movement as a Vector2
-        moveInput = new Vector2(horizontal, vertical).normalized;
+        rb.linearVelocity = moveInput * moveSpeed;
     }
 
-    void FixedUpdate()
+    public void OnMove(InputAction.CallbackContext context)
     {
-        // Apply movement in FixedUpdate (for physics)
-        rb.linearVelocity = moveInput * moveSpeed;
+        animator.SetBool("isWalking", true);
+
+        if (context.canceled)
+        {
+            animator.SetBool("isWalking", false);
+            animator.SetFloat("LastInputX", moveInput.x);
+            animator.SetFloat("LastInputY", moveInput.y);
+        }
+        moveInput = context.ReadValue<Vector2>();
+
+        animator.SetFloat("InputX", moveInput.x);
+        animator.SetFloat("InputY", moveInput.y);
     }
 }

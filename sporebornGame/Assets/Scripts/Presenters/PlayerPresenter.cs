@@ -6,12 +6,15 @@ public class PlayerPresenter : MonoBehaviour
 {
     public HealthModel health;
     public SpriteRenderer spriteRenderer;
+    public SpriteRenderer forcefieldRenderer; 
     public Animator animator;
     public float invulnDuration = 0.5f;
     public float knockbackForce = 8f;
 
     bool invuln;
     bool isDead;
+    bool invulnFromDamage;
+    bool invulnFromForcefield;
     Rigidbody2D rb;
 
     void Awake()
@@ -21,6 +24,9 @@ public class PlayerPresenter : MonoBehaviour
         if (spriteRenderer == null)
             spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+
+        if (forcefieldRenderer != null)
+            forcefieldRenderer.enabled = false; // Hide forcefield at start
         if (health != null && DifficultyManager.Instance)
         {
             health.maxHealth = DifficultyManager.Instance.PlayerMaxHealth;
@@ -34,9 +40,16 @@ public class PlayerPresenter : MonoBehaviour
             health.currHealth = health.maxHealth > 0 ? health.maxHealth : 1;
     }
 
+    public void SetInvulnerable(bool value)
+    {
+        invulnFromForcefield = value;
+        if (forcefieldRenderer != null)
+            forcefieldRenderer.enabled = value;
+    }
+
     public void TakeDamage(int amount, Vector2 hitFrom)
     {
-        if (isDead || invuln || health == null)
+        if (isDead || invulnFromDamage || invulnFromForcefield || health == null)
             return;
 
         health.Damage(amount);
@@ -58,9 +71,9 @@ public class PlayerPresenter : MonoBehaviour
 
     IEnumerator Invuln()
     {
-        invuln = true;
+        invulnFromDamage = true;
         yield return new WaitForSeconds(invulnDuration);
-        invuln = false;
+        invulnFromDamage = false;
     }
 
     IEnumerator HitFlash()

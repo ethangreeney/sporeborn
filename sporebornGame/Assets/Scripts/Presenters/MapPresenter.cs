@@ -314,8 +314,9 @@ public class MapPresenter : MonoBehaviour
     public void RoomCompleted()
     {
         CurrentPlayerRoom.RoomCompleted = true;
-        
-    // if the room is a boss room, play normal music
+        AddActivatableItemChargeToPlayer();
+
+        // if the room is a boss room, play normal music
         if (CurrentPlayerRoom.RoomType == RoomType.Boss && SoundManager.instance != null)
         {
             SoundManager.instance.BossDefeated();
@@ -370,7 +371,19 @@ public class MapPresenter : MonoBehaviour
 
 
     }
-    
+
+    private void AddActivatableItemChargeToPlayer()
+    {
+        if (Player != null)
+        {
+            var activatable = Player.GetComponent<PlayerActivatableItem>();
+            if (activatable != null)
+            {
+                activatable.AddCharge(1);
+            }
+        }
+    }
+
 
 
 }

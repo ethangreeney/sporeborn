@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf280face6a18ad45a588d241ddedae1, type: 3}
   m_Name: Sun
   m_EditorClassIdentifier: 
-  itemName: Healer
-  icon: {fileID: 0}
+  itemName: Heal
+  icon: {fileID: 8740491524576469797, guid: 97e57b32d6aad434e9107d4823893fdd, type: 3}
   maxCharges: 5
   itemType: 3
   duration: 0

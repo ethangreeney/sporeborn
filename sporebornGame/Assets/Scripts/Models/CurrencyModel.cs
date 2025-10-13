@@ -1,7 +1,8 @@
-using Unity.VisualScripting;
+using UnityEngine;
 
-public class CurrencyModel
+public class CurrencyModel : MonoBehaviour
 {
+    [SerializeField]
     private int CurrentNectar;
 
     public CurrencyModel()

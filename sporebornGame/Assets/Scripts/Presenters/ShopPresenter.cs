@@ -11,12 +11,9 @@ public class ShopPresenter : MonoBehaviour
     [SerializeField]
     private GameObject ShopUI;
 
-    private ShopModel ShopLogic;
+    private ShopModel ShopInventory;
 
     private Vector3 ShopZonePosition;
-
-
-
 
     void Start()
     {
@@ -24,7 +21,7 @@ public class ShopPresenter : MonoBehaviour
         Debug.LogWarning("Shop Presenter is Called");
 
         // Gets the Model from the ShopUI
-        ShopLogic = ShopUI.GetComponentInChildren<ShopModel>(false);
+        ShopInventory = ShopUI.GetComponentInChildren<ShopModel>(false);
         
         // Already instantiated in scene but set to inactive for faster load time
         ShopTriggerZone.SetActive(false);
@@ -57,12 +54,12 @@ public class ShopPresenter : MonoBehaviour
     {
         ShopUI.SetActive(false);
     }
-
    
 
-    public void PlayerClicksItem()
+    public void PlayerClicksItem(GameObject item)
     {
-
+        Debug.Log("Item Purchase tried");
+        ShopInventory.TryPurchaseItem(item);
     }
 
     public void PlayerLeavesShopRoom()

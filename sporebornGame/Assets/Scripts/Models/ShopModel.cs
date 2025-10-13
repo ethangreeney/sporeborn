@@ -8,7 +8,7 @@ public class ShopModel : MonoBehaviour
 {
 
     [SerializeField]
-    private List <GameObject> ShopItemPool;
+    private List<GameObject> ShopItemPool;
 
     private GameObject[] ShopStock;
 
@@ -22,14 +22,11 @@ public class ShopModel : MonoBehaviour
     System.Random rng;
     void Start()
     {
-        // Intialises RNG
         rng = new System.Random();
-
         map = FindFirstObjectByType<MapPresenter>();
-        SetupNewShop();
     }
 
-    public GameObject[] SetupNewShop()
+    public GameObject[] SetupNewShop(List<GameObject> ShopItemPool)
     {
         GameObject[] shopItems = new GameObject[4];
 
@@ -44,7 +41,7 @@ public class ShopModel : MonoBehaviour
     }
 
     
-    public void TryItemPurchase(GameObject PurchaseItem)
+    public void TryPurchaseItem(GameObject PurchaseItem)
     {
         for(int i=0; i<ShopStock.Length; i++)
         {

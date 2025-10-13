@@ -1242,11 +1242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33a6872fac011434e9aca03c8d06be0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShopItemPool:
-  - {fileID: 8508246450130575317, guid: 07c338e461987b74cabc881140daf163, type: 3}
-  - {fileID: 8508246450130575317, guid: 07c338e461987b74cabc881140daf163, type: 3}
-  - {fileID: 8508246450130575317, guid: 07c338e461987b74cabc881140daf163, type: 3}
-  - {fileID: 8508246450130575317, guid: 07c338e461987b74cabc881140daf163, type: 3}
+  ShopItemPool: []
 --- !u!1 &6243997234764013815
 GameObject:
   m_ObjectHideFlags: 0

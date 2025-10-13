@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 using TMPro;
 
 using UnityEngine;
@@ -9,16 +11,29 @@ public class InventoryPanelPresenter : MonoBehaviour
     public Transform content;
     public GameObject slotPrefab;
     public GameObject tooltip;
+    public ItemPool itemPool;
     public TextMeshProUGUI itemName;
     public TextMeshProUGUI itemDesc;
+    public TextMeshProUGUI inventoryProgess;
 
     void OnEnable() => Refresh();
 
     void Refresh()
     {
+        inventoryProgess.text = "Items found so far: " + inventory.FoundSoFar() + "/" + itemPool.itemPrefabs.Count;
         foreach (Transform child in content) Destroy(child.gameObject);
 
-        foreach (var item in inventory.itemPool.GetItems())
+        var sortedItems = new List<Item>(inventory.itemPool.GetItems());
+        sortedItems.Sort((a, b) =>
+        {
+            bool aColl = inventory.HasCollected(a.itemName);
+            bool bColl = inventory.HasCollected(b.itemName);
+            if (aColl != bColl) return bColl.CompareTo(aColl);
+            return a.itemName.CompareTo(b.itemName);
+        });
+
+
+        foreach (var item in sortedItems)
         {
             bool collected = inventory.HasCollected(item.itemName);
             var slot = Instantiate(slotPrefab, content).GetComponent<InventoryItemSlot>();

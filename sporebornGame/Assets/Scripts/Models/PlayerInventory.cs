@@ -16,4 +16,5 @@ public class PlayerInventory : MonoBehaviour
     }
 
     public bool HasCollected(string itemName) => collected.Contains(itemName);
+    public int FoundSoFar() => collected.Count;
 }

@@ -9,6 +9,12 @@ public class InventoryToggleButton : MonoBehaviour
     public Image img;
     private bool isOpen;
 
+    void Awake()
+    {
+        inventoryPanel.SetActive(false);
+        img.sprite = chestClosed;
+        isOpen = false;
+    }
     public void Toggle()
     {
         isOpen = !isOpen;

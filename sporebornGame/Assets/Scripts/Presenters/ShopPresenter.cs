@@ -8,7 +8,7 @@ public class ShopPresenter : MonoBehaviour
     [SerializeField]
     private GameObject ShopUI;
 
-    private ShopModel ShopInventory;
+    private ShopModel shopModel;
 
     private Vector3 ShopZonePosition;
 
@@ -17,15 +17,18 @@ public class ShopPresenter : MonoBehaviour
 
         Debug.LogWarning("Shop Presenter is Called");
 
-        // Gets the Model from the ShopUI
-        ShopInventory = ShopUI.GetComponentInChildren<ShopModel>(false);
+        // Gets the Model from within the ShopUI prefab
+        shopModel = ShopUI.GetComponentInChildren<ShopModel>();
         
         // Already instantiated in scene but set to inactive for faster load time
         ShopTriggerZone.SetActive(false);
         ShopUI.SetActive(false);
 
-        // Used to detect whether playre is in range of shop
+        // Default position of the Shop zone - where the player is able to open shop
         ShopZonePosition = new Vector3(0, -2, 0);
+        
+        // Randomly choosing items for shop
+        shopModel.SetupNewShop();
 
     }
 

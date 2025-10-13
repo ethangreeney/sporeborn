@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ShopModel : MonoBehaviour
 {
@@ -11,10 +10,7 @@ public class ShopModel : MonoBehaviour
     private ShopItem[] ShopStock;
 
     private MapPresenter map;
-
-
-    // Temp for testing
-    int tempItemCost = 10;
+    private ShopItemUI Item;
 
     // Generate random numbers
     System.Random rng;
@@ -24,7 +20,7 @@ public class ShopModel : MonoBehaviour
         map = FindFirstObjectByType<MapPresenter>();
     }
 
-    public ShopItem[] SetupNewShop()
+    public void SetupNewShop()
     {
         ShopStock = new ShopItem[4];
 
@@ -33,9 +29,11 @@ public class ShopModel : MonoBehaviour
             int randItem = rng.Next(0, ShopItemPool.Count);
             ShopStock[i] = ShopItemPool[randItem];
             ShopItemPool.RemoveAt(randItem);
-        }
 
-        return ShopStock;
+            // Pass through item information and the ShopModel
+            Item.SetupItem(ShopStock[i], this);
+        }
+        
     }
 
     
@@ -46,7 +44,7 @@ public class ShopModel : MonoBehaviour
             CurrencyModel playerWallet = map.Player.GetComponent<CurrencyModel>();
 
             // Checks if correct item & player has enough money to purchase item
-            if (ShopStock[i] == PurchaseItem && playerWallet.GetCurrentNectar() >= tempItemCost)
+            if (ShopStock[i] == PurchaseItem && playerWallet.GetCurrentNectar() >= PurchaseItem.Cost)
             {
                 // Only can buy if item hasn't been bought
                 if (ShopStock[i] != null)
@@ -54,7 +52,7 @@ public class ShopModel : MonoBehaviour
                     // Set to null - so can't be purchased again
                     ShopStock[i] = null;
                     // Deduct currency (Nectar) from player
-                    playerWallet.RemoveCurrency(tempItemCost);
+                    playerWallet.RemoveCurrency(PurchaseItem.Cost);
 
                     // Set item to be visually inactive in the ShopUI
                 }

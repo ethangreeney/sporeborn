@@ -1,9 +1,10 @@
 using UnityEngine;
 
+[System.Serializable]
 public class ShopItem
 {
-    public DropModel itemType;
-    public string name;
-    public int cost;
-    public Sprite icon;
+    public DropModel ItemType;
+    public string Name;
+    public int Cost;
+    public Sprite Icon;
 }

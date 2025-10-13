@@ -37,9 +37,6 @@ public class DropModel : MonoBehaviour
         // Gets item information - What type of item
         DropModel CurrentItem = CollidedItem.GetComponent<DropModel>();
 
-        // Gets the Current Instance of the Player in game
-        
-
         // Applies appropriate effect to player based on item
         switch (CurrentItem.CurrentItemType)
         {

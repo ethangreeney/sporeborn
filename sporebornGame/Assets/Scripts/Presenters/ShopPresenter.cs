@@ -4,9 +4,6 @@ using UnityEngine;
 public class ShopPresenter : MonoBehaviour
 {
     [SerializeField]
-    private List<GameObject> ShopItemPool;
-
-    [SerializeField]
     private GameObject ShopTriggerZone;
     [SerializeField]
     private GameObject ShopUI;
@@ -32,8 +29,8 @@ public class ShopPresenter : MonoBehaviour
 
     }
 
-    // Only Activates the Shop Trigger Zone when in Shop Room
-    public void ActivateShopTrigger()
+    // Activates the UI & trigger zone when player enters the shop
+    public void PlayerEntersShop()
     {
         ShopTriggerZone.SetActive(true);
 
@@ -55,13 +52,6 @@ public class ShopPresenter : MonoBehaviour
         ShopUI.SetActive(false);
     }
    
-
-    public void PlayerClicksItem(GameObject item)
-    {
-        Debug.Log("Item Purchase tried");
-        ShopInventory.TryPurchaseItem(item);
-    }
-
     public void PlayerLeavesShopRoom()
     {
         ShopTriggerZone.SetActive(false);

@@ -45,6 +45,9 @@ public class MapPresenter : MonoBehaviour
     private EnemyPresenter enemyPresenter;
     private ItemPresenter itemPresenter;
     private ShopPresenter shopPresenter;
+    
+    // Decides when to render shop
+    private bool WasInShopRoom = false;
 
     void Start()
     {
@@ -176,9 +179,15 @@ public class MapPresenter : MonoBehaviour
         PlaceEntities(CurrentPlayerRoom);
 
         // Activates Shop if player enters the Shop Room
-        if(CurrentPlayerRoom.RoomType == RoomType.Shop)
+        if(CurrentPlayerRoom.RoomType == RoomType.Shop && !WasInShopRoom)
         {
-            shopPresenter.ActivateShopTrigger();
+            shopPresenter.PlayerEntersShop();
+            WasInShopRoom = true;
+        }
+        else if (CurrentPlayerRoom.RoomType != RoomType.Shop && WasInShopRoom)
+        {
+            shopPresenter.PlayerLeavesShopRoom();
+            WasInShopRoom = false;
         }
     }
 

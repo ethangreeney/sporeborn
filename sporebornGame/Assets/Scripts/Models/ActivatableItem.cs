@@ -6,15 +6,13 @@ public class ActivatableItem : ScriptableObject
 {
     public string itemName;
     public Sprite icon;
-    public int maxCharges = 6;
+    public int maxCharges = 5;
 
-    public enum ActivatableItemType { None, Forcefield, Octoshot }
+    public enum ActivatableItemType { None, Forcefield, Octoshot, Heal, SpeedBoost }
     public ActivatableItemType itemType;
 
     public float duration;
-    
-    
-    
+
 
     public virtual void Activate(GameObject user)
     {
@@ -28,6 +26,17 @@ public class ActivatableItem : ScriptableObject
             case ActivatableItemType.Octoshot:
                 FireOctoshot(user);
                 break;
+            case ActivatableItemType.Heal:
+                HealPlayer(user);
+                break;
+            case ActivatableItemType.SpeedBoost:
+                {
+                    var movement = user.GetComponent<PlayerMovement>();
+                    if (movement != null)
+                        movement.StartCoroutine(ApplySpeedBoost(movement));
+                    break;
+                }
+
                 // ...other cases
         }
     }
@@ -41,7 +50,7 @@ public class ActivatableItem : ScriptableObject
 
         presenter.SetInvulnerable(true);
 
-        
+
         if (presenter.forcefieldRenderer != null)
             presenter.forcefieldRenderer.enabled = true;
 
@@ -113,5 +122,30 @@ public class ActivatableItem : ScriptableObject
                 proj.SetColor(shooting.projectileColor);
             }
         }
+    }
+
+    private void HealPlayer(GameObject user)
+    {
+        var health = user.GetComponent<HealthModel>();
+        if (health != null)
+        {
+            int healAmount = 2;
+            if (health.currHealth < health.maxHealth)
+            {
+                health.Health(healAmount);
+
+            }
+        }
+    }
+
+    private IEnumerator ApplySpeedBoost(PlayerMovement movement)
+    {
+        float originalSpeed = movement.moveSpeed;
+        float speedBoostAmount = 5f;
+        float boostDuration = duration;
+
+        movement.moveSpeed += speedBoostAmount;
+        yield return new WaitForSeconds(boostDuration);
+        movement.moveSpeed = originalSpeed;
     }
 }

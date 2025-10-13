@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 73ff9fd0b006b09438774fef563344b8
+guid: 97e57b32d6aad434e9107d4823893fdd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5730828823775089444
-    second: forcefield (1)_0
+      213: 8740491524576469797
+    second: Sun_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: forcefield (1)_0
+      name: Sun_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cdce05a4c810870b0800000000000000
-      internalID: -5730828823775089444
+      spriteID: 52361b48bb67c4970800000000000000
+      internalID: 8740491524576469797
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      forcefield (1)_0: -5730828823775089444
+      Sun_0: 8740491524576469797
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

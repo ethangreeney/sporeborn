@@ -12,14 +12,4 @@ public class ItemPool : ScriptableObject
         foreach (var prefab in itemPrefabs)
             yield return prefab.GetComponent<CollectionModel>().item;
     }
-
-    public GameObject GetPrefab(string itemName)
-    {
-        foreach (var prefab in itemPrefabs)
-        {
-            var item = prefab.GetComponent<CollectionModel>().item;
-            if (item.itemName == itemName) return prefab;
-        }
-        return null;
-    }
 }

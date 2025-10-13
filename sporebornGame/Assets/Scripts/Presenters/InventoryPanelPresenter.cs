@@ -16,8 +16,8 @@ public class InventoryPanelPresenter : MonoBehaviour
     public TextMeshProUGUI itemDesc;
     public TextMeshProUGUI inventoryProgess;
 
-    void OnEnable() => Refresh();
-
+    void OnEnable() { inventory.OnInventoryChanged += Refresh; Refresh(); }
+    void OnDisable() => inventory.OnInventoryChanged -= Refresh;
     void Refresh()
     {
         inventoryProgess.text = "Items found so far: " + inventory.FoundSoFar() + "/" + itemPool.itemPrefabs.Count;

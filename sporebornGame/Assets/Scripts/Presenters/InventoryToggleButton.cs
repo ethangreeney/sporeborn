@@ -9,6 +9,7 @@ public class InventoryToggleButton : MonoBehaviour
     public Image img;
     private bool isOpen;
 
+    void Update() { if (Input.GetKeyDown(KeyCode.Tab)) Toggle(); }
     void Awake()
     {
         inventoryPanel.SetActive(false);

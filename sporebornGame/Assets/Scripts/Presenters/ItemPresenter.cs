@@ -26,7 +26,7 @@ public class ItemPresenter : MonoBehaviour
     private GameObject PickRandomItem()
     {
         return itemPool.itemPrefabs
-        .Where(Item => inventory.HasCollected(Item.GetComponent<CollectionModel>().item.itemName))
+        .Where(item => !inventory.HasCollected(item.GetComponent<CollectionModel>().item.itemName))
         .OrderBy(_ => Random.value)
         .FirstOrDefault();
     }

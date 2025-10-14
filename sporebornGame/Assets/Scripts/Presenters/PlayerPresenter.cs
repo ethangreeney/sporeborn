@@ -6,42 +6,26 @@ public class PlayerPresenter : MonoBehaviour
 {
     public HealthModel health;
     public SpriteRenderer spriteRenderer;
-    public Animator animator;
     public float invulnDuration = 0.5f;
-    public float knockbackForce = 8f;
 
-    bool invuln;
-    bool isDead;
-    Rigidbody2D rb;
+    private bool invuln;
+    private bool isDead;
+    private PlayerShootingPresenter shooting;
 
     void Awake()
     {
-        if (health == null)
-            health = GetComponent<HealthModel>();
-        if (spriteRenderer == null)
-            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        rb = GetComponent<Rigidbody2D>();
-        if (health != null && DifficultyManager.Instance)
-        {
-            health.maxHealth = DifficultyManager.Instance.PlayerMaxHealth;
-            health.currHealth = health.maxHealth;
-            if (health.currHealth <= 0)
-                health.currHealth = health.maxHealth > 0 ? health.maxHealth : 1;
-            else if (health.currHealth > health.maxHealth)
-                health.currHealth = health.maxHealth;
-        }
-        if (health != null && health.currHealth <= 0)
-            health.currHealth = health.maxHealth > 0 ? health.maxHealth : 1;
+        shooting = GetComponent<PlayerShootingPresenter>();
+        health.maxHealth = DifficultyManager.Instance.PlayerMaxHealth;
+        health.currHealth = health.maxHealth;
     }
 
-    public void TakeDamage(int amount, Vector2 hitFrom)
+    public void TakeDamage(int amount)
     {
-        if (isDead || invuln || health == null)
+        if (isDead || invuln)
             return;
 
         health.Damage(amount);
-        if (spriteRenderer)
-            StartCoroutine(HitFlash());
+        StartCoroutine(HitFlash());
         if (health.currHealth <= 0)
         {
             Die();
@@ -49,11 +33,6 @@ public class PlayerPresenter : MonoBehaviour
         }
 
         StartCoroutine(Invuln());
-        if (rb != null)
-        {
-            var dir = ((Vector2)transform.position - hitFrom).normalized;
-            rb.AddForce(dir * knockbackForce, ForceMode2D.Impulse);
-        }
     }
 
     IEnumerator Invuln()
@@ -74,23 +53,8 @@ public class PlayerPresenter : MonoBehaviour
     void Die()
     {
         isDead = true;
-        foreach (var c in GetComponentsInChildren<Collider2D>())
-            c.enabled = false;
-        if (rb)
-            rb.simulated = false;
-
-        var move = GetComponent<Player>();
-        if (move)
-            move.enabled = false;
-
-        var shoot = GetComponent<PlayerShootingPresenter>();
-        if (shoot)
-            shoot.enabled = false;
-
-        if (animator)
-            animator.SetTrigger("Death");
-        else
-           Time.timeScale = 1f;
-           SceneManager.LoadScene(0);
+        foreach (var c in GetComponentsInChildren<Collider2D>()) c.enabled = false;
+        shooting.enabled = false;
+        SceneManager.LoadScene(0);
     }
 }

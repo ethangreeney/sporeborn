@@ -9,13 +9,13 @@ public class MeleeContactDamageScript : MonoBehaviour
 
     float nextTimeCanHit;
 
-    void OnTriggerEnter2D(Collider2D other)  => TryHit(other);
-    void OnTriggerStay2D(Collider2D other)   => TryHit(other);
+    void OnTriggerEnter2D(Collider2D other) => TryHit(other);
+    void OnTriggerStay2D(Collider2D other) => TryHit(other);
 
     void TryHit(Collider2D other)
     {
         if (!other.CompareTag(playerTag)) return;
-        if (Time.time < nextTimeCanHit)   return;
+        if (Time.time < nextTimeCanHit) return;
 
         var pp = other.GetComponent<PlayerPresenter>() ?? other.GetComponentInParent<PlayerPresenter>();
         if (!pp) return;
@@ -24,7 +24,7 @@ public class MeleeContactDamageScript : MonoBehaviour
         if (Physics2D.Linecast(transform.position, pp.transform.position, environmentMask))
             return;
 
-        pp.TakeDamage(damage, transform.position);
+        pp.TakeDamage(damage);
         nextTimeCanHit = Time.time + hitInterval;
     }
 }

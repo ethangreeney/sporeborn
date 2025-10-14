@@ -18,14 +18,25 @@ public class PlayerStats : MonoBehaviour
     public float currentDamage;
 
     public event Action OnStatsChanged;
-
     void Awake()
     {
-        // Initialize current stats to base values
-        currentMoveSpeed = baseMoveSpeed;
-        currentFireRate = baseFireRate;
-        currentProjectileSpeed = baseProjectileSpeed;
-        currentDamage = baseDamage;
+        var movement = GetComponent<PlayerMovement>();
+
+        baseMoveSpeed = movement.moveSpeed;
+        currentMoveSpeed = movement.moveSpeed;
+
+
+        var shooting = GetComponent<PlayerShootingPresenter>();
+        if (shooting)
+        {
+            baseFireRate = shooting.fireRate;
+            baseProjectileSpeed = shooting.projectileSpeed;
+            baseDamage = shooting.projectileDamage;
+
+            currentFireRate = baseFireRate;
+            currentProjectileSpeed = baseProjectileSpeed;
+            currentDamage = baseDamage;
+        }
     }
 
     public void NotifyStatsChanged() => OnStatsChanged?.Invoke();

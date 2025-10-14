@@ -8,7 +8,7 @@ public class DamageOnContact : MonoBehaviour
 	float lastHitTime;
 
 	void OnTriggerEnter2D(Collider2D other) { TryDamage(other); }
-	void OnTriggerStay2D(Collider2D other)  { TryDamage(other); }
+	void OnTriggerStay2D(Collider2D other) { TryDamage(other); }
 
 	void TryDamage(Collider2D other)
 	{
@@ -16,7 +16,7 @@ public class DamageOnContact : MonoBehaviour
 		var player = other.GetComponentInParent<PlayerPresenter>();
 		if (player != null)
 		{
-			player.TakeDamage(damage, transform.position);
+			player.TakeDamage(damage);
 			lastHitTime = Time.time;
 		}
 	}

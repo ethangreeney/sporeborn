@@ -92,8 +92,8 @@ public class ActivatableItem : ScriptableObject
                                        shooting.firePoint.position,
                                        rotation);
 
-            // Scale the projectile to match player's settings
-            go.transform.localScale *= shooting.projectileSize;
+            // Make bullet 3 times larger 
+            go.transform.localScale *= shooting.projectileSize * 3;
 
             // Configure projectile
             var proj = go.GetComponent<ProjectilePresenter>();
@@ -101,7 +101,9 @@ public class ActivatableItem : ScriptableObject
             {
                 // Set the same properties as player's projectiles
                 proj.speed = shooting.projectileSpeed;
-                proj.damage = shooting.projectileDamage * (1f + shooting.damageBonus);
+
+                // Increase damage by 6
+                proj.damage = (shooting.projectileDamage+6) * (1f + shooting.damageBonus);
                 proj.lifetime = shooting.projectileLifetime;
 
                 // Apply special properties

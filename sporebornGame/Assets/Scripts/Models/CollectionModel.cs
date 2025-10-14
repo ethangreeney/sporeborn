@@ -77,15 +77,7 @@ public class CollectionModel : MonoBehaviour
                 // Only apply health if not at max health
                 if (playerHealthHeart.currHealth < playerHealthHeart.maxHealth)
                 {
-                    playerHealthHeart.Health(healthChange);
-
-                    // Notify EnemyPresenter to remove heart from respawn list
-                    var enemyPresenter = FindFirstObjectByType<EnemyPresenter>();
-                    if (enemyPresenter != null)
-                    {
-                        enemyPresenter.OnHeartCollected(gameObject);
-                    }
-                    Destroy(gameObject);
+                    playerHealthHeart.Heal(healthChange);
                 }
                 // If at full health, do nothing (heart stays in room and respawn list)
             }
@@ -100,7 +92,7 @@ public class CollectionModel : MonoBehaviour
             playerHealth.maxHealth += maxHealthFlatIncrease;
 
             // also raise current health by same absolute amount
-            playerHealth.Health(maxHealthFlatIncrease);
+            playerHealth.Heal(maxHealthFlatIncrease);
 
             consumed = true;
         }

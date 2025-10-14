@@ -77,6 +77,8 @@ public class Door : MonoBehaviour
         int relativeDoorY = RelativeDoorPosition[1];
         int DoorCellIndex = map.RelIndexToRoomIndex(CurrentRoom, relativeDoorX, relativeDoorY);
 
+
+        // If no door found
         if (DoorCellIndex == -1)
         {
             return null;

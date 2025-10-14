@@ -64,102 +64,72 @@ public class CollectionModel : MonoBehaviour
     {
         if (!collision.CompareTag("Player")) return;
 
-        bool consumed = false;
-
-        // Health
-        var heartData = gameObject.GetComponent<HeartData>();
+        // Handle hearts separately
+        var heartData = GetComponent<HeartData>();
         if (heartData != null)
         {
-            Debug.Log("Heart collected");
-            var playerHealthHeart = collision.GetComponent<HealthModel>();
-            if (playerHealthHeart != null && healthChange != 0)
+            var playerHealth = collision.GetComponent<HealthModel>();
+            if (playerHealth != null && healthChange != 0 && playerHealth.currHealth < playerHealth.maxHealth)
             {
-                // Only apply health if not at max health
-                if (playerHealthHeart.currHealth < playerHealthHeart.maxHealth)
-                {
-                    playerHealthHeart.Health(healthChange);
-
-                    // Notify EnemyPresenter to remove heart from respawn list
-                    var enemyPresenter = FindFirstObjectByType<EnemyPresenter>();
-                    if (enemyPresenter != null)
-                    {
-                        enemyPresenter.OnHeartCollected(gameObject);
-                    }
-                    Destroy(gameObject);
-                }
-                // If at full health, do nothing (heart stays in room and respawn list)
+                playerHealth.Health(healthChange);
+                FindFirstObjectByType<EnemyPresenter>()?.OnHeartCollected(gameObject);
+                Destroy(gameObject);
             }
-            return; // Don't apply other item logic for hearts
+            return;
         }
 
-        // Max Health increase (non-heart items)
-        var playerHealth = collision.GetComponent<HealthModel>();
-        if (playerHealth != null && maxHealthFlatIncrease != 0f && heartData == null)
+        // Get all components once
+        var health = collision.GetComponent<HealthModel>();
+        var movement = collision.GetComponent<PlayerMovement>();
+        var shooting = collision.GetComponent<PlayerShootingPresenter>();
+        var stats = collision.GetComponent<PlayerStats>();
+        bool consumed = false;
+
+        // Max health increase
+        if (health && maxHealthFlatIncrease != 0f)
         {
-            // Increase max health by fixed amount
-            playerHealth.maxHealth += maxHealthFlatIncrease;
-
-            // also raise current health by same absolute amount
-            playerHealth.Health(maxHealthFlatIncrease);
-
+            health.maxHealth += maxHealthFlatIncrease;
+            health.Health(maxHealthFlatIncrease);
             consumed = true;
         }
 
         // Movement speed
-        PlayerMovement playerMovement = collision.GetComponent<PlayerMovement>();
-        if (playerMovement != null && moveSpeedChange != 0)
+        if (movement && moveSpeedChange != 0)
         {
-            playerMovement.moveSpeed += moveSpeedChange;
+            movement.moveSpeed = Mathf.Max(0.1f, movement.moveSpeed + moveSpeedChange);
+            if (stats) stats.currentMoveSpeed = movement.moveSpeed;
             consumed = true;
-
-            // Optional clamp
-            if (playerMovement.moveSpeed < 0.1f)
-                playerMovement.moveSpeed = 0.1f;
         }
 
-        PlayerShootingPresenter shooting = collision.GetComponent<PlayerShootingPresenter>();
-        if (shooting != null)
+        if (shooting)
         {
-            // Fire delay
             if (fireDelayChange != 0)
             {
-                shooting.fireRate += fireDelayChange;
+                shooting.fireRate = Mathf.Max(0.05f, shooting.fireRate + fireDelayChange);
+                if (stats) stats.currentFireRate = shooting.fireRate;
                 consumed = true;
-                // Optional clamp
-                if (shooting.fireRate < 0.05f)
-                    shooting.fireRate = 0.05f;
             }
-            // Bullet speed
+
             if (bulletSpeedChange != 0)
             {
-                shooting.projectileSpeed += bulletSpeedChange;
+                shooting.projectileSpeed = Mathf.Max(1f, shooting.projectileSpeed + bulletSpeedChange);
+                if (stats) stats.currentProjectileSpeed = shooting.projectileSpeed;
                 consumed = true;
-                // Optional clamp
-                if (shooting.projectileSpeed < 1f)
-                    shooting.projectileSpeed = 1f;
             }
 
-            // Bullet Damage
             if (bulletDamageChange != 0)
             {
-                shooting.projectileDamage += bulletDamageChange;
+                shooting.projectileDamage = Mathf.Max(1f, shooting.projectileDamage + bulletDamageChange);
+                if (stats) stats.currentDamage = shooting.projectileDamage;
                 consumed = true;
-                // Optional clamp
-                if (shooting.projectileDamage < 1f)
-                    shooting.projectileDamage = 1f;
             }
 
-            // Bullet Size
             if (projectileSizeChange != 0)
             {
-                shooting.projectileSize += projectileSizeChange;
+                shooting.projectileSize = Mathf.Max(0.1f, shooting.projectileSize + projectileSizeChange);
                 consumed = true;
-                // Optional clamp
-                if (shooting.projectileSize < 0.1f)
-                    shooting.projectileSize = 0.1f;
             }
 
-            // Homing
             if (homingEnabled)
             {
                 shooting.homingEnabled = true;
@@ -167,37 +137,31 @@ public class CollectionModel : MonoBehaviour
                 consumed = true;
             }
 
-            // Extra Projectiles
             if (extraProjectiles != 0)
             {
-                shooting.projectileCount += extraProjectiles;
-                if (shooting.projectileCount < 1)
-                    shooting.projectileCount = 1; // safety
+                shooting.projectileCount = Mathf.Max(1, shooting.projectileCount + extraProjectiles);
                 consumed = true;
             }
 
-            // Extra Spread Angle (per bullet)
             if (extraSpreadAngle != 0)
             {
                 shooting.spreadAngle += extraSpreadAngle;
                 consumed = true;
             }
 
-            // Damage Bonus (e.g., 0.5 = +50%)
             if (damageBonus != 0)
             {
                 shooting.damageBonus += damageBonus;
                 consumed = true;
             }
 
-            // Rubber Bullets
             if (rubberEnabled)
             {
                 shooting.rubberEnabled = true;
                 shooting.bounceCount = rubberBounces;
                 consumed = true;
             }
-            // Slow effect
+
             if (slowOnHitEnabled)
             {
                 shooting.slowOnHitEnabled = true;
@@ -205,33 +169,22 @@ public class CollectionModel : MonoBehaviour
                 shooting.slowDuration = slowDuration;
                 consumed = true;
             }
+
             if (projectileColor != Color.clear)
             {
                 shooting.projectileColor = projectileColor;
             }
         }
 
-        // If item was actually applied
+        // Notify stats changed once
+        stats?.NotifyStatsChanged();
+
+        // Cleanup
         if (consumed)
         {
-            var inv = collision.GetComponent<PlayerInventory>();
-            if (inv != null)
-            {
-                inv.AddItem(item);
-            }
-            if (room != null)
-            {
-                itemPresenter.NotifyItemCollected(room);
-            }
-            else
-            {
-                Debug.LogWarning("Room reference not set for item collection.");
-            }
+            collision.GetComponent<PlayerInventory>()?.AddItem(item);
+            if (room != null) itemPresenter.NotifyItemCollected(room);
             Destroy(gameObject);
-        }
-        else
-        {
-            Debug.LogWarning("Item could not be consumed by player.");
         }
     }
 }

@@ -27,8 +27,8 @@ public class HealthBarManager : MonoBehaviour
 
     public void CreateEmptyHeart()
     {
-        GameObject newHeart = Instantiate(heart);
-        newHeart.transform.SetParent(transform);
+        GameObject newHeart = Instantiate(heart, transform);
+
 
         HealthHeart heartComponent = newHeart.GetComponent<HealthHeart>();
         heartComponent.SetHeartImage(HealthHeart.HeartStatus.Empty);

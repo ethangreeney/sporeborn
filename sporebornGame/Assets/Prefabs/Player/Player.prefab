@@ -207,6 +207,10 @@ MonoBehaviour:
   damageBonus: 0
   rubberEnabled: 0
   bounceCount: 1
+  slowOnHitEnabled: 0
+  slowMultiplier: 1
+  slowDuration: 0
+  projectileColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &8429666763159996018
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,7 +239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 8429666763159996018}
-  spriteRenderer: {fileID: 7996612800276369546}
+  spriteRenderer: {fileID: 0}
   animator: {fileID: 0}
   invulnDuration: 0.5
   knockbackForce: 8

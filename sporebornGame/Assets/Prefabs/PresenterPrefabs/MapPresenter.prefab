@@ -60,4 +60,4 @@ MonoBehaviour:
   Player: {fileID: 0}
   GRID_SIDE: 10
   MINROOMS: 10
-  MAXROOMS: 20
+  MAXROOMS: 11

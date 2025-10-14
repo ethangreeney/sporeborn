@@ -44,12 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c06d47810451942a1c84deec685372, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemList:
-  - {fileID: 3006176890905470681, guid: 5ff41b96a0fe7e04d82982d122e2176c, type: 3}
-  - {fileID: 608367616214825885, guid: 4062372b17d88da419a3664d87c691eb, type: 3}
-  - {fileID: 8370837261787018476, guid: 0b414a6d05cacd84686caab22fd05345, type: 3}
-  - {fileID: 4692278269326076913, guid: 59023e57f5887c143ac51f700af25083, type: 3}
-  - {fileID: 505039161766500157, guid: 3f5e4d4573d97b44f907b51dca13258f, type: 3}
-  - {fileID: 2619596110311721775, guid: 62104364b70dc4bbdac646686d8d05ce, type: 3}
-  - {fileID: 2619596110311721775, guid: 115789daf1ae997429e976471c36654d, type: 3}
-  - {fileID: 2619596110311721775, guid: 3fe39ff55ce673646ba20999521ba719, type: 3}
+  itemPool: {fileID: 11400000, guid: a6fe7a3093d08484588a9b9bb3056d46, type: 2}
+  inventory: {fileID: 0}

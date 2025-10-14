@@ -19,7 +19,7 @@ public class PlayerStats : MonoBehaviour
 
     public event Action OnStatsChanged;
 
-    void Start()
+    void Awake()
     {
         // Initialize current stats to base values
         currentMoveSpeed = baseMoveSpeed;

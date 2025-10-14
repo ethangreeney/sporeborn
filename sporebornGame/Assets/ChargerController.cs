@@ -7,21 +7,26 @@ using Pathfinding;
 [RequireComponent(typeof(Rigidbody2D))]
 public class ChargerController : MonoBehaviour
 {
-    public enum State { Idle, Chase, Windup, Charge, Recover }
+    public enum State { Idle, Chase, Windup, Charge, Stunned, Recover }
 
     [Header("Aggro")]
     public float aggroRadius = 6f;
 
     [Header("Charge Settings")]
-    [Tooltip("ON = A* pathfinds while charging. OFF = straight physics dash to last known player position.")]
+    [Tooltip("ON = A* pathfinds while charging. OFF = straight physics dash to the last known player position.")]
     public bool pathfindWhileCharging = true;
     public float chargeSpeed = 11f;
-    public float acceleration = 20f;   // only used to smooth A* spikes if instantSpeedSpike=false
+    public float acceleration = 20f; // used only if instantSpeedSpike=false (A* mode)
 
     [Header("Timing")]
     [Min(0.3f)] public float windupTime = 0.35f;
-    public float chargeDuration = 2.5f;   // <-- set to your full desired time
+    public float chargeDuration = 2.5f;
     public float recoverTime = 2.0f;
+
+    [Header("Stun on Wall Hit (physics mode only)")]
+    [Tooltip("Name of the Layer that should stun the charger when hit during a physics dash.")]
+    public string environmentLayerName = "enviroment"; // layer name
+    public float stunTime = 0.7f;
 
     [Header("Visual Tell (optional)")]
     public SpriteRenderer spriteRenderer;
@@ -33,7 +38,7 @@ public class ChargerController : MonoBehaviour
     public bool tighterTurningWhileCharging = true;
 
     [Header("Physics Dash (OFF mode)")]
-    public LayerMask obstacleMask;   // walls/obstacles that should stop the dash early
+    public LayerMask obstacleMask; // optional fallback end condition
 
     // internals
     private AIPath _ai;
@@ -46,14 +51,15 @@ public class ChargerController : MonoBehaviour
     private Color _origTint;
     private float _zLock;
 
-    // A* baseline we restore after charge
     private float _origMaxSpeed;
     private bool _origSlowWhenNotFacingTarget;
     private float _origPickNextWaypointDist;
 
-    // physics dash data (OFF mode)
     private Vector2 _lockedTargetPos;
     private Vector2 _dashDir;
+
+    // cached environment layer id
+    private int _environmentLayer = -1;
 
     void Awake()
     {
@@ -84,6 +90,14 @@ public class ChargerController : MonoBehaviour
         if (spriteRenderer) _origTint = spriteRenderer.color;
 
         _zLock = transform.position.z;
+
+        // cache the layer index from the name
+        _environmentLayer = LayerMask.NameToLayer(environmentLayerName);
+        if (_environmentLayer == -1)
+        {
+            Debug.LogWarning($"[ChargerController] Layer '{environmentLayerName}' not found. " +
+                             $"Create it in Project Settings > Tags & Layers or change 'environmentLayerName'.");
+        }
     }
 
     void Update()
@@ -102,7 +116,12 @@ public class ChargerController : MonoBehaviour
 
             case State.Charge:
                 _timer -= Time.deltaTime;
-                if (_timer <= 0f) EndCharge();   // full duration unless collision
+                if (_timer <= 0f) EndCharge();  // full duration unless stunned/collision end
+                break;
+
+            case State.Stunned:
+                _timer -= Time.deltaTime;
+                if (_timer <= 0f) BeginRecover();
                 break;
 
             case State.Recover:
@@ -114,11 +133,13 @@ public class ChargerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Only drive physics when we’re in physics-dash mode (OFF)
         if (_state == State.Charge && !pathfindWhileCharging)
         {
-            _rb.linearVelocity = _dashDir * chargeSpeed;
-            // NO distance/overshoot check here → ensures full duration run
+            _rb.linearVelocity = _dashDir * chargeSpeed; // keep dashing full duration
+        }
+        else if (_state == State.Stunned || _state == State.Recover || _state == State.Windup)
+        {
+            _rb.linearVelocity = Vector2.zero; // no drift
         }
     }
 
@@ -133,7 +154,6 @@ public class ChargerController : MonoBehaviour
     {
         if (_player == null) { Transition(State.Idle); return; }
 
-        // A* should be on in Chase/Idle
         _ai.canMove = true;
         _ai.canSearch = true;
         _ai.maxSpeed = _origMaxSpeed;
@@ -147,12 +167,11 @@ public class ChargerController : MonoBehaviour
 
     IEnumerator WindupRoutine()
     {
-        if (_state == State.Windup || _state == State.Charge || _state == State.Recover)
+        if (_state == State.Windup || _state == State.Charge || _state == State.Stunned || _state == State.Recover)
             yield break;
 
         Transition(State.Windup);
 
-        // keep moving during wind-up
         if (spriteRenderer) spriteRenderer.color = windupTint;
 
         _timer = Mathf.Max(0.3f, windupTime);
@@ -162,7 +181,6 @@ public class ChargerController : MonoBehaviour
             t -= Time.deltaTime;
             yield return null;
         }
-        // Update() → BeginCharge next frame
     }
 
     void BeginCharge()
@@ -172,14 +190,12 @@ public class ChargerController : MonoBehaviour
 
         if (pathfindWhileCharging)
         {
-            // A* mode: keep pathfinding and spike speed
             _ai.canMove = true;
             _ai.canSearch = true;
 
-            if (instantSpeedSpike)
-                _ai.maxSpeed = chargeSpeed;
-            else
-                _ai.maxSpeed = Mathf.MoveTowards(_ai.maxSpeed, chargeSpeed, acceleration * Time.deltaTime);
+            _ai.maxSpeed = instantSpeedSpike
+                ? chargeSpeed
+                : Mathf.MoveTowards(_ai.maxSpeed, chargeSpeed, acceleration * Time.deltaTime);
 
             if (tighterTurningWhileCharging)
             {
@@ -189,25 +205,37 @@ public class ChargerController : MonoBehaviour
         }
         else
         {
-            // Physics-dash mode: lock player's position NOW
+            // lock target and dash straight
             _lockedTargetPos = _player ? (Vector2)_player.position : (Vector2)transform.position;
             _dashDir = (_lockedTargetPos - (Vector2)transform.position).normalized;
             if (_dashDir.sqrMagnitude < 0.0001f) _dashDir = Vector2.right;
 
-            // FULLY disable A* so it can't interrupt
+            // fully disable A* so it can't interrupt
             _ai.canMove = false;
             _ai.canSearch = false;
 
-            // start dash; FixedUpdate will keep velocity for the full duration
             _rb.linearVelocity = _dashDir * chargeSpeed;
         }
 
         Transition(State.Charge);
     }
 
+    void BeginRecover()
+    {
+        _timer = recoverTime;
+        Transition(State.Recover);
+
+        // re-enable A*
+        _ai.canSearch = true;
+        _ai.canMove   = true;
+        _ai.maxSpeed  = _origMaxSpeed;
+        _ai.SearchPath();
+
+        if (spriteRenderer) spriteRenderer.color = _origTint;
+    }
+
     void EndCharge()
     {
-        // stop physics if we were dashing
         _rb.linearVelocity = Vector2.zero;
 
         // restore A* baseline
@@ -226,13 +254,47 @@ public class ChargerController : MonoBehaviour
 
     void Transition(State s) => _state = s;
 
+    // ---- Wall Stun (by LAYER) ----
     void OnCollisionEnter2D(Collision2D col)
     {
         if (_state == State.Charge && !pathfindWhileCharging)
+            TryStunOnEnvironment(col);
+    }
+
+    void OnCollisionStay2D(Collision2D col)
+    {
+        if (_state == State.Charge && !pathfindWhileCharging)
+            TryStunOnEnvironment(col);
+    }
+
+    private void TryStunOnEnvironment(Collision2D col)
+    {
+        // Must be charging in physics mode and the other collider on the environment layer
+        if (_environmentLayer != -1 && col.collider.gameObject.layer == _environmentLayer)
         {
-            // physics mode: hitting an obstacle ends the dash early (by design)
-            if (((1 << col.collider.gameObject.layer) & obstacleMask) != 0)
-                EndCharge();
+            // Immediate stop
+            _rb.linearVelocity = Vector2.zero;
+
+            // optional tiny back-off along the average contact normal to prevent scraping
+            if (col.contactCount > 0)
+            {
+                Vector2 n = Vector2.zero;
+                for (int i = 0; i < col.contactCount; i++) n += col.GetContact(i).normal;
+                n.Normalize();
+                _rb.position += n * 0.015f; // ~1.5cm nudge away from wall
+            }
+
+            // keep A* off during stun (physics mode)
+            _ai.canMove = false;
+            _ai.canSearch = false;
+
+            _timer = stunTime;
+            Transition(State.Stunned);
+        }
+        else if (((1 << col.collider.gameObject.layer) & obstacleMask) != 0)
+        {
+            // Optional: end the dash (no stun) on other obstacle layers
+            EndCharge();
         }
     }
 

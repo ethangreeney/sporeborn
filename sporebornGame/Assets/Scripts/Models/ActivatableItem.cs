@@ -134,7 +134,7 @@ public class ActivatableItem : ScriptableObject
             int healAmount = 2;
             if (health.currHealth < health.maxHealth)
             {
-                health.Health(healAmount);
+                health.Heal(healAmount);
 
             }
         }

@@ -50,5 +50,8 @@ MonoBehaviour:
   BossList:
   - {fileID: 433780125670583135, guid: a8c8f30fcb10946b391c9ce84e0368af, type: 3}
   PortalPrefab: {fileID: 2102744783960465121, guid: 652ca148a19242b479b695c89febc77d, type: 3}
-  HeartPrefab: {fileID: 2619596110311721775, guid: 80c36c202221a432d8ab4c6c6d8d47ce, type: 3}
-  heartDropChance: 0.15
+  EnemyDrops:
+  - {fileID: 3940534089623373696, guid: 9516c181d1c63c4438331c8be770d40e, type: 3}
+  - {fileID: 5867368265313261415, guid: 9a85f5400428045e1a2dec0eba8e0dbf, type: 3}
+  ItemDropBucket: []
+  ItemSpawnChance: 0.5

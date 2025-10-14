@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf280face6a18ad45a588d241ddedae1, type: 3}
+  m_Name: Swifty
+  m_EditorClassIdentifier: 
+  itemName: Swifty
+  icon: {fileID: -5743474462039176297, guid: 981b8a09ae7d39d4dba5b36e0aa0e0b1, type: 3}
+  maxCharges: 5
+  itemType: 4
+  duration: 5

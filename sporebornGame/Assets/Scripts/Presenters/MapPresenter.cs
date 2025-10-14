@@ -14,7 +14,7 @@ public class MapPresenter : MonoBehaviour
     [Header("Room Prefabs")]
     public List<GameObject> RoomPrefabs;
 
-    [Header("Player")]
+    [Header("Active Player Instance")]
     public GameObject Player;
 
     [Header("GridSize")]
@@ -44,6 +44,10 @@ public class MapPresenter : MonoBehaviour
     // Reference to spawn in GameObjects when entering a new room
     private EnemyPresenter enemyPresenter;
     private ItemPresenter itemPresenter;
+    private ShopPresenter shopPresenter;
+    
+    // Decides when to render shop
+    private bool WasInShopRoom = false;
 
     void Start()
     {
@@ -63,14 +67,17 @@ public class MapPresenter : MonoBehaviour
         // Location for centre of the OneByOne Room
         Player.transform.SetParent(null); // temp
 
-        // Gets the current Enemy Presenter
+        // Gets Presenters
         enemyPresenter = FindFirstObjectByType<EnemyPresenter>();
         itemPresenter = FindFirstObjectByType<ItemPresenter>();
+        shopPresenter = FindFirstObjectByType<ShopPresenter>();
+
         // Build the starter room
         BuildRoom(StarterRoom, null);
 
+        // Destroy Active entities in scene upon start
         enemyPresenter.RemovePortal();
-        enemyPresenter.ResetHearts();
+        enemyPresenter.DestroyAllItems();
     }
     
     public void ResetMap()
@@ -117,8 +124,8 @@ public class MapPresenter : MonoBehaviour
         itemPresenter.RemoveItemFromRoom();
 
         enemyPresenter.RemovePortal();
-
-        enemyPresenter.ClearHearts();
+        enemyPresenter.DestroyAllItems();
+        
         // Reset the room prefab
         CurrentRoomPrefab = null;
         // Destroy the previous Room
@@ -170,6 +177,18 @@ public class MapPresenter : MonoBehaviour
 
         // Determinds what should spawn based on room type
         PlaceEntities(CurrentPlayerRoom);
+
+        // Activates Shop if player enters the Shop Room
+        if(CurrentPlayerRoom.RoomType == RoomType.Shop && !WasInShopRoom)
+        {
+            shopPresenter.PlayerEntersShop();
+            WasInShopRoom = true;
+        }
+        else if (CurrentPlayerRoom.RoomType != RoomType.Shop && WasInShopRoom)
+        {
+            shopPresenter.PlayerLeavesShopRoom();
+            WasInShopRoom = false;
+        }
     }
 
     public Vector3 CalculateSpawnOffset(Door EnterDoor)
@@ -314,8 +333,9 @@ public class MapPresenter : MonoBehaviour
     public void RoomCompleted()
     {
         CurrentPlayerRoom.RoomCompleted = true;
-        
-    // if the room is a boss room, play normal music
+        AddActivatableItemChargeToPlayer(CurrentPlayerRoom);
+
+        // if the room is a boss room, play normal music
         if (CurrentPlayerRoom.RoomType == RoomType.Boss && SoundManager.instance != null)
         {
             SoundManager.instance.BossDefeated();
@@ -364,13 +384,25 @@ public class MapPresenter : MonoBehaviour
             enemyPresenter.SpawnPortal();
         }
 
-        enemyPresenter.SpawnHeartsInRoom(CurrentRoom);
-
-
-
-
     }
-    
+
+    private void AddActivatableItemChargeToPlayer(Room CurrentRoom)
+    {
+        if (Player != null)
+        {
+            var activatable = Player.GetComponent<PlayerActivatableItem>();
+            if (activatable != null)
+            {
+                if (CurrentRoom.RoomType == RoomType.Boss)
+                {
+                    activatable.AddCharge(5);
+                    return;
+                }
+                activatable.AddCharge(1);
+            }
+        }
+    }
+
 
 
 }

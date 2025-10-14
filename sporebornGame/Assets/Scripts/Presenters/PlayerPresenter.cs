@@ -4,9 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class PlayerPresenter : MonoBehaviour
 {
-    public HealthModel health;
-    public SpriteRenderer spriteRenderer;
-    public float invulnDuration = 0.5f;
+    [SerializeField] private HealthModel health;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private float invulnDuration = 0.5f;
+    [SerializeField] private float hitFlashDuration = 0.1f;
 
     private bool invuln;
     private bool isDead;
@@ -46,7 +47,7 @@ public class PlayerPresenter : MonoBehaviour
     {
         var original = spriteRenderer.color;
         spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(hitFlashDuration);
         spriteRenderer.color = original;
     }
 
@@ -55,6 +56,6 @@ public class PlayerPresenter : MonoBehaviour
         isDead = true;
         foreach (var c in GetComponentsInChildren<Collider2D>()) c.enabled = false;
         shooting.enabled = false;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Start Menu");
     }
 }

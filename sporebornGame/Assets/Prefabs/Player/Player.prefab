@@ -17,9 +17,8 @@ GameObject:
   - component: {fileID: 8429666763159996018}
   - component: {fileID: 1073487874558790818}
   - component: {fileID: -2588614934077091116}
-  - component: {fileID: 1035259848303272950}
-  - component: {fileID: 8683116020251802282}
-  - component: {fileID: 1887837464402315223}
+  - component: {fileID: 6053449041306491772}
+  - component: {fileID: 5741958062752706840}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -160,7 +159,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.19999999}
+  m_Offset: {x: 0, y: -0.2}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -261,7 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: []
---- !u!114 &1035259848303272950
+--- !u!114 &6053449041306491772
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -355,7 +354,7 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!95 &8683116020251802282
+--- !u!95 &5741958062752706840
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
@@ -377,20 +376,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1887837464402315223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2503916331830693916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 621535fc7f16bfc42a5d7bb3f080b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  equippedItem: {fileID: 0}
-  currentCharges: 5
 --- !u!1 &6676378610104298761
 GameObject:
   m_ObjectHideFlags: 0

@@ -38,6 +38,7 @@ public class PlayerPresenter : MonoBehaviour
         }
         if (health != null && health.currHealth <= 0)
             health.currHealth = health.maxHealth > 0 ? health.maxHealth : 1;
+
     }
 
     public void SetInvulnerable(bool value)

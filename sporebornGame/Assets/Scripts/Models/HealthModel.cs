@@ -24,7 +24,7 @@ public class HealthModel : MonoBehaviour
         if (currHealth < 0) currHealth = 0; // Prevents negative 
     }
 
-    public void Health(float healAmount)
+    public void Heal(float healAmount)
     {
         currHealth += healAmount;
         OnHealthChanged?.Invoke();

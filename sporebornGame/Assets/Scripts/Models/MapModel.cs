@@ -130,12 +130,12 @@ public class MapModel
         {
             int index = CellQueue.Dequeue();
             // Calculates x coordinate of index
-            int x = index % 10;
+            int x = index % GRID_SIDE;
 
             if (x > 0) CheckValidCell(index - 1); // Checks left space
             if (x < 9) CheckValidCell(index + 1); // Checks right space
-            if (index >= 10) CheckValidCell(index - 10); // Checks upwards space 
-            if (index < 90) CheckValidCell(index + 10); // Checks downwards space
+            if (index >= GRID_SIDE) CheckValidCell(index - GRID_SIDE); // Checks upwards space 
+            if (index < 90) CheckValidCell(index + GRID_SIDE); // Checks downwards space
 
             // If no neighbours were created then it is an end room
             if (GetNeighbourCellCount(index) == 1 && index != StartingRoomIndex)
@@ -284,8 +284,8 @@ public class MapModel
             }
 
             // Prevent horizontal out of bounds
-            int indexRow = index / 10;
-            int targetRow = roomOriginIndex / 10;
+            int indexRow = index / GRID_SIDE;
+            int targetRow = roomOriginIndex / GRID_SIDE;
             if (Math.Abs(offset) == 1 && targetRow != indexRow)
             {
                 return false; // Can't place this room
@@ -298,7 +298,7 @@ public class MapModel
 
             // Because grid 0-9 -> 10 is left side - so prevents a prevents 
             // wrapping around horizontally (e.g., from one row to another)
-            if (roomOriginIndex % 10 == 0 || roomOriginIndex % 10 == 9) return false;
+            if (roomOriginIndex % GRID_SIDE == 0 || roomOriginIndex % GRID_SIDE == 9) return false;
 
             currentRoomIndexes.Add(roomOriginIndex);
         }
@@ -352,18 +352,4 @@ public class MapModel
         return count;
     }
     
-    private void PrintFloorPlan()
-    {
-        string output = "";
-        for (int row = 0; row < 10; row++)
-        {
-            for (int col = 0; col < 10; col++)
-            {
-                int index = row * 10 + col;
-                output += FloorPlan[index] == 1 ? "1 " : "0 ";
-            }
-            output += "\n";
-        }
-        Debug.Log(output);
-    }
 }

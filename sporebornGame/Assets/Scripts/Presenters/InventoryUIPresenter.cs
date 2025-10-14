@@ -30,7 +30,7 @@ public class InventoryUIPresenter : MonoBehaviour
     {
         if (inventory == null)
         {
-            inventory = FindObjectOfType<PlayerInventory>();
+            inventory = FindFirstObjectByType<PlayerInventory>();
         }
 
         if (inventory != null)

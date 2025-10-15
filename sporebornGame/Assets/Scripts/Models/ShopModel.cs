@@ -8,8 +8,6 @@ public class ShopModel : MonoBehaviour
     private List<ShopItem> ShopItemPool;
 
     private ShopItem[] ShopStock;
-
-    private MapPresenter map;
     private ShopItemUI Item;
 
     // Generate random numbers
@@ -17,7 +15,6 @@ public class ShopModel : MonoBehaviour
     void Start()
     {
         rng = new System.Random();
-        map = FindFirstObjectByType<MapPresenter>();
     }
 
     public void SetupNewShop()
@@ -37,11 +34,11 @@ public class ShopModel : MonoBehaviour
     }
 
     
-    public void TryPurchaseItem(ShopItem PurchaseItem)
+    public void TryPurchaseItem(ShopItem PurchaseItem, PlayerPresenter player)
     {
         for(int i=0; i<ShopStock.Length; i++)
         {
-            CurrencyModel playerWallet = map.Player.GetComponent<CurrencyModel>();
+            CurrencyModel playerWallet = player.GetComponent<CurrencyModel>();
 
             // Checks if correct item & player has enough money to purchase item
             if (ShopStock[i] == PurchaseItem && playerWallet.GetCurrentNectar() >= PurchaseItem.Cost)

@@ -14,9 +14,6 @@ public class ShopPresenter : MonoBehaviour
 
     void Start()
     {
-
-        Debug.LogWarning("Shop Presenter is Called");
-
         // Gets the Model from within the ShopUI prefab
         shopModel = ShopUI.GetComponentInChildren<ShopModel>();
         

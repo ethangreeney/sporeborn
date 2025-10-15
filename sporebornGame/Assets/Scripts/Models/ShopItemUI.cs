@@ -24,8 +24,9 @@ public class ShopItemUI : MonoBehaviour
     }
 
     // Called when player clicks button
-    private void OnPurchaseClick()
+    private void OnPurchaseClick(GameObject player)
     {
-        shopModel.TryPurchaseItem(CurrentItemData);
+        // PlayerPresenter p = player.GetComponent<PlayerPresenter>();
+        // shopModel.TryPurchaseItem(CurrentItemData, p);
     }
 }

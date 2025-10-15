@@ -6,6 +6,7 @@ public class PlayerPresenter : MonoBehaviour
 {
     [SerializeField] private HealthModel health;
     [SerializeField] private SpriteRenderer spriteRenderer;
+    // invulnDuration and hitFlashDuration are time periods in seconds. 0.3f -> 300ms
     [SerializeField] private float invulnDuration = 0.3f;
     [SerializeField] private float hitFlashDuration = 0.1f;
 

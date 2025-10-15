@@ -6,7 +6,7 @@ public class PlayerPresenter : MonoBehaviour
 {
     [SerializeField] private HealthModel health;
     [SerializeField] private SpriteRenderer spriteRenderer;
-    [SerializeField] private float invulnDuration = 0.5f;
+    [SerializeField] private float invulnDuration = 0.3f;
     [SerializeField] private float hitFlashDuration = 0.1f;
 
     private bool invuln;
@@ -54,8 +54,6 @@ public class PlayerPresenter : MonoBehaviour
     void Die()
     {
         isDead = true;
-        foreach (var c in GetComponentsInChildren<Collider2D>()) c.enabled = false;
-        shooting.enabled = false;
         SceneManager.LoadScene("Start Menu");
     }
 }

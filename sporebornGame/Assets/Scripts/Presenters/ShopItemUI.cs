@@ -26,8 +26,16 @@ public class ShopItemUI : MonoBehaviour
     // Called when player clicks on a ShopItem button
     public void OnPurchaseClick()
     {
+        Debug.LogWarning("Purchase Clicked");
+
         // Find the Player Presenter
         PlayerPresenter p = FindAnyObjectByType<PlayerPresenter>();
+        
+        if(p == null)
+        {
+            Debug.LogWarning("Can't find player presenter");
+        }
+        
         shopModel.TryPurchaseItem(CurrentItemData, p, this);
     }
 }

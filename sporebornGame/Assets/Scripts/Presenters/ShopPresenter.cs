@@ -5,6 +5,7 @@ public class ShopPresenter : MonoBehaviour
 {
     [SerializeField]
     private GameObject ShopTriggerZone;
+    
     [SerializeField]
     private GameObject ShopUI;
 

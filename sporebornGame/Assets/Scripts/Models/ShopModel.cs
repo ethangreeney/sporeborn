@@ -22,18 +22,15 @@ public class ShopModel : MonoBehaviour
 
     // Generate random numbers
     System.Random rng;
-    void Start()
+    void Awake()
     {
         rng = new System.Random();
         // A new Shop Inventory per level
         ShopInventory = new List<ShopItem>();
     }
 
-
-
     public void SetupNewShop()
     {
-
         for (int i = 0; i < NumberOfShopItems; i++)
         {
             int randItem = rng.Next(0, ShopItemPool.Count);
@@ -59,27 +56,29 @@ public class ShopModel : MonoBehaviour
             CurrencyModel playerWallet = player.GetComponent<CurrencyModel>();
 
             // Checks if correct item & player has enough money to purchase item
-            if (Item == PurchaseItem && playerWallet.GetCurrentNectar() >= PurchaseItem.Cost)
+            if (Item != PurchaseItem || playerWallet.GetCurrentNectar() < PurchaseItem.Cost)
             {
-                // Only can buy if item hasn't been bought
-                if (Item != null)
-                {
-                    // Deduct currency (Nectar) from player
-                    playerWallet.RemoveCurrency(PurchaseItem.Cost);
-
-                    // Set to null - so can't be purchased again
-                    
-
-                    // Set item to be visually inactive in the ShopUI
-                    ItemUI.gameObject.SetActive(false);
-
-                    // Give item to player
-                    //ActiveItem.Activate(Item);
-
-                    // Remove item from pool so it can't be chosen again
-                    ShopItemPool.Remove(Item);
-                }
+                continue;
             }
+            // Only can buy if item hasn't been bought
+            if (Item != null)
+            {
+                // Deduct currency (Nectar) from player
+                playerWallet.RemoveCurrency(PurchaseItem.Cost);
+
+                // Set to null - so can't be purchased again
+                
+
+                // Set item to be visually inactive in the ShopUI
+                ItemUI.gameObject.SetActive(false);
+
+                // Give item to player
+                //ActiveItem.Activate(Item);
+
+                // Remove item from pool so it can't be chosen again
+                ShopItemPool.Remove(Item);
+            }
+            
         }
 
     }

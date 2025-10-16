@@ -1,12 +1,13 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System;
 
 public class PlayerPresenter : MonoBehaviour
 {
     public HealthModel health;
     public SpriteRenderer spriteRenderer;
-    public SpriteRenderer forcefieldRenderer; 
+    public SpriteRenderer forcefieldRenderer;
     public Animator animator;
     public float invulnDuration = 0.5f;
     public float knockbackForce = 8f;
@@ -16,6 +17,8 @@ public class PlayerPresenter : MonoBehaviour
     bool invulnFromDamage;
     bool invulnFromForcefield;
     Rigidbody2D rb;
+
+    public static event Action OnPlayerDied;
 
     void Awake()
     {
@@ -87,7 +90,10 @@ public class PlayerPresenter : MonoBehaviour
 
     void Die()
     {
+        if (isDead) return;
         isDead = true;
+
+        // Disable all player functionality
         foreach (var c in GetComponentsInChildren<Collider2D>())
             c.enabled = false;
         if (rb)
@@ -101,10 +107,18 @@ public class PlayerPresenter : MonoBehaviour
         if (shoot)
             shoot.enabled = false;
 
+        // --- REVISED LOGIC ---
+        // Since you confirmed you have no death animation, we will always fire the event directly.
+        // The animator line is what was causing the issue.
+
+        Debug.Log("Player has died. Firing OnPlayerDied event immediately.");
+        OnPlayerDied?.Invoke();
+
+        /* --- OLD PROBLEMATIC CODE FOR REFERENCE ---
         if (animator)
-            animator.SetTrigger("Death");
+            animator.SetTrigger("Death"); // This was running and preventing the 'else' block
         else
-           Time.timeScale = 1f;
-           SceneManager.LoadScene(0);
+            OnPlayerDied?.Invoke();
+        */
     }
 }

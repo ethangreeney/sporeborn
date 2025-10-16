@@ -23,10 +23,11 @@ public class ShopItemUI : MonoBehaviour
         ItemCost.text = "Cost: $" + data.Cost;
     }
 
-    // Called when player clicks button
-    public void OnPurchaseClick(GameObject player)
+    // Called when player clicks on a ShopItem button
+    public void OnPurchaseClick()
     {
-        PlayerPresenter p = player.GetComponent<PlayerPresenter>();
+        // Find the Player Presenter
+        PlayerPresenter p = FindAnyObjectByType<PlayerPresenter>();
         shopModel.TryPurchaseItem(CurrentItemData, p, this);
     }
 }

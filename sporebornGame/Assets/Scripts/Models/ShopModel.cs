@@ -7,8 +7,13 @@ public class ShopModel : MonoBehaviour
     [SerializeField]
     private List<ShopItem> ShopItemPool;
 
-    private ShopItem[] ShopStock;
-    private ShopItemUI Item;
+
+    [SerializeField]
+    private GameObject ShopItem;
+    private List<GameObject> ShopInventory;
+
+    [SerializeField]
+    private int NumberOfShopItems = 3;
 
     // Generate random numbers
     System.Random rng;
@@ -19,39 +24,44 @@ public class ShopModel : MonoBehaviour
 
     public void SetupNewShop()
     {
-        ShopStock = new ShopItem[4];
 
-        for (int i = 0; i < ShopStock.Length; i++)
+        for (int i = 0; i < NumberOfShopItems; i++)
         {
             int randItem = rng.Next(0, ShopItemPool.Count);
-            ShopStock[i] = ShopItemPool[randItem];
-            ShopItemPool.RemoveAt(randItem);
+            ShopItem RandomShopItem = ShopItemPool[randItem];
+            
+            // Creates a new ShopItem and instantiates under the UI layer that the ShopModel is attached to
+            GameObject ShopButton = Instantiate(ShopItem, transform, false);
+            ShopItemUI ItemSetup = ShopButton.GetComponent<ShopItemUI>();
+            ItemSetup.SetupItem(RandomShopItem, this);
 
-            // Pass through item information and the ShopModel
-            Item.SetupItem(ShopStock[i], this);
+            // Add to list of ShopItems
+            ShopInventory.Add(ShopButton);
+            ShopItemPool.RemoveAt(randItem);
         }
         
     }
 
     
-    public void TryPurchaseItem(ShopItem PurchaseItem, PlayerPresenter player)
+    public void TryPurchaseItem(ShopItem PurchaseItem, PlayerPresenter player, ShopItemUI ItemUI)
     {
-        for(int i=0; i<ShopStock.Length; i++)
+        foreach(GameObject Item in ShopInventory)
         {
+            ShopItem InventoryItem = Item.GetComponent<ShopItem>();
             CurrencyModel playerWallet = player.GetComponent<CurrencyModel>();
 
             // Checks if correct item & player has enough money to purchase item
-            if (ShopStock[i] == PurchaseItem && playerWallet.GetCurrentNectar() >= PurchaseItem.Cost)
+            if (InventoryItem == PurchaseItem && playerWallet.GetCurrentNectar() >= PurchaseItem.Cost)
             {
                 // Only can buy if item hasn't been bought
-                if (ShopStock[i] != null)
+                if (Item != null)
                 {
-                    // Set to null - so can't be purchased again
-                    ShopStock[i] = null;
                     // Deduct currency (Nectar) from player
                     playerWallet.RemoveCurrency(PurchaseItem.Cost);
-
+                    
+                     // Set to null - so can't be purchased again
                     // Set item to be visually inactive in the ShopUI
+                    ItemUI.gameObject.SetActive(false);
                 }
             }
         }

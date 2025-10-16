@@ -23,8 +23,13 @@ public class ShopPresenter : MonoBehaviour
 
         // Default position of the Shop zone - where the player is able to open shop
         ShopZonePosition = new Vector3(0, -2, 0);
-        
+
         // Randomly choosing items for shop
+        if (shopModel == null)
+        {
+            Debug.Log("Shop Model is null");
+        }
+        // Create a new shop for each level
         shopModel.SetupNewShop();
 
     }

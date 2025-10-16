@@ -610,6 +610,7 @@ GameObject:
   - component: {fileID: 6513574411051108512}
   - component: {fileID: 6002524934035808211}
   - component: {fileID: 887775513131161986}
+  - component: {fileID: 8560887589100427526}
   m_Layer: 5
   m_Name: ItemPanel
   m_TagString: Untagged
@@ -701,6 +702,35 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &8560887589100427526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5791587267561773756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33a6872fac011434e9aca03c8d06be0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShopItemPool:
+  - ItemType: {fileID: 11400000, guid: 47621775304ce57478ff1843e08c2d12, type: 2}
+    Name: Force Field
+    Cost: 5
+    Icon: {fileID: 0}
+  - ItemType: {fileID: 11400000, guid: 2806deb4fdca60440a001d2cae0418a8, type: 2}
+    Name: OctoShot
+    Cost: 5
+    Icon: {fileID: 0}
+  - ItemType: {fileID: 11400000, guid: fff954806bdf35442ad1491283591ed8, type: 2}
+    Name: Sun
+    Cost: 5
+    Icon: {fileID: 0}
+  - ItemType: {fileID: 11400000, guid: 392c57b41d67d20409e2f717a49eb26c, type: 2}
+    Name: Swifty
+    Cost: 5
+    Icon: {fileID: 0}
 --- !u!1 &6243997234764013815
 GameObject:
   m_ObjectHideFlags: 0

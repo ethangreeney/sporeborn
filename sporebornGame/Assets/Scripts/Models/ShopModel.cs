@@ -78,14 +78,14 @@ public class ShopModel : MonoBehaviour
             if (!CurrentItem.Purchased)
             {
                 // Deduct currency (Nectar) from player
-                playerWallet.RemoveCurrency(PurchaseItem.Cost);
+                playerWallet.RemoveCurrency(CurrentItem.Cost);
                 
                 // Mark Item as purchased
                 CurrentItem.Purchased = true;
 
                 // Get Player Active Item Slot & and set it to the purchased item
                 PlayerActivatableItem PlayerItem = player.GetComponent<PlayerActivatableItem>();
-                PlayerItem.equippedItem = PurchaseItem.ItemType;
+                PlayerItem.equippedItem = CurrentItem.ItemType;
 
                 // Set item to be visually inactive in the ShopUI
                 SetItemPurchasedUI(CurrentItem.UIReference);

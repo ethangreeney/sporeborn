@@ -58,6 +58,8 @@ public class DeathScreenManager : MonoBehaviour
     {
         // IMPORTANT: Unfreeze the game before changing scenes!
         Time.timeScale = 1f;
+        deathScreenPanel.SetActive(false);
+        mainHudPanel.SetActive(true);
         SceneManager.LoadScene(0); // Assuming 0 is your main menu scene index
     }
 }

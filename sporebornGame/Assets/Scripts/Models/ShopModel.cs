@@ -79,21 +79,25 @@ public class ShopModel : MonoBehaviour
                 continue;
             }
             // Only can buy if item hasn't been bought
-            if (CurrentItem != null)
+            if (!CurrentItem.Purchased)
             {
+                Debug.LogWarning("Item Purchased Sucess");
                 // Deduct currency (Nectar) from player
                 playerWallet.RemoveCurrency(PurchaseItem.Cost);
 
 
                 // Set item to be visually inactive in the ShopUI
                 SetItemPurchasedUI(ItemUI.gameObject);
+                
+                // Mark Item as purchased
+                CurrentItem.Purchased = true;
 
                 // Get Player Active Item Slot & and set it to the purchased item
                 PlayerActivatableItem PlayerItem = player.GetComponent<PlayerActivatableItem>();
                 PlayerItem.equippedItem = PurchaseItem.ItemType;
 
 
-                // Remove item from pool so it can't be chosen again
+                // Remove item from pool so it can't be chosen in future
                 ShopItemPool.Remove(CurrentItem);
             }
 

@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 4
-  m_fontSizeBase: 4
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 4120890191563734558}
   - component: {fileID: 3081887094318160110}
   - component: {fileID: 4068313945095888817}
+  - component: {fileID: 5987671664522623138}
   m_Layer: 5
   m_Name: ShopItem
   m_TagString: Untagged
@@ -175,8 +176,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1275, y: 305.20956}
-  m_SizeDelta: {x: 68.7132, y: 96.5107}
+  m_AnchoredPosition: {x: 1177, y: 305.20956}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &221855408215677821
 CanvasRenderer:
@@ -287,6 +288,51 @@ MonoBehaviour:
   ImageIcon: {fileID: 5602197378654473183}
   ItemName: {fileID: 1654725550563792574}
   ItemCost: {fileID: 7204991720097669430}
+--- !u!114 &5987671664522623138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3485414176043459223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4068313945095888817}
+          m_TargetAssemblyTypeName: ShopItemUI, GameCode
+          m_MethodName: OnHover
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4068313945095888817}
+          m_TargetAssemblyTypeName: ShopItemUI, GameCode
+          m_MethodName: ResetItemUI
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &5438445682713477752
 GameObject:
   m_ObjectHideFlags: 0

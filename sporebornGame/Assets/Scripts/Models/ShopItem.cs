@@ -9,6 +9,7 @@ public class ShopItem
     public int Cost;
     public Sprite Icon;
     public bool Purchased;
+    public ShopItemUI UIReference;
     
     public ShopItem(ActivatableItem ItemType, string Name, int Cost, Sprite Icon)
     {

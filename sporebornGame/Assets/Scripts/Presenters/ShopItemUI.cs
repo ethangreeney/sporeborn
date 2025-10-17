@@ -38,8 +38,6 @@ public class ShopItemUI : MonoBehaviour
     // Called when player clicks on a ShopItem button
     public void OnPurchaseClick()
     {
-        Debug.LogWarning("Purchase Clicked");
-
         // Find the Player Presenter
         PlayerPresenter p = FindAnyObjectByType<PlayerPresenter>();
 
@@ -48,6 +46,13 @@ public class ShopItemUI : MonoBehaviour
 
     public void OnHover()
     {
+        // Don't update if already been purchased
+        if (CurrentItemData.Purchased)
+        {
+            return;
+        }
+        
+        // Get the Players currency
         PlayerPresenter p = FindAnyObjectByType<PlayerPresenter>();
         CurrencyModel PlayerWallet = p.GetComponent<CurrencyModel>();
 
@@ -60,24 +65,26 @@ public class ShopItemUI : MonoBehaviour
 
     }
 
-    public void ItemHasBeenPurchased(GameObject PurchasedItem)
+    public void ItemHasBeenPurchased()
     {
-        ImageIcon.color = Color.gray;
-        ItemName.color = Color.gray;
+        Background.color = Color.gray;
 
         ItemCost.text = "Purchased";
 
         // Makes button not interactable after purchase
-        PurchasedItem.GetComponent<Button>().interactable = false;
+        GetComponent<Button>().interactable = false;
     }
     
     public void ResetItemUI()
     {
-        
-        Background.color = Color.black;
-        ItemName.color = Color.white;
-        ItemCost.color = Color.white;
+        // Only reset item if haven't been purchased
+        if (!CurrentItemData.Purchased)
+        {
+            Background.color = Color.black;
+            ItemName.color = Color.white;
+            ItemCost.color = Color.white;
 
-        ItemCost.text = "Cost: "+CurrentCost;
+            ItemCost.text = "Cost: " + CurrentCost;
+        }
     }
 }

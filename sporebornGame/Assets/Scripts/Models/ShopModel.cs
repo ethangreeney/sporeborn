@@ -17,12 +17,6 @@ public class ShopModel : MonoBehaviour
     [SerializeField]
     private int NumberOfShopItems = 3;
 
-    private ActivatableItemUI ActiveItem;
-    private ActivatableItem ActiveItemModel;
-
-    // Reference to Shopitem UI
-    private ShopItemUI shopItemUI;
-
     // Generate random numbers
     System.Random rng;
     void Awake()
@@ -30,9 +24,6 @@ public class ShopModel : MonoBehaviour
         rng = new System.Random();
         // A new Shop Inventory per level
         ShopInventory = new List<ShopItem>();
-
-        // Reference to UI to trigger visual update when item purchased
-        shopItemUI = FindAnyObjectByType<ShopItemUI>();
     }
 
     public void SetupNewShop()
@@ -47,9 +38,13 @@ public class ShopModel : MonoBehaviour
 
             // Creates a new ShopItem under the UI layer that the ShopModel is on
             GameObject ShopButton = Instantiate(ShopItemPrefab, transform, false);
-            
+
+            // Setups up UI based on ShopItem data
             ShopItemUI ItemSetup = ShopButton.GetComponent<ShopItemUI>();
             ItemSetup.SetupItem(RandomShopItem, this);
+
+            // Used to visually updated item
+            RandomShopItem.UIReference = ItemSetup;
 
             // Add the ShopItem Data type to the Shop's inventory
             ShopInventory.Add(RandomShopItem);
@@ -63,6 +58,7 @@ public class ShopModel : MonoBehaviour
 
     public void TryPurchaseItem(ShopItem PurchaseItem, PlayerPresenter player, ShopItemUI ItemUI)
     {
+        
         foreach (ShopItem CurrentItem in ShopInventory)
         {
             // Return if Item has already been purchased
@@ -81,13 +77,8 @@ public class ShopModel : MonoBehaviour
             // Only can buy if item hasn't been bought
             if (!CurrentItem.Purchased)
             {
-                Debug.LogWarning("Item Purchased Sucess");
                 // Deduct currency (Nectar) from player
                 playerWallet.RemoveCurrency(PurchaseItem.Cost);
-
-
-                // Set item to be visually inactive in the ShopUI
-                SetItemPurchasedUI(ItemUI.gameObject);
                 
                 // Mark Item as purchased
                 CurrentItem.Purchased = true;
@@ -96,6 +87,8 @@ public class ShopModel : MonoBehaviour
                 PlayerActivatableItem PlayerItem = player.GetComponent<PlayerActivatableItem>();
                 PlayerItem.equippedItem = PurchaseItem.ItemType;
 
+                // Set item to be visually inactive in the ShopUI
+                SetItemPurchasedUI(CurrentItem.UIReference);
 
                 // Remove item from pool so it can't be chosen in future
                 ShopItemPool.Remove(CurrentItem);
@@ -106,9 +99,9 @@ public class ShopModel : MonoBehaviour
     }
     
     // Updates visuals to show player that item has been purchased
-    public void SetItemPurchasedUI(GameObject PurchasedItem)
+    public void SetItemPurchasedUI(ShopItemUI itemreference)
     {
-        shopItemUI.ItemHasBeenPurchased(PurchasedItem);
+        itemreference.ItemHasBeenPurchased();
     }
     
 

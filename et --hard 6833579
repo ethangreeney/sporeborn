@@ -1,0 +1,99 @@
+[33mea9e8c6[m[33m ([m[1;36mHEAD -> [m[1;32mBenjamin-CurrencyAndShop[m[33m, [m[1;31morigin/Benjamin-CurrencyAndShop[m[33m)[m Merge remote-tracking branch 'origin' into Benjamin-CurrencyAndShop
+[33m6833579[m Commit Before merging changes from main that will fix UI for activatable items
+[33m7f542fc[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m new EquipItem method for handling buying a new activatable item in shop
+[33m79244f8[m Fixed items not purchasing and visual purchase indicators now work
+[33me77a88d[m Added some visual improvements to the shop
+[33mdbf9386[m Merge pull request #47 from ethangreeney/Daniel-MainMenuRework
+[33ma8ac60c[m[33m ([m[1;31morigin/Daniel-MainMenuRework[m[33m)[m Bug fixes, Death screen improvements
+[33m0e52a24[m Shop Purchasing now works, started working on visuals for purchased item & when player has insufficient funds
+[33mfb23ec8[m Merge pull request #46 from ethangreeney/Daniel-MainMenuRework
+[33m1ad75d7[m Death screen completed
+[33ma90a0e5[m Currency Display Completed
+[33md8885cb[m Items display in shop now & Fixed incorrect reference in EnemyDrop heart in inspector
+[33m7bfe2ed[m Small Change
+[33md1727d7[m Shop UI fixes
+[33me1d0005[m Changes to UI font and ShopItem now a prefab
+[33mb727e25[m Fixed issue with Enemy Presenter not being ready when a new game starts
+[33m649734e[m[33m ([m[1;31morigin/Benjamin-Branch[m[33m, [m[1;32mBenjamin-Branch[m[33m)[m Fixes to activatable item before Merging to my Shop&Currency Branch
+[33m54a4936[m adjustments to the text sizing and positioning (BUILD IS STILL NOT WORKING)
+[33mf5d534d[m Merge pull request #45 from ethangreeney/Daniel-MainMenuRework
+[33m24d11ea[m Room Text Added
+[33mcc7b320[m Created TDD test cases and implemented assessmbley references for Test NUNit in unity
+[33m747bd89[m[33m ([m[1;31morigin/Ethan-OneMenuOnly[m[33m)[m Merge pull request #44 from ethangreeney/Daniel-MainMenuRework
+[33m9a7ecd7[m Main Menu first half revamp completed
+[33m7eedfd6[m Title text and buttons revamped
+[33m131fa45[m Merge branch 'main' of https://github.com/ethangreeney/sporeborn into Daniel-MainMenuRework
+[33m227afec[m fixed missing player activatable script again
+[33mfa6ba5f[m Merge pull request #43 from ethangreeney/Benjamin-Branch
+[33m184d080[m Merge branch 'main' into Benjamin-Branch
+[33mf569482[m Added Shop Componenets to main scene and added CurrencyModel back to player
+[33mdae392d[m small fix - activatable items null reference resolved
+[33m561ff41[m Merge pull request #42 from ethangreeney/Connor-PlayerAnimations-ActivatableItems
+[33m4f85cff[m[33m ([m[1;31morigin/Connor-PlayerAnimations-ActivatableItems[m[33m)[m Merge branch 'main' into Connor-PlayerAnimations-ActivatableItems
+[33m95a0cb6[m fixed scene
+[33med256d8[m Fixed scaling stuff
+[33m2fbf60f[m main game save
+[33m38317af[m Merge remote-tracking branch 'origin/main' into Connor-PlayerAnimations-ActivatableItems
+[33m6aa0bb7[m Merge pull request #41 from ethangreeney/Rupert-Branch
+[33m452190a[m[33m ([m[1;31morigin/Rupert-Branch[m[33m)[m Finished making the Charger enemy
+[33m9a3777c[m Merge pull request #40 from ethangreeney/Benjamin-Branch
+[33mdf834b7[m Merge branch 'main' into Benjamin-Branch
+[33mcd34c9d[m move quit button
+[33m9027791[m Main menu button changes
+[33m247d9a4[m Defeating boss now gives full charge to player activatable item. (meeting user acceptence criteria)
+[33m828df5f[m Merge pull request #39 from ethangreeney/Benjamin-CurrencyAndShop
+[33md001a4c[m change activatable item names
+[33m667efd8[m 2 new activatable items,
+[33m7a20e9f[m[33m ([m[1;32mmain[m[33m)[m Created new inventory system
+[33m2cea4fc[m[33m ([m[1;31morigin/Ethan-InventoryUI[m[33m)[m Inventory UI improvements and bug fixes
+[33mfa37e61[m Updated settings menu to use new font
+[33m425acb3[m Code tweaks to ItemPresenter - Made ItemPresenter script use new itemPool plus Inventory.HasCollected system. - Simplified ItemPresenter code
+[33md12384d[m Update ChargerController.cs
+[33mfd8dd15[m Setup ready for adding the Scriptable Items to shop
+[33md04c5e8[m Updated player prefab
+[33m14d81a9[m Made basic charger script
+[33m2075258[m When inventory is open and user picks up an item, the inventory will now update to show that that item has been enabled.
+[33m7e615b6[m Addtional inventory UI refinements - Found items show up first in inventory - Text to show number of found items
+[33m94b7bfa[m Fully functional improve inventory system - Removed old UI that didn't scale on the bottom right - Added chest icon that you can click to show the new inventory - Uses a scriptable object to globally store the itemPool - Tooltip to show itemName and conditionally itemDescription if the item has been picked up - Sits in the existing canvas rather than a separate canvas - Items are greyed out until they have been picked up
+[33m1005b21[m Finished creating inventory UI elements
+[33mc97da81[m changed font to press start 2p
+[33m5918625[m Shop Trigger Zone is correctly set to inactive when leaving the shop room
+[33m1be519b[m Starting development of the UI elements
+[33m6093002[m Currency total can now be seen in the Inspector
+[33me8b23f2[m Started developing new inventory system - Deleted the sperate canvas that stored old inventory - Created an item pool ScriptableObject to act as a small, project wide database that contains all items
+[33med15272[m Merge pull request #37 from ethangreeney/Daniel-UIScaleFixes
+[33m21aa1b1[m[33m ([m[1;31morigin/Daniel-UIScaleFixes[m[33m)[m Script changes to finally fix
+[33m67c8596[m HealthBar check point
+[33mf2b54b2[m Scaling fixes v2
+[33mab54b32[m made the framework for creating activatable items.
+[33mdd1091b[m Potential UI scale fixes
+[33m62dbbcf[m Shop UI now opens and closes, and only works when in the shop room
+[33m9d6628b[m Created the Shop UI, ShopPresenter and ShopModel
+[33m209fd60[m[33m ([m[1;31morigin/Daniel-branch[m[33m)[m Merge pull request #36 from ethangreeney/Connor-PlayerAnimations-ActivatableItems
+[33ma0717e6[m PlayerAnimations
+[33m3af32bc[m Fixed issues with Collisions
+[33mf7075f1[m Got Enemies Dropping loot now, also using a Bucket (A bit like a Bin in DSA) for more fair distribution.   Collision don't on items currently
+[33m1a003f1[m Started Refactoring the Hearts into a EnemyDrop Presenter and Model, So that we can easily implement other droppable items such as currency
+[33ma4727e8[m Pulled Changes from Main and Start working on room designs for next level
+[33me932bab[m[33m ([m[1;33mtag: v1.3[m[33m)[m Fixed full screen functionality
+[33m4667bd9[m[33m ([m[1;33mtag: v1.2[m[33m)[m Merge pull request #35 from ethangreeney/Benjamin-Branch
+[33mec2ac2a[m Merge remote-tracking branch 'origin/main' into Benjamin-Branch
+[33m406fe3f[m Removed temporary debug feature for map
+[33mcba13a4[m Merge pull request #34 from ethangreeney/Daniel-branch
+[33mcf488a5[m Made it so that when you die, it returns you to the main menu
+[33m30b666d[m Scene name changes
+[33md41e48c[m Folder cleanup
+[33mcd7f091[m[33m ([m[1;31morigin/test-branch[m[33m)[m Dedupe resolution option list
+[33m2cd27a0[m[33m ([m[1;33mtag: v1.1[m[33m)[m Fix projectile colour in the inspector
+[33md665686[m added screenshots to readme
+[33m2ec3153[m updated readme
+[33m125c3e5[m[33m ([m[1;33mtag: v1.0[m[33m)[m Add macos, and remove linux from the build outputs
+[33mb8f0886[m Update artifact naming in Unity build workflow to use environment variable for version
+[33m5b44982[m Improve Unity build workflow with output listing and  zip path selection
+[33m356f9a3[m Merge pull request #33 from ethangreeney/Daniel-branch
+[33mb229c09[m Start menu formatting fixes and pause now doesnt stay when going back to main menu and starting game again
+[33mefa769d[m Merge pull request #32 from ethangreeney/Connor/Items
+[33m65bf171[m Certain items now change the color of the projectiles
+[33m2188f0c[m Update build output path in workflow file
+[33m9da0ad1[m fix workflow file
+[33mb6edf0e[m Merge bra

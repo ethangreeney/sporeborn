@@ -85,7 +85,7 @@ public class ShopModel : MonoBehaviour
 
                 // Get Player Active Item Slot & and set it to the purchased item
                 PlayerActivatableItem PlayerItem = player.GetComponent<PlayerActivatableItem>();
-                PlayerItem.equippedItem = CurrentItem.ItemType;
+                PlayerItem.EquipItem(PurchaseItem.ItemType);
 
                 // Set item to be visually inactive in the ShopUI
                 SetItemPurchasedUI(CurrentItem.UIReference);

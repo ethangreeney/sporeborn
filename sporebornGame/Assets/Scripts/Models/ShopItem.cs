@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [System.Serializable]
@@ -7,6 +8,7 @@ public class ShopItem
     public string Name;
     public int Cost;
     public Sprite Icon;
+    public bool Purchased;
     
     public ShopItem(ActivatableItem ItemType, string Name, int Cost, Sprite Icon)
     {
@@ -14,5 +16,7 @@ public class ShopItem
         this.Name = Name;
         this.Cost = Cost;
         this.Icon = Icon;
+
+        Purchased = false;
     }
 }

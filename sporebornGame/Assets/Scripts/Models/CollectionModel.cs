@@ -43,6 +43,9 @@ public class CollectionModel : MonoBehaviour
     [Header("Projectile Visuals")]
     public Color projectileColor = Color.clear; // Default is null (no change)
 
+    [Header("Pet Companion Settings")]
+    public GameObject petPrefab;
+
     private ItemPresenter itemPresenter;
 
     [HideInInspector]
@@ -201,6 +204,18 @@ public class CollectionModel : MonoBehaviour
             {
                 shooting.projectileColor = projectileColor;
             }
+
+            // Pet Companion logic
+            if (petPrefab != null)
+            {
+                // Just spawn the pet at the player's position
+                Instantiate(petPrefab, collision.transform.position, Quaternion.identity);
+                consumed = true;
+            }
+
+
+
+
         }
 
         // If item was actually applied
@@ -225,5 +240,6 @@ public class CollectionModel : MonoBehaviour
         {
             Debug.LogWarning("Item could not be consumed by player.");
         }
+
     }
 }

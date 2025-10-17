@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 8677511872588733302}
   - component: {fileID: 7839141121415059811}
   - component: {fileID: 7157334257128942562}
-  - component: {fileID: 6480557990179153497}
+  - component: {fileID: 6673852298510597383}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentNectar: 0
---- !u!114 &6480557990179153497
+--- !u!114 &6673852298510597383
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 621535fc7f16bfc42a5d7bb3f080b9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equippedItem: {fileID: 11400000, guid: 47621775304ce57478ff1843e08c2d12, type: 2}
+  equippedItem: {fileID: 0}
   currentCharges: 0
 --- !u!1 &6676378610104298761
 GameObject:

@@ -31,6 +31,10 @@ public class Room
     public List<int> OccupiedIndexes { get; private set; }
     public bool RoomCompleted;
     public bool itemCollected = false;
+
+    public string EntryText { get; set; }
+
+    public bool HasBeenVisited { get; set; }
      
     public GameObject assignedItemPrefab;
 
@@ -41,6 +45,8 @@ public class Room
         RoomShape = data.RoomShape;
         OccupiedIndexes = new List<int>(data.RoomIndexes);
         RoomCompleted = false;
+        EntryText = "";
+        HasBeenVisited = false;
     }
     
     public override string ToString()

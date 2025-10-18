@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class ShopModel : MonoBehaviour
@@ -7,6 +6,7 @@ public class ShopModel : MonoBehaviour
 
     [SerializeField]
     private List<ShopItem> ShopItemPool;
+    public IReadOnlyList<ShopItem> ShopPool => ShopItemPool;
 
     [SerializeField]
     private GameObject ShopItemPrefab;
@@ -58,14 +58,14 @@ public class ShopModel : MonoBehaviour
 
     public void TryPurchaseItem(ShopItem PurchaseItem, PlayerPresenter player, ShopItemUI ItemUI)
     {
+        // Return immediately if item already purchased
+        if (PurchaseItem.Purchased)
+        {
+            return;
+        }
         
         foreach (ShopItem CurrentItem in ShopInventory)
         {
-            // Return if Item has already been purchased
-            if(CurrentItem == PurchaseItem && CurrentItem.Purchased)
-            {
-                return;
-            }
             
             CurrencyModel playerWallet = player.GetComponent<CurrencyModel>();
             
@@ -97,11 +97,29 @@ public class ShopModel : MonoBehaviour
         }
 
     }
-    
+
     // Updates visuals to show player that item has been purchased
     public void SetItemPurchasedUI(ShopItemUI itemreference)
     {
+        if(itemreference == null)
+        {
+            Debug.Log("Item UI Reference has not been set");
+            return;
+        }
         itemreference.ItemHasBeenPurchased();
+    }
+    
+    // Only used for Testing - Don't use 
+    public void AddTestItem(ShopItem TestItem)
+    {
+        if (ShopItemPool == null) ShopItemPool = new List<ShopItem>();
+        if (ShopInventory == null) ShopInventory = new List<ShopItem>();
+        
+        ShopItemPool.Clear();
+        ShopItemPool.Add(TestItem);
+
+        ShopInventory.Clear();
+        ShopInventory.Add(TestItem);
     }
     
 

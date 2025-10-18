@@ -1,7 +1,9 @@
 using System.Collections;
 using NUnit.Framework;
-using UnityEngine;
 using UnityEngine.TestTools;
+using System.Linq;
+using UnityEngine;
+
 
 [TestFixture]
 public class ShopTestsTDD
@@ -16,17 +18,23 @@ public class ShopTestsTDD
     [SetUp]
     public void Setup()
     {
-        Assert.Fail("Not implemented yet — TDD placeholder");
-        // Create a test Shop
-        // GameObject ShopObject = new GameObject();
-        // TestShop = ShopObject.AddComponent<ShopModel>(); 
-        // // Setting up a test player
-        // TestPlayer = new GameObject();
-        // playerPresenter = TestPlayer.AddComponent<PlayerPresenter>(); 
-        // PlayerCurrency = TestPlayer.AddComponent<CurrencyModel>(); 
+        // Shop
+        GameObject ShopObject = new GameObject();
+        TestShop = ShopObject.AddComponent<ShopModel>();
 
-        // // Create a Test Item
-        // TestItem = new ShopItem(null, "Test Item", 10, null);
+        // Player
+        TestPlayer = new GameObject();
+        playerPresenter = TestPlayer.AddComponent<PlayerPresenter>();
+        PlayerCurrency = TestPlayer.AddComponent<CurrencyModel>();
+        TestPlayer.AddComponent<PlayerActivatableItem>();
+
+        // Test Activatable Item
+        ActivatableItem testActivatableItem = ScriptableObject.CreateInstance<ActivatableItem>();
+        
+        TestItem = new ShopItem(testActivatableItem, "Test Item", 10, null);
+
+        // Add test item to shop inventory and pool
+        TestShop.AddTestItem(TestItem);
 
     }
 
@@ -34,72 +42,77 @@ public class ShopTestsTDD
     [Test]
     public void PlayerBuysItem_EnoughMoney()
     {
-        Assert.Fail("Not implemented yet — TDD placeholder");
-        // TestContext.WriteLine("Running test: PlayerBuysItem_EnoughMoney");
+        TestContext.WriteLine("Running test: PlayerBuysItem_EnoughMoney");
 
-        // // Player has enough money to purchase item
-        // PlayerCurrency.AddCurrency(10);
+        // Player has enough money to purchase item
+        PlayerCurrency.AddCurrency(10);
 
-        // // Tries to purchase item passing through a test item and Player
-        // TestShop.TryPurchaseItem(TestItem, TestPlayer);
+        // Tries to purchase item passing through a test item and Player
+        TestShop.TryPurchaseItem(TestItem, playerPresenter, null);
 
-        // Assert.AreEqual(0, PlayerCurrency.GetCurrentNectar(), "Player's currency should be deducted by the correct amount");
+        Assert.AreEqual(0, PlayerCurrency.GetCurrentNectar(), "Player's currency should be deducted by the correct amount");
 
-        // // Player Should have Item in their inventory
-        // bool HasItem = TestPlayer.collected.contains();
-        // Assert.IsTrue(HasItem, "Checking that item has been added to players Inventory");
+        // Player Should have Item in their inventory
+        PlayerActivatableItem PlayerItem = playerPresenter.GetComponent<PlayerActivatableItem>();
+
+        // Passes if Player item is not null && has been added to their equipped item slot
+        bool HasItem = PlayerItem.equippedItem != null && PlayerItem.equippedItem == TestItem.ItemType;
+        Assert.IsTrue(HasItem, "Checking that item has been added to the player's Equipped Item Slot");
     }
 
     [Test]
     public void PlayerBuysItem_NotEnoughMoney()
     {
-        Assert.Fail("Not implemented yet — TDD placeholder");
-        // TestContext.WriteLine("Running test: PlayerBuysItem_NotEnoughMoney");
+        TestContext.WriteLine("Running test: PlayerBuysItem_NotEnoughMoney");
 
-        // // Player doesn't have enough money they shouldn't get that item
-        // PlayerCurrency.AddCurrency(2);
+        // Player doesn't have enough money they shouldn't get that item
+        PlayerCurrency.AddCurrency(2);
 
-        // // Tries to purchase item passing through a test item and Player
-        // TestShop.TryPurchaseItem(TestItem, TestPlayer);
+        // Tries to purchase item passing through a test item and Player
+        TestShop.TryPurchaseItem(TestItem, playerPresenter, null);
 
-        // Assert.AreEqual(2, PlayerCurrency.GetCurrentNectar(), "Player's currency shouldn't be deducted, insufficient funds to purchase item");
+        Assert.AreEqual(2, PlayerCurrency.GetCurrentNectar(), "Player's currency shouldn't be deducted, insufficient funds to purchase item");
 
-        // // Player Should have Item in their inventory
-        // bool HasItem = TestPlayer.collected.contains();
-        // Assert.IsFalse(HasItem, "Checking that item has not been added to players Inventory");
+        // Player Should have Item in their inventory
+        PlayerActivatableItem PlayerItem = playerPresenter.GetComponent<PlayerActivatableItem>();
+
+        // Passes if Player item is null - meaning nothing has been equipped
+        bool HasItem = PlayerItem.equippedItem == null;
+        Assert.IsTrue(HasItem, "Checking that item has not been added to the player's Equipped Item Slot");
 
     }
 
     [Test]
-    public void ItemRemovedFromShopsInventory()
+    public void ItemHasBeenPurchased()
     {
+        TestContext.WriteLine("Running test: ItemHasBeenPurchased");
 
-        Assert.Fail("Not implemented yet — TDD placeholder");
-        // TestContext.WriteLine("Running test: ItemRemovedFromShopsInventory");
+        // Add currency
+        PlayerCurrency.AddCurrency(10);
 
-        // // Tries to purchase item
-        // PlayerCurrency.AddCurrency(10);
-        // //TestShop.TryPurchaseItem(TestItem, TestPlayer);
+        // Purchase an item
+        TestShop.TryPurchaseItem(TestItem, playerPresenter, null);
 
-        // // After purchase complete Shop's Inventory has removed that item
-        // bool HasItem = TestShop.ShopStock.contains(TestItem);
-        // Assert.IsFalse(HasItem, "Checking that item has been removed from Shop's Inventory");
+        // After purchase complete Shop's Inventory has removed that item
+        bool HasItem = TestItem.Purchased;
+        Assert.IsTrue(HasItem, "Checking that item has been marked as purchased");
     }
 
 
     [Test]
     public void ItemRemovedFromShopsItemPool()
     {
-        Assert.Fail("Not implemented yet — TDD placeholder");
-        // TestContext.WriteLine("Running test: ItemRemovedFromShopsItemPool");
+        TestContext.WriteLine("Running test: ItemRemovedFromShopsItemPool");
 
-        // // Tries to purchase item
-        // PlayerCurrency.AddCurrency(10);
-        // //TestShop.TryPurchaseItem(TestItem, TestPlayer);
+        // Tries to purchase item
+        PlayerCurrency.AddCurrency(10);
+        
+        // Purchase an item
+        TestShop.TryPurchaseItem(TestItem, playerPresenter, null);
 
-        // // After purchase complete Shop Item Pool has removed that item for future levels
-        // bool HasItem = TestShop.ItemPool.contains(TestItem);
-        // Assert.IsFalse(HasItem, "Checking that item has been removed from the Shop Item Pool");
+        // After purchase complete Shop Item Pool has removed that item for future levels
+        bool HasItem = TestShop.ShopPool.Contains(TestItem);
+        Assert.IsFalse(HasItem, "Checking that item has been removed from the Shop Item Pool");
 
     }
 

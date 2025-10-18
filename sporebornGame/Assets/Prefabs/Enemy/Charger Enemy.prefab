@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 9139864793608251189}
   - component: {fileID: 7743396633691390868}
   - component: {fileID: 1055614488045990630}
+  - component: {fileID: 1271854268048097427}
   m_Layer: 11
   m_Name: Charger Enemy
   m_TagString: Untagged
@@ -218,8 +219,9 @@ MonoBehaviour:
   EnemyList: []
   BossList: []
   PortalPrefab: {fileID: 0}
-  HeartPrefab: {fileID: 0}
-  heartDropChance: 0.15
+  EnemyDrops: []
+  ItemDropBucket: []
+  ItemSpawnChance: 0.5
 --- !u!114 &1055614488045990630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,6 +251,21 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &1271854268048097427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2093568075230264680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 659411860a84c0b48b66869824c76cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 9139864793608251189}
+  animator: {fileID: 0}
+  spriteRenderer: {fileID: 0}
 --- !u!1 &3479623215257875891
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,8 +429,8 @@ SpriteRenderer:
   m_SortingLayerID: 2041154009
   m_SortingLayer: 4
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7482667652216324306, guid: 1ee1e8ff0e50b46f692fbd7041265873, type: 3}
-  m_Color: {r: 0.9245283, g: 0.004360993, b: 0.004360993, a: 1}
+  m_Sprite: {fileID: 879011417, guid: a9091de591e7b9046b78b08cc26d3db5, type: 3}
+  m_Color: {r: 0.9716981, g: 0.9716981, b: 0.9716981, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

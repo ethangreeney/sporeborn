@@ -35,7 +35,7 @@ public class EnemyPresenter : MonoBehaviour
     System.Random rng;
     
 
-    void Start()
+    void Awake()
     {
         map = FindFirstObjectByType<MapPresenter>();
         rng = new System.Random();
@@ -200,6 +200,12 @@ public class EnemyPresenter : MonoBehaviour
     // Destroys all items dropped by Enemies
     public void DestroyAllItems()
     {
+        // No Items in room
+        if(ActiveDrops.Count == 0 || ActiveDrops == null)
+        {
+            return;
+        }
+        
         foreach (GameObject drop in ActiveDrops)
         {
             Destroy(drop);

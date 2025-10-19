@@ -38,7 +38,7 @@ public class StatsDisplayPresenter : MonoBehaviour
         UpdateDisplay();
     }
 
-    void UpdateDisplay()
+    public void UpdateDisplay()
     {
         // Speed
         if (playerStats.IsMoveSpeedModified())

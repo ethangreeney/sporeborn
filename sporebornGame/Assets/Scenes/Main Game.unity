@@ -6664,7 +6664,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8944007330051500187, guid: dcac9c433255efd45b58f1597f76583d, type: 3}
       propertyPath: m_CropFrame
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8944007330051500187, guid: dcac9c433255efd45b58f1597f76583d, type: 3}
       propertyPath: m_GridSnapping

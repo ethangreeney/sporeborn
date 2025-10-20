@@ -1,7 +1,6 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.Linq;
 
 public class EnemyPresenter : MonoBehaviour
 {
@@ -19,43 +18,44 @@ public class EnemyPresenter : MonoBehaviour
     public GameObject PortalPrefab;
     private GameObject activePortal;
 
-    public GameObject HeartPrefab;
-    public float heartDropChance = 0.15f;
 
-    // Track active hearts in current room
-    private List<GameObject> activeHearts = new List<GameObject>();
+    // List of Enemy Drops - Drag Prefabs into in unity
+    public List<GameObject> EnemyDrops;
 
-    // Store heart positions for respawning
-    private Dictionary<int, List<Vector3>> roomHeartPositions = new Dictionary<int, List<Vector3>>();
+    // Keeps track of active drops per room
+    private List<GameObject> ActiveDrops;
+
+    // Distribution for the drops 
+    public List<GameObject> ItemDropBucket;
+
+    // Change of an enemy dropping an item 
+    public double ItemSpawnChance = 0.5;
 
     // Generate random numbers
     System.Random rng;
+    
 
-    void Start()
+    void Awake()
     {
         map = FindFirstObjectByType<MapPresenter>();
         rng = new System.Random();
+
+        // Creates list to track Enemy Drops in Scene
+        ActiveDrops = new List<GameObject>();
+
+        // Create a distribution of items that will spawn
+        GameObject Nectar = EnemyDrops[0];
+        GameObject Heart = EnemyDrops[1];
+        // Refills everytime its empty - creates more fair randomness
+        ItemDropBucket = new List<GameObject> { Heart, Heart, Nectar, Nectar, Nectar, Nectar};
     }
 
     public void EnemyDies(Vector3 deathPosition)
     {
         EnemiesInScene--;
 
-        if (HeartPrefab != null && Random.value < heartDropChance)
-        {
-            GameObject heart = Instantiate(HeartPrefab, deathPosition, Quaternion.identity);
-            HeartData heartData = heart.GetComponent<HeartData>();
-            if (heartData == null)
-                heartData = heart.AddComponent<HeartData>();
-            heartData.roomOriginIndex = map.CurrentPlayerRoom.OriginIndex;
-            activeHearts.Add(heart);
-
-            // Save position for respawn
-            int roomIndex = map.CurrentPlayerRoom.OriginIndex;
-            if (!roomHeartPositions.ContainsKey(roomIndex))
-                roomHeartPositions[roomIndex] = new List<Vector3>();
-            roomHeartPositions[roomIndex].Add(deathPosition);
-        }
+        // Spawn Loot Item upon enemy death
+        SpawnItem(deathPosition);
 
         // Unlocks door once all enemies/boss is defeated
         if (EnemiesInScene == 0)
@@ -85,35 +85,6 @@ public class EnemyPresenter : MonoBehaviour
                 {
                     Debug.LogWarning("PortalPrefab is not assigned in the EnemyPresenter.");
                 }
-            }
-        }
-    }
-
-    // Clear hearts when leaving room
-    public void ClearHearts()
-    {
-        foreach (var heart in activeHearts)
-        {
-            if (heart != null)
-                Destroy(heart);
-        }
-        activeHearts.Clear();
-    }
-
-    // Spawn hearts when entering room
-    public void SpawnHeartsInRoom(Room room)
-    {
-        int roomIndex = room.OriginIndex;
-        if (roomHeartPositions.ContainsKey(roomIndex))
-        {
-            foreach (var pos in roomHeartPositions[roomIndex])
-            {
-                GameObject heart = Instantiate(HeartPrefab, pos, Quaternion.identity);
-                HeartData heartData = heart.GetComponent<HeartData>();
-                if (heartData == null)
-                    heartData = heart.AddComponent<HeartData>();
-                heartData.roomOriginIndex = roomIndex;
-                activeHearts.Add(heart);
             }
         }
     }
@@ -193,25 +164,63 @@ public class EnemyPresenter : MonoBehaviour
         }
     }
 
-    public void OnHeartCollected(GameObject heart)
+
+    // Handles All enemy drops ------------------------------------------------------------------
+
+    // Triggered on enemy death
+    public void SpawnItem(Vector3 EnemyPosition)
     {
-        HeartData heartData = heart.GetComponent<HeartData>();
-        if (heartData != null)
+        // Chance to fail to spawn item
+        if(rng.NextDouble() < ItemSpawnChance)
         {
-            int roomIndex = heartData.roomOriginIndex;
-            Vector3 pos = heart.transform.position;
-            if (roomHeartPositions.ContainsKey(roomIndex))
-            {
-                var list = roomHeartPositions[roomIndex];
-                list.RemoveAll(p => Vector3.Distance(p, pos) < 0.1f);
-            }
+            return;
         }
-        activeHearts.Remove(heart);
+
+        // Refill Item Bucket if empty
+        if (ItemDropBucket.Count == 0)
+        {
+            RefillItemBucket();
+        }
+
+        // Picks a RandomItem from ItemBucket
+        GameObject RandomEnemyDrop = ItemDropBucket[rng.Next(0, ItemDropBucket.Count)];
+        ItemDropBucket.Remove(RandomEnemyDrop);
+
+        // Adds to list of active items 
+        ActiveDrops.Add(Instantiate(RandomEnemyDrop, EnemyPosition, Quaternion.identity));
     }
 
-    public void ResetHearts()
+    // Destroys Specific item
+    public void DestroyItem(GameObject CurrentDrop)
     {
-        roomHeartPositions.Clear();
-        ClearHearts();
+        Destroy(CurrentDrop);
+        ActiveDrops.Remove(CurrentDrop);
     }
+
+    // Destroys all items dropped by Enemies
+    public void DestroyAllItems()
+    {
+        // No Items in room
+        if(ActiveDrops.Count == 0 || ActiveDrops == null)
+        {
+            return;
+        }
+        
+        foreach (GameObject drop in ActiveDrops)
+        {
+            Destroy(drop);
+        }
+        ActiveDrops.Clear();
+    }
+
+
+    // After all items are spawned then creates a new bucket of same distribution to create more reliable randomness
+    // This means that the player can't be super unlucky and only get one type of item for an extended time
+    public void RefillItemBucket()
+    {
+        GameObject Nectar = EnemyDrops[0];
+        GameObject Heart = EnemyDrops[1];
+        ItemDropBucket = new List<GameObject> { Heart, Heart, Nectar, Nectar, Nectar, Nectar};
+    }
+
 }

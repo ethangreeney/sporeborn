@@ -14,7 +14,7 @@ public class MapPresenter : MonoBehaviour
     [Header("Room Prefabs")]
     public List<GameObject> RoomPrefabs;
 
-    [Header("Player")]
+    [Header("Active Player Instance")]
     public GameObject Player;
 
     [Header("GridSize")]
@@ -44,6 +44,55 @@ public class MapPresenter : MonoBehaviour
     // Reference to spawn in GameObjects when entering a new room
     private EnemyPresenter enemyPresenter;
     private ItemPresenter itemPresenter;
+    private ShopPresenter shopPresenter;
+
+    // Decides when to render shop
+    private bool WasInShopRoom = false;
+
+    private RoomTextPresenter roomTextPresenter;
+
+    private bool isFirstRoom = true;
+
+    private List<string> regularRoomTexts = new List<string>
+    {
+        "The air is still and heavy.",
+        "Faint scratches mark the stone floor.",
+        "A faint, mossy smell lingers here.",
+        "The silence in this room is deafening.",
+        "You feel an unseen presence.",
+        "A sudden, cold draft cuts through the stale air",
+        "Intricate cobwebs, thick as shrouds, cling to the corners.",
+        "Dust motes dance in a solitary beam of light from above.",
+        "Danger lies ahead...",
+        "Faded carvings on the walls hint at a long-forgotten purpose"
+    };
+
+    private List<string> shopRoomTexts = new List<string>
+    {
+        "A place to trade.",
+        "Goods and wares, for a price.",
+        "Fancy a trade? Step right in.",
+        "I wonder what you're gonna buy?",
+        "An unlikely shop in an unlikely place."
+    };
+
+    private List<string> bossRoomTexts = new List<string>
+    {
+        "The air crackles with malevolent energy",
+        "A deep, guttural sound echoes from the darkness ahead.",
+        "There is no turning back now.",
+        "A sense of dread fills the air...",
+        "Destiny awaits."
+    };
+    
+    private List<string> itemRoomTexts = new List<string>
+    {
+        "You feel the pull of a powerful artifact nearby.",
+        "A hidden treasure lies within.",
+        "Something of great value is protected here",
+        "A gift!!!",
+        "A glint of forgotten power catches your eye."
+    };
 
     void Start()
     {
@@ -59,18 +108,23 @@ public class MapPresenter : MonoBehaviour
 
         // Generates the first room
         StarterRoom = FindRoom(model.GetStartingRoomIndex);
+        StarterRoom.HasBeenVisited = true;
 
         // Location for centre of the OneByOne Room
         Player.transform.SetParent(null); // temp
 
-        // Gets the current Enemy Presenter
+        // Gets Presenters
         enemyPresenter = FindFirstObjectByType<EnemyPresenter>();
         itemPresenter = FindFirstObjectByType<ItemPresenter>();
+        shopPresenter = FindFirstObjectByType<ShopPresenter>();
+        roomTextPresenter = FindFirstObjectByType<RoomTextPresenter>();
+
         // Build the starter room
         BuildRoom(StarterRoom, null);
 
+        // Destroy Active entities in scene upon start
         enemyPresenter.RemovePortal();
-        enemyPresenter.ResetHearts();
+        enemyPresenter.DestroyAllItems();
     }
     
     public void ResetMap()
@@ -117,8 +171,8 @@ public class MapPresenter : MonoBehaviour
         itemPresenter.RemoveItemFromRoom();
 
         enemyPresenter.RemovePortal();
-
-        enemyPresenter.ClearHearts();
+        enemyPresenter.DestroyAllItems();
+        
         // Reset the room prefab
         CurrentRoomPrefab = null;
         // Destroy the previous Room
@@ -127,6 +181,18 @@ public class MapPresenter : MonoBehaviour
             Destroy(ActiveRoomInstance);
         }
 
+        if (!isFirstRoom)
+        {
+            if (!RoomToSpawn.HasBeenVisited)
+            {
+                AssignEntryText(RoomToSpawn);
+                roomTextPresenter.ShowRoomText(RoomToSpawn.EntryText);
+                RoomToSpawn.HasBeenVisited = true;
+            }
+        }   
+        isFirstRoom = false;
+
+        
         // Place room
         string RoomName = RoomToSpawn.RoomShape + "_" + RoomToSpawn.RoomType;
 
@@ -170,6 +236,18 @@ public class MapPresenter : MonoBehaviour
 
         // Determinds what should spawn based on room type
         PlaceEntities(CurrentPlayerRoom);
+
+        // Activates Shop if player enters the Shop Room
+        if(CurrentPlayerRoom.RoomType == RoomType.Shop && !WasInShopRoom)
+        {
+            shopPresenter.PlayerEntersShop();
+            WasInShopRoom = true;
+        }
+        else if (CurrentPlayerRoom.RoomType != RoomType.Shop && WasInShopRoom)
+        {
+            shopPresenter.PlayerLeavesShopRoom();
+            WasInShopRoom = false;
+        }
     }
 
     public Vector3 CalculateSpawnOffset(Door EnterDoor)
@@ -314,8 +392,9 @@ public class MapPresenter : MonoBehaviour
     public void RoomCompleted()
     {
         CurrentPlayerRoom.RoomCompleted = true;
-        
-    // if the room is a boss room, play normal music
+        AddActivatableItemChargeToPlayer(CurrentPlayerRoom);
+
+        // if the room is a boss room, play normal music
         if (CurrentPlayerRoom.RoomType == RoomType.Boss && SoundManager.instance != null)
         {
             SoundManager.instance.BossDefeated();
@@ -364,13 +443,62 @@ public class MapPresenter : MonoBehaviour
             enemyPresenter.SpawnPortal();
         }
 
-        enemyPresenter.SpawnHeartsInRoom(CurrentRoom);
-
-
-
-
     }
-    
+
+    private void AddActivatableItemChargeToPlayer(Room CurrentRoom)
+    {
+        if (Player != null)
+        {
+            var activatable = Player.GetComponent<PlayerActivatableItem>();
+            if (activatable != null)
+            {
+                if (CurrentRoom.RoomType == RoomType.Boss)
+                {
+                    activatable.AddCharge(5);
+                    return;
+                }
+                activatable.AddCharge(1);
+            }
+        }
+    }
+
+     private void AssignEntryText(Room room)
+    {
+        string text = "";
+        switch (room.RoomType)
+        {
+            case RoomType.Boss:
+                 if (bossRoomTexts.Count > 0)
+                {
+                    int randomIndex = Random.Range(0, bossRoomTexts.Count);
+                    text = bossRoomTexts[randomIndex];
+                }
+                break;
+            case RoomType.Item:
+                 if (itemRoomTexts.Count > 0)
+                {
+                    int randomIndex = Random.Range(0, itemRoomTexts.Count);
+                    text = itemRoomTexts[randomIndex];
+                }
+                break;
+            case RoomType.Shop:
+                if (shopRoomTexts.Count > 0)
+                {
+                    int randomIndex = Random.Range(0, shopRoomTexts.Count);
+                    text = shopRoomTexts[randomIndex];
+                }
+                break;
+            case RoomType.Regular:
+                if (regularRoomTexts.Count > 0)
+                {
+                    int randomIndex = Random.Range(0, regularRoomTexts.Count);
+                    text = regularRoomTexts[randomIndex];
+                }
+                break;
+        }
+        room.EntryText = text;
+    }
+
 
 
 }

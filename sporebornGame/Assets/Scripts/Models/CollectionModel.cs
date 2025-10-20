@@ -6,94 +6,77 @@ public class Item
     public string itemName;
     public string itemDescription;
     public Sprite itemIcon;
-
 }
 
 public class CollectionModel : MonoBehaviour
 {
     [Header("Item Settings")]
-    public Item item; //- setting the sprite to the prefab works better - Benjamin
-    // Reintroduced this item field for the inventory - Ethan   
+    public Item item;
 
     [Header("Player Stat Changes")]
     public float healthChange;
-    public float maxHealthFlatIncrease = 2f; // Amount to increase max health by
+    public float maxHealthFlatIncrease = 2f;
     public float moveSpeedChange;
     public float fireDelayChange;
     public float bulletSpeedChange;
     public float bulletDamageChange;
     public float projectileSizeChange;
-    public float damageBonus = 0f; // e.g., 0.5 = +50% damage
-
-
+    public float damageBonus = 0f;
 
     [Header("Projectile Type Settings")]
-    public bool homingEnabled = false;
-    public float homingStrength; // how fast bullets turn toward targets
-    public int extraProjectiles = 0;      // e.g., Triple Shot = 2 extra
-    public float extraSpreadAngle = 0f;   // spread per bullet
-    public bool rubberEnabled = false;
-    public int rubberBounces; // how many times bullets bounce off walls
+    public bool homingEnabled;
+    public float homingStrength;
+    public int extraProjectiles;
+    public float extraSpreadAngle;
+    public bool rubberEnabled;
+    public int rubberBounces;
 
     [Header("Slow Effect Settings")]
-    public bool slowOnHitEnabled = false; // Does this item enable slow on hit?
-    public float slowMultiplier = 0.5f;   // e.g., 0.5 = 50% speed
-    public float slowDuration = 1f;       // Duration in seconds
+    public bool slowOnHitEnabled;
+    public float slowMultiplier = 0.5f;
+    public float slowDuration = 1f;
 
     [Header("Projectile Visuals")]
-    public Color projectileColor = Color.clear; // Default is null (no change)
+    public Color projectileColor = Color.clear;
 
+    [HideInInspector] public Room room;
     private ItemPresenter itemPresenter;
 
-    [HideInInspector]
-    public Room room; // Set this when spawning the item
-
-    private void Start()
+    void Start()
     {
-        var oldCollider = GetComponent<PolygonCollider2D>();
-        if (oldCollider != null) Destroy(oldCollider);
+        if (GetComponent<PolygonCollider2D>() is var oldCollider && oldCollider)
+            Destroy(oldCollider);
 
-        var col = gameObject.AddComponent<PolygonCollider2D>();
-        col.isTrigger = true;
-
-        // Reference to Presenter
+        gameObject.AddComponent<PolygonCollider2D>().isTrigger = true;
         itemPresenter = FindFirstObjectByType<ItemPresenter>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Player")) return;
 
-        // Handle hearts separately
-        var heartData = GetComponent<HeartData>();
-        if (heartData != null)
+        if (GetComponent<HeartData>())
         {
             var playerHealth = collision.GetComponent<HealthModel>();
-            if (playerHealth != null && healthChange != 0 && playerHealth.currHealth < playerHealth.maxHealth)
-            {
-                playerHealth.Health(healthChange);
-                FindFirstObjectByType<EnemyPresenter>()?.OnHeartCollected(gameObject);
-                Destroy(gameObject);
-            }
+            if (playerHealth && healthChange != 0 && playerHealth.currHealth < playerHealth.maxHealth)
+                playerHealth.Heal(healthChange);
             return;
         }
 
-        // Get all components once
-        var health = collision.GetComponent<HealthModel>();
         var movement = collision.GetComponent<PlayerMovement>();
         var shooting = collision.GetComponent<PlayerShootingPresenter>();
         var stats = collision.GetComponent<PlayerStats>();
+        var health = collision.GetComponent<HealthModel>();
+
         bool consumed = false;
 
-        // Max health increase
-        if (health && maxHealthFlatIncrease != 0f)
+        if (health && maxHealthFlatIncrease != 0)
         {
             health.maxHealth += maxHealthFlatIncrease;
-            health.Health(maxHealthFlatIncrease);
+            health.Heal(maxHealthFlatIncrease);
             consumed = true;
         }
 
-        // Movement speed
         if (movement && moveSpeedChange != 0)
         {
             movement.moveSpeed = Mathf.Max(0.1f, movement.moveSpeed + moveSpeedChange);
@@ -171,19 +154,15 @@ public class CollectionModel : MonoBehaviour
             }
 
             if (projectileColor != Color.clear)
-            {
                 shooting.projectileColor = projectileColor;
-            }
         }
 
-        // Notify stats changed once
         stats?.NotifyStatsChanged();
 
-        // Cleanup
         if (consumed)
         {
             collision.GetComponent<PlayerInventory>()?.AddItem(item);
-            if (room != null) itemPresenter.NotifyItemCollected(room);
+            if (room != null) itemPresenter?.NotifyItemCollected(room);
             Destroy(gameObject);
         }
     }

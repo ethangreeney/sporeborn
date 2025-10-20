@@ -1,33 +1,50 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
+using System;
 
 public class PlayerPresenter : MonoBehaviour
 {
-    [SerializeField] private HealthModel health;
-    [SerializeField] private SpriteRenderer spriteRenderer;
-    // invulnDuration and hitFlashDuration are time periods in seconds. 0.3f -> 300ms
+    public HealthModel health;
+    public SpriteRenderer spriteRenderer;
+    public SpriteRenderer forcefieldRenderer;
     [SerializeField] private float invulnDuration = 0.3f;
     [SerializeField] private float hitFlashDuration = 0.1f;
 
-    private bool invuln;
     private bool isDead;
-    private PlayerShootingPresenter shooting;
+    private bool invulnFromDamage;
+    private bool invulnFromForcefield;
+    private Rigidbody2D rb;
+
+    public static event Action OnPlayerDied;
 
     void Awake()
     {
-        shooting = GetComponent<PlayerShootingPresenter>();
-        health.maxHealth = DifficultyManager.Instance.PlayerMaxHealth;
-        health.currHealth = health.maxHealth;
+        rb = GetComponent<Rigidbody2D>();
+        if (forcefieldRenderer != null)
+            forcefieldRenderer.enabled = false;
+
+        if (DifficultyManager.Instance)
+        {
+            health.maxHealth = DifficultyManager.Instance.PlayerMaxHealth;
+            health.currHealth = health.maxHealth;
+        }
+    }
+
+    public void SetInvulnerable(bool value)
+    {
+        invulnFromForcefield = value;
+        if (forcefieldRenderer != null)
+            forcefieldRenderer.enabled = value;
     }
 
     public void TakeDamage(int amount)
     {
-        if (isDead || invuln)
+        if (isDead || invulnFromDamage || invulnFromForcefield)
             return;
 
         health.Damage(amount);
         StartCoroutine(HitFlash());
+
         if (health.currHealth <= 0)
         {
             Die();
@@ -39,9 +56,9 @@ public class PlayerPresenter : MonoBehaviour
 
     IEnumerator Invuln()
     {
-        invuln = true;
+        invulnFromDamage = true;
         yield return new WaitForSeconds(invulnDuration);
-        invuln = false;
+        invulnFromDamage = false;
     }
 
     IEnumerator HitFlash()
@@ -54,7 +71,22 @@ public class PlayerPresenter : MonoBehaviour
 
     void Die()
     {
+        if (isDead) return;
         isDead = true;
-        SceneManager.LoadScene("Start Menu");
+
+        foreach (var c in GetComponentsInChildren<Collider2D>())
+            c.enabled = false;
+        if (rb)
+            rb.simulated = false;
+
+        var move = GetComponent<Player>();
+        if (move)
+            move.enabled = false;
+
+        var shoot = GetComponent<PlayerShootingPresenter>();
+        if (shoot)
+            shoot.enabled = false;
+
+        OnPlayerDied?.Invoke();
     }
 }

@@ -52,7 +52,7 @@ public class ShopTestsTDD
 
         Assert.AreEqual(0, PlayerCurrency.GetCurrentNectar(), "Player's currency should be deducted by the correct amount");
 
-        // Player Should have Item in their inventory
+        // Player should have Item in their inventory
         PlayerActivatableItem PlayerItem = playerPresenter.GetComponent<PlayerActivatableItem>();
 
         // Passes if Player item is not null && has been added to their equipped item slot
@@ -73,7 +73,7 @@ public class ShopTestsTDD
 
         Assert.AreEqual(2, PlayerCurrency.GetCurrentNectar(), "Player's currency shouldn't be deducted, insufficient funds to purchase item");
 
-        // Player Should have Item in their inventory
+        // Player should not have Item in their inventory
         PlayerActivatableItem PlayerItem = playerPresenter.GetComponent<PlayerActivatableItem>();
 
         // Passes if Player item is null - meaning nothing has been equipped

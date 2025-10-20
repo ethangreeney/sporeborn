@@ -25,8 +25,14 @@ public class FinalBossController : MonoBehaviour
     private float _rangedTimer;
 
     [Header("Shield Visual (Phase 2)")]
-    public GameObject shieldVisual;                 // Blue shield overlay
-    public SpriteRenderer bodyRenderer;             // Optional tint
+    [Tooltip("forcefield.png. A child SpriteRenderer will be created and only enabled during Phase 2.")]
+    public Sprite shieldSprite;
+    [Tooltip("Sorting order difference above the boss body.")]
+    public int shieldOrderOffset = 5;
+    [Tooltip("Initial scale of the shield child.")]
+    public float shieldInitialScale = 1f;
+    [Tooltip("Initial local offset of the shield child.")]
+    public Vector2 shieldInitialOffset = Vector2.zero;
 
     [Header("Spawner (Phase 2)")]
     [Tooltip("Assign BossMinionSpawner (expects: void SpawnWave(); bool HasActiveMinions {get;})")]
@@ -59,7 +65,6 @@ public class FinalBossController : MonoBehaviour
     private float _phase2LockedHP;
     private float _phase2CheckDelay;
     private bool  _phase2FallbackArmed;
-    private Color _defaultTint = Color.white;
 
     // Movement/target
     private Transform _player;
@@ -82,6 +87,10 @@ public class FinalBossController : MonoBehaviour
     private P3State _p3State = P3State.Idle;
     private float _p3Timer;
 
+    // Shield (child so we can scale independently)
+    private SpriteRenderer _shieldRenderer;
+    private Transform _shieldTransform;
+
     // ---- Public read-only ----
     public int CurrentHP => healthModel ? Mathf.RoundToInt(healthModel.currHealth) : 0;
     public int MaxHP => healthModel ? Mathf.RoundToInt(healthModel.maxHealth) : 0;
@@ -95,9 +104,6 @@ public class FinalBossController : MonoBehaviour
         _dest = GetComponent<AIDestinationSetter>();
         _rb   = GetComponent<Rigidbody2D>();
 
-        if (!bodyRenderer) bodyRenderer = GetComponentInChildren<SpriteRenderer>();
-        if (bodyRenderer)  _defaultTint = bodyRenderer.color;
-
         if (_dest && _dest.target == null)
         {
             var p = GameObject.FindWithTag(playerTag);
@@ -107,9 +113,7 @@ public class FinalBossController : MonoBehaviour
 
         if (_ai)
         {
-            // Match ChargerController important defaults for 2D
             _ai.updateRotation = false;
-
             _origMaxSpeed                = _ai.maxSpeed;
             _origSlowWhenNotFacingTarget = _ai.slowWhenNotFacingTarget;
             _origPickNextWaypointDist    = _ai.pickNextWaypointDist;
@@ -129,6 +133,8 @@ public class FinalBossController : MonoBehaviour
 
         if (!healthModel)
             Debug.LogError("[Boss] FinalBossController requires a HealthModel on the same GameObject.", this);
+
+        SetupShieldChild();
     }
 
     private void OnEnable()
@@ -170,7 +176,6 @@ public class FinalBossController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Like the charger: no drift while winding up or recovering
         if (_phase == Phase.Phase3_Charge && (_p3State == P3State.Windup || _p3State == P3State.Recover))
         {
             _rb.linearVelocity = Vector2.zero;
@@ -179,7 +184,6 @@ public class FinalBossController : MonoBehaviour
 
     private void LateUpdate()
     {
-        // Lock Z so interpolation doesn’t drift out of 2D plane
         var p = transform.position;
         if (Mathf.Abs(p.z - _zLock) > 0.0001f)
             transform.position = new Vector3(p.x, p.y, _zLock);
@@ -214,11 +218,9 @@ public class FinalBossController : MonoBehaviour
     {
         _phase = Phase.Phase1; onPhaseChanged?.Invoke(_phase);
         _invulnerable = false;
-        if (shieldVisual) shieldVisual.SetActive(false);
-        if (bodyRenderer) bodyRenderer.color = _defaultTint;
+        if (_shieldRenderer) _shieldRenderer.enabled = false; // hide shield
         _rangedTimer = 0f;
 
-        // Ensure we are unfrozen for normal chase
         _rb.constraints = _origConstraints;
 
         Debug.Log("[Boss] Phase 1: Chase (contact damage handled by Player)");
@@ -230,8 +232,8 @@ public class FinalBossController : MonoBehaviour
         _phase = Phase.Phase2_ShieldRanged; onPhaseChanged?.Invoke(_phase);
         _invulnerable = true;
         _phase2LockedHP = healthModel ? healthModel.currHealth : 0f;
-        if (shieldVisual) shieldVisual.SetActive(true);
-        if (bodyRenderer) bodyRenderer.color = new Color(0.65f, 0.85f, 1f); // light blue
+
+        if (_shieldRenderer) _shieldRenderer.enabled = true;  // show shield
         _rangedTimer = 0f;
 
         // Freeze position (X & Y) but leave A* untouched
@@ -244,11 +246,9 @@ public class FinalBossController : MonoBehaviour
 
         if (minionSpawner)
         {
-            // Spawn minions
             var m = minionSpawner.GetType().GetMethod("SpawnWave");
             if (m != null) m.Invoke(minionSpawner, null);
 
-            // If the spawner doesn't expose HasActiveMinions and you opted in, arm a fallback
             var p = minionSpawner.GetType().GetProperty("HasActiveMinions");
             if (p == null && phase2AutoAdvanceWithoutSpawner && !_phase2FallbackArmed)
             {
@@ -267,7 +267,6 @@ public class FinalBossController : MonoBehaviour
 
     private void TickPhase2_Ranged()
     {
-        // Wait a short grace so minions can initialize HasActiveMinions correctly
         if (_phase2CheckDelay > 0f)
         {
             _phase2CheckDelay -= Time.deltaTime;
@@ -275,7 +274,6 @@ public class FinalBossController : MonoBehaviour
             return;
         }
 
-        // Advance to Phase 3 only when all minions are gone (or fallback timer fires)
         if (minionSpawner)
         {
             var p = minionSpawner.GetType().GetProperty("HasActiveMinions");
@@ -325,16 +323,13 @@ public class FinalBossController : MonoBehaviour
 
         _phase = Phase.Phase3_Charge; onPhaseChanged?.Invoke(_phase);
         _invulnerable = false;
-        if (shieldVisual) shieldVisual.SetActive(false);
-        if (bodyRenderer) bodyRenderer.color = new Color(1f, 0.85f, 0.85f); // light red
+        if (_shieldRenderer) _shieldRenderer.enabled = false; // hide shield
 
-        // Unfreeze so A* can move again; clear any residual RB velocity
         _rb.constraints = _origConstraints;
         _rb.linearVelocity = Vector2.zero;
 
         _p3State = P3State.Windup;
         _p3Timer = Mathf.Max(0.3f, p3WindupTime);
-        if (bodyRenderer) bodyRenderer.color = new Color(1f, 0.85f, 0.35f); // windup tint
 
         Debug.Log("[Boss] Phase 3: Charging");
     }
@@ -364,9 +359,7 @@ public class FinalBossController : MonoBehaviour
     {
         _p3State = P3State.Windup;
         _p3Timer = Mathf.Max(0.3f, p3WindupTime);
-        if (bodyRenderer) bodyRenderer.color = new Color(1f, 0.85f, 0.35f); // windup tint
 
-        // Baseline chase settings while winding up
         if (_ai)
         {
             _ai.maxSpeed                = _origMaxSpeed;
@@ -383,7 +376,6 @@ public class FinalBossController : MonoBehaviour
         _p3State = P3State.Charge;
         _p3Timer = Mathf.Max(0.1f, p3ChargeDuration);
 
-        // ChargerController (pathfindWhileCharging = true): keep A* on, just retune
         if (_ai)
         {
             _ai.canMove = true;
@@ -393,22 +385,18 @@ public class FinalBossController : MonoBehaviour
                 ? p3ChargeSpeed
                 : Mathf.MoveTowards(_ai.maxSpeed, p3ChargeSpeed, 20f * Time.deltaTime);
 
-            // tighter, faster updates, and NO slow near target
             _ai.slowWhenNotFacingTarget = false;
             _ai.pickNextWaypointDist    = Mathf.Max(0.2f, _origPickNextWaypointDist * 0.5f);
-            _ai.repathRate              = 0.05f;   // frequent path refresh (prevents rubber-band)
-            _ai.slowdownDistance        = 0.05f;   // do not slow far from target
-            _ai.endReachedDistance      = 0.01f;   // avoid “reached” oscillation near player
+            _ai.repathRate              = 0.05f;
+            _ai.slowdownDistance        = 0.05f;
+            _ai.endReachedDistance      = 0.01f;
 
             _ai.SearchPath();
         }
-
-        if (bodyRenderer) bodyRenderer.color = Color.red; // charge tint
     }
 
     private void EndP3Charge()
     {
-        // Restore baseline A* parameters and enter recover
         if (_ai)
         {
             _ai.maxSpeed                = _origMaxSpeed;
@@ -424,7 +412,6 @@ public class FinalBossController : MonoBehaviour
 
         _p3State = P3State.Recover;
         _p3Timer = Mathf.Max(0.1f, p3RecoverTime);
-        if (bodyRenderer) bodyRenderer.color = _defaultTint;
     }
 
     // ---------------- DEATH ----------------
@@ -432,9 +419,8 @@ public class FinalBossController : MonoBehaviour
     {
         _phase = Phase.Dead; onPhaseChanged?.Invoke(_phase);
         _invulnerable = false;
-        if (shieldVisual) shieldVisual.SetActive(false);
+        if (_shieldRenderer) _shieldRenderer.enabled = false;
 
-        // Clean restore
         _rb.constraints = _origConstraints;
         _rb.linearVelocity = Vector2.zero;
 
@@ -460,5 +446,49 @@ public class FinalBossController : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.cyan; Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
+
+    // ---------------- Shield child + scale methods ----------------
+    private void SetupShieldChild()
+    {
+        // Find the body SpriteRenderer to copy sorting (before we create the shield)
+        var body = GetComponent<SpriteRenderer>();
+        if (!body) body = GetComponentInChildren<SpriteRenderer>();
+
+        // Create shield child so we can scale independently
+        var go = new GameObject("_ShieldOverlay");
+        go.transform.SetParent(transform, false);
+        _shieldTransform = go.transform;
+        _shieldTransform.localPosition = new Vector3(shieldInitialOffset.x, shieldInitialOffset.y, 0f);
+        _shieldTransform.localScale = Vector3.one * Mathf.Max(0.01f, shieldInitialScale);
+
+        _shieldRenderer = go.AddComponent<SpriteRenderer>();
+        _shieldRenderer.sprite = shieldSprite;
+        _shieldRenderer.enabled = false; // only on in Phase 2
+
+        if (body)
+        {
+            _shieldRenderer.sortingLayerID = body.sortingLayerID;
+            _shieldRenderer.sortingOrder   = body.sortingOrder + shieldOrderOffset;
+            _shieldRenderer.material       = body.sharedMaterial;
+        }
+    }
+
+    /// <summary>Uniform scale for the shield overlay (e.g., 1.25f).</summary>
+    public void SetShieldScale(float uniform)
+    {
+        if (_shieldTransform) _shieldTransform.localScale = new Vector3(Mathf.Max(0.01f, uniform), Mathf.Max(0.01f, uniform), 1f);
+    }
+
+    /// <summary>Non-uniform scale (x,y) for the shield overlay.</summary>
+    public void SetShieldScale(Vector2 xy)
+    {
+        if (_shieldTransform) _shieldTransform.localScale = new Vector3(Mathf.Max(0.01f, xy.x), Mathf.Max(0.01f, xy.y), 1f);
+    }
+
+    /// <summary>Move the shield overlay relative to the boss.</summary>
+    public void SetShieldOffset(Vector2 offset)
+    {
+        if (_shieldTransform) _shieldTransform.localPosition = new Vector3(offset.x, offset.y, 0f);
     }
 }

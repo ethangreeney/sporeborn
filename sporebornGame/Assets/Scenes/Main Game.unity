@@ -1521,6 +1521,14 @@ PrefabInstance:
       value: ShopUI
       objectReference: {fileID: 0}
     - target: {fileID: 9113580267583912128, guid: 56ed18eb0685a2747a98b4d7b6fd6f3d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9113580267583912128, guid: 56ed18eb0685a2747a98b4d7b6fd6f3d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9113580267583912128, guid: 56ed18eb0685a2747a98b4d7b6fd6f3d, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.00012207031
       objectReference: {fileID: 0}
@@ -6383,7 +6391,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3084120937831096102, guid: 7f7b5de7e9b54b7498334cfcf2bb5bab, type: 3}
       propertyPath: m_Name
-      value: MapDebugger
+      value: MinimapPresenter
       objectReference: {fileID: 0}
     - target: {fileID: 4717830156801451300, guid: 7f7b5de7e9b54b7498334cfcf2bb5bab, type: 3}
       propertyPath: m_LocalPosition.x

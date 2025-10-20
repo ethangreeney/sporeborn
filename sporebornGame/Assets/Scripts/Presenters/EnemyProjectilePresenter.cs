@@ -29,7 +29,7 @@ public class EnemyProjectilePresenter : MonoBehaviour
 		var player = other.GetComponentInParent<PlayerPresenter>();
 		if (player != null)
 		{
-			player.TakeDamage(damage, transform.position);
+			player.TakeDamage(damage);
 			Destroy(gameObject);
 		}
 	}

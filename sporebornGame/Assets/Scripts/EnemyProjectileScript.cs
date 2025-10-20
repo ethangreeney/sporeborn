@@ -62,7 +62,7 @@ public class EnemyProjectileScript : MonoBehaviour
         {
             PlayerPresenter pp = other.GetComponent<PlayerPresenter>();
             if (!pp) pp = other.GetComponentInParent<PlayerPresenter>();
-            if (pp) pp.TakeDamage(damage, transform.position);
+            if (pp) pp.TakeDamage(damage);
             else Debug.LogWarning("Player hit but no PlayerPresenter found on object or parent.", other);
 
             Destroy(gameObject);
@@ -85,7 +85,7 @@ public class EnemyProjectileScript : MonoBehaviour
         if (c.collider.CompareTag(playerTag))
         {
             var pp = c.collider.GetComponent<PlayerPresenter>() ?? c.collider.GetComponentInParent<PlayerPresenter>();
-            if (pp) pp.TakeDamage(damage, transform.position);
+            if (pp) pp.TakeDamage(damage);
             Destroy(gameObject);
             return;
         }

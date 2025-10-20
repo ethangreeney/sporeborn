@@ -6,7 +6,7 @@ public class MinimapPresenter : MonoBehaviour
     public MapPresenter mapPresenter;
     private RectTransform MinimapContainer;
     public GameObject MiniroomPrefab;
-    public float CellSize = 500f;
+    public float CellSize = 50f; // Change in inspector
 
 
     public void CreateMinimap()
@@ -32,26 +32,17 @@ public class MinimapPresenter : MonoBehaviour
 
                 // Creates the RoomCell within the Minimap Container
 
-                GameObject RoomCell = Instantiate(MiniroomPrefab, MinimapContainer, false);
+                GameObject RoomCell = Instantiate(MiniroomPrefab, transform, false);
                 RectTransform CellTransform = RoomCell.GetComponent<RectTransform>();
 
                 Image img = RoomCell.GetComponent<Image>();
 
-                if (!room.RoomCompleted)
-                {
-                    img.color = Colour;
-                }
-                
-                // CellTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, CellSize);
-                // CellTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, CellSize);
-                // CellTransform.anchoredPosition = new Vector2(col * CellSize, -row * CellSize);
-                // RoomCell.transform.localScale = Vector3.one * 100f;
+                img.color = Colour;
 
                 // Positions each part of the Room
                 CellTransform.anchoredPosition = new Vector2(col * CellSize, -row * CellSize);
                 // Sets the size of each segment of the room
                 CellTransform.sizeDelta = new Vector2(CellSize, CellSize);
-
             }
         }
     }

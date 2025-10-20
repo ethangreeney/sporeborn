@@ -24,6 +24,9 @@ public class MapPresenter : MonoBehaviour
     public int MINROOMS = 10;
     public int MAXROOMS = 20;
 
+    [Header("CurrentLevel")]
+    public int CurrentLevel = 0;
+
     // Pixel scaling of scene
     private int PixelsPerUnit = 16;
 
@@ -193,8 +196,8 @@ public class MapPresenter : MonoBehaviour
         isFirstRoom = false;
 
         
-        // Place room
-        string RoomName = RoomToSpawn.RoomShape + "_" + RoomToSpawn.RoomType;
+        // Gets file of room based on shape, type and current level
+        string RoomName = RoomToSpawn.RoomShape + "_" + RoomToSpawn.RoomType + "_" + CurrentLevel;
 
         // Find the correct room Prefab
         foreach (GameObject prefab in RoomPrefabs)

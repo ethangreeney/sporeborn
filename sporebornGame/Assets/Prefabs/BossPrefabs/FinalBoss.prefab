@@ -306,8 +306,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyList: []
   BossList: []
-  PortalPrefab: {fileID: 0}
-  EnemyDrops: []
+  PortalPrefab: {fileID: 2102744783960465121, guid: 652ca148a19242b479b695c89febc77d, type: 3}
+  EnemyDrops:
+  - {fileID: 3940534089623373696, guid: 9516c181d1c63c4438331c8be770d40e, type: 3}
+  - {fileID: 8508246450130575317, guid: 07c338e461987b74cabc881140daf163, type: 3}
   ItemDropBucket: []
   ItemSpawnChance: 0.5
 --- !u!114 &66040452223979453
@@ -328,8 +330,10 @@ MonoBehaviour:
   projectilePrefab: {fileID: 7713316025894942385, guid: 7ba546fa666f44d10b252c4cb018db98, type: 3}
   attackRange: 20
   fireCooldown: 1
-  shieldVisual: {fileID: 0}
-  bodyRenderer: {fileID: 0}
+  shieldSprite: {fileID: -5730828823775089444, guid: 73ff9fd0b006b09438774fef563344b8, type: 3}
+  shieldOrderOffset: 5
+  shieldInitialScale: 6
+  shieldInitialOffset: {x: 0, y: 0.2}
   minionSpawner: {fileID: 1413023983211496506}
   phase2AutoAdvanceWithoutSpawner: 0
   phase2MinionInitGrace: 0.35

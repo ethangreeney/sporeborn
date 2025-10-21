@@ -45,5 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapPresenter: {fileID: 0}
-  CellSize: 5
-  YOffset: 12
+  MiniroomPrefab: {fileID: 1559319806268076188, guid: ddec7ed5abbcb8441bcc012a2aaa73d9, type: 3}
+  CellSize: 50

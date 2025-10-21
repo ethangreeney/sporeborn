@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,9 @@ public class MinimapPresenter : MonoBehaviour
     private RectTransform MinimapContainer;
     public GameObject MiniroomPrefab;
     public float CellSize = 50f; // Change in inspector
+
+    [SerializeField]
+    private List<GameObject> MinimapPrefabs;
 
 
     public void CreateMinimap()

@@ -237,9 +237,16 @@ public class MapPresenter : MonoBehaviour
         {
             PlayerSpawnPosition = CalculateSpawnOffset(EnterDoor);
         }
-
+     
         // Player location will be based on the door they enter from
         Player.transform.position = PlayerSpawnPosition;
+
+        // Move any pet followers to the player position
+        var petFollowers = Object.FindObjectsByType<PetFollower>(FindObjectsSortMode.None);
+        foreach (var pet in petFollowers)
+        {
+            pet.transform.position = PlayerSpawnPosition;
+        }
 
         // Determinds what should spawn based on room type
         PlaceEntities(CurrentPlayerRoom);

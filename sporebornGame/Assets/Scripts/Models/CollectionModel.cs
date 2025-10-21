@@ -39,7 +39,9 @@ public class CollectionModel : MonoBehaviour
     [Header("Projectile Visuals")]
     public Color projectileColor = Color.clear;
 
-    [HideInInspector] public Room room;
+    [Header("Pet Companion Settings")]
+    public GameObject petPrefab;
+
     private ItemPresenter itemPresenter;
 
     void Start()
@@ -155,6 +157,19 @@ public class CollectionModel : MonoBehaviour
 
             if (projectileColor != Color.clear)
                 shooting.projectileColor = projectileColor;
+            }
+
+            // Pet Companion logic
+            if (petPrefab != null)
+            {
+                // Just spawn the pet at the player's position
+                Instantiate(petPrefab, collision.transform.position, Quaternion.identity);
+                consumed = true;
+            }
+
+
+
+
         }
 
         stats?.NotifyStatsChanged();
@@ -165,5 +180,10 @@ public class CollectionModel : MonoBehaviour
             if (room != null) itemPresenter?.NotifyItemCollected(room);
             Destroy(gameObject);
         }
+        else
+        {
+            Debug.LogWarning("Item could not be consumed by player.");
+        }
+
     }
 }

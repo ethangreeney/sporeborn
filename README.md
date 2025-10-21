@@ -2,8 +2,10 @@
 A small top‑down action prototype built in Unity. Move, shoot, and survive against enemies while finding items and exploring.
 
 # Screenshots
-<img width="1470" height="919" alt="image" src="https://github.com/user-attachments/assets/20d8558d-52f6-4936-8d80-814fb05ade5f" />
-<img width="1470" height="897" alt="image" src="https://github.com/user-attachments/assets/96db5c8c-4ecb-43fa-9012-44a3458bda9d" />
+<img width="1470" height="918" alt="image" src="https://github.com/user-attachments/assets/5a6c05aa-4dca-477d-b56a-1b371f63ed4a" />
+<img width="1470" height="918" alt="image" src="https://github.com/user-attachments/assets/d834f5ca-8814-4e2e-9b0b-9dae28813869" />
+<img width="1470" height="917" alt="image" src="https://github.com/user-attachments/assets/897c3556-7ab1-47d2-8e9c-26b5c6acd8b3" />
+
 
 ## Play
 

@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
 using System;
 
 public class PlayerPresenter : MonoBehaviour
@@ -8,40 +7,27 @@ public class PlayerPresenter : MonoBehaviour
     public HealthModel health;
     public SpriteRenderer spriteRenderer;
     public SpriteRenderer forcefieldRenderer;
-    public Animator animator;
-    public float invulnDuration = 0.5f;
-    public float knockbackForce = 8f;
+    [SerializeField] private float invulnDuration = 0.3f;
+    [SerializeField] private float hitFlashDuration = 0.1f;
 
-    bool invuln;
-    bool isDead;
-    bool invulnFromDamage;
-    bool invulnFromForcefield;
-    Rigidbody2D rb;
+    private bool isDead;
+    private bool invulnFromDamage;
+    private bool invulnFromForcefield;
+    private Rigidbody2D rb;
 
     public static event Action OnPlayerDied;
 
     void Awake()
     {
-        if (health == null)
-            health = GetComponent<HealthModel>();
-        if (spriteRenderer == null)
-            spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
-
         if (forcefieldRenderer != null)
-            forcefieldRenderer.enabled = false; // Hide forcefield at start
-        if (health != null && DifficultyManager.Instance)
+            forcefieldRenderer.enabled = false;
+
+        if (DifficultyManager.Instance)
         {
             health.maxHealth = DifficultyManager.Instance.PlayerMaxHealth;
             health.currHealth = health.maxHealth;
-            if (health.currHealth <= 0)
-                health.currHealth = health.maxHealth > 0 ? health.maxHealth : 1;
-            else if (health.currHealth > health.maxHealth)
-                health.currHealth = health.maxHealth;
         }
-        if (health != null && health.currHealth <= 0)
-            health.currHealth = health.maxHealth > 0 ? health.maxHealth : 1;
-
     }
 
     public void SetInvulnerable(bool value)
@@ -51,14 +37,14 @@ public class PlayerPresenter : MonoBehaviour
             forcefieldRenderer.enabled = value;
     }
 
-    public void TakeDamage(int amount, Vector2 hitFrom)
+    public void TakeDamage(int amount)
     {
-        if (isDead || invulnFromDamage || invulnFromForcefield || health == null)
+        if (isDead || invulnFromDamage || invulnFromForcefield)
             return;
 
         health.Damage(amount);
-        if (spriteRenderer)
-            StartCoroutine(HitFlash());
+        StartCoroutine(HitFlash());
+
         if (health.currHealth <= 0)
         {
             Die();
@@ -66,11 +52,6 @@ public class PlayerPresenter : MonoBehaviour
         }
 
         StartCoroutine(Invuln());
-        if (rb != null)
-        {
-            var dir = ((Vector2)transform.position - hitFrom).normalized;
-            rb.AddForce(dir * knockbackForce, ForceMode2D.Impulse);
-        }
     }
 
     IEnumerator Invuln()
@@ -84,7 +65,7 @@ public class PlayerPresenter : MonoBehaviour
     {
         var original = spriteRenderer.color;
         spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(hitFlashDuration);
         spriteRenderer.color = original;
     }
 
@@ -93,7 +74,6 @@ public class PlayerPresenter : MonoBehaviour
         if (isDead) return;
         isDead = true;
 
-        // Disable all player functionality
         foreach (var c in GetComponentsInChildren<Collider2D>())
             c.enabled = false;
         if (rb)
@@ -107,18 +87,6 @@ public class PlayerPresenter : MonoBehaviour
         if (shoot)
             shoot.enabled = false;
 
-        // --- REVISED LOGIC ---
-        // Since you confirmed you have no death animation, we will always fire the event directly.
-        // The animator line is what was causing the issue.
-
-        Debug.Log("Player has died. Firing OnPlayerDied event immediately.");
         OnPlayerDied?.Invoke();
-
-        /* --- OLD PROBLEMATIC CODE FOR REFERENCE ---
-        if (animator)
-            animator.SetTrigger("Death"); // This was running and preventing the 'else' block
-        else
-            OnPlayerDied?.Invoke();
-        */
     }
 }

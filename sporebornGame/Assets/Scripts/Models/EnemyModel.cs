@@ -83,15 +83,10 @@ public class EnemyModel : MonoBehaviour
         var rb = GetComponent<Rigidbody2D>();
         if (rb) rb.simulated = false;
 
-        if (animator != null)
-        {
-            animator.SetTrigger("Death");
-        }
         // fall back as there is currently no death animatior
-        else
-        {
-            Destroy(gameObject, 0.2f);
-        }
+
+        Destroy(gameObject, 0.2f);
+
         // Decreases enemy count
         enemyPresenter.EnemyDies(transform.position);
 

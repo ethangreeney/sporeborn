@@ -1,11 +1,12 @@
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public class ShopPresenter : MonoBehaviour
 {
     [SerializeField]
     private GameObject ShopTriggerZone;
-    
+
     [SerializeField]
     private GameObject ShopUI;
 
@@ -17,7 +18,7 @@ public class ShopPresenter : MonoBehaviour
     {
         // Gets the Model from within the ShopUI prefab
         shopModel = ShopUI.GetComponentInChildren<ShopModel>();
-        
+
         // Already instantiated in scene but set to inactive for faster load time
         ShopTriggerZone.SetActive(false);
         ShopUI.SetActive(false);
@@ -41,13 +42,13 @@ public class ShopPresenter : MonoBehaviour
         ShopTriggerZone.SetActive(true);
 
         // If detection Zone not in the right position
-        if(ShopTriggerZone.transform.position != ShopZonePosition)
+        if (ShopTriggerZone.transform.position != ShopZonePosition)
         {
             ShopTriggerZone.transform.position = ShopZonePosition;
         }
-        
+
     }
-    
+
     public void OpenShop()
     {
         ShopUI.SetActive(true);
@@ -57,12 +58,12 @@ public class ShopPresenter : MonoBehaviour
     {
         ShopUI.SetActive(false);
     }
-   
+
     public void PlayerLeavesShopRoom()
     {
         ShopTriggerZone.SetActive(false);
         ShopUI.SetActive(false);
     }
-    
+
 
 }

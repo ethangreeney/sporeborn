@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class MinimapPresenter : MonoBehaviour
 {
     public MapPresenter mapPresenter;
-    private RectTransform MinimapContainer;
     public GameObject MiniroomPrefab;
     public float CellSize = 50f; // Change in inspector
 
@@ -15,9 +14,6 @@ public class MinimapPresenter : MonoBehaviour
 
     public void CreateMinimap()
     {
-        // Gets the parent Minimap Container and then draws the map
-        MinimapContainer = GetComponent<RectTransform>();
-
         DrawMiniMap();
     }
 

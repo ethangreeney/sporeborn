@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 [System.Serializable]
 public class Item
 {
@@ -38,6 +39,8 @@ public class CollectionModel : MonoBehaviour
 
     [Header("Projectile Visuals")]
     public Color projectileColor = Color.clear;
+
+    [HideInInspector] public Room room;
 
     [Header("Pet Companion Settings")]
     public GameObject petPrefab;
@@ -156,6 +159,7 @@ public class CollectionModel : MonoBehaviour
             }
 
             if (projectileColor != Color.clear)
+            { 
                 shooting.projectileColor = projectileColor;
             }
 
@@ -180,10 +184,7 @@ public class CollectionModel : MonoBehaviour
             if (room != null) itemPresenter?.NotifyItemCollected(room);
             Destroy(gameObject);
         }
-        else
-        {
-            Debug.LogWarning("Item could not be consumed by player.");
-        }
+        
 
     }
 }

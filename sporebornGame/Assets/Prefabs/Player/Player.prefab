@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 7839141121415059811}
   - component: {fileID: 7157334257128942562}
   - component: {fileID: 6673852298510597383}
-  - component: {fileID: 7871639664873827770}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -247,9 +246,8 @@ MonoBehaviour:
   health: {fileID: 8429666763159996018}
   spriteRenderer: {fileID: 0}
   forcefieldRenderer: {fileID: 1426264308989029131}
-  animator: {fileID: 0}
   invulnDuration: 0.5
-  knockbackForce: 8
+  hitFlashDuration: 0.1
 --- !u!114 &-2588614934077091116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -393,20 +391,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentNectar: 0
 --- !u!114 &6673852298510597383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2503916331830693916}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 621535fc7f16bfc42a5d7bb3f080b9da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  equippedItem: {fileID: 0}
-  currentCharges: 0
---- !u!114 &7871639664873827770
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

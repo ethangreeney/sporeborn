@@ -64,7 +64,7 @@ public class MinimapPresenter : MonoBehaviour
                 RoomType.Boss => Color.red,
                 RoomType.Shop => Color.yellow,
                 RoomType.Item => Color.green,
-                _ => Color.white
+                _ => new Color32(71, 72, 77, 255)
             };
             // Highlights large rooms
             if (CurrentRoom.RoomShape != RoomShape.OneByOne)

@@ -10,7 +10,7 @@ public class ActivatableItemUI : MonoBehaviour
 
     private ActivatableItem lastEquippedItem; // Cache to track changes
 
-    void Start()
+    void Awake()
     {
         playerItem.OnChargeChanged += UpdateBattery;
         
@@ -23,7 +23,7 @@ public class ActivatableItemUI : MonoBehaviour
     void Update()
     {
         // Only update when equipped item changes
-        if (lastEquippedItem != playerItem.equippedItem)
+        if (lastEquippedItem != playerItem.equippedItem && playerItem.equippedItem != null)
         {
             UpdateUI();
         }

@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (PauseMenu.isPaused) return;
         animator.SetBool("isWalking", true);
 
         if (context.canceled)

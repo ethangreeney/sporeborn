@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f04d52793f948f1419d10d9cdc145dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShopItemPool: []
+  ShopTriggerZone: {fileID: 7903278767765260530}
+  ShopUI: {fileID: 7903278767765260530}

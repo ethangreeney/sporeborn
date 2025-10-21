@@ -268,9 +268,9 @@ MonoBehaviour:
   targetCompatibility: {fileID: 0}
   maxAcceleration: -2.5
   rotationSpeed: 360
-  slowdownDistance: 1.5
+  slowdownDistance: 2.25
   pickNextWaypointDist: 2
-  endReachedDistance: 6
+  endReachedDistance: 1.75
   alwaysDrawGizmos: 0
   slowWhenNotFacingTarget: 1
   whenCloseToDestination: 0
@@ -305,8 +305,9 @@ MonoBehaviour:
   EnemyList: []
   BossList: []
   PortalPrefab: {fileID: 0}
-  HeartPrefab: {fileID: 0}
-  heartDropChance: 0.15
+  EnemyDrops: []
+  ItemDropBucket: []
+  ItemSpawnChance: 0.5
 --- !u!114 &2039867954663292372
 MonoBehaviour:
   m_ObjectHideFlags: 0

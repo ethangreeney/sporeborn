@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -24,6 +23,9 @@ public class MapPresenter : MonoBehaviour
     public int MINROOMS = 10;
     public int MAXROOMS = 20;
 
+    [Header("CurrentLevel")]
+    public int CurrentLevel = 0;
+
     // Pixel scaling of scene
     private int PixelsPerUnit = 16;
 
@@ -45,6 +47,7 @@ public class MapPresenter : MonoBehaviour
     private EnemyPresenter enemyPresenter;
     private ItemPresenter itemPresenter;
     private ShopPresenter shopPresenter;
+    private MinimapPresenter minimap;
 
     // Decides when to render shop
     private bool WasInShopRoom = false;
@@ -118,9 +121,13 @@ public class MapPresenter : MonoBehaviour
         itemPresenter = FindFirstObjectByType<ItemPresenter>();
         shopPresenter = FindFirstObjectByType<ShopPresenter>();
         roomTextPresenter = FindFirstObjectByType<RoomTextPresenter>();
+        minimap = FindFirstObjectByType<MinimapPresenter>();
 
         // Build the starter room
         BuildRoom(StarterRoom, null);
+
+        // Creates the Minimap - after map is generated
+        minimap.CreateMinimap();
 
         // Destroy Active entities in scene upon start
         enemyPresenter.RemovePortal();
@@ -193,8 +200,8 @@ public class MapPresenter : MonoBehaviour
         isFirstRoom = false;
 
         
-        // Place room
-        string RoomName = RoomToSpawn.RoomShape + "_" + RoomToSpawn.RoomType;
+        // Gets file of room based on shape, type and current level
+        string RoomName = RoomToSpawn.RoomShape + "_" + RoomToSpawn.RoomType + "_" + CurrentLevel;
 
         // Find the correct room Prefab
         foreach (GameObject prefab in RoomPrefabs)

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public class ShopModel : MonoBehaviour
@@ -10,7 +11,7 @@ public class ShopModel : MonoBehaviour
 
     [SerializeField]
     private GameObject ShopItemPrefab;
-    
+
     // All Items currently in the Shop
     private List<ShopItem> ShopInventory;
 
@@ -63,12 +64,12 @@ public class ShopModel : MonoBehaviour
         {
             return;
         }
-        
+
         foreach (ShopItem CurrentItem in ShopInventory)
         {
-            
+
             CurrencyModel playerWallet = player.GetComponent<CurrencyModel>();
-            
+
             // Checks if correct item & player has enough money to purchase item
             if (CurrentItem != PurchaseItem || playerWallet.GetCurrentNectar() < PurchaseItem.Cost)
             {
@@ -79,7 +80,7 @@ public class ShopModel : MonoBehaviour
             {
                 // Deduct currency (Nectar) from player
                 playerWallet.RemoveCurrency(CurrentItem.Cost);
-                
+
                 // Mark Item as purchased
                 CurrentItem.Purchased = true;
 
@@ -101,26 +102,26 @@ public class ShopModel : MonoBehaviour
     // Updates visuals to show player that item has been purchased
     public void SetItemPurchasedUI(ShopItemUI itemreference)
     {
-        if(itemreference == null)
+        if (itemreference == null)
         {
             Debug.Log("Item UI Reference has not been set");
             return;
         }
         itemreference.ItemHasBeenPurchased();
     }
-    
+
     // Only used for Testing - Don't use 
     public void AddTestItem(ShopItem TestItem)
     {
         if (ShopItemPool == null) ShopItemPool = new List<ShopItem>();
         if (ShopInventory == null) ShopInventory = new List<ShopItem>();
-        
+
         ShopItemPool.Clear();
         ShopItemPool.Add(TestItem);
 
         ShopInventory.Clear();
         ShopInventory.Add(TestItem);
     }
-    
+
 
 }

@@ -2,12 +2,15 @@ using System.Collections.Generic;
 
 using TMPro;
 
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
+
 using UnityEngine;
 using UnityEngine.UI;
 
 public class InventoryPanelPresenter : MonoBehaviour
 {
     public PlayerInventory inventory;
+    public StatsDisplayPresenter stats;
     public Transform content;
     public GameObject slotPrefab;
     public GameObject tooltip;
@@ -20,6 +23,7 @@ public class InventoryPanelPresenter : MonoBehaviour
     void OnDisable() => inventory.OnInventoryChanged -= Refresh;
     void Refresh()
     {
+        stats.UpdateDisplay();
         inventoryProgess.text = "Items found so far: " + inventory.FoundSoFar() + "/" + itemPool.itemPrefabs.Count;
         foreach (Transform child in content) Destroy(child.gameObject);
 

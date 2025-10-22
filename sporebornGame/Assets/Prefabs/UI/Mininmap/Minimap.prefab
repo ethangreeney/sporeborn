@@ -91,8 +91,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapPresenter: {fileID: 0}
   MiniroomPrefab: {fileID: 1559319806268076188, guid: ddec7ed5abbcb8441bcc012a2aaa73d9, type: 3}
-  CellSize: 50
-  MinimapPrefabs: []
+  CellSize: 75
+  MinimapPrefabs:
+  - {fileID: 4314942185990624669, guid: 085e4470f82b09e46bc79bf02b9679db, type: 3}
+  - {fileID: 6832584115116451642, guid: f47a51b1c46ddfe428f5d05c2a16c677, type: 3}
+  - {fileID: 6690192955938706496, guid: c88c2685fd5c36d41948aa592cf9cf37, type: 3}
+  - {fileID: 1478962441513047156, guid: de9bd63292ef91442b9cc5e8697b628f, type: 3}
+  - {fileID: 1754085714786052223, guid: 459bffe6801831e4f998a08491911473, type: 3}
+  - {fileID: 1083194097469421443, guid: 017ddf7c560352042a1bfaf5c425e1b7, type: 3}
+  - {fileID: 1559319806268076188, guid: ddec7ed5abbcb8441bcc012a2aaa73d9, type: 3}
+  - {fileID: 5097491403227717258, guid: 669837dd52d704546949f4d0d8391e78, type: 3}
+  - {fileID: 6547318393846749360, guid: d33a7e051b83a0940b77b33d21d1f154, type: 3}
+  - {fileID: 2896850064398335502, guid: ce860816762204344a173bf4c22a0e14, type: 3}
+  - {fileID: 3489987720560451799, guid: b270601d50bbc69479e47b0862c1cecb, type: 3}
 --- !u!114 &1831535697035137391
 MonoBehaviour:
   m_ObjectHideFlags: 0

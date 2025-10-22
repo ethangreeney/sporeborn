@@ -11,39 +11,89 @@ public class MinimapPresenter : MonoBehaviour
     [SerializeField]
     private List<GameObject> MinimapPrefabs;
 
+    private List<GameObject> ActiveMinimapRooms;
 
+    // Called for each new level
     public void CreateMinimap()
     {
+        ActiveMinimapRooms = new();
         DrawMiniMap();
     }
 
+    // Handles the position and instatiation of each room prefab
     private void DrawMiniMap()
     {
-        //if (mapPresenter == null || mapPresenter.GetSpawnedRooms == null) return;
-
         foreach (var room in mapPresenter.GetSpawnedRooms)
         {
-            Color Colour = GetRoomStyle(room);
+            // Converts index to row and col position
+            int row = room.OriginIndex / 10;
+            int col = room.OriginIndex % 10;
 
-            foreach (var idx in room.OccupiedIndexes)
+            // Gets file of minimap prefab based on shape, type and current level
+            string RoomName = "mini" + "_" + room.RoomShape + "_";
+
+            // Will hide any special rooms that haven't been found
+            if (room.RoomShape == RoomShape.OneByOne && !room.RoomCompleted)
             {
-                int row = idx / 10;
-                int col = idx % 10;
-
-                // Creates the RoomCell within the Minimap Container
-
-                GameObject RoomCell = Instantiate(MiniroomPrefab, transform, false);
-                RectTransform CellTransform = RoomCell.GetComponent<RectTransform>();
-
-                Image img = RoomCell.GetComponent<Image>();
-
-                img.color = Colour;
-
-                // Positions each part of the Room
-                CellTransform.anchoredPosition = new Vector2(col * CellSize, -row * CellSize);
-                // Sets the size of each segment of the room
-                CellTransform.sizeDelta = new Vector2(CellSize, CellSize);
+                RoomName += "Regular";
             }
+            else
+            {
+                RoomName += room.RoomType;
+            }
+
+            // Find the correct minmap prefab
+            GameObject CurrentRoomPrefab = null;
+            foreach (GameObject prefab in MinimapPrefabs)
+            {
+                if (prefab.name == RoomName)
+                {
+                    CurrentRoomPrefab = prefab;
+                    break;
+                }
+            }
+
+            if(CurrentRoomPrefab == null)
+            {
+                Debug.Log("Can't find minimap prefab, file naming may be incorrect: " + RoomName);
+            }
+
+            // Creates the RoomCell within the Minimap Container
+            GameObject Room = Instantiate(CurrentRoomPrefab, transform, false);
+            ActiveMinimapRooms.Add(Room);
+
+            RectTransform CellTransform = Room.GetComponent<RectTransform>();
+
+
+            // Calculated based on the size of the room and current cell size
+            Vector2 RoomSize;
+            Vector2 RoomPosition;
+            if (room.RoomShape == RoomShape.OneByOne)
+            {
+                RoomSize = new Vector2(CellSize, CellSize);
+                RoomPosition = new Vector2(col * CellSize, -row * CellSize);
+            }
+            else if (room.RoomShape == RoomShape.OneByTwo)
+            {
+                RoomSize = new Vector2(CellSize * 2, CellSize);
+                RoomPosition = new Vector2(col * CellSize + (CellSize / 2f), -row * CellSize);
+            }
+            else if (room.RoomShape == RoomShape.TwoByOne)
+            {
+                RoomSize = new Vector2(CellSize, CellSize * 2);
+                RoomPosition = new Vector2(col * CellSize, -row * CellSize - (CellSize / 2f));
+            }
+            else // 2x2 or Lshaped room
+            {
+                RoomSize = new Vector2(CellSize * 2, CellSize * 2);
+                RoomPosition = new Vector2(col * CellSize + (CellSize / 2f), -row * CellSize - (CellSize / 2f));
+            }
+
+            // Positions each part of the Room
+            CellTransform.anchoredPosition = RoomPosition;
+            // Sets the size for the room prefab
+            CellTransform.sizeDelta = RoomSize;
+
         }
     }
 

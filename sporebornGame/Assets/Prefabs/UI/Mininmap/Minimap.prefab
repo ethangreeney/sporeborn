@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1472582098180886568}
   - component: {fileID: 2205347163943167745}
   - component: {fileID: 1831535697035137391}
+  - component: {fileID: 2970607197304383715}
   m_Layer: 5
   m_Name: Minimap
   m_TagString: Untagged
@@ -89,7 +90,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 008d63f3087105e47a87775452024104, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapPresenter: {fileID: 0}
   MiniroomPrefab: {fileID: 1559319806268076188, guid: ddec7ed5abbcb8441bcc012a2aaa73d9, type: 3}
   CellSize: 75
   MinimapPrefabs:
@@ -119,3 +119,15 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!114 &2970607197304383715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8506505979965006473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb85e775d08ad664a965e2826e3432fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

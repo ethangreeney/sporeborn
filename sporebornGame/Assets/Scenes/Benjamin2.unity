@@ -268,6 +268,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2205347163943167745, guid: 9c26f06643114794683bb3fa7584f150, type: 3}
+      propertyPath: CellSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2205347163943167745, guid: 9c26f06643114794683bb3fa7584f150, type: 3}
       propertyPath: mapPresenter
       value: 
       objectReference: {fileID: 1871671603}

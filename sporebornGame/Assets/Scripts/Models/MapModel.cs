@@ -20,6 +20,7 @@ public class MapModel
 
     // One side of grid length
     private int GRID_SIDE = 10;
+    public int GET_GRID_SIDE => GRID_SIDE;
 
     // Generates Random numbers
     System.Random rng;

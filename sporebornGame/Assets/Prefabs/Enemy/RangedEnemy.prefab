@@ -47,7 +47,6 @@ GameObject:
   - component: {fileID: 815729618583970770}
   - component: {fileID: 887387491697003691}
   - component: {fileID: -1715974880639965395}
-  - component: {fileID: 6460743870222515995}
   m_Layer: 11
   m_Name: RangedEnemy
   m_TagString: Untagged
@@ -249,27 +248,6 @@ MonoBehaviour:
   animator: {fileID: 0}
   spriteRenderer: {fileID: 0}
   moveThreshold: 0.01
---- !u!114 &6460743870222515995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2069395914680108450}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f3636d2e198d41eabb8699edd8c8041, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerTag: Player
-  projectilePrefab: {fileID: 7713316025894942385, guid: 7ba546fa666f44d10b252c4cb018db98, type: 3}
-  attackRange: 7
-  fireCooldown: 1
-  fireRight: {fileID: 0}
-  fireLeft: {fileID: 0}
-  fireUp: {fileID: 0}
-  fireDown: {fileID: 0}
-  animator: {fileID: 0}
 --- !u!1 &2307193323018276076
 GameObject:
   m_ObjectHideFlags: 0
@@ -375,6 +353,7 @@ GameObject:
   - component: {fileID: 6429573388751130723}
   - component: {fileID: 3238876593745042585}
   - component: {fileID: 6858494824316943227}
+  - component: {fileID: 5028858475616444987}
   m_Layer: 11
   m_Name: Enemy GFX
   m_TagString: Untagged
@@ -499,3 +478,16 @@ MonoBehaviour:
   fireUp: {fileID: 7583734386111532864}
   fireDown: {fileID: 5364959590908214224}
   animator: {fileID: 0}
+--- !u!114 &5028858475616444987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8862557179982367529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0243d223d097f498e950745090b21cb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 0}

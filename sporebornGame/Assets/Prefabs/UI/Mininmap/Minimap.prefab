@@ -61,7 +61,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MiniroomPrefab: {fileID: 1559319806268076188, guid: ddec7ed5abbcb8441bcc012a2aaa73d9, type: 3}
-  CellSize: 75
+  CellSize: 50
   MinimapPrefabs:
   - {fileID: 4314942185990624669, guid: 085e4470f82b09e46bc79bf02b9679db, type: 3}
   - {fileID: 6832584115116451642, guid: f47a51b1c46ddfe428f5d05c2a16c677, type: 3}

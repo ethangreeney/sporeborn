@@ -121,11 +121,13 @@ public class MapPresenter : MonoBehaviour
         roomTextPresenter = FindFirstObjectByType<RoomTextPresenter>();
         minimap = FindFirstObjectByType<MinimapPresenter>();
 
+
+
         // Build the starter room
         BuildRoom(StarterRoom, null);
 
         // Create the inital minimap
-        minimap.DrawMiniMap(model, this);
+        minimap.SetupMiniMap(model, this);
 
         // Destroy Active entities in scene upon start
         enemyPresenter.RemovePortal();
@@ -209,8 +211,6 @@ public class MapPresenter : MonoBehaviour
         // Instantiates the room and Aligns the room to the bottom left
         ActiveRoomInstance = Instantiate(CurrentRoomPrefab, Vector3.zero, Quaternion.identity);
 
-
-
         // Gets all Doors in scene
         DoorsInRoom = ActiveRoomInstance.GetComponentsInChildren<Door>();
         // Assigns the MapPresenter to each door in the scene
@@ -236,14 +236,14 @@ public class MapPresenter : MonoBehaviour
             {
                 AssignEntryText(RoomToSpawn);
                 roomTextPresenter.ShowRoomText(RoomToSpawn.EntryText);
-                // Updates the minimap as player moves
-                minimap.UpdateMinimap(this, CurrentPlayerRoom);
+
             }
-            
+
             RoomToSpawn.HasBeenVisited = true;
         }
         
-        
+        // Updates the minimap as player moves
+        minimap.UpdateMinimap(this);
 
         // Move any pet followers to the player position
         var petFollowers = Object.FindObjectsByType<PetFollower>(FindObjectsSortMode.None);

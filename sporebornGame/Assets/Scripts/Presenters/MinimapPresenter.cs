@@ -15,8 +15,13 @@ public class MinimapPresenter : MonoBehaviour
 
 
     // Handles the initial position and instatiation of each room prefab
-    public void DrawMiniMap(MapModel model, MapPresenter mapPresenter)
+    public void SetupMiniMap(MapModel model, MapPresenter mapPresenter)
     {
+        if(ActiveMinimapRooms != null && ActiveMinimapRooms.Count > 0)
+        {
+            ResetMiniMap();
+        }
+        
         ActiveMinimapRooms = new();
         List<Room> ActiveRooms = mapPresenter.GetSpawnedRooms;
         foreach (var room in ActiveRooms)
@@ -85,7 +90,7 @@ public class MinimapPresenter : MonoBehaviour
                 RoomSize = new Vector2(CellSize * 2, CellSize);
                 RoomPosition = new Vector2(col * CellSize + (CellSize / 2f), -row * CellSize);
             }
-            else // 2x2 or Lshaped room
+            else // 2x2 
             {
                 RoomSize = new Vector2(CellSize * 2, CellSize * 2);
                 RoomPosition = new Vector2(col * CellSize + (CellSize / 2f), -row * CellSize - (CellSize / 2f));
@@ -100,106 +105,50 @@ public class MinimapPresenter : MonoBehaviour
     }
 
     // Updates each new room
-    public void UpdateMinimap(MapPresenter mapPresenter, Room CurrentPlayerRoom)
+    public void UpdateMinimap(MapPresenter mapPresenter)
     {
-        // Don't update on new level build
-        if(CurrentPlayerRoom == mapPresenter.GetStarterRoom && !CurrentPlayerRoom.HasBeenVisited)
+        // Map hasn't been created
+        if (ActiveMinimapRooms == null)
         {
             return;
         }
         
+        // Apply each style to room
         foreach (GameObject MiniRoom in ActiveMinimapRooms)
         {
             ApplyRoomStyling(MiniRoom, mapPresenter);
         }
     }
-    
+
     public void ApplyRoomStyling(GameObject RoomObject, MapPresenter mapPresenter)
     {
         MiniRoomModel CurrentRoomData = RoomObject.GetComponent<MiniRoomModel>();
         Room RoomData = CurrentRoomData.GetRoomData;
+        Image img = RoomObject.GetComponentInChildren<Image>();
+
+        // Default to no colour overlay
+        Color BaseColour = Color.white;
 
         // Highlights the current room player is in
         if (RoomData == mapPresenter.CurrentPlayerRoom)
         {
-            Image img = RoomObject.GetComponentInChildren<Image>();
-            img.color = Color.yellow;
-            //new Color(1f, 1f, 0f, 0.5f);
+            BaseColour = Color.green;
         }
 
         // Makes all room that are not visited semi-transparent
         else if (!RoomData.HasBeenVisited)
         {
-            Image img = RoomObject.GetComponentInChildren<Image>();
-            Color baseColor = img.color; // whatever the prefab’s color is
-            img.color = new Color(baseColor.r, baseColor.g, baseColor.b, 0.6f);
+            BaseColour = new Color(BaseColour.r, BaseColour.g, BaseColour.b, 0.6f);
+        }
+
+        img.color = BaseColour;
+    }
+    
+    public void ResetMiniMap()
+    {
+        foreach(GameObject MiniRoom in ActiveMinimapRooms)
+        {
+            Destroy(MiniRoom);
         }
     }
-
-    // public Color GetRoomStyle(Room CurrentRoom)
-    // {
-    //     Color Colour;
-
-    //     // Pick a color based on RoomType or if it's the starter room
-    //     if (CurrentRoom.OriginIndex == mapPresenter.GetStarterRoom.OriginIndex)
-    //     {
-    //         return Color.grey;
-    //     }
-    //     else
-    //     {
-    //         // Highlights Special Rooms
-    //         Colour = CurrentRoom.RoomType switch
-    //         {
-    //             RoomType.Boss => Color.red,
-    //             RoomType.Shop => Color.yellow,
-    //             RoomType.Item => Color.green,
-    //             _ => new Color32(71, 72, 77, 255)
-    //         };
-    //         // Highlights large rooms
-    //         if (CurrentRoom.RoomShape != RoomShape.OneByOne)
-    //         {
-    //             return Color.grey;
-    //         }
-
-    //         // Highlights room the player is in
-    //         if (CurrentRoom == mapPresenter.CurrentPlayerRoom)
-    //         {
-    //             return Color.magenta;
-    //         }
-    //     }
-
-    //     return Colour;
-    // }
-    
-    // public Vector2 OffsetCalc(MapModel model, MapPresenter mapPresenter, Vector2 RoomPosition){
-    //     int[] FloorPlan = model.GetFloorPlan;
-    //         float onepixel = CellSize * 0.02f;
-
-    //         // Prevents the room from being moved more than once
-    //         bool ShiftedX = false;
-    //         bool ShiftedY = false;
-    //     // Move room to overlap up & right rooms to avoid a double outline look
-    //     foreach (int RoomIndex in room.OccupiedIndexes)
-    //     {
-    //         // Prevents out of bounds
-    //         if ((RoomIndex - 10) < 0) continue;
-    //         if (RoomIndex % model.GET_GRID_SIDE == 0 || RoomIndex % model.GET_GRID_SIDE == 9) continue;
-
-    //         // Room above and not within the same room
-    //         if (!ShiftedY && FloorPlan[RoomIndex - 10] == 1 && !room.OccupiedIndexes.Contains(RoomIndex - 10))
-    //         {
-    //             RoomPosition.y += onepixel;
-    //             ShiftedY = true;
-    //         }
-    //         // Room to right and not within the same room
-    //         if (!ShiftedX && FloorPlan[RoomIndex + 1] == 1 && !room.OccupiedIndexes.Contains(RoomIndex + 1))
-    //         {
-    //             RoomPosition.x += onepixel;
-    //             ShiftedX = true;
-    //         }
-    //     }
-
-    //     return RoomPosition;
-
-    // }
 }

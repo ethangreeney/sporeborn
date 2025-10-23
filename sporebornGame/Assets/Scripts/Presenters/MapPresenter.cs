@@ -133,7 +133,15 @@ public class MapPresenter : MonoBehaviour
         enemyPresenter.RemovePortal();
         enemyPresenter.DestroyAllItems();
     }
-    
+
+    // Debugging temp
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R)){
+            ResetMap();
+        }
+    }
+
     public void ResetMap()
     {
         Start();

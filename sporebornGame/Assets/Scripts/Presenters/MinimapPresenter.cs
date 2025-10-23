@@ -75,26 +75,18 @@ public class MinimapPresenter : MonoBehaviour
             // Calculated position and size
             Vector2 RoomSize;
             Vector2 RoomPosition;
+      
             if (room.RoomShape == RoomShape.OneByOne)
-            {
                 RoomSize = new Vector2(CellSize, CellSize);
-                RoomPosition = new Vector2(col * CellSize, -row * CellSize);
-            }
             else if (room.RoomShape == RoomShape.OneByTwo)
-            {
                 RoomSize = new Vector2(CellSize, CellSize * 2);
-                RoomPosition = new Vector2(col * CellSize, -row * CellSize - (CellSize / 2f));
-            }
             else if (room.RoomShape == RoomShape.TwoByOne)
-            {
                 RoomSize = new Vector2(CellSize * 2, CellSize);
-                RoomPosition = new Vector2(col * CellSize + (CellSize / 2f), -row * CellSize);
-            }
-            else // 2x2 
-            {
+            else // 2x2 or L shapes
                 RoomSize = new Vector2(CellSize * 2, CellSize * 2);
-                RoomPosition = new Vector2(col * CellSize + (CellSize / 2f), -row * CellSize - (CellSize / 2f));
-            }
+            
+            RoomPosition = new Vector2(col * CellSize, -row * CellSize);
+            
 
             // Sets the position of the room prefab
             CellTransform.anchoredPosition = RoomPosition;
@@ -136,19 +128,56 @@ public class MinimapPresenter : MonoBehaviour
         }
 
         // Makes all room that are not visited semi-transparent
-        else if (!RoomData.HasBeenVisited)
+        else if (!RoomData.HasBeenVisited && RoomData != mapPresenter.GetStarterRoom)
         {
             BaseColour = new Color(BaseColour.r, BaseColour.g, BaseColour.b, 0.6f);
         }
 
         img.color = BaseColour;
     }
-    
+
     public void ResetMiniMap()
     {
-        foreach(GameObject MiniRoom in ActiveMinimapRooms)
+        foreach (GameObject MiniRoom in ActiveMinimapRooms)
         {
             Destroy(MiniRoom);
         }
     }
+            //     if (room.RoomShape == RoomShape.OneByOne)
+            // {
+            //     RoomSize = new Vector2(CellSize, CellSize);
+            //     RoomPosition = new Vector2(col * CellSize, -row * CellSize);
+            // }
+            // else if (room.RoomShape == RoomShape.OneByTwo)
+            // {
+            //     RoomSize = new Vector2(CellSize, CellSize * 2);
+            //     RoomPosition = new Vector2(col * CellSize, -row * CellSize + (CellSize / 2f));
+            // }
+            // else if (room.RoomShape == RoomShape.TwoByOne)
+            // {
+            //     RoomSize = new Vector2(CellSize * 2, CellSize);
+            //     RoomPosition = new Vector2(col * CellSize + (CellSize / 2f), -row * CellSize);
+
+            // }
+
+    // if (room.RoomShape == RoomShape.LShape_270)
+                // {
+                //     RoomPosition = new Vector2(col * CellSize + (CellSize / 2f), row);
+                // }
+                // else if (room.RoomShape == RoomShape.LShape_180)
+                // {
+                //     RoomPosition = new Vector2(col * CellSize - (CellSize / 2f), -row * CellSize + (CellSize / 2f));
+                // }
+                // else if (room.RoomShape == RoomShape.LShape_90)
+                // {
+                //     RoomPosition = new Vector2(col * CellSize + (CellSize / 2f), -row * CellSize + (CellSize / 2f));
+                // }
+                // else if (room.RoomShape == RoomShape.LShape_0)
+                // {
+                //     RoomPosition = new Vector2(col * CellSize + (CellSize / 2f), -row * CellSize + (CellSize / 2f));
+                // }
+                // else // 2x2
+                // {
+                //     RoomPosition = new Vector2(col * CellSize + (CellSize / 2f), -row * (CellSize*2) + (CellSize/2f));
+                // }
 }

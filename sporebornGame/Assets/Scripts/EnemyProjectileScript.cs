@@ -1,5 +1,7 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Collider2D))] // e.g., CircleCollider2D (IsTrigger = true)
 public class EnemyProjectileScript : MonoBehaviour
 {
     [Header("Projectile Settings")]
@@ -7,11 +9,11 @@ public class EnemyProjectileScript : MonoBehaviour
     [SerializeField] float lifetime = 2f;
 
     [Header("Damage")]
-    [SerializeField] int damage = 1;                 // tweak in Inspector
+    [SerializeField] int damage = 1;
 
     [Header("Collision")]
-    [SerializeField] string playerTag = "Player";    // your player tag
-    [SerializeField] string environmentLayerName = "Environment"; // your walls layer
+    [SerializeField] string playerTag = "Player";
+    [SerializeField] string environmentLayerName = "Environment";
 
     // runtime
     Vector2 direction;
@@ -19,12 +21,18 @@ public class EnemyProjectileScript : MonoBehaviour
     Rigidbody2D rb;
     int environmentLayer;
 
+    /// <summary>
+    /// Shooter calls this after instantiating and (optionally) setting rotation.
+    /// Do NOT change rotation here; shooter already oriented the root.
+    /// </summary>
     public void Initialize(Vector2 shootDirection)
     {
         direction = shootDirection.normalized;
-        transform.right = direction;
 
-        if (rb) rb.linearVelocity = direction * speed;   // physics-based movement
+        // Do not re-aim here (leaves any shooter-set rotation intact).
+        // transform.right = direction;
+
+        if (rb) rb.linearVelocity = direction * speed;  // physics-based travel
     }
 
     void Awake()
@@ -35,17 +43,27 @@ public class EnemyProjectileScript : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Kinematic;
             rb.gravityScale = 0f;
             rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+            rb.freezeRotation = true; // never spin from physics
         }
+
+        // Ensure trigger collider (e.g., CircleCollider2D) is set in Inspector
+        var col = GetComponent<Collider2D>();
+        if (col) col.isTrigger = true;
 
         environmentLayer = LayerMask.NameToLayer(environmentLayerName);
         if (environmentLayer == -1)
             Debug.LogError($"EnemyProjectile: Layer '{environmentLayerName}' not found.");
 
-        // Ensure we pass through enemies (also set in your layer matrix)
+        // Ignore enemies (also configure in Physics 2D Layer Matrix)
         int enemyLayer = LayerMask.NameToLayer("Enemy");
-        int myLayer = gameObject.layer; // should be EnemyProjectile
+        int myLayer = gameObject.layer;
         if (enemyLayer >= 0 && myLayer >= 0)
             Physics2D.IgnoreLayerCollision(myLayer, enemyLayer, true);
+    }
+
+    void OnEnable()
+    {
+        timer = 0f; // for pooling
     }
 
     void Update()
@@ -54,32 +72,25 @@ public class EnemyProjectileScript : MonoBehaviour
         if (timer >= lifetime) Destroy(gameObject);
     }
 
-    // TRIGGERS (recommended: make the projectile collider IsTrigger = ON)
+    // Trigger path (preferred)
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Player hit -> deal damage + destroy
         if (other.CompareTag(playerTag))
         {
-            PlayerPresenter pp = other.GetComponent<PlayerPresenter>();
-            if (!pp) pp = other.GetComponentInParent<PlayerPresenter>();
+            var pp = other.GetComponent<PlayerPresenter>() ?? other.GetComponentInParent<PlayerPresenter>();
             if (pp) pp.TakeDamage(damage);
-            else Debug.LogWarning("Player hit but no PlayerPresenter found on object or parent.", other);
-
             Destroy(gameObject);
             return;
         }
 
-        // Environment -> destroy
         if (other.gameObject.layer == environmentLayer)
         {
             Destroy(gameObject);
             return;
         }
-
-        // Enemies are ignored by the collision matrix / IgnoreLayerCollision
     }
 
-    // SAFETY: if your projectile collider ever isn't a trigger, this still works.
+    // Safety if collider ever isn't a trigger
     void OnCollisionEnter2D(Collision2D c)
     {
         if (c.collider.CompareTag(playerTag))
@@ -89,10 +100,10 @@ public class EnemyProjectileScript : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         if (c.collider.gameObject.layer == environmentLayer)
         {
             Destroy(gameObject);
         }
     }
-
 }

@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 7839141121415059811}
   - component: {fileID: 7157334257128942562}
   - component: {fileID: 6673852298510597383}
-  - component: {fileID: 7871639664873827770}
+  - component: {fileID: 5194943714179694601}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -245,11 +245,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 8429666763159996018}
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 7996612800276369546}
   forcefieldRenderer: {fileID: 1426264308989029131}
-  animator: {fileID: 0}
   invulnDuration: 0.5
-  knockbackForce: 8
+  hitFlashDuration: 0.1
 --- !u!114 &-2588614934077091116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,7 +405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equippedItem: {fileID: 0}
   currentCharges: 0
---- !u!114 &7871639664873827770
+--- !u!114 &5194943714179694601
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -415,11 +414,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 2503916331830693916}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 621535fc7f16bfc42a5d7bb3f080b9da, type: 3}
+  m_Script: {fileID: 11500000, guid: 126b125c428c648b9abdda5adfa10ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equippedItem: {fileID: 0}
-  currentCharges: 0
+  baseMoveSpeed: 5
+  baseFireRate: 0.2
+  baseProjectileSpeed: 12
+  baseDamage: 1
+  currentMoveSpeed: 0
+  currentFireRate: 0
+  currentProjectileSpeed: 0
+  currentDamage: 0
 --- !u!1 &6676378610104298761
 GameObject:
   m_ObjectHideFlags: 0

@@ -126,8 +126,8 @@ public class MapPresenter : MonoBehaviour
         // Build the starter room
         BuildRoom(StarterRoom, null);
 
-        // Create the inital minimap
-        minimap.SetupMiniMap(model, this);
+        // Create the initial minimap
+        minimap.SetupMiniMap(this, model);
 
         // Destroy Active entities in scene upon start
         enemyPresenter.RemovePortal();
@@ -251,7 +251,7 @@ public class MapPresenter : MonoBehaviour
         }
         
         // Updates the minimap as player moves
-        minimap.UpdateMinimap(this);
+        minimap.UpdateMinimap(this, model);
 
         // Move any pet followers to the player position
         var petFollowers = Object.FindObjectsByType<PetFollower>(FindObjectsSortMode.None);

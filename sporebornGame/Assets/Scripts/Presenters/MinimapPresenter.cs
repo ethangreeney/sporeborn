@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class MinimapPresenter : MonoBehaviour
 {
-    public GameObject MiniroomPrefab;
     public float CellSize = 50f; // Change in inspector
 
     [SerializeField]
@@ -13,6 +12,9 @@ public class MinimapPresenter : MonoBehaviour
 
     // Dictionary for faster search time for finding room data
     private Dictionary<GameObject, Room> ActiveMinimapRooms;
+
+
+    private List<GameObject> AdjacentRooms;
 
     // Handles the initial position and instatiation of each room prefab
     public void SetupMiniMap(MapPresenter mapPresenter, MapModel model)
@@ -22,8 +24,9 @@ public class MinimapPresenter : MonoBehaviour
             ResetMiniMap();
         }
 
-        // New Dictionary per level
+        // Tracks Room data for fast searching
         ActiveMinimapRooms = new Dictionary<GameObject, Room>();
+        AdjacentRooms = new List<GameObject>();
 
         List<Room> ActiveRooms = mapPresenter.GetSpawnedRooms;
         foreach (var RoomData in ActiveRooms)
@@ -96,6 +99,11 @@ public class MinimapPresenter : MonoBehaviour
     // Updates each new room
     public void UpdateMinimap(MapPresenter mapPresenter, MapModel model)
     {
+        // Clear the Adajacent room list for a new room
+        if (AdjacentRooms != null) {
+        AdjacentRooms.Clear();
+        }
+            
         // Map hasn't been created
         if (ActiveMinimapRooms == null)
             return;
@@ -112,12 +120,6 @@ public class MinimapPresenter : MonoBehaviour
     {
         Room RoomData = ActiveMinimapRooms[RoomObject];
         Image img = RoomObject.GetComponentInChildren<Image>();
-        Color currentColor = img.color;
-
-        if(currentColor.a == 0.6f)
-        {
-            return;
-        }
 
         // Default to no colour overlay
         Color BaseColour = Color.white;
@@ -127,6 +129,12 @@ public class MinimapPresenter : MonoBehaviour
         {
             img.color = Color.green;
             RevealSurroundingRooms(RoomObject, model);
+            return;
+        }
+        // Don't change the style of the adjacent rooms until we move to a new room
+        else if (AdjacentRooms.Contains(RoomObject))
+        {
+            return;
         }
         // Makes all room that are not visited hidden (transparent)
         else if (!RoomData.HasBeenVisited && RoomData != mapPresenter.GetStarterRoom)
@@ -138,9 +146,10 @@ public class MinimapPresenter : MonoBehaviour
             img.color = BaseColour;
         }
 
-        
+
     }
 
+    // Destroys all the rooms in minimap
     public void ResetMiniMap()
     {
         foreach (var MiniRoom in ActiveMinimapRooms)
@@ -178,17 +187,14 @@ public class MinimapPresenter : MonoBehaviour
             foreach (var MiniRoom in ActiveMinimapRooms)
             {
                 // Change image to transparent if it hasn't been visited
-                if (MiniRoom.Value.OccupiedIndexes.Contains(direct))
+                if (MiniRoom.Value.OccupiedIndexes.Contains(direct) && !MiniRoom.Value.HasBeenVisited)
                 {
-                    Debug.Log("Found");
-                }
-
-                if (MiniRoom.Value.OccupiedIndexes.Contains(direct))
-                {
-                    Debug.Log("we get here");
                     Image img = MiniRoom.Key.GetComponentInChildren<Image>();
                     Color BaseColour = Color.white;
                     img.color = new Color(BaseColour.r, BaseColour.g, BaseColour.b, 0.6f);
+
+                    // Add to adjacent rooms
+                    AdjacentRooms.Add(MiniRoom.Key);
                 }
             }
 

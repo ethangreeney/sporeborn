@@ -341,10 +341,7 @@ public class MapPresenter : MonoBehaviour
         // Locks each active door with boolean
         foreach (Door door in DoorsInRoom)
         {
-            // if (door.ConnectingRoom != null)
-            // {
             door.DoorIsLocked = Locked;
-            // }
         }
 
     }

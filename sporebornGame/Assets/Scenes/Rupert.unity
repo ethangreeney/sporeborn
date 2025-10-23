@@ -470,6 +470,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7533677297689995381, guid: 7ba546fa666f44d10b252c4cb018db98, type: 3}
+      propertyPath: damage
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7713316025894942385, guid: 7ba546fa666f44d10b252c4cb018db98, type: 3}
       propertyPath: m_Name
       value: EnemyProjectile
@@ -665,8 +669,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6460743870222515995, guid: 29dcf1425ec5b4eb1abdf019849215a9, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

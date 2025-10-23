@@ -104,8 +104,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Offset: {x: 0, y: -0.69}
+  m_Radius: 0.65
 --- !u!50 &3488713785719216045
 Rigidbody2D:
   serializedVersion: 5
@@ -229,8 +229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c72db87a200434cbc7a01e40909518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
-  currHealth: 3
+  maxHealth: 8
+  currHealth: 8
   spriteRenderer: {fileID: 0}
 --- !u!114 &-1715974880639965395
 MonoBehaviour:

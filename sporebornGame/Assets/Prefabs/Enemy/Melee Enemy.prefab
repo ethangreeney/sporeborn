@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 736291710826666144}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.18, y: -0.63, z: 0}
+  m_LocalScale: {x: 1, y: 1.39, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2282785454629585310}
@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddc0264cd63eb4999bd5691f0f1f5b97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 2
   playerTag: Player
   hitInterval: 1
   environmentMask:
@@ -165,8 +165,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Offset: {x: 0, y: -0.66}
+  m_Radius: 0.9
 --- !u!50 &8352089202157799410
 Rigidbody2D:
   serializedVersion: 5
@@ -290,8 +290,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c72db87a200434cbc7a01e40909518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 5
-  currHealth: 5
+  maxHealth: 8
+  currHealth: 8
   spriteRenderer: {fileID: 0}
 --- !u!114 &5685242431612823390
 MonoBehaviour:

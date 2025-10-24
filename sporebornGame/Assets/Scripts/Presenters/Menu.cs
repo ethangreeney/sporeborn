@@ -3,8 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public void PlayGame() // loading the next scene
+    void Start()
+    {
+        if (SoundManager.instance) SoundManager.instance.StopAllMusic();
+    }
+
+    public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using UnityEngine;
 
 public class Door : MonoBehaviour
@@ -57,14 +58,9 @@ public class Door : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // If player collides with door then Build the next room 
-        // Pass through the cell and this doors position
-        if (DoorIsLocked || collision.gameObject != map.Player)
-        {
-            return;
-        }
-  
-        // Build next room
+        if (DoorIsLocked || collision.gameObject != map.Player) return;
+
+        SoundManager.instance.PlayDoorSound();
         map.BuildRoom(ConnectingRoom, this);
     }
 

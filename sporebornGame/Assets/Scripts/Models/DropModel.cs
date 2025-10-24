@@ -18,7 +18,8 @@ public class DropModel : MonoBehaviour
     }
 
     // Called when dropped item is instantiated 
-    void Awake() {
+    void Awake()
+    {
         Enemy = FindFirstObjectByType<EnemyPresenter>();
         PlayerInstance = FindFirstObjectByType<PlayerPresenter>();
     }
@@ -40,25 +41,26 @@ public class DropModel : MonoBehaviour
         // Applies appropriate effect to player based on item
         switch (CurrentItem.CurrentItemType)
         {
-            
+
             case ItemType.Heart:
-                // Stops health from increasing more than Max Health
                 if (PlayerInstance.health.currHealth + ItemModifierValue <= PlayerInstance.health.maxHealth)
                 {
                     PlayerInstance.health.Heal(ItemModifierValue);
                 }
+                SoundManager.instance.PlayPickupSound();
                 break;
 
             case ItemType.Nectar:
                 CurrencyModel playerwallet = PlayerInstance.GetComponent<CurrencyModel>();
                 playerwallet.AddCurrency(ItemModifierValue);
+                SoundManager.instance.PlayNectarPickupSound();
                 break;
 
-         }
-        
+        }
+
         // Tells the presenter to destroy this item
         Enemy.DestroyItem(CollidedItem);
-   
+
 
     }
 

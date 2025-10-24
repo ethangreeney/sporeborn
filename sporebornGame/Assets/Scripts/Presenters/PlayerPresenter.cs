@@ -42,6 +42,7 @@ public class PlayerPresenter : MonoBehaviour
         if (isDead || invulnFromDamage || invulnFromForcefield)
             return;
 
+        SoundManager.instance.PlayDamageSound();
         health.Damage(amount);
         StartCoroutine(HitFlash());
 

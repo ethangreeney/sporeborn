@@ -65,7 +65,7 @@ public class ProjectilePresenter : MonoBehaviour
         if (enableHoming)
             target = FindClosestEnemy();
 
-        rb.linearVelocity = originalDirection.normalized  * speed;
+        rb.linearVelocity = originalDirection.normalized * speed;
         Destroy(gameObject, lifetime);
     }
 
@@ -85,12 +85,10 @@ public class ProjectilePresenter : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-    
-        if (other.isTrigger) return;
-
         var enemy = other.GetComponentInParent<EnemyModel>();
         if (enemy != null)
         {
+            SoundManager.instance.PlayEnemyHitSound();
             enemy.TakeDamage(damage);
 
             // --- APPLY SLOW EFFECT ---
@@ -101,7 +99,6 @@ public class ProjectilePresenter : MonoBehaviour
 
             Destroy(gameObject);
         }
-        
     }
 
     void OnCollisionEnter2D(Collision2D collision)

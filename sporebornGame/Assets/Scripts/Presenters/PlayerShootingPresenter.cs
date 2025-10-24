@@ -62,6 +62,8 @@ public class PlayerShootingPresenter : MonoBehaviour
     }
     void Shoot()
     {
+        SoundManager.instance.PlayAttackSound();
+
         Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 dir = (mouse - firePoint.position).normalized;
         float baseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;

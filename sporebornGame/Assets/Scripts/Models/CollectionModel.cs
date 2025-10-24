@@ -64,7 +64,10 @@ public class CollectionModel : MonoBehaviour
         {
             var playerHealth = collision.GetComponent<HealthModel>();
             if (playerHealth && healthChange != 0 && playerHealth.currHealth < playerHealth.maxHealth)
+            {
                 playerHealth.Heal(healthChange);
+                SoundManager.instance.PlayPickupSound();
+            }
             return;
         }
 
@@ -159,7 +162,7 @@ public class CollectionModel : MonoBehaviour
             }
 
             if (projectileColor != Color.clear)
-            { 
+            {
                 shooting.projectileColor = projectileColor;
             }
 
@@ -180,11 +183,12 @@ public class CollectionModel : MonoBehaviour
 
         if (consumed)
         {
+            SoundManager.instance.PlayPickupSound();
             collision.GetComponent<PlayerInventory>()?.AddItem(item);
             if (room != null) itemPresenter?.NotifyItemCollected(room);
             Destroy(gameObject);
         }
-        
+
 
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems; 
+using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -69,9 +69,9 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         isPaused = false;
+        SoundManager.instance.StopAllMusic();
         SceneManager.LoadScene(0);
-
     }
 
-    
+
 }

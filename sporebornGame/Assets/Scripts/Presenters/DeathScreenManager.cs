@@ -36,6 +36,9 @@ public class DeathScreenManager : MonoBehaviour
 
     private void ShowDeathScreen()
     {
+        // Stop music and play death sound
+        SoundManager.instance.StopAllMusic();
+        SoundManager.instance.PlayDeathSound();
 
         // Hide the main game HUD
         if (mainHudPanel != null)

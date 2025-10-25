@@ -54,8 +54,6 @@ public class MapPresenter : MonoBehaviour
 
     private RoomTextPresenter roomTextPresenter;
 
-    private bool isFirstRoom = true;
-
     private List<string> regularRoomTexts = new List<string>
     {
         "The air is still and heavy.",
@@ -123,17 +121,27 @@ public class MapPresenter : MonoBehaviour
         roomTextPresenter = FindFirstObjectByType<RoomTextPresenter>();
         minimap = FindFirstObjectByType<MinimapPresenter>();
 
+
+
         // Build the starter room
         BuildRoom(StarterRoom, null);
 
-        // Creates the Minimap - after map is generated
-        minimap.CreateMinimap();
+        // Create the initial minimap
+        minimap.SetupMiniMap(this, model);
 
         // Destroy Active entities in scene upon start
         enemyPresenter.RemovePortal();
         enemyPresenter.DestroyAllItems();
     }
-    
+
+    // Debugging temp
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R)){
+            ResetMap();
+        }
+    }
+
     public void ResetMap()
     {
         Start();
@@ -187,18 +195,6 @@ public class MapPresenter : MonoBehaviour
         {
             Destroy(ActiveRoomInstance);
         }
-
-        if (!isFirstRoom)
-        {
-            if (!RoomToSpawn.HasBeenVisited)
-            {
-                AssignEntryText(RoomToSpawn);
-                roomTextPresenter.ShowRoomText(RoomToSpawn.EntryText);
-                RoomToSpawn.HasBeenVisited = true;
-            }
-        }   
-        isFirstRoom = false;
-
         
         // Gets file of room based on shape, type and current level
         string RoomName = RoomToSpawn.RoomShape + "_" + RoomToSpawn.RoomType + "_" + CurrentLevel;
@@ -232,14 +228,30 @@ public class MapPresenter : MonoBehaviour
         }
 
         Vector3 PlayerSpawnPosition = Vector3.zero;
-        // If we are in starter room
+        // The entry door is null if we are in starter room
         if (EnterDoor != null)
         {
             PlayerSpawnPosition = CalculateSpawnOffset(EnterDoor);
         }
-     
+
         // Player location will be based on the door they enter from
         Player.transform.position = PlayerSpawnPosition;
+
+        // Only displays entry text when room hasn't been visited
+        if (!RoomToSpawn.HasBeenVisited)
+        {
+            if (CurrentPlayerRoom != StarterRoom)
+            {
+                AssignEntryText(RoomToSpawn);
+                roomTextPresenter.ShowRoomText(RoomToSpawn.EntryText);
+
+            }
+
+            RoomToSpawn.HasBeenVisited = true;
+        }
+        
+        // Updates the minimap as player moves
+        minimap.UpdateMinimap(this, model);
 
         // Move any pet followers to the player position
         var petFollowers = Object.FindObjectsByType<PetFollower>(FindObjectsSortMode.None);
@@ -329,10 +341,7 @@ public class MapPresenter : MonoBehaviour
         // Locks each active door with boolean
         foreach (Door door in DoorsInRoom)
         {
-            // if (door.ConnectingRoom != null)
-            // {
             door.DoorIsLocked = Locked;
-            // }
         }
 
     }

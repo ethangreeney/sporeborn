@@ -1,25 +1,49 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class SoundManager : MonoBehaviour
 {
-
-public static SoundManager instance;
+    public static SoundManager instance;
 
     [Header("Sources (assign in Inspector)")]
-    [SerializeField] AudioSource musicSource;      // basic loop (Play On Awake = ON, Loop = ON)
-    [SerializeField] AudioSource bossMusicSource;  // boss loop (Play On Awake = OFF, Loop = ON)
+    [SerializeField] AudioSource musicSource;
+    [SerializeField] AudioSource bossMusicSource;
+    [SerializeField] AudioSource sfxSource;
+
+    [Header("Sound Effect Clips")]
+    [SerializeField] AudioClip attackSound;
+    [SerializeField] AudioClip pickupSound;
+    [SerializeField] AudioClip nectarPickupSound;
+    [SerializeField] AudioClip doorSound;
+    [SerializeField] AudioClip footstepSound;
+    [SerializeField] AudioClip damageSound;
+    [SerializeField] AudioClip enemyHitSound;
+    [SerializeField] AudioClip deathSound;
 
     [Header("Crossfade")]
     [SerializeField, Range(0f, 2f)] float crossfadeSeconds = 1.0f;
-    [SerializeField, Range(0f, 1f)] float musicVolume = 0.8f; // target volume when enabled
+    [SerializeField, Range(0f, 1f)] float musicVolume = 0.8f;
+
+    [Header("SFX Volumes")]
+    [SerializeField, Range(0f, 1f)] float masterSFXVolume = 0.8f;
+    [SerializeField, Range(0f, 1f)] float attackVolume = 1f;
+    [SerializeField, Range(0f, 1f)] float pickupVolume = 1f;
+    [SerializeField, Range(0f, 1f)] float nectarVolume = 1f;
+    [SerializeField, Range(0f, 1f)] float doorVolume = 1f;
+    [SerializeField, Range(0f, 1f)] float footstepVolume = 1f;
+    [SerializeField, Range(0f, 1f)] float damageVolume = 1f;
+    [SerializeField, Range(0f, 1f)] float enemyHitVolume = 1f;
+    [SerializeField, Range(0f, 1f)] float deathVolume = 1f;
 
     [Header("State")]
     [SerializeField] bool musicEnabled = true;
 
     Coroutine xfading;
-    AudioSource current;   // which source is currently “live”
-    AudioSource other;     // the other source (for quick swaps)
+    AudioSource current;
+    AudioSource other;
+
+    float lastEnemyHitTime;
 
     void Awake()
     {
@@ -28,40 +52,78 @@ public static SoundManager instance;
         DontDestroyOnLoad(gameObject);
 
         // sanity defaults
-        if (musicSource)      { musicSource.loop = true; }
-        if (bossMusicSource)  { bossMusicSource.loop = true; bossMusicSource.playOnAwake = false; }
+        if (musicSource) { musicSource.loop = true; }
+        if (bossMusicSource) { bossMusicSource.loop = true; bossMusicSource.playOnAwake = false; }
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
 
         // start basic track if enabled
-        if (musicEnabled) {
+        if (musicEnabled)
+        {
             StartBasicLoop();
-        } else {
+        }
+        else
+        {
             // keep them muted if music starts disabled
-            if (musicSource)      musicSource.volume = 0f;
-            if (bossMusicSource)  bossMusicSource.volume = 0f;
+            if (musicSource) musicSource.volume = 0f;
+            if (bossMusicSource) bossMusicSource.volume = 0f;
             current = musicSource;
-            other   = bossMusicSource;
+            other = bossMusicSource;
         }
     }
 
-    // ---------- Public API your game code can call ----------
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
 
-    /// Call this when entering the boss room.
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Restart music when loading game scene (scene index 1)
+        if (scene.buildIndex == 1 && musicEnabled)
+        {
+            StartBasicLoop();
+        }
+    }
+
+    // ---------- Public API ----------
+
     public void EnterBossRoom()
     {
         if (!musicEnabled) return;
-        if (musicSource == null || bossMusicSource == null) return;
         Crossfade(musicSource, bossMusicSource, crossfadeSeconds);
     }
 
-    /// Call this when the boss is defeated (before/after loot/portal spawns).
     public void BossDefeated()
     {
         if (!musicEnabled) return;
-        if (musicSource == null || bossMusicSource == null) return;
         Crossfade(bossMusicSource, musicSource, crossfadeSeconds);
     }
 
-    /// Toggle from Settings UI (hook the button to this).
+    public void PlayAttackSound() => sfxSource.PlayOneShot(attackSound, masterSFXVolume * attackVolume);
+    public void PlayPickupSound() => sfxSource.PlayOneShot(pickupSound, masterSFXVolume * pickupVolume);
+    public void PlayNectarPickupSound() => sfxSource.PlayOneShot(nectarPickupSound, masterSFXVolume * nectarVolume);
+    public void PlayDoorSound() => sfxSource.PlayOneShot(doorSound, masterSFXVolume * doorVolume);
+    public void PlayFootstepSound() => sfxSource.PlayOneShot(footstepSound, masterSFXVolume * footstepVolume);
+    public void PlayDamageSound() => sfxSource.PlayOneShot(damageSound, masterSFXVolume * damageVolume);
+    public void PlayDeathSound() => sfxSource.PlayOneShot(deathSound, masterSFXVolume * deathVolume);
+
+    public void PlayEnemyHitSound()
+    {
+        if (Time.time - lastEnemyHitTime < 0.05f) return;
+        sfxSource.PlayOneShot(enemyHitSound, masterSFXVolume * enemyHitVolume);
+        lastEnemyHitTime = Time.time;
+    }
+
+    public void StopAllMusic()
+    {
+        if (xfading != null) StopCoroutine(xfading);
+        musicSource.Stop();
+        bossMusicSource.Stop();
+        musicSource.volume = 0f;
+        bossMusicSource.volume = 0f;
+    }
+
     public void ToggleMusic()
     {
         SetMusicEnabled(!musicEnabled);
@@ -73,20 +135,20 @@ public static SoundManager instance;
         musicEnabled = enabled;
 
         if (current == null) current = musicSource;
-        if (other   == null) other   = bossMusicSource;
+        if (other == null) other = bossMusicSource;
 
         if (enabled)
         {
             // restore the active source to target volume
             if (!current.isPlaying) current.Play();
             current.volume = musicVolume;
-            other.volume   = 0f;
+            other.volume = 0f;
         }
         else
         {
             // mute both (keeps position; use .Pause() if you prefer)
             if (xfading != null) StopCoroutine(xfading);
-            if (musicSource)     musicSource.volume = 0f;
+            if (musicSource) musicSource.volume = 0f;
             if (bossMusicSource) bossMusicSource.volume = 0f;
         }
     }
@@ -97,7 +159,7 @@ public static SoundManager instance;
     {
         if (musicSource == null) return;
         current = musicSource;
-        other   = bossMusicSource;
+        other = bossMusicSource;
 
         if (!musicSource.isPlaying) musicSource.Play();
         musicSource.volume = musicVolume;
@@ -114,7 +176,7 @@ public static SoundManager instance;
         if (xfading != null) StopCoroutine(xfading);
         xfading = StartCoroutine(CoCrossfade(from, to, seconds));
         current = to;
-        other   = from;
+        other = from;
     }
 
     IEnumerator CoCrossfade(AudioSource from, AudioSource to, float seconds)
@@ -123,8 +185,8 @@ public static SoundManager instance;
 
         float t = 0f;
         float fromStart = from ? from.volume : 0f;
-        float toStart   = to   ? to.volume   : 0f;
-        float toTarget  = musicVolume;
+        float toStart = to ? to.volume : 0f;
+        float toTarget = musicVolume;
 
         while (t < seconds)
         {
@@ -132,13 +194,13 @@ public static SoundManager instance;
             float k = Mathf.Clamp01(t / seconds);
 
             if (from) from.volume = Mathf.Lerp(fromStart, 0f, k);
-            if (to)   to.volume   = Mathf.Lerp(toStart,   toTarget, k);
+            if (to) to.volume = Mathf.Lerp(toStart, toTarget, k);
 
             yield return null;
         }
 
         if (from) { from.volume = 0f; from.Stop(); } // stop to free CPU
-        if (to)   { to.volume   = musicVolume; }
+        if (to) { to.volume = musicVolume; }
         xfading = null;
     }
 }

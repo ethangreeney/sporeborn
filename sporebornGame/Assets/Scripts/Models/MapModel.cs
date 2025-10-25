@@ -20,6 +20,7 @@ public class MapModel
 
     // One side of grid length
     private int GRID_SIDE = 10;
+    public int GET_GRID_SIDE => GRID_SIDE;
 
     // Generates Random numbers
     System.Random rng;
@@ -213,13 +214,6 @@ public class MapModel
 
     private bool CheckValidCell(int index)
     {
-        // Gurantees the starting room will generate
-        if (index == StartingRoomIndex)
-        {
-            AddNewRoom(index, new int[] { }, RoomShape.OneByOne);
-            CellQueue.Enqueue(index);
-            return true;
-        }
         // Out of bounds of the map array
         if (index >= FloorPlan.Length || index < 0)
         {
@@ -236,6 +230,14 @@ public class MapModel
         if (FloorPlan[index] == 1 || GetNeighbourCellCount(index) > 1 || rng.NextDouble() < 0.5f)
         {
             return false;
+        }
+
+        // Gurantees the starting room will generate
+        if (index == StartingRoomIndex)
+        {
+            AddNewRoom(index, new int[] { }, RoomShape.OneByOne);
+            CellQueue.Enqueue(index);
+            return true;
         }
 
         // 30% chance to try and place a large room
@@ -277,6 +279,10 @@ public class MapModel
         {
             roomOriginIndex = index + offset; // Holds each cell offset
 
+            // Prevents a large room from being created with the starting index
+            if (roomOriginIndex == StartingRoomIndex || index == StartingRoomIndex)
+            return false;
+
             //  If Offset is outside of bounds - fail to place room
             if ((roomOriginIndex < 0) || roomOriginIndex  >= FloorPlan.Length)
             {
@@ -310,7 +316,7 @@ public class MapModel
     }
 
     private void AddNewRoom(int index, int[] roomIndexes, RoomShape shape)
-    {
+    {   
         // Origin is marked as occupied
         FloorPlan[index] = 1;
         

@@ -4938,6 +4938,7 @@ MonoBehaviour:
   pulseSpeed: 2
   pulseStrength: 0.1
   baseScale: 1
+  activationDelay: 2
 --- !u!58 &6240707399016566372
 CircleCollider2D:
   m_ObjectHideFlags: 0

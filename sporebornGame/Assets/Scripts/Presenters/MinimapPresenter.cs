@@ -1,84 +1,208 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MinimapPresenter : MonoBehaviour
 {
-    public MapPresenter mapPresenter;
-    public GameObject MiniroomPrefab;
     public float CellSize = 50f; // Change in inspector
 
     [SerializeField]
     private List<GameObject> MinimapPrefabs;
 
+    // Dictionary for faster search time for finding room data
+    private Dictionary<GameObject, Room> ActiveMinimapRooms;
 
-    public void CreateMinimap()
+
+    private List<GameObject> AdjacentRooms;
+
+    // Handles the initial position and instatiation of each room prefab
+    public void SetupMiniMap(MapPresenter mapPresenter, MapModel model)
     {
-        DrawMiniMap();
-    }
-
-    private void DrawMiniMap()
-    {
-        //if (mapPresenter == null || mapPresenter.GetSpawnedRooms == null) return;
-
-        foreach (var room in mapPresenter.GetSpawnedRooms)
+        if (ActiveMinimapRooms != null && ActiveMinimapRooms.Count > 0)
         {
-            Color Colour = GetRoomStyle(room);
+            ResetMiniMap();
+        }
 
-            foreach (var idx in room.OccupiedIndexes)
+        // Tracks Room data for fast searching
+        ActiveMinimapRooms = new Dictionary<GameObject, Room>();
+        AdjacentRooms = new List<GameObject>();
+
+        List<Room> ActiveRooms = mapPresenter.GetSpawnedRooms;
+        foreach (var RoomData in ActiveRooms)
+        {
+            // Converts index to row and col position
+            int row = RoomData.OriginIndex / 10;
+            int col = RoomData.OriginIndex % 10;
+
+            // Gets file of minimap prefab based on shape, type and current level
+            string RoomName = "mini" + "_" + RoomData.RoomShape + "_" + RoomData.RoomType;
+
+            // Find the correct minmap prefab
+            GameObject CurrentRoomPrefab = null;
+            foreach (GameObject prefab in MinimapPrefabs)
             {
-                int row = idx / 10;
-                int col = idx % 10;
-
-                // Creates the RoomCell within the Minimap Container
-
-                GameObject RoomCell = Instantiate(MiniroomPrefab, transform, false);
-                RectTransform CellTransform = RoomCell.GetComponent<RectTransform>();
-
-                Image img = RoomCell.GetComponent<Image>();
-
-                img.color = Colour;
-
-                // Positions each part of the Room
-                CellTransform.anchoredPosition = new Vector2(col * CellSize, -row * CellSize);
-                // Sets the size of each segment of the room
-                CellTransform.sizeDelta = new Vector2(CellSize, CellSize);
+                if (prefab.name == RoomName)
+                {
+                    CurrentRoomPrefab = prefab;
+                    break;
+                }
             }
+
+            if (CurrentRoomPrefab == null)
+            {
+                Debug.Log("Can't find minimap prefab, file naming may be incorrect: " + RoomName);
+            }
+
+            // Creates the room within the Minimap Container
+            GameObject Room = Instantiate(CurrentRoomPrefab, transform, false);
+
+            // Attaches the rooms data to the current minimap room
+            //Room RoomData = Room.GetComponent<MiniRoomModel>().SetupMiniRoom(room);
+
+            // Adds GameObject and RoomData to dictionary
+            ActiveMinimapRooms.Add(Room, RoomData);
+
+            // Get Room GameObject UI transform
+            RectTransform CellTransform = Room.GetComponent<RectTransform>();
+
+            // Calculated position and size
+            Vector2 RoomSize;
+            Vector2 RoomPosition;
+
+            if (RoomData.RoomShape == RoomShape.OneByOne)
+                RoomSize = new Vector2(CellSize, CellSize);
+            else if (RoomData.RoomShape == RoomShape.OneByTwo)
+                RoomSize = new Vector2(CellSize, CellSize * 2);
+            else if (RoomData.RoomShape == RoomShape.TwoByOne)
+                RoomSize = new Vector2(CellSize * 2, CellSize);
+            else // 2x2 or L shapes
+                RoomSize = new Vector2(CellSize * 2, CellSize * 2);
+
+            RoomPosition = new Vector2(col * CellSize, -row * CellSize);
+
+
+            // Sets the position of the room prefab
+            CellTransform.anchoredPosition = RoomPosition;
+            // Sets the size for the room prefab
+            CellTransform.sizeDelta = RoomSize;
+
+        }
+
+        // Apply styles to each room
+        foreach (var MiniRoom in ActiveMinimapRooms)
+        {
+            ApplyRoomStyling(MiniRoom.Key, mapPresenter, model);
         }
     }
 
-    public Color GetRoomStyle(Room CurrentRoom)
+    // Updates each new room
+    public void UpdateMinimap(MapPresenter mapPresenter, MapModel model)
     {
-        Color Colour;
+        // Clear the Adajacent room list for a new room
+        if (AdjacentRooms != null) {
+        AdjacentRooms.Clear();
+        }
+            
+        // Map hasn't been created
+        if (ActiveMinimapRooms == null)
+            return;
+        
 
-        // Pick a color based on RoomType or if it's the starter room
-        if (CurrentRoom.OriginIndex == mapPresenter.GetStarterRoom.OriginIndex)
+        // Apply each style to room
+        foreach (var MiniRoom in ActiveMinimapRooms)
         {
-            return Color.grey;
+            ApplyRoomStyling(MiniRoom.Key, mapPresenter, model);
+        }
+    }
+
+    public void ApplyRoomStyling(GameObject RoomObject, MapPresenter mapPresenter, MapModel model)
+    {
+        Room RoomData = ActiveMinimapRooms[RoomObject];
+        Image img = RoomObject.GetComponentInChildren<Image>();
+
+        // Default to no colour overlay
+        Color BaseColour = Color.white;
+
+        // Highlights the current room player is in && reveal its surrounding rooms
+        if (RoomData == mapPresenter.CurrentPlayerRoom)
+        {
+            img.color = Color.green;
+            RevealSurroundingRooms(RoomObject, model);
+            return;
+        }
+        // Don't change the style of the adjacent rooms until we move to a new room
+        else if (AdjacentRooms.Contains(RoomObject))
+        {
+            return;
+        }
+        // Makes all room that are not visited hidden (transparent)
+        else if (!RoomData.HasBeenVisited && RoomData != mapPresenter.GetStarterRoom)
+        {
+            img.color = new Color(BaseColour.r, BaseColour.g, BaseColour.b, 0f);
         }
         else
         {
-            // Highlights Special Rooms
-            Colour = CurrentRoom.RoomType switch
-            {
-                RoomType.Boss => Color.red,
-                RoomType.Shop => Color.yellow,
-                RoomType.Item => Color.green,
-                _ => Color.white
-            };
-            // Highlights large rooms
-            if (CurrentRoom.RoomShape != RoomShape.OneByOne)
-            {
-                return Color.grey;
-            }
-
-            // Highlights room the player is in
-            if (CurrentRoom == mapPresenter.CurrentPlayerRoom)
-            {
-                return Color.magenta;
-            }
+            img.color = BaseColour;
         }
 
-        return Colour;
+
     }
+
+    // Destroys all the rooms in minimap
+    public void ResetMiniMap()
+    {
+        foreach (var MiniRoom in ActiveMinimapRooms)
+        {
+            Destroy(MiniRoom.Key);
+        }
+    }
+
+    // Show the surrounding rooms if they haven't been visited
+    public void RevealSurroundingRooms(GameObject RoomObject, MapModel model)
+    {
+        Room RoomData = ActiveMinimapRooms[RoomObject];
+        int[] FloorPlan = model.GetFloorPlan;
+
+        // Adjacent room directions
+        int North = RoomData.OriginIndex - 10;
+        int South = RoomData.OriginIndex + 10;
+        int East = RoomData.OriginIndex + 1;
+        int West = RoomData.OriginIndex - 1;
+
+        int[] directions = { North, South, East, West };
+
+        // Check if adjacent room is occupied and has not been visited
+        foreach (int direct in directions)
+        {
+            // Skip if out of bounds
+            if (direct < 0 || direct >= FloorPlan.Length)
+                continue;
+
+            // Skip if room cell not occupied
+            if (FloorPlan[direct] == 0)
+                continue;
+
+            // Checks all the active rooms for the adjacent room
+            foreach (var MiniRoom in ActiveMinimapRooms)
+            {
+                // Change image to transparent if it hasn't been visited
+                if (MiniRoom.Value.OccupiedIndexes.Contains(direct) && !MiniRoom.Value.HasBeenVisited)
+                {
+                    Image img = MiniRoom.Key.GetComponentInChildren<Image>();
+                    Color BaseColour = Color.white;
+                    img.color = new Color(BaseColour.r, BaseColour.g, BaseColour.b, 0.6f);
+
+                    // Add to adjacent rooms
+                    AdjacentRooms.Add(MiniRoom.Key);
+                }
+            }
+
+        }
+
+    }
+
+    
+
+    
 }

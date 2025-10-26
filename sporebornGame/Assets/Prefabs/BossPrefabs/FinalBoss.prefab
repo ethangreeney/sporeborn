@@ -107,8 +107,8 @@ GameObject:
   - component: {fileID: 39892605431227972}
   - component: {fileID: 3549890569109801112}
   - component: {fileID: 66040452223979453}
-  - component: {fileID: 7860608520240568151}
   - component: {fileID: 1413023983211496506}
+  - component: {fileID: 5472445540187990937}
   m_Layer: 11
   m_Name: FinalBoss
   m_TagString: Untagged
@@ -335,22 +335,6 @@ MonoBehaviour:
   onHealthChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7860608520240568151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6217181829710139393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 659411860a84c0b48b66869824c76cfd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: {fileID: 3549890569109801112}
-  animator: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  moveThreshold: 0.01
 --- !u!114 &1413023983211496506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,6 +354,22 @@ MonoBehaviour:
   minDistanceFromBoss: 2
   minDistanceFromPlayer: 2
   parentMinionsToSpawner: 1
+--- !u!114 &5472445540187990937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6217181829710139393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 659411860a84c0b48b66869824c76cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 3549890569109801112}
+  animator: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  moveThreshold: 0.01
 --- !u!1 &6686501496947175118
 GameObject:
   m_ObjectHideFlags: 0

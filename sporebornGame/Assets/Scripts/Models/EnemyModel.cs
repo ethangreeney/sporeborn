@@ -142,8 +142,10 @@ void LateUpdate()
         // >>> Play the death animation
         if (animator != null) animator.SetBool("Dead", true);
 
+        GameObject CurrentEnemy = gameObject;
+
         // notify presenter (score, counters, etc.)
-        if (enemyPresenter != null) enemyPresenter.EnemyDies(transform.position);
+        if (enemyPresenter != null) enemyPresenter.EnemyDies(transform.position, CurrentEnemy);
 
         // Fallback safety (only if you forget to add the animation event):
         Destroy(gameObject, 1.0f);

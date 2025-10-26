@@ -59,7 +59,7 @@ public class Door : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (DoorIsLocked || collision.gameObject != map.Player) return;
-
+        
         SoundManager.instance.PlayDoorSound();
         map.BuildRoom(ConnectingRoom, this);
 

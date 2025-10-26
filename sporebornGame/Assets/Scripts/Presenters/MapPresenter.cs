@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -85,7 +86,7 @@ public class MapPresenter : MonoBehaviour
         "A sense of dread fills the air...",
         "Destiny awaits."
     };
-    
+
     private List<string> itemRoomTexts = new List<string>
     {
         "You feel the pull of a powerful artifact nearby.",
@@ -137,7 +138,8 @@ public class MapPresenter : MonoBehaviour
     // Debugging temp
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R)){
+        if (Input.GetKeyDown(KeyCode.R))
+        {
             ResetMap();
         }
     }
@@ -187,7 +189,7 @@ public class MapPresenter : MonoBehaviour
 
         enemyPresenter.RemovePortal();
         enemyPresenter.DestroyAllItems();
-        
+
         // Reset the room prefab
         CurrentRoomPrefab = null;
         // Destroy the previous Room
@@ -195,7 +197,7 @@ public class MapPresenter : MonoBehaviour
         {
             Destroy(ActiveRoomInstance);
         }
-        
+
         // Gets file of room based on shape, type and current level
         string RoomName = RoomToSpawn.RoomShape + "_" + RoomToSpawn.RoomType + "_" + CurrentLevel;
 
@@ -249,7 +251,7 @@ public class MapPresenter : MonoBehaviour
 
             RoomToSpawn.HasBeenVisited = true;
         }
-        
+
         // Updates the minimap as player moves
         minimap.UpdateMinimap(this, model);
 
@@ -264,7 +266,7 @@ public class MapPresenter : MonoBehaviour
         PlaceEntities(CurrentPlayerRoom);
 
         // Activates Shop if player enters the Shop Room
-        if(CurrentPlayerRoom.RoomType == RoomType.Shop && !WasInShopRoom)
+        if (CurrentPlayerRoom.RoomType == RoomType.Shop && !WasInShopRoom)
         {
             shopPresenter.PlayerEntersShop();
             WasInShopRoom = true;
@@ -427,7 +429,7 @@ public class MapPresenter : MonoBehaviour
 
     public void PlaceEntities(Room CurrentRoom)
     {
-        
+
         // If Room is a valid enemy room and hasn't been completed
         if (ValidEnemyRoom(CurrentRoom) && CurrentRoom.RoomCompleted == false)
         {
@@ -443,7 +445,7 @@ public class MapPresenter : MonoBehaviour
                 // Spawn Boss
                 enemyPresenter.SpawnBoss(ActiveRoomInstance, CurrentRoom);
                 // play boss music
-                SoundManager.instance.EnterBossRoom();             
+                SoundManager.instance.EnterBossRoom();
             }
         }
 
@@ -485,20 +487,20 @@ public class MapPresenter : MonoBehaviour
         }
     }
 
-     private void AssignEntryText(Room room)
+    private void AssignEntryText(Room room)
     {
         string text = "";
         switch (room.RoomType)
         {
             case RoomType.Boss:
-                 if (bossRoomTexts.Count > 0)
+                if (bossRoomTexts.Count > 0)
                 {
                     int randomIndex = Random.Range(0, bossRoomTexts.Count);
                     text = bossRoomTexts[randomIndex];
                 }
                 break;
             case RoomType.Item:
-                 if (itemRoomTexts.Count > 0)
+                if (itemRoomTexts.Count > 0)
                 {
                     int randomIndex = Random.Range(0, itemRoomTexts.Count);
                     text = itemRoomTexts[randomIndex];

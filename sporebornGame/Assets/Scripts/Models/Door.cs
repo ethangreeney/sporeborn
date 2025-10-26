@@ -62,6 +62,9 @@ public class Door : MonoBehaviour
 
         SoundManager.instance.PlayDoorSound();
         map.BuildRoom(ConnectingRoom, this);
+
+        var playerPresenter = map.Player.GetComponent<PlayerPresenter>();
+        playerPresenter.GrantRoomEntryInvuln();
     }
 
     public Room FindAdjacentRoom()

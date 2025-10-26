@@ -290,8 +290,9 @@ public class MapPresenter : MonoBehaviour
         {
             pet.transform.position = PlayerSpawnPosition;
         }
+        FindFirstObjectByType<RoomPathfindingScan>()?.ScanOnRoomEntered();
 
-        // Determinds what should spawn based on room type
+        // Determines what should spawn based on room type
         PlaceEntities(CurrentPlayerRoom);
 
         // Activates Shop if player enters the Shop Room

@@ -67,8 +67,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.8
+  m_Offset: {x: 0, y: 0.6}
+  m_Radius: 2
 --- !u!114 &6690499312980433510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,12 +81,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddc0264cd63eb4999bd5691f0f1f5b97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 2
   playerTag: Player
-  hitInterval: 0.5
+  hitInterval: 1
   environmentMask:
     serializedVersion: 2
     m_Bits: 0
+  animator: {fileID: 0}
+  attackTriggerName: Attack
+  attackXParam: AttackX
+  attackYParam: AttackY
 --- !u!1 &6217181829710139393
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,8 +168,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Offset: {x: 0, y: 0.58}
+  m_Radius: 1
 --- !u!50 &1692861115172260956
 Rigidbody2D:
   serializedVersion: 5
@@ -289,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c72db87a200434cbc7a01e40909518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 60
   currHealth: 0
   spriteRenderer: {fileID: 0}
 --- !u!114 &8573882508967461546
@@ -327,13 +331,13 @@ MonoBehaviour:
   healthModel: {fileID: 0}
   phase2Threshold: 0.66
   playerTag: Player
-  projectilePrefab: {fileID: 7713316025894942385, guid: 7ba546fa666f44d10b252c4cb018db98, type: 3}
+  projectilePrefab: {fileID: 7261405191123958954, guid: 81e895be1934f475fa6595076e387826, type: 3}
   attackRange: 20
   fireCooldown: 1
   shieldSprite: {fileID: -5730828823775089444, guid: 73ff9fd0b006b09438774fef563344b8, type: 3}
   shieldOrderOffset: 5
-  shieldInitialScale: 6
-  shieldInitialOffset: {x: 0, y: 0.2}
+  shieldInitialScale: 10
+  shieldInitialOffset: {x: 0, y: 0.3}
   minionSpawner: {fileID: 1413023983211496506}
   phase2AutoAdvanceWithoutSpawner: 0
   phase2MinionInitGrace: 0.35
@@ -367,6 +371,7 @@ MonoBehaviour:
   health: {fileID: 3549890569109801112}
   animator: {fileID: 0}
   spriteRenderer: {fileID: 0}
+  moveThreshold: 0.01
 --- !u!114 &1413023983211496506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,6 +401,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2361856395569439702}
   - component: {fileID: 5324941084531112792}
+  - component: {fileID: 3927840381230305426}
+  - component: {fileID: 607661604762361961}
   m_Layer: 11
   m_Name: Enemy GFX
   m_TagString: Untagged
@@ -413,7 +420,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5965426071659541062}
@@ -473,3 +480,38 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &3927840381230305426
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6686501496947175118}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: dfbb42c40de124c818448582beedf1ca, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &607661604762361961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6686501496947175118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0243d223d097f498e950745090b21cb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 0}

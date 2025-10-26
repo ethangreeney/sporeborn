@@ -31,8 +31,6 @@ public class ChargerController : MonoBehaviour
     [Header("Visual Tell (optional)")]
     public SpriteRenderer spriteRenderer;
     public Color windupTint = new Color(1f, 0.85f, 0.35f);
-    public Color chargeTint = Color.red;
-
     [Header("Charge Behaviour (A* mode only)")]
     public bool instantSpeedSpike = true;
     public bool tighterTurningWhileCharging = true;
@@ -185,7 +183,7 @@ public class ChargerController : MonoBehaviour
 
     void BeginCharge()
     {
-        if (spriteRenderer) spriteRenderer.color = chargeTint;
+        if (spriteRenderer) 
         _timer = chargeDuration;
 
         if (pathfindWhileCharging)

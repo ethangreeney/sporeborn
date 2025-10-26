@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Collider2D))] // e.g., CircleCollider2D (IsTrigger = true)
-public class EnemyProjectileScript : MonoBehaviour
+public class BossProjectileScript : MonoBehaviour
 {
     [Header("Projectile Settings")]
     [SerializeField] float speed = 10f;
@@ -22,19 +22,19 @@ public class EnemyProjectileScript : MonoBehaviour
     int environmentLayer;
 
     /// <summary>
-    /// Shooter calls this after instantiating and (optionally) setting rotation.
-    /// Do NOT change rotation here; shooter already oriented the root.
+    /// Shooter calls this after instantiating.
+    /// This version orients the projectile to face its travel direction.
     /// </summary>
     public void Initialize(Vector2 shootDirection)
-    {
-        direction = shootDirection.normalized;
+{
+    direction = shootDirection.normalized;
+    transform.right = direction;
 
-        // Do not re-aim here (leaves any shooter-set rotation intact).
-        // transform.right = direction;
+    if (!rb) rb = GetComponent<Rigidbody2D>(); // timing/pooling safety
 
-        if (rb) rb.linearVelocity = direction * speed;  // physics-based travel
-    }
-
+    // Use velocity for widest compatibility
+    if (rb) rb.linearVelocity = direction * speed;
+}
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -43,28 +43,24 @@ public class EnemyProjectileScript : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Kinematic;
             rb.gravityScale = 0f;
             rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
-            rb.freezeRotation = true; // never spin from physics
+            rb.freezeRotation = true; // prevent physics from spinning it
         }
 
-        // Ensure trigger collider (e.g., CircleCollider2D) is set in Inspector
         var col = GetComponent<Collider2D>();
         if (col) col.isTrigger = true;
 
         environmentLayer = LayerMask.NameToLayer(environmentLayerName);
         if (environmentLayer == -1)
-            Debug.LogError($"EnemyProjectile: Layer '{environmentLayerName}' not found.");
+            Debug.LogError($"BossProjectileScript: Layer '{environmentLayerName}' not found.");
 
-        // Ignore enemies (also configure in Physics 2D Layer Matrix)
+        // Ignore enemies (also configure layer matrix)
         int enemyLayer = LayerMask.NameToLayer("Enemy");
         int myLayer = gameObject.layer;
         if (enemyLayer >= 0 && myLayer >= 0)
             Physics2D.IgnoreLayerCollision(myLayer, enemyLayer, true);
     }
 
-    void OnEnable()
-    {
-        timer = 0f; // for pooling
-    }
+    void OnEnable() { timer = 0f; } // pooling-friendly
 
     void Update()
     {
@@ -90,7 +86,7 @@ public class EnemyProjectileScript : MonoBehaviour
         }
     }
 
-    // Safety if collider ever isn't a trigger
+    // Safety if collider isn't a trigger
     void OnCollisionEnter2D(Collision2D c)
     {
         if (c.collider.CompareTag(playerTag))

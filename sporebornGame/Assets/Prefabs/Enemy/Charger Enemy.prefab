@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 6433122492866425654}
   - component: {fileID: 1190825386094090790}
   - component: {fileID: 9139864793608251189}
-  - component: {fileID: 7743396633691390868}
   - component: {fileID: 1055614488045990630}
   - component: {fileID: 1271854268048097427}
   m_Layer: 11
@@ -204,24 +203,6 @@ MonoBehaviour:
   maxHealth: 10
   currHealth: 10
   spriteRenderer: {fileID: 0}
---- !u!114 &7743396633691390868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2093568075230264680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf1a323701eac3c4e82b742eb7f7bcc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  EnemyList: []
-  BossList: []
-  PortalPrefab: {fileID: 0}
-  EnemyDrops: []
-  ItemDropBucket: []
-  ItemSpawnChance: 0.5
 --- !u!114 &1055614488045990630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,7 +226,6 @@ MonoBehaviour:
   stunTime: 0.7
   spriteRenderer: {fileID: 0}
   windupTint: {r: 1, g: 0.85, b: 0.35, a: 1}
-  chargeTint: {r: 1, g: 0, b: 0, a: 1}
   instantSpeedSpike: 1
   tighterTurningWhileCharging: 1
   obstacleMask:
@@ -266,6 +246,7 @@ MonoBehaviour:
   health: {fileID: 9139864793608251189}
   animator: {fileID: 0}
   spriteRenderer: {fileID: 0}
+  moveThreshold: 0.01
 --- !u!1 &3479623215257875891
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,12 +328,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddc0264cd63eb4999bd5691f0f1f5b97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  damage: 2
   playerTag: Player
-  hitInterval: 0.5
+  hitInterval: 1
   environmentMask:
     serializedVersion: 2
     m_Bits: 0
+  animator: {fileID: 0}
+  attackTriggerName: Attack
+  attackXParam: AttackX
+  attackYParam: AttackY
 --- !u!1 &7530265989342818978
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,6 +348,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1350803630625832845}
   - component: {fileID: 3109144938973659133}
+  - component: {fileID: 2276402803098203438}
+  - component: {fileID: 5208288609931780236}
   m_Layer: 11
   m_Name: Enemy GFX
   m_TagString: Untagged
@@ -380,7 +367,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6420055698306960206}
@@ -440,3 +427,38 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &2276402803098203438
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7530265989342818978}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 22100000, guid: 4287f6a7da6284ad194bf6791f2d8d76, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5208288609931780236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7530265989342818978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0243d223d097f498e950745090b21cb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  model: {fileID: 0}

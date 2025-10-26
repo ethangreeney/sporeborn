@@ -304,16 +304,27 @@ public class FinalBossController : MonoBehaviour
     }
 
     private void ShootAtPlayer()
-    {
-        if (!projectilePrefab) { Debug.LogError("[Boss] Assign projectilePrefab for Phase 2 ranged.", this); return; }
-        if (!_player) return;
+{
+    if (!projectilePrefab) { Debug.LogError("[Boss] Assign projectilePrefab for Phase 2 ranged.", this); return; }
+    if (!_player) return;
 
-        Vector2 dir = (_player.position - transform.position).normalized;
-        var go = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-        var proj = go.GetComponent<EnemyProjectileScript>();
-        if (!proj) { Debug.LogError("[Boss] Projectile prefab missing EnemyProjectileScript.", this); return; }
-        proj.Initialize(dir);
-    }
+    Vector2 dir = (_player.position - transform.position).normalized;
+    var go = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+
+    // Debug so you know it really spawned
+    Debug.Log("[Boss] Firing boss projectile", go);
+
+    // Script is on the prefab root (your setup)
+    var bossProj = go.GetComponent<BossProjectileScript>();
+    if (bossProj != null) { bossProj.Initialize(dir); return; }
+
+    // (Optional) still support the old enemy projectile if you drag that prefab by mistake
+    var enemyProj = go.GetComponent<EnemyProjectileScript>();
+    if (enemyProj != null) { enemyProj.Initialize(dir); return; }
+
+    Debug.LogError("[Boss] Spawned projectile has no BossProjectileScript or EnemyProjectileScript on the ROOT.", go);
+}
+
 
     // ---------------- PHASE 3 (Charger-style: A* pathfinds while charging) ----------------
     private void EnterPhase3_Charge()

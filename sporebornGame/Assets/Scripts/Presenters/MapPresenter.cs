@@ -50,6 +50,7 @@ public class MapPresenter : MonoBehaviour
     private ItemPresenter itemPresenter;
     private ShopPresenter shopPresenter;
     private MinimapPresenter minimap;
+    private WinScreenManager winscreen;
 
     // Decides when to render shop
     private bool WasInShopRoom = false;
@@ -106,7 +107,7 @@ public class MapPresenter : MonoBehaviour
     void InitialiseMap()
     {
         // Reset the level to first level
-        CurrentLevel = 0;
+        CurrentLevel = 1;
         
         // Generates first level map
         model = new MapModel(MINROOMS, MAXROOMS);
@@ -128,6 +129,7 @@ public class MapPresenter : MonoBehaviour
         shopPresenter = FindFirstObjectByType<ShopPresenter>();
         roomTextPresenter = FindFirstObjectByType<RoomTextPresenter>();
         minimap = FindFirstObjectByType<MinimapPresenter>();
+        winscreen = FindFirstObjectByType<WinScreenManager>();
 
         // Build the starter room
         BuildRoom(StarterRoom, null);
@@ -290,7 +292,11 @@ public class MapPresenter : MonoBehaviour
         {
             pet.transform.position = PlayerSpawnPosition;
         }
-        FindFirstObjectByType<RoomPathfindingScan>()?.ScanOnRoomEntered();
+        
+        if(RoomToSpawn.RoomType == RoomType.Regular && RoomToSpawn != StarterRoom)
+        {
+            FindFirstObjectByType<RoomPathfindingScan>()?.ScanOnRoomEntered();
+        }  
 
         // Determines what should spawn based on room type
         PlaceEntities(CurrentPlayerRoom);
@@ -474,6 +480,13 @@ public class MapPresenter : MonoBehaviour
             {
                 // Spawn Boss
                 enemyPresenter.SpawnBoss(ActiveRoomInstance, CurrentRoom);
+
+                // If Final Level Boss has spawned then activate the win screen
+                if(CurrentLevel == 1)
+                {
+                    winscreen.SetupWinScreen();
+                }
+
                 // play boss music
                 SoundManager.instance.EnterBossRoom();
             }

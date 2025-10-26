@@ -14,7 +14,7 @@ public class EnemyPresenter : MonoBehaviour
     public List<GameObject> BossList;
 
     // Tracks number of enemies in scene
-    private static int EnemiesInScene;
+    private List<GameObject> EnemiesInScene;
 
     private MapPresenter map;
 
@@ -44,6 +44,8 @@ public class EnemyPresenter : MonoBehaviour
         map = FindFirstObjectByType<MapPresenter>();
         rng = new System.Random();
 
+        EnemiesInScene = new();
+
         // Creates list to track Enemy Drops in Scene
         ActiveDrops = new List<GameObject>();
 
@@ -54,15 +56,21 @@ public class EnemyPresenter : MonoBehaviour
         ItemDropBucket = new List<GameObject> { Heart, Heart, Nectar, Nectar, Nectar, Nectar};
     }
 
-    public void EnemyDies(Vector3 deathPosition)
+    public void EnemyDies(Vector3 deathPosition, GameObject CurrentEnemy)
     {
-        EnemiesInScene--;
+        // Current Boss dying has to be handled differently
+        if(CurrentEnemy == BossList[1])
+        {
+            return;
+        }
+        
+        EnemiesInScene.Remove(CurrentEnemy);
 
         // Spawn Loot Item upon enemy death
         SpawnItem(deathPosition);
 
         // Unlocks door once all enemies/boss is defeated
-        if (EnemiesInScene == 0)
+        if (EnemiesInScene.Count == 0)
         {
             map.ToggleLockDoors(false);
             map.RoomCompleted();
@@ -99,7 +107,7 @@ public class EnemyPresenter : MonoBehaviour
         List<Vector3> SpawnableTiles = map.GetSpawnLocations();
         
         // Resets every new room
-        EnemiesInScene = 0;
+        EnemiesInScene.Clear();
 
         int MaxEnemies = NumberOfEnemies(CurrentRoom);
 
@@ -125,13 +133,13 @@ public class EnemyPresenter : MonoBehaviour
             int RandomSpawnLocation = rng.Next(0, SpawnableTiles.Count);
 
             // Temp just picks first enemy type from list
-            Instantiate(CurrentEnemy, SpawnableTiles[RandomSpawnLocation], Quaternion.identity);
+            GameObject ActiveEnemy = Instantiate(CurrentEnemy, SpawnableTiles[RandomSpawnLocation], Quaternion.identity);
 
             // Prevents enemies from spawning at same location
             SpawnableTiles.RemoveAt(RandomSpawnLocation);
 
             // Add to list so can track number of enemies
-            EnemiesInScene++;
+            EnemiesInScene.Add(ActiveEnemy);
         }
     }
 
@@ -160,8 +168,7 @@ public class EnemyPresenter : MonoBehaviour
 
     public void SpawnBoss(GameObject CurrentRoomInstance, Room CurrentRoom)
     {
-        EnemiesInScene = 1;
-        Instantiate(BossList[MapPresenter.GetCurrentLevel], Vector3.zero, Quaternion.identity);
+        EnemiesInScene.Add(Instantiate(BossList[MapPresenter.GetCurrentLevel], Vector3.zero, Quaternion.identity));
     }
 
     public void RemovePortal()

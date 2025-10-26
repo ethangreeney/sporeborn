@@ -15,7 +15,7 @@ public class WinScreenManager : MonoBehaviour
     [SerializeField]
     private FinalBossController bossController;
 
-    void Start()
+    public void SetupWinScreen()
     {
         // Hide win screen initially
         if (winScreenPanel != null)

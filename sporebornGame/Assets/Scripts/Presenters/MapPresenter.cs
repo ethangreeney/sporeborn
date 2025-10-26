@@ -24,7 +24,7 @@ public class MapPresenter : MonoBehaviour
     public int MAXROOMS = 20;
 
     [Header("CurrentLevel")]
-    public int CurrentLevel = 0;
+    public static int CurrentLevel = 0;
 
     // Pixel scaling of scene
     private int PixelsPerUnit = 16;
@@ -85,7 +85,7 @@ public class MapPresenter : MonoBehaviour
         "A sense of dread fills the air...",
         "Destiny awaits."
     };
-    
+
     private List<string> itemRoomTexts = new List<string>
     {
         "You feel the pull of a powerful artifact nearby.",
@@ -94,9 +94,17 @@ public class MapPresenter : MonoBehaviour
         "A gift!!!",
         "A glint of forgotten power catches your eye."
     };
-
+    
     void Start()
     {
+        InitialiseMap();
+    }
+
+    void InitialiseMap()
+    {
+        // Reset the level to first level
+        CurrentLevel = 0;
+        
         // Generates first level map
         model = new MapModel(MINROOMS, MAXROOMS);
 
@@ -111,17 +119,12 @@ public class MapPresenter : MonoBehaviour
         StarterRoom = FindRoom(model.GetStartingRoomIndex);
         StarterRoom.HasBeenVisited = true;
 
-        // Location for centre of the OneByOne Room
-        Player.transform.SetParent(null); // temp
-
         // Gets Presenters
         enemyPresenter = FindFirstObjectByType<EnemyPresenter>();
         itemPresenter = FindFirstObjectByType<ItemPresenter>();
         shopPresenter = FindFirstObjectByType<ShopPresenter>();
         roomTextPresenter = FindFirstObjectByType<RoomTextPresenter>();
         minimap = FindFirstObjectByType<MinimapPresenter>();
-
-
 
         // Build the starter room
         BuildRoom(StarterRoom, null);
@@ -138,13 +141,41 @@ public class MapPresenter : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.R)){
-            ResetMap();
+            NewLevel();
         }
     }
 
-    public void ResetMap()
+    public void NewLevel()
     {
-        Start();
+        // Increment the Level Count
+        if(CurrentLevel++ < 1)
+        {
+            CurrentLevel++;
+        }
+
+        // Generates new level map
+        model = new MapModel(MINROOMS, MAXROOMS);
+
+        // Gets the list of rooms
+        SpawnedRooms = model.GetRoomList;
+        if (SpawnedRooms.Count == 0)
+        {
+            Debug.LogWarning("Room List is empty");
+        }
+
+        // Generates the first room
+        StarterRoom = FindRoom(model.GetStartingRoomIndex);
+        StarterRoom.HasBeenVisited = true;
+
+        // Build the starter room
+        BuildRoom(StarterRoom, null);
+
+        // Create the initial minimap
+        minimap.SetupMiniMap(this, model);
+
+        // Destroy Active entities in scene upon start
+        enemyPresenter.RemovePortal();
+        enemyPresenter.DestroyAllItems();
     }
 
     public int RelIndexToRoomIndex(Room CurrentRoom, int dx, int dy)
@@ -184,7 +215,6 @@ public class MapPresenter : MonoBehaviour
     {
         // Remove lingering item from previous room
         itemPresenter.RemoveItemFromRoom();
-
         enemyPresenter.RemovePortal();
         enemyPresenter.DestroyAllItems();
         
@@ -460,7 +490,7 @@ public class MapPresenter : MonoBehaviour
 
         }
 
-        // Spawn portal if boss defeated
+        // Spawn portal if boss defeated && Increment Level
         if (CurrentRoom.RoomType == RoomType.Boss && CurrentRoom.RoomCompleted)
         {
             enemyPresenter.SpawnPortal();

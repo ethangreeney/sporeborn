@@ -151,8 +151,6 @@ public class MapPresenter : MonoBehaviour
         // Increment the Level Count
         CurrentLevel++;
 
-        Debug.LogWarning("Current Level :" + CurrentLevel);
-
         // Generates new level map
         model = new MapModel(MINROOMS, MAXROOMS);
 

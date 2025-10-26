@@ -161,7 +161,7 @@ public class EnemyPresenter : MonoBehaviour
     public void SpawnBoss(GameObject CurrentRoomInstance, Room CurrentRoom)
     {
         EnemiesInScene = 1;
-        Instantiate(BossList[0], Vector3.zero, Quaternion.identity);
+        Instantiate(BossList[MapPresenter.GetCurrentLevel], Vector3.zero, Quaternion.identity);
     }
 
     public void RemovePortal()

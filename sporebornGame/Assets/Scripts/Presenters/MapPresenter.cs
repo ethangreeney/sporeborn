@@ -25,7 +25,7 @@ public class MapPresenter : MonoBehaviour
     public int MAXROOMS = 20;
 
     [Header("CurrentLevel")]
-    private static int CurrentLevel = 0;
+    private static int CurrentLevel;
     public static int GetCurrentLevel => CurrentLevel;
 
     // Pixel scaling of scene

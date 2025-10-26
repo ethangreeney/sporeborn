@@ -26,15 +26,15 @@ public class BossProjectileScript : MonoBehaviour
     /// This version orients the projectile to face its travel direction.
     /// </summary>
     public void Initialize(Vector2 shootDirection)
-    {
-        direction = shootDirection.normalized;
+{
+    direction = shootDirection.normalized;
+    transform.right = direction;
 
-        // ✅ Original behavior: face the travel direction
-        transform.right = direction;
+    if (!rb) rb = GetComponent<Rigidbody2D>(); // timing/pooling safety
 
-        if (rb) rb.linearVelocity = direction * speed;  // physics-based travel
-    }
-
+    // Use velocity for widest compatibility
+    if (rb) rb.linearVelocity = direction * speed;
+}
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -51,7 +51,7 @@ public class BossProjectileScript : MonoBehaviour
 
         environmentLayer = LayerMask.NameToLayer(environmentLayerName);
         if (environmentLayer == -1)
-            Debug.LogError($"EnemyProjectile_Fireball: Layer '{environmentLayerName}' not found.");
+            Debug.LogError($"BossProjectileScript: Layer '{environmentLayerName}' not found.");
 
         // Ignore enemies (also configure layer matrix)
         int enemyLayer = LayerMask.NameToLayer("Enemy");
@@ -103,4 +103,3 @@ public class BossProjectileScript : MonoBehaviour
         }
     }
 }
-

@@ -331,7 +331,7 @@ MonoBehaviour:
   healthModel: {fileID: 0}
   phase2Threshold: 0.66
   playerTag: Player
-  projectilePrefab: {fileID: 7261405191123958954, guid: 210a828104d8344daadce7b366280dd0, type: 3}
+  projectilePrefab: {fileID: 7261405191123958954, guid: 81e895be1934f475fa6595076e387826, type: 3}
   attackRange: 20
   fireCooldown: 1
   shieldSprite: {fileID: -5730828823775089444, guid: 73ff9fd0b006b09438774fef563344b8, type: 3}

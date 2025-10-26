@@ -4,21 +4,32 @@ using Pathfinding;
 
 public class RoomPathfindingScan : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public void ScanOnRoomEntered()
+    private bool isScanning = false;
+
+    public void ScanOnRoomEntered(BoundsInt roomBounds)
     {
-        StartCoroutine(RescanAfterPhysicsSettles());
+        if (!isScanning)
+            StartCoroutine(RescanAfterPhysicsSettles(roomBounds));
     }
 
-    // Update is called once per frame
-    private IEnumerator RescanAfterPhysicsSettles()
+    private IEnumerator RescanAfterPhysicsSettles(BoundsInt roomBounds)
     {
-        // Make sure newly spawned colliders are enabled before scanning
-        yield return null;                     // wait 1 frame
-        yield return new WaitForFixedUpdate(); // let physics update
+        isScanning = true;
+
+        yield return null;
+        yield return new WaitForFixedUpdate();
+
         if (AstarPath.active != null)
         {
-            AstarPath.active.Scan();          // full rescan of all graphs
+            // Partial scan — only updates affected area
+            // Convert BoundsInt (cell-space) → Bounds (world-space)
+            Bounds bounds = new Bounds();
+            bounds.center = roomBounds.center;
+            bounds.size = roomBounds.size;
+
+            AstarPath.active.UpdateGraphs(bounds);
         }
+
+        isScanning = false;
     }
 }

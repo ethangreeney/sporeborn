@@ -97,8 +97,9 @@ public class FinalBossController : MonoBehaviour
     public Phase CurrentPhase => _phase;
     public bool IsInvulnerable => _invulnerable;
 
-    private void Awake()
+    private void Start()
     {
+        Debug.Log("Awake");
         if (!healthModel) healthModel = GetComponent<HealthModel>();
         _ai   = GetComponent<AIPath>();
         _dest = GetComponent<AIDestinationSetter>();
@@ -135,9 +136,11 @@ public class FinalBossController : MonoBehaviour
             Debug.LogError("[Boss] FinalBossController requires a HealthModel on the same GameObject.", this);
 
         SetupShieldChild();
+
+        StartFirstPhase();
     }
 
-    private void OnEnable()
+    private void StartFirstPhase()
     {
         EnterPhase1();
         if (healthModel) healthModel.OnHealthChanged += HandleHealthChanged;
@@ -198,7 +201,10 @@ public class FinalBossController : MonoBehaviour
 
     private void EvaluatePhaseTransitions()
     {
-        if (!healthModel) return;
+        if (!healthModel)
+        {
+            return;
+        }
 
         if (healthModel.currHealth <= 0f)
         {

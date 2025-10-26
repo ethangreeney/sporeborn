@@ -106,7 +106,6 @@ GameObject:
   - component: {fileID: 4512060355946053023}
   - component: {fileID: 39892605431227972}
   - component: {fileID: 3549890569109801112}
-  - component: {fileID: 8573882508967461546}
   - component: {fileID: 66040452223979453}
   - component: {fileID: 7860608520240568151}
   - component: {fileID: 1413023983211496506}
@@ -296,27 +295,6 @@ MonoBehaviour:
   maxHealth: 60
   currHealth: 0
   spriteRenderer: {fileID: 0}
---- !u!114 &8573882508967461546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6217181829710139393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf1a323701eac3c4e82b742eb7f7bcc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  T1EnemyList: []
-  T2EnemyList: []
-  BossList: []
-  PortalPrefab: {fileID: 2102744783960465121, guid: 652ca148a19242b479b695c89febc77d, type: 3}
-  EnemyDrops:
-  - {fileID: 3940534089623373696, guid: 9516c181d1c63c4438331c8be770d40e, type: 3}
-  - {fileID: 8508246450130575317, guid: 07c338e461987b74cabc881140daf163, type: 3}
-  ItemDropBucket: []
-  ItemSpawnChance: 0.5
 --- !u!114 &66040452223979453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,7 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5411ad9cea1b4d5d9636e0d7fbc105e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthModel: {fileID: 0}
+  healthModel: {fileID: 3549890569109801112}
   phase2Threshold: 0.66
   playerTag: Player
   projectilePrefab: {fileID: 7261405191123958954, guid: 81e895be1934f475fa6595076e387826, type: 3}

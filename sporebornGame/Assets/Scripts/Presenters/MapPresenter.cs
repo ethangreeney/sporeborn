@@ -44,6 +44,7 @@ public class MapPresenter : MonoBehaviour
     // Tilemap References
     private Tilemap FloorTilemap;
     private Grid RoomGrid;
+    private BoundsInt CurrentRoomBounds;
 
     // Reference to spawn in GameObjects when entering a new room
     private EnemyPresenter enemyPresenter;
@@ -107,7 +108,7 @@ public class MapPresenter : MonoBehaviour
     void InitialiseMap()
     {
         // Reset the level to first level
-        CurrentLevel = 1;
+        CurrentLevel = 0;
         
         // Generates first level map
         model = new MapModel(MINROOMS, MAXROOMS);
@@ -292,14 +293,15 @@ public class MapPresenter : MonoBehaviour
         {
             pet.transform.position = PlayerSpawnPosition;
         }
-        
-        if(RoomToSpawn.RoomType == RoomType.Regular && RoomToSpawn != StarterRoom)
-        {
-            FindFirstObjectByType<RoomPathfindingScan>()?.ScanOnRoomEntered();
-        }  
 
         // Determines what should spawn based on room type
         PlaceEntities(CurrentPlayerRoom);
+
+        // Rescan the room for pathfinding passing the the bounding box of the current room shape
+        if(RoomToSpawn.RoomType == RoomType.Regular && RoomToSpawn != StarterRoom && !RoomToSpawn.HasBeenVisited)
+        {
+            FindFirstObjectByType<RoomPathfindingScan>()?.ScanOnRoomEntered(CurrentRoomBounds);
+        }  
 
         // Activates Shop if player enters the Shop Room
         if (CurrentPlayerRoom.RoomType == RoomType.Shop && !WasInShopRoom)
@@ -396,9 +398,9 @@ public class MapPresenter : MonoBehaviour
             return default;
         }
 
-        BoundsInt roomBounds = FloorTilemap.cellBounds;
+        CurrentRoomBounds = FloorTilemap.cellBounds;
 
-        foreach (Vector3Int pos in roomBounds.allPositionsWithin)
+        foreach (Vector3Int pos in CurrentRoomBounds.allPositionsWithin)
         {
             if (FloorTilemap.HasTile(pos))
             {

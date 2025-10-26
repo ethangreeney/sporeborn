@@ -62,6 +62,18 @@ public class PlayerPresenter : MonoBehaviour
         invulnFromDamage = false;
     }
 
+    public void GrantRoomEntryInvuln()
+    {
+        StartCoroutine(RoomEntryInvuln());
+    }
+
+    IEnumerator RoomEntryInvuln()
+    {
+        invulnFromDamage = true;
+        yield return new WaitForSeconds(1f);
+        invulnFromDamage = false;
+    }
+
     IEnumerator HitFlash()
     {
         var original = spriteRenderer.color;

@@ -33,7 +33,7 @@ public class PulsatingPortal : MonoBehaviour
 
         if (other.CompareTag("Player") && mapPresenter != null)
         {
-            mapPresenter.ResetMap();
+            mapPresenter.NewLevel();
         }
     }
 }

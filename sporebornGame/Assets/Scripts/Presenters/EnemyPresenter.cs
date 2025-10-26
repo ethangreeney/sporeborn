@@ -5,7 +5,11 @@ using System.Linq;
 public class EnemyPresenter : MonoBehaviour
 {
     // Stores all enemy prefabs in unity
-    public List<GameObject> EnemyList;
+    public List<GameObject> T1EnemyList;
+
+    public List<GameObject> T2EnemyList;
+
+
     // Stores all boss prefabs
     public List<GameObject> BossList;
 
@@ -91,7 +95,9 @@ public class EnemyPresenter : MonoBehaviour
 
     public void SpawnEnemies(GameObject CurrentRoomInstance, Room CurrentRoom)
     {
+        // Gets all the spawnable tiles for the room shape
         List<Vector3> SpawnableTiles = map.GetSpawnLocations();
+        
         // Resets every new room
         EnemiesInScene = 0;
 
@@ -99,10 +105,28 @@ public class EnemyPresenter : MonoBehaviour
 
         for (int i = 0; i < MaxEnemies; i++)
         {
+            GameObject CurrentEnemy = default;
+
+            // Choses a random Enemy from a Tier based on level
+            switch (MapPresenter.GetCurrentLevel)
+            {
+                // Enemies Tier One
+                case 0:
+                    CurrentEnemy = T1EnemyList[rng.Next(0, T1EnemyList.Count)];
+                    break;
+
+                // Enemies Tier Two
+                case 1:
+                    CurrentEnemy = T2EnemyList[rng.Next(0, T2EnemyList.Count)];
+                    break;
+            }
+
+            // Picks a random spawn location 
             int RandomSpawnLocation = rng.Next(0, SpawnableTiles.Count);
-            int RandomEnemyType = rng.Next(0, EnemyList.Count);
+
             // Temp just picks first enemy type from list
-            Instantiate(EnemyList[RandomEnemyType], SpawnableTiles[RandomSpawnLocation], Quaternion.identity);
+            Instantiate(CurrentEnemy, SpawnableTiles[RandomSpawnLocation], Quaternion.identity);
+
             // Prevents enemies from spawning at same location
             SpawnableTiles.RemoveAt(RandomSpawnLocation);
 
@@ -137,7 +161,7 @@ public class EnemyPresenter : MonoBehaviour
     public void SpawnBoss(GameObject CurrentRoomInstance, Room CurrentRoom)
     {
         EnemiesInScene = 1;
-        Instantiate(BossList[0], Vector3.zero, Quaternion.identity);
+        Instantiate(BossList[MapPresenter.GetCurrentLevel], Vector3.zero, Quaternion.identity);
     }
 
     public void RemovePortal()

@@ -129,25 +129,25 @@ void LateUpdate()
         hitFlashCoroutine = null;
     }
 
-void Die()
-{
-    if (isDead) return;
-    isDead = true;
+    void Die()
+    {
+        if (isDead) return;
+        isDead = true;
 
-    // stop interaction/motion
-    foreach (var c in GetComponentsInChildren<Collider2D>()) c.enabled = false;
-    var rb2 = GetComponent<Rigidbody2D>(); if (rb2) rb2.simulated = false;
-    if (aiPath) aiPath.canMove = false;
+        // stop interaction/motion
+        foreach (var c in GetComponentsInChildren<Collider2D>()) c.enabled = false;
+        var rb2 = GetComponent<Rigidbody2D>(); if (rb2) rb2.simulated = false;
+        if (aiPath) aiPath.canMove = false;
 
-    // >>> Play the death animation
-    if (animator != null) animator.SetBool("Dead", true);
+        // >>> Play the death animation
+        if (animator != null) animator.SetBool("Dead", true);
 
-    // notify presenter (score, counters, etc.)
-    if (enemyPresenter != null) enemyPresenter.EnemyDies(transform.position);
+        // notify presenter (score, counters, etc.)
+        if (enemyPresenter != null) enemyPresenter.EnemyDies(transform.position);
 
-    // Fallback safety (only if you forget to add the animation event):
-    // Destroy(gameObject, 1.0f);
-}
+        // Fallback safety (only if you forget to add the animation event):
+        Destroy(gameObject, 1.0f);
+    }
 
     public void OnDeathAnimationComplete()
     {

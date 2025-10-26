@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentItemType: 0
-  ItemModifierValue: 1
+  ItemModifierValue: 2
 --- !u!50 &4266731469934273694
 Rigidbody2D:
   serializedVersion: 5

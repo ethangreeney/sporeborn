@@ -143,11 +143,9 @@ public class MapPresenter : MonoBehaviour
     // Debugging temp
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R)){
-            NewLevel();
         if (Input.GetKeyDown(KeyCode.R))
         {
-            ResetMap();
+            NewLevel();
         }
     }
 

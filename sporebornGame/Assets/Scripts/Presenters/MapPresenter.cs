@@ -24,7 +24,8 @@ public class MapPresenter : MonoBehaviour
     public int MAXROOMS = 20;
 
     [Header("CurrentLevel")]
-    public static int CurrentLevel = 0;
+    private static int CurrentLevel = 0;
+    public static int GetCurrentLevel => CurrentLevel;
 
     // Pixel scaling of scene
     private int PixelsPerUnit = 16;
@@ -148,10 +149,9 @@ public class MapPresenter : MonoBehaviour
     public void NewLevel()
     {
         // Increment the Level Count
-        if(CurrentLevel++ < 1)
-        {
-            CurrentLevel++;
-        }
+        CurrentLevel++;
+
+        Debug.LogWarning("Current Level :" + CurrentLevel);
 
         // Generates new level map
         model = new MapModel(MINROOMS, MAXROOMS);

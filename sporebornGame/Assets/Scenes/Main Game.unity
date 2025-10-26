@@ -9191,6 +9191,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6331657691665529813, guid: c593a5166d8dce545987d2d444683acc, type: 3}
+      propertyPath: BossList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6331657691665529813, guid: c593a5166d8dce545987d2d444683acc, type: 3}
+      propertyPath: 'BossList.Array.data[1]'
+      value: 
+      objectReference: {fileID: 433780125670583135, guid: a8c8f30fcb10946b391c9ce84e0368af, type: 3}
+    - target: {fileID: 6331657691665529813, guid: c593a5166d8dce545987d2d444683acc, type: 3}
+      propertyPath: T1EnemyList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6331657691665529813, guid: c593a5166d8dce545987d2d444683acc, type: 3}
+      propertyPath: T2EnemyList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6331657691665529813, guid: c593a5166d8dce545987d2d444683acc, type: 3}
+      propertyPath: 'T1EnemyList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 3443094068994691014, guid: 137a16fc9c8924af98f4179a3eb92459, type: 3}
+    - target: {fileID: 6331657691665529813, guid: c593a5166d8dce545987d2d444683acc, type: 3}
+      propertyPath: 'T1EnemyList.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2069395914680108450, guid: 29dcf1425ec5b4eb1abdf019849215a9, type: 3}
+    - target: {fileID: 6331657691665529813, guid: c593a5166d8dce545987d2d444683acc, type: 3}
+      propertyPath: 'T2EnemyList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2093568075230264680, guid: 94b54dddd022543dd9a2f0d4fb4eded6, type: 3}
+    - target: {fileID: 6331657691665529813, guid: c593a5166d8dce545987d2d444683acc, type: 3}
+      propertyPath: 'T2EnemyList.Array.data[1]'
+      value: 
+      objectReference: {fileID: 3443094068994691014, guid: 137a16fc9c8924af98f4179a3eb92459, type: 3}
+    - target: {fileID: 6331657691665529813, guid: c593a5166d8dce545987d2d444683acc, type: 3}
+      propertyPath: 'T2EnemyList.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2069395914680108450, guid: 29dcf1425ec5b4eb1abdf019849215a9, type: 3}
+    - target: {fileID: 6331657691665529813, guid: c593a5166d8dce545987d2d444683acc, type: 3}
+      propertyPath: 'T2EnemyList.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2069395914680108450, guid: 29dcf1425ec5b4eb1abdf019849215a9, type: 3}
     - target: {fileID: 6606878007882600928, guid: c593a5166d8dce545987d2d444683acc, type: 3}
       propertyPath: m_Name
       value: EnemyPresenter

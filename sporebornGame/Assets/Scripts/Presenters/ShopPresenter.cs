@@ -51,18 +51,21 @@ public class ShopPresenter : MonoBehaviour
 
     public void OpenShop()
     {
+        if (!MenuManager.TryOpenMenu()) return;
         ShopUI.SetActive(true);
     }
 
     public void CloseShop()
     {
         ShopUI.SetActive(false);
+        MenuManager.CloseMenu();
     }
 
     public void PlayerLeavesShopRoom()
     {
         ShopTriggerZone.SetActive(false);
         ShopUI.SetActive(false);
+        MenuManager.CloseMenu();
     }
 
 

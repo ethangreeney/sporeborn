@@ -18,6 +18,9 @@ public class InventoryToggleButton : MonoBehaviour
     }
     public void Toggle()
     {
+        if (!isOpen && !MenuManager.TryOpenMenu()) return;
+        if (isOpen) MenuManager.CloseMenu();
+
         isOpen = !isOpen;
         inventoryPanel.SetActive(isOpen);
         img.sprite = isOpen ? chestOpen : chestClosed;

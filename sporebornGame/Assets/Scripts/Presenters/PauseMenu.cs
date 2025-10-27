@@ -55,11 +55,12 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUi.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
-
+        MenuManager.CloseMenu();
     }
 
     public void Pause()
     {
+        if (!MenuManager.TryOpenMenu()) return;
         pauseMenuUi.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;

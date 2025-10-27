@@ -19,11 +19,7 @@ public class PlayerActivatableItem : MonoBehaviour
                 OnChargeChanged?.Invoke(currentCharges, equippedItem.maxCharges);
             }
         }
-        // TEMP: Press C to add a charge for testing
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            AddCharge(1);
-        }
+
     }
 
     public void AddCharge(int amount = 1)

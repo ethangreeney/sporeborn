@@ -77,12 +77,12 @@ SpriteRenderer:
   m_SortingLayerID: 2041154009
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2f7d5cc1f74e03043aebc2bc47dafc9f, type: 3}
+  m_Sprite: {fileID: 9099744842368663684, guid: 2f7d5cc1f74e03043aebc2bc47dafc9f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4, y: 4}
+  m_Size: {x: 6.375, y: 1.75}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -103,7 +103,7 @@ MonoBehaviour:
   item:
     itemName: Peas!
     itemDescription: +3 Bullet speed, -0.2 Fire Delay
-    itemIcon: {fileID: 21300000, guid: 2f7d5cc1f74e03043aebc2bc47dafc9f, type: 3}
+    itemIcon: {fileID: 9099744842368663684, guid: 2f7d5cc1f74e03043aebc2bc47dafc9f, type: 3}
   healthChange: 0
   maxHealthFlatIncrease: 0
   moveSpeedChange: 0
@@ -121,3 +121,5 @@ MonoBehaviour:
   slowOnHitEnabled: 0
   slowMultiplier: 0
   slowDuration: 0
+  projectileColor: {r: 0, g: 0, b: 0, a: 0}
+  petPrefab: {fileID: 0}

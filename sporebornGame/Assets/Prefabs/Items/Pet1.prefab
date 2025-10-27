@@ -101,8 +101,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemName: Blueberries
-    itemDescription: Triple Shot
+    itemName: Pet
+    itemDescription: Pet that periodically shoots to aid the player
     itemIcon: {fileID: -1338735288, guid: 7abab14565f22a648bfa7d494bd6d14c, type: 3}
   healthChange: 0
   maxHealthFlatIncrease: 0

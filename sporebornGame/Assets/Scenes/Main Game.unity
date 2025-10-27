@@ -3464,7 +3464,7 @@ GameObject:
   - component: {fileID: 698096487}
   - component: {fileID: 698096486}
   m_Layer: 5
-  m_Name: 'WelcomeMenuIcon '
+  m_Name: WelcomeMenuIconPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5033,7 +5033,7 @@ GameObject:
   - component: {fileID: 928458068}
   - component: {fileID: 928458067}
   m_Layer: 5
-  m_Name: Image
+  m_Name: TitleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5153,8 +5153,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "YOUR MISSION\n\n\u2022 Defeat the final first\n\u2022 Take the portal
-    to Level 2\n\u2022 Beat the final boss to win"
+  m_text: "YOUR MISSION\n\n\u2022 Defeat the first boss\n\u2022 Take the portal to
+    Level 2\n\u2022 Beat the final boss to win"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4b6e17527225f42359d9108428887933, type: 2}
   m_sharedMaterial: {fileID: -3335782766370901948, guid: 4b6e17527225f42359d9108428887933, type: 2}
@@ -8936,7 +8936,7 @@ GameObject:
   - component: {fileID: 1895266220}
   - component: {fileID: 1895266219}
   m_Layer: 5
-  m_Name: WelcomeMenuIcon2
+  m_Name: WelcomeMenuIconEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -70,6 +70,7 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         isPaused = false;
+        MenuManager.CloseMenu();
         SoundManager.instance.StopAllMusic();
         SceneManager.LoadScene(0);
     }

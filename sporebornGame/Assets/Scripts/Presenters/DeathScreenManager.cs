@@ -63,6 +63,7 @@ public class DeathScreenManager : MonoBehaviour
         Time.timeScale = 1f;
         deathScreenPanel.SetActive(false);
         mainHudPanel.SetActive(true);
+        MenuManager.CloseMenu();
         SceneManager.LoadScene(0); // Assuming 0 is your main menu scene index
     }
 }

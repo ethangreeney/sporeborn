@@ -6,6 +6,7 @@ public class Menu : MonoBehaviour
     void Start()
     {
         if (SoundManager.instance) SoundManager.instance.StopAllMusic();
+        MenuManager.CloseMenu();
     }
 
     public void PlayGame()

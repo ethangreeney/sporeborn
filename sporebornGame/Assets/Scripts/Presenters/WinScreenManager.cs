@@ -81,6 +81,7 @@ public class WinScreenManager : MonoBehaviour
         if (mainHudPanel != null)
             mainHudPanel.SetActive(true);
 
+        MenuManager.CloseMenu();
         SceneManager.LoadScene(0); // Main menu scene index
     }
 

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1472582098180886568}
   - component: {fileID: 2205347163943167745}
   - component: {fileID: 1831535697035137391}
+  - component: {fileID: 7261859163865691282}
   m_Layer: 5
   m_Name: Minimap
   m_TagString: Untagged
@@ -117,3 +118,15 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
+--- !u!225 &7261859163865691282
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8506505979965006473}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0

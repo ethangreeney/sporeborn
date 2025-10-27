@@ -426,10 +426,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2205347163943167745, guid: 9c26f06643114794683bb3fa7584f150, type: 3}
-      propertyPath: mapPresenter
-      value: 
-      objectReference: {fileID: 151788809}
     - target: {fileID: 8506505979965006473, guid: 9c26f06643114794683bb3fa7584f150, type: 3}
       propertyPath: m_Name
       value: Minimap
@@ -519,17 +515,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 146686847}
   m_CullTransparentMesh: 1
---- !u!114 &151788809 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2346418556558735684, guid: 0bd0a11e1aa37e640922c36efe4eff11, type: 3}
-  m_PrefabInstance: {fileID: 4526055809867433266}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddede94ed0a83b64184cb70d208ad191, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &183079776
 GameObject:
   m_ObjectHideFlags: 0
@@ -4258,6 +4243,7 @@ GameObject:
   m_Component:
   - component: {fileID: 867945842}
   - component: {fileID: 867945843}
+  - component: {fileID: 867945844}
   m_Layer: 5
   m_Name: CurrencyDisplay
   m_TagString: Untagged
@@ -4299,6 +4285,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentNectar: 0
+--- !u!225 &867945844
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 867945841}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &881415018
 GameObject:
   m_ObjectHideFlags: 0
@@ -8109,7 +8107,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -54.99945, y: -164.00012}
+  m_AnchoredPosition: {x: -54.99951, y: -164.00012}
   m_SizeDelta: {x: -1666.2554, y: -1038.7662}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1900181506

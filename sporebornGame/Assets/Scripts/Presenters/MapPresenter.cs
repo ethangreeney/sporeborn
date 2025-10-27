@@ -74,11 +74,7 @@ public class MapPresenter : MonoBehaviour
 
     private List<string> shopRoomTexts = new List<string>
     {
-        "A place to trade.",
-        "Goods and wares, for a price.",
-        "Fancy a trade? Step right in.",
-        "I wonder what you're gonna buy?",
-        "An unlikely shop in an unlikely place."
+        "Press 'E' Open the Shop"
     };
 
     private List<string> bossRoomTexts = new List<string>
@@ -109,7 +105,7 @@ public class MapPresenter : MonoBehaviour
     {
         // Reset the level to first level
         CurrentLevel = 0;
-        
+
         // Generates first level map
         model = new MapModel(MINROOMS, MAXROOMS);
 
@@ -142,16 +138,7 @@ public class MapPresenter : MonoBehaviour
         enemyPresenter.RemovePortal();
         enemyPresenter.DestroyAllItems();
     }
-
-    // Debugging temp
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            NewLevel();
-        }
-    }
-
+    
     public void NewLevel()
     {
         // Increment the Level Count
@@ -298,10 +285,10 @@ public class MapPresenter : MonoBehaviour
         PlaceEntities(CurrentPlayerRoom);
 
         // Rescan the room for pathfinding passing the the bounding box of the current room shape
-        if(RoomToSpawn.RoomType == RoomType.Regular && RoomToSpawn != StarterRoom && !RoomToSpawn.HasBeenVisited)
-        {
+        // if(RoomToSpawn.RoomType == RoomType.Regular && RoomToSpawn != StarterRoom && !RoomToSpawn.HasBeenVisited)
+        // {
             FindFirstObjectByType<RoomPathfindingScan>()?.ScanOnRoomEntered(CurrentRoomBounds);
-        }  
+        // }  
 
         // Activates Shop if player enters the Shop Room
         if (CurrentPlayerRoom.RoomType == RoomType.Shop && !WasInShopRoom)

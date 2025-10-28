@@ -27,9 +27,8 @@ public class HealthModel : MonoBehaviour
     public void Heal(float healAmount)
     {
         currHealth += healAmount;
-        OnHealthChanged?.Invoke();
-
         if (currHealth > maxHealth) currHealth = maxHealth;
+        OnHealthChanged?.Invoke();
 
     }
 

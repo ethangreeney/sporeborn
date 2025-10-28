@@ -43,10 +43,7 @@ public class DropModel : MonoBehaviour
         {
 
             case ItemType.Heart:
-                if (PlayerInstance.health.currHealth + ItemModifierValue <= PlayerInstance.health.maxHealth)
-                {
-                    PlayerInstance.health.Heal(ItemModifierValue);
-                }
+                PlayerInstance.health.Heal(ItemModifierValue);
                 SoundManager.instance.PlayPickupSound();
                 break;
 

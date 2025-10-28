@@ -112,7 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   lifetime: 2
-  damage: 2
+  damage: 1
   playerTag: Player
   environmentLayerName: Environment
 --- !u!1 &8770181051803145792

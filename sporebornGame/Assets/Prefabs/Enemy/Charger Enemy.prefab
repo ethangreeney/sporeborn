@@ -328,7 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddc0264cd63eb4999bd5691f0f1f5b97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
+  damage: 1
   playerTag: Player
   hitInterval: 1
   environmentMask:

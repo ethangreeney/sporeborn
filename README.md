@@ -1,28 +1,30 @@
 # Sporeborn
-A small top‑down action prototype built in Unity. Move, shoot, and survive against enemies while finding items and exploring.
+*A small top-down action prototype built in Unity. Move, shoot, and survive while finding items and exploring.*
 
-# Screenshots
-<img width="1470" height="918" alt="image" src="https://github.com/user-attachments/assets/5a6c05aa-4dca-477d-b56a-1b371f63ed4a" />
-<img width="1470" height="918" alt="image" src="https://github.com/user-attachments/assets/d834f5ca-8814-4e2e-9b0b-9dae28813869" />
-<img width="1470" height="917" alt="image" src="https://github.com/user-attachments/assets/897c3556-7ab1-47d2-8e9c-26b5c6acd8b3" />
+## Gameplay
+Click the thumbnail to watch the gameplay walkthrough.
 
+<p align="center">
+  <a href="https://youtu.be/qe-EMkVW3gc">
+    <img width="800" alt="image" src="https://github.com/user-attachments/assets/c35a486c-b0c9-4636-9b1f-0f3eda3ceefd" />
+  </a>
+</p>
 
 ## Play
-
-- Download a zip from the latest GitHub Release (Windows/macOS).
-- Extract the zip and run the included player:
-  - Windows: `Sporeborn.exe`
-  - macOS: `Sporeborn.app` (unsigned – you may need to allow it in System Settings > Privacy & Security)
+- **Download:** get the latest build from the [Releases](../../releases/latest) page (Windows/macOS).
+- **Install:** extract the ZIP and run:
+  - **Windows:** `Sporeborn.exe`
+  - **macOS:** `Sporeborn.app` *(unsigned — allow in **System Settings → Privacy & Security**)*
 
 ## Controls
-
-- Move: WASD or Arrow Keys
-- Shoot: Left Mouse Button
+| Action | Input |
+|---|---|
+| Move | WASD or Arrow Keys |
+| Shoot | Left Mouse Button |
 
 ## Difficulty
+Choose **Easy / Medium / Hard / Impossible** from the start-menu dropdown.
 
-Choose from Easy / Medium / Hard / Impossible via the start menu dropdown.
-
-Effects:
-- Player max health: Easy 12, Medium 10, Hard 8, Impossible 6
-- Player fire interval and enemy fire interval are adjusted per difficulty
+**Effects**
+- Player max hearts of health: **Easy 6 · Medium 5 · Hard 4 · Impossible 3**
+- Player and enemy fire intervals scale with difficulty
